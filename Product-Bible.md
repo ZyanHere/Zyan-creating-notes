@@ -2,243 +2,332 @@
 
 ## Document Purpose
 
-This document is the current product source of truth for the proposed platform for AI-assisted personalized educational material.
+This document is the current product source of truth for the platform.
 
-Its purpose is to align future product and engineering work around:
-
-- the problem being solved
-- the user value being pursued
-- the current product model
-- the key hypotheses that still need validation
-- the open questions that must remain open for now
-
-This is intentionally **not** an engineering design document. It does not define system architecture, model orchestration, database choices, frontend structure, or implementation details.
+It defines what the product is, how it should behave, what concepts are currently locked, what remains a working hypothesis, and what is still open. It is intentionally not an engineering design document. It does not define agent orchestration, LangGraph architecture, backend/frontend architecture, database schemas, or implementation details.
 
 ## Status Legend
 
-To avoid turning assumptions into facts, each section should be read with the following distinctions:
+- **Locked / Current product decision**: agreed product definition for now
+- **Current hypothesis**: a working belief that still requires validation
+- **Open question**: intentionally unresolved
 
-- **Vision**: the long-term product direction we are aiming toward
-- **Current decision**: a working product decision for now
-- **Hypothesis**: something we believe may be true and want to test
-- **Open question**: something we have not decided yet
+## 1. Product Definition
 
-## 1. Product Vision
+### Locked / Current Product Decisions
 
-**Vision**
+The product is an **AI-powered notes generation platform**.
 
-Build a platform that helps people get the **right educational material for their specific learning situation**, not just more generated content.
+Its purpose is to help users generate high-quality educational or professional notes and related learning materials for a particular topic and purpose.
 
-The long-term ambition is to support many subjects and learning contexts by using AI to determine:
+The product is fundamentally about:
 
-- what a learner actually needs
+- understanding the user's topic and situation
+- determining appropriate coverage and depth
+- planning the structure before expensive generation
+- generating one or more concrete documents that fit the need
+
+The core experience is:
+
+1. User has a topic or notes need.
+2. The platform understands the context and purpose.
+3. The platform determines what material is appropriate.
+4. The user chooses or reviews the desired output style.
+5. The platform creates a Content Plan.
+6. The user can review and edit the plan.
+7. The platform generates the actual documents.
+
+### Product Definition Clarification
+
+The product is not primarily:
+
+- an LMS
+- an AI tutor
+- a virtual university
+- a student progress-management system
+- a generic chatbot
+- a course marketplace
+
+## 2. Vision
+
+### Vision
+
+Build a platform that helps people get the **right notes and learning materials for their exact topic and use case**, not just more generated text.
+
+The long-term ambition is to support many domains and many contexts by using AI to decide:
+
 - what should be covered
 - what can be excluded
 - how deep the material should go
-- how the material should be structured
+- how it should be sequenced
+- what kind of supporting material is actually useful
 
-The product is fundamentally about **educational fit**: matching content scope, depth, and structure to the learner's real need.
+## 3. Problem
 
-## 2. Problem Statement
+### Locked / Current Product Decisions
 
-**Vision**
+The central product problem is not simply generating fluent text.
 
-General-purpose LLMs are strong at producing educational text, but they do not reliably infer the learner's exact situation well enough to decide what material is most useful.
+It is determining:
 
-**Problem**
+> What should be covered for this user, this purpose, this topic, and this situation?
 
-The same subject can require very different material depending on:
+The same topic can require very different outputs depending on context.
 
-- the learner's goal
-- available time
-- starting knowledge
-- required depth
-- learning situation
-- preferred way of consuming material
+For example, "Deep Learning notes" could mean:
 
-A request like "teach me Operating Systems" is underspecified. The user might need:
-
-- last-minute exam revision
-- a semester's worth of notes
+- a 5-page crash revision sheet
+- semester notes
 - interview preparation
-- beginner onboarding
-- advanced conceptual depth
+- mathematical derivations
+- research-oriented notes
+- an implementation-focused guide
+
+The platform must therefore decide:
+
+- scope
+- coverage
+- depth
+- priority
+- sequencing
+- document size
+- examples
+- exercises
+- diagrams or visuals where useful
+- equations, tables, code, or Q&A where appropriate
+
+## 4. Product Principles
+
+### Locked / Current Product Decisions
+
+1. User intent comes before generation.
+2. Scope should be planned before expensive generation.
+3. Users should be able to inspect and modify important planning decisions.
+4. A Project maintains topic-level context over time.
+5. Workstreams separate different purposes within the same topic.
+6. Artifacts are concrete generated documents.
+7. Large and small Workstreams use the same underlying planning model.
+8. Modules are optional, not required.
+9. The system should not over-question users.
+10. The product should not expose internal AI architecture as a user responsibility.
+11. The product should not be framed as an LMS.
+12. The system should support one Artifact or many Artifacts under the same Project.
+13. Different Workstreams can coexist independently inside a Project.
+14. The product should eventually support many domains and use cases.
+
+### Current Hypotheses
+
+- Scope preview may become one of the most important trust-building moments in the product.
+- Template previews with sample output may improve decision quality more than template labels alone.
+- Project-level context reuse may reduce repetition and improve later outputs without turning the product into a mastery-tracking system.
+
+## 5. Target Users
+
+### Locked / Current Product Decisions
+
+The product is for users who need high-quality notes or related materials for a specific topic and purpose.
+
+Representative user contexts include:
+
+- university study
+- exam preparation
+- interview preparation
+- self-learning
 - research orientation
-- a quick cheat sheet
+- professional work
+- competitive exam preparation
 
-The core product problem is therefore:
+### Current Hypotheses
 
-> Given a learner's specific situation, determine what educational material they actually need, how much of the subject should be covered, what depth is appropriate, and how that material should be structured.
-
-**Current decision**
-
-We will frame the product around better scope determination and planning, not around raw content generation alone.
-
-## 3. Target Users
-
-**Vision**
-
-The platform should eventually support learners across multiple domains and learning situations.
-
-**Current MVP direction**
-
-Initial users should be narrowly defined so the core hypothesis can be tested clearly.
-
-Likely early user profiles include:
-
-- students preparing for a known exam in a technical domain
-- software learners preparing for interviews
-- learners who need compressed, high-utility material under time constraints
-
-**Hypothesis**
-
-Users with urgent, clearly bounded goals may feel the value of planning and scoping more strongly than users with vague exploratory goals.
-
-**Open question**
-
-Which initial user segment will produce the clearest signal of product value:
+Early value may be strongest for users with bounded, high-pressure needs such as:
 
 - exam preparation
 - interview preparation
-- structured self-learning
+- quick revision
 
-## 4. Jobs-to-be-Done
+### Open Questions
 
-**Vision**
-
-Users are not hiring the product to "generate notes." They are hiring it to reduce uncertainty about what to study and to obtain material matched to their real need.
-
-**Core jobs**
-
-- Help me figure out what I should study for my specific situation.
-- Help me avoid wasting time on irrelevant topics.
-- Help me get material at the right depth for my current goal.
-- Help me see and control what will be covered before final generation.
-- Help me transform a broad subject into a practical, usable study asset.
-
-**Example job statements**
-
-- When I have an exam soon, help me focus only on what matters most so I can revise efficiently.
-- When I am preparing for an interview, help me cover the most relevant concepts at interview-appropriate depth.
-- When I am new to a subject, help me get a structured roadmap that does not overwhelm me.
-- When I already know some topics, help me avoid repetitive or unnecessary material.
-
-## 5. Product Principles
-
-**Current decisions**
-
-1. The product must optimize for relevance of learning material, not volume of generated material.
-2. The system should ask only questions that materially change the resulting output.
-3. Users should not be forced through a giant questionnaire.
-4. The user should see and control the intended scope before final content generation.
-5. Artifact, Template, and Content Plan are distinct concepts and should remain distinct in product thinking.
-6. The generated result should not feel like a black box.
-7. The MVP should start narrow and validate the planning/scoping experience before expanding.
-
-**Hypotheses**
-
-- Scope preview may become one of the most important UX moments in the product.
-- Sensible defaults and lightweight templates may reduce user effort without reducing fit.
-- Users may trust generated educational material more when they can inspect its planned structure first.
+- Which initial user segment gives the clearest validation signal?
+- Which domain should be used first to test the product most effectively?
 
 ## 6. Core User Experience
 
-**Vision**
+### Locked / Current Product Decisions
 
-The product experience should feel like an intelligent educational planner first and a generator second.
+The product experience should feel like an intelligent notes planner first and a generator second.
 
-**Desired UX characteristics**
+Desired user experience characteristics:
 
 - fast to start
 - low-friction context capture
 - clear recommendations
-- visible reasoning through the content plan
-- easy user control before generation
-- output shaped to the user's situation, not just the subject
+- visible planning before generation
+- meaningful user control
+- outputs shaped to purpose, not just subject
 
-**Current decision**
+The user should not need to understand internal AI architecture to use the product well.
 
-The user should interact with a planning step before expensive final generation begins.
+## 7. Project
 
-**Hypothesis**
+### Locked / Current Product Decisions
 
-The reviewable scope may create a meaningful feeling of precision, trust, and control that direct prompting does not provide.
+A **Project** is the primary user-facing, persistent topic or context workspace.
 
-## 7. Current Product Model
+Examples:
 
-**Current decision**
+- `Project: Generative AI`
+- `Project: Electrical Machines`
+- `Project: English BA 2nd Semester - Paper 2`
 
-The current working product model has four major concepts:
+A Project:
 
-1. User Intent / Context
-2. Artifact
-3. Template
-4. Content Planner
+- is topic or context anchored
+- persists over time
+- remains available for future work
+- can contain many bodies of work and generated documents
 
-These concepts support the current high-level flow:
+A Project does **not** mean:
 
-1. User expresses a learning need
-2. System understands intent and context
-3. System selects or recommends an artifact
-4. System selects or recommends a template
-5. Content planner determines coverage, depth, and structure
-6. System presents the content plan / scope
-7. User modifies or approves
-8. AI generates the final learning material
+- one PDF
+- one curriculum
+- one goal
+- one conversation
+- one generation job
 
-**Current decision**
+### Behavioral Expectation
 
-This is the working product model, not a final ontology or permanent architecture.
+If a user asks for notes on a clearly different topic, the system should create or switch to a different Project instead of mixing unrelated material into the current one.
 
-## 8. Artifact Concept
+If the topic boundary is ambiguous, the system should ask the user whether to keep it in the current Project or start a new one.
 
-**Definition**
+## 8. Workstream
 
-Artifact answers:
+### Locked / Current Product Decisions
 
-> What does the learner need?
+A **Workstream** is a purpose-scoped body of work inside a Project.
 
-**Current hypothesis**
+It answers:
 
-Possible artifacts may include:
+> Why does this particular body of work exist?
 
-- Exam Preparation
-- Interview Preparation
-- Crash Course
-- Complete Notes
-- Semester Course
-- Revision Guide
-- Research Guide
-- Learning Roadmap
-- Cheat Sheet
-- Question Bank
-- Project/Lab Guide
+Examples inside `Project: Generative AI`:
 
-**Current decision**
+- `Workstream: Research Notes`
+- `Workstream: Quick Revision`
+- `Workstream: Interview Preparation`
 
-The artifact concept is useful as a user-facing abstraction because it captures the intended educational outcome.
+Workstreams are independent from one another. They may have:
 
-**Explicit non-decision**
+- different scope
+- different depth
+- different Content Plans
+- different Templates
+- different numbers of modules
+- different numbers of generated documents
+- independent Jobs
+- independent revision cycles
 
-The artifact taxonomy is not final and should not yet be treated as locked.
+### Clarification
 
-**Open questions**
+Workstream is not the same as:
 
-- Which artifacts are truly distinct in user value versus just different labels?
-- Should artifacts be selected explicitly by users, recommended by the system, or both?
-- Will artifacts remain the primary user-facing abstraction as the product matures?
+- a Project
+- a concrete document
+- a conversation
+- a generation run
 
-## 9. Template Concept
+### Current Hypotheses
 
-**Definition**
+The exact Workstream taxonomy should remain flexible rather than permanently fixed.
+
+## 9. Content Plan
+
+### Locked / Current Product Decisions
+
+Every Workstream has a **Content Plan**.
+
+The Content Plan is the core planning object. It determines:
+
+- what topics are included
+- what topics are excluded
+- coverage
+- depth
+- sequencing
+- priorities
+- examples
+- exercises
+- diagrams or visuals where useful
+- equations
+- code
+- Q&A
+- approximate size
+- module breakdown where necessary
+
+Users should ideally be able to inspect and modify the plan before expensive generation.
+
+### Clarification
+
+The Content Plan is not the generated output itself. It is the explicit representation of what the system intends to generate.
+
+## 10. Module
+
+### Locked / Current Product Decisions
+
+A **Module** is optional.
+
+It exists when a Content Plan is large enough to benefit from subdivision.
+
+Examples:
+
+- `Module: Foundations`
+- `Module: Transformers`
+- `Module: Diffusion`
+
+A small Workstream may have no Modules and still be valid.
+
+### Clarification
+
+Module is a convenience structure for larger plans. It is not a required hierarchy level for all Workstreams.
+
+## 11. Artifact
+
+### Locked / Current Product Decisions
+
+An **Artifact** is a concrete generated document.
+
+Examples:
+
+- `Transformers Notes.pdf`
+- `Diffusion Models Notes.pdf`
+- `Quick Revision Sheet.pdf`
+
+This distinction is important:
+
+- `Research Notes` = Workstream
+- `Transformers Notes.pdf` = Artifact
+
+Artifact must not be used to mean a purpose, a collection of documents, or a body of work.
+
+### Open Questions
+
+- What exact artifact taxonomy is useful for users versus unnecessarily complex?
+- Should artifacts always map one-to-one with files, or can some future artifact types be bundles?
+
+## 12. Template
+
+### Locked / Current Product Decisions
+
+Template is separate from Workstream.
+
+Workstream answers:
+
+> What and why do I need this material?
 
 Template answers:
 
-> How should the material be presented?
+> How do I want it presented?
 
-**Current hypothesis**
-
-Possible templates may include:
+Example Templates:
 
 - Visual
 - Quick
@@ -247,325 +336,356 @@ Possible templates may include:
 - Comprehensive
 - Adaptive
 
-**Current decision**
+The same Workstream can use different Templates.
 
-Templates should influence presentation, density, and emphasis, not act as rigid rules about whether certain elements can exist.
+Templates influence:
 
-For example:
+- density
+- structure
+- emphasis
+- presentation style
 
-- a quick revision guide may still include diagrams
-- an interview artifact may still include diagrams
-- a comprehensive output may still choose concise sections where appropriate
+They do not rigidly determine whether diagrams, examples, Q&A, or other elements can exist.
 
-**Current decision**
+### Current Hypotheses
 
-Template is different from Artifact and different from Content Plan:
+Template previews using sample pages or sample outputs may be more understandable than text labels alone.
 
-- Artifact = what the learner needs
-- Template = how it is presented
-- Content Plan = what is actually covered and how deeply
+### Open Questions
 
-**Hypothesis**
+- What is the right template taxonomy?
+- How should users choose templates: labels, examples, or adaptive defaults?
 
-Real preview samples of templates may be more effective than purely textual template descriptions.
+## 13. Conversations
 
-**Open questions**
+### Locked / Current Product Decisions
 
-- Which templates are most understandable to users?
-- Are templates better expressed as named modes, sliders, examples, or adaptive defaults?
-- How many templates can exist before the model becomes confusing?
+A Project can contain multiple conversations.
 
-## 10. User Context / Intent
+Conversations are interfaces into Project context, not the Project itself.
 
-**Definition**
+Example:
 
-User context and intent describe the learner's situation and the factors that should materially change the resulting material.
+- `Let's decide what I need`
+- `Create research notes`
+- `Continue Transformers`
+- `Create interview prep`
+- `Make quick revision notes`
 
-**Examples of relevant context**
+The user should not be forced into one giant conversation forever.
 
-- goal
-- available time
-- current level
-- required depth
-- learning situation
-- presence of a syllabus or source material
-- preparation mode such as exam, interview, revision, research, or learning
+### Clarification
 
-**Current decision**
+Conversation is not the full source of truth. Project context must persist beyond any single chat thread.
 
-The system should ask only for information that materially changes output quality.
+## 14. Sources
 
-**Current decision**
+### Locked / Current Product Decisions
 
-Templates, defaults, and recommendations should reduce unnecessary questioning.
+A Project can contain relevant **Sources** such as:
 
-**Hypothesis**
+- syllabus material
+- uploaded notes
+- source documents
+- topic references
+- user-provided context material
 
-A short sequence of high-leverage questions can capture enough context to outperform direct prompting without creating onboarding fatigue.
+Sources belong alongside the Project and can inform Workstreams and Content Plans.
 
-**Open questions**
+### Open Questions
 
-- What is the minimum set of questions that materially improves content planning?
-- Which context fields can be inferred safely versus explicitly asked?
-- When should the system ask follow-up questions instead of using defaults?
+- What source types should be supported first?
+- How should source quality or relevance be surfaced to users?
 
-## 11. Content Planning / Scope
+## 15. Jobs
 
-**Definition**
+### Locked / Current Product Decisions
 
-Content Planning is the process that determines:
+A **Job** represents one execution of work.
 
-- what topics should be included
-- what should be excluded
-- how much depth each topic receives
-- what order topics should follow
-- which concepts deserve more emphasis
-- what examples, exercises, or support material are necessary
-- how much total material should be produced
+Examples:
 
-**Current decision**
+- generate `Transformers Notes.pdf`
+- regenerate a module after revision
+- produce a new revision sheet from an approved Content Plan
 
-This is currently the most important internal product component.
+A Workstream can have many Jobs.
 
-**Current decision**
+Jobs are operational entities, not primary user-facing product containers.
 
-The planner should create a plan and scope before expensive final generation begins.
+### Open Questions
 
-**Current decision**
+- How visible should Jobs be in the user experience?
+- Which Job states matter to users versus internal systems only?
 
-Users should be able to inspect and modify the proposed scope before generation.
+## 16. Project Context / Memory
 
-**Why this matters**
+### Locked / Current Product Decisions
 
-The scope preview is the mechanism through which the product makes its educational judgment visible. It allows the user to validate, reject, or refine what the AI intends to teach.
+A Project persists over time and should retain relevant context such as:
 
-**Example**
+- topic
+- purpose and context
+- conversations
+- sources
+- previous Content Plans
+- generated Artifacts
+- Workstreams
+- previous decisions
+- project-level preferences
+- relevant coverage already generated
 
-For "I have an Operating Systems exam in 3 days," an appropriate plan might include:
+Different Workstreams in the same Project may benefit from previous Workstreams.
 
-- Processes
-- Threads
-- CPU Scheduling
-- Synchronization
-- Deadlocks
-- Memory Management
-- Virtual Memory
+Example:
 
-And might exclude:
+If `Research Notes` already deeply covered Transformers, Diffusion, and GANs, a later `Interview Preparation` Workstream may reuse that context and avoid unnecessary repetition.
 
-- advanced filesystem internals
-- distributed operating systems
-- historical architecture details
+### Clarification
 
-**Hypothesis**
+This is Project-level context reuse, not LMS-style mastery tracking.
 
-Better scope planning is the primary mechanism by which the product may outperform direct prompting.
+### Open Questions
 
-**Open questions**
+- What exact Project memory should be stored as product-level truth?
+- How should reused context be surfaced to the user, if at all?
 
-- How explicit should included versus excluded content be in the UI?
-- How much granularity should the plan expose?
-- What kinds of edits should users be able to make to the scope?
-- How should the system balance user control with decision quality?
+## 17. Coverage & Scope Planning
 
-## 12. Core User Journey
+### Locked / Current Product Decisions
 
-**Current decision**
+Coverage and scope planning is the central product intelligence problem.
 
-The current target journey is:
+The platform must make explicit decisions about:
 
-1. User describes a learning need.
-2. System gathers only the most important missing context.
-3. System recommends or confirms an artifact.
-4. System recommends or confirms a template.
-5. System produces a content plan with scope, emphasis, and exclusions.
-6. User reviews and modifies the proposed plan.
-7. User approves the plan.
-8. System generates the final learning material.
+- what matters
+- what does not matter
+- how much depth is appropriate
+- what to prioritize first
+- what form the final material should take
 
-**Desired UX outcome**
+The Content Plan is the mechanism that makes these decisions visible and editable.
 
-The user should feel:
+### Clarification
 
-- understood
-- guided
-- in control
-- confident that the material matches their actual need
+Diagrams are not the central product problem.
 
-**Hypothesis**
+Diagrams are one possible component of a generated document, alongside:
 
-This journey will produce a better user-perceived result than immediately asking a frontier model to generate material from a single prompt.
+- tables
+- equations
+- examples
+- exercises
+- code
+- Q&A
+- case studies
+- visual explanations
 
-## 13. MVP Definition
+The central problem is deciding appropriate coverage, not merely deciding whether to draw diagrams.
 
-**Current direction**
+## 18. User Flow
 
-The MVP should validate the planning/scoping hypothesis, not attempt to solve education broadly.
+### Locked / Current Product Decisions
 
-**Current MVP boundaries**
+The intended high-level flow is:
 
-- focus on one well-understood domain
-- focus on one primary use case or a very small number of closely related use cases
-- support the full end-to-end flow from need capture to plan review to final generation
-- compare usefulness against direct prompting workflows
+1. User expresses a topic or notes need.
+2. System identifies whether this belongs to an existing Project or a new Project.
+3. System gathers only the context that materially affects output.
+4. System proposes or confirms a Workstream.
+5. System proposes or confirms a Template.
+6. System creates a Content Plan.
+7. User reviews and edits the Content Plan.
+8. User approves the plan.
+9. System runs Jobs to generate one or more Artifacts.
 
-**Candidate MVP domains**
+### Current Hypotheses
 
-- Operating Systems
-- DSA
-- Software Engineering
-- AI/ML
+- Recommending Workstream + Template combinations may reduce friction and improve output fit.
+- Lightweight adaptive questioning may outperform both giant questionnaires and zero-context prompting.
 
-**Candidate MVP use cases**
+## 19. Example User Scenarios
 
-- interview preparation
-- exam preparation
+### Scenario 1: New Topic, Research Notes
 
-**Success intent**
+User says:
 
-The MVP should tell us whether explicit planning and scope review produce meaningfully better educational outcomes and user trust.
+`I need notes on Generative AI.`
 
-**Explicit non-goal**
+System creates:
 
-The MVP is not intended to be a broad multi-domain education platform.
+- `Project: Generative AI`
+- `Workstream: Research Notes` or another recommended Workstream if context suggests it
 
-## 14. Non-goals
+Then the system proposes a Content Plan and generates one or more Artifacts after approval.
 
-**Current decisions**
+### Scenario 2: Same Topic, Different Purpose
 
-The product is not currently being defined as:
+Inside `Project: Generative AI`, the user later says:
 
-- a generic AI course generator
-- a system optimized primarily for producing more text
-- a giant cross-domain educational platform from day one
-- a finalized universal taxonomy of educational artifacts
-- a finalized universal taxonomy of templates
-- a complete subject knowledge graph or knowledge layer before validation
-- an engineering architecture decision document
-- a commitment to a specific model stack, agent system, database, or frontend architecture
+`I have my interview tomorrow. Make quick prep notes.`
 
-## 15. Key Product Hypotheses
+The system should create a separate Workstream such as:
 
-**Primary hypothesis**
+- `Workstream: Interview Preparation`
 
-An AI system that first understands the learner's situation and explicitly plans the appropriate scope can produce significantly more useful educational material than direct generation from a general-purpose frontier LLM.
+It should not overwrite or merge the existing `Research Notes` Workstream.
 
-**Supporting hypotheses**
+### Scenario 3: Small Workstream
 
-1. The biggest product problem is deciding appropriate coverage and depth, not generating fluent text.
-2. A visible content-plan preview is a major driver of usefulness and trust.
-3. Artifact + Template + Context is a useful user-facing abstraction.
-4. The best MVP will emerge from a narrow domain and tightly defined use case.
-5. A lightweight planning layer may create clear value before any large persistent knowledge layer is built.
-6. Presentation enhancements such as diagrams may be useful, but they are downstream of planning quality rather than the core problem.
+User needs:
 
-## 16. Risks and Unknowns
+`Quick revision notes on Operating Systems for tomorrow's exam.`
 
-**Key risks**
+The resulting Workstream may have:
 
-- Users may not perceive enough improvement over direct prompting to change behavior.
-- Context capture may become too long or cognitively heavy.
-- Artifact and Template concepts may feel artificial or confusing to users.
-- Users may want to skip planning and jump directly to generation.
-- Plan review may add friction without enough perceived benefit.
-- High-quality planning may depend more on subject-specific knowledge than currently assumed.
-- Different domains may require fundamentally different planning logic.
+- one Content Plan
+- no Modules
+- one Artifact
 
-**Unknowns**
+### Scenario 4: Topic Change
 
-- How measurable the quality advantage over direct prompting will be
-- Which domains are easiest to validate first
-- Which user segment feels the strongest pain today
-- How much manual scope editing users will want
-- Whether the same abstraction holds across technical and non-technical domains
+While inside `Project: Generative AI`, the user says:
 
-## 17. Competitive Differentiation Hypothesis
+`I need notes on Electrical Machines.`
 
-**Hypothesis**
+This should normally create or switch to:
 
-The product may differentiate not by having a stronger base model, but by introducing a better educational decision layer between user need and content generation.
+- `Project: Electrical Machines`
 
-Potential points of differentiation:
+It should not pollute the Generative AI Project.
 
-- stronger understanding of the learner's actual situation
-- explicit scope selection before generation
-- clearer separation between educational outcome, presentation style, and topic plan
-- user-visible planning rather than black-box output
-- educational material optimized for relevance and fit, not just fluency
+## 20. Product Boundaries / Non-goals
 
-**Open question**
+### Locked / Current Product Decisions
 
-Will users perceive this as a distinct category of value, or merely as a better prompting wrapper around existing models?
+The product is not currently defined as:
 
-## 18. Future Expansion Areas
+- a Learning Journey product
+- a goal-centric hierarchy
+- a student mastery-tracking system
+- an LMS architecture
+- an AI tutoring platform
+- a progress dashboard product
+- a course marketplace
+- a generic chatbot
+- an engineering design document
 
-**Vision**
+The product should avoid obsolete framing such as:
 
-If the core hypothesis is validated, the product may expand across:
+- `Learning Journey` as a core entity
+- `Goal` as a required hierarchy level
+- `Curriculum` as a separate required core entity
+- tutoring as the primary product definition
 
-- more domains
-- more learner goals
-- more artifact types
-- richer template previews
-- subject-specific planning logic
-- stronger reuse of syllabi, source documents, or prior learner state
-- persistent knowledge layers for consistency and reliability
-- collaborative or iterative study workflows
+### Clarification
 
-**Current decision**
+A large Content Plan may effectively behave like a curriculum, but `Curriculum` is not a separate required core product entity.
 
-These are future expansion areas, not present commitments.
+## 21. Current Architecture Hypothesis
 
-**Explicit non-decision**
+### Locked / Current Product Decisions
 
-We are not yet committing to:
+The current conceptual product hierarchy is:
 
-- a knowledge graph architecture
-- an agent architecture
-- a database design
-- a frontend architecture
-- a long-term system decomposition
+```text
+USER
+  -> PROJECT
+    -> WORKSTREAM
+      -> CONTENT PLAN
+        -> MODULE (optional)
+          -> ARTIFACT
+```
 
-## 19. Open Questions
+Alongside that:
 
-The following questions remain intentionally unresolved:
+```text
+PROJECT
+  -> CONVERSATIONS
+  -> SOURCES
+
+WORKSTREAM
+  -> JOBS
+```
+
+Important distinctions:
+
+- Project != Workstream
+- Workstream != Artifact
+- Content Plan != Artifact
+- Module != required
+- Curriculum != separate required core entity
+- PDF = Artifact
+- Project != PDF
+
+### Current Hypotheses
+
+- The user-facing model above is stable enough to guide product design now.
+- The internal implementation may later require additional entities, but those should not be exposed unless they clearly improve the product.
+
+### Open Questions
+
+- What internal orchestration model best supports this product structure?
+- What storage model best supports persistent Project context?
+- What parts of the hierarchy should be directly visible in the UI?
+
+## 22. Open Questions
+
+The following remain intentionally unresolved:
 
 1. Which initial domain gives the fastest and clearest validation signal?
-2. Should the first use case be exam preparation or interview preparation?
-3. What minimum context is required to materially improve planning quality?
-4. How should artifact selection be presented to users: explicit choice, recommendation, or hybrid?
-5. How should template selection be presented to users: labels, examples, or adaptive defaults?
-6. What is the right UI for scope review and editing?
-7. How should usefulness be measured against direct prompting?
-8. What evidence would be strong enough to validate the core product hypothesis?
-9. When, if ever, does a persistent subject/domain knowledge layer become necessary?
-10. Which parts of planning can stay domain-agnostic, and which require domain-specific logic?
-11. How broad can the product become before the current abstraction breaks down?
-12. What user behaviors would indicate that the planning step is truly valuable rather than tolerated?
+2. Which initial user segment should be prioritized first?
+3. What exact Workstream taxonomy is most intuitive?
+4. What exact Template taxonomy is most intuitive?
+5. How should topic-boundary detection work in ambiguous cases?
+6. How much control should users have when editing Content Plans?
+7. How granular should Modules be when they exist?
+8. How should Project context reuse be made visible to users?
+9. How should usefulness be measured against direct prompting workflows?
+10. What evidence would strongly validate the planning-first product hypothesis?
 
-## Summary
+## 23. Future Possibilities
 
-**Vision**
+### Vision
 
-Create a system that helps learners get the right educational material for their exact situation.
+If the core model is validated, future expansion may include:
 
-**Current decisions**
+- more domains
+- more Workstream types
+- richer Template previews
+- better reuse of source material
+- stronger Project memory and continuity
+- collaborative or iterative note-building workflows
+- better artifact sets for different professional and educational contexts
 
-- Focus product thinking on planning and scope, not just generation.
-- Keep Artifact, Template, and Content Plan separate.
-- Show users the plan before generating the final material.
-- Start with a narrow MVP that can validate the core hypothesis.
+### Clarification
 
-**Core hypothesis**
+These are future possibilities, not current commitments.
 
-Explicit learner-aware planning can produce meaningfully more useful educational material than direct prompting alone.
+## Locked Summary
 
-**What remains open**
+### Locked / Current Product Decisions
 
-- the best initial domain
-- the best initial use case
-- the final artifact taxonomy
-- the final template taxonomy
-- the eventual architecture and infrastructure decisions
+- The product is an AI-powered notes generation platform.
+- Project is the primary persistent topic-level workspace.
+- Workstream is a purpose-scoped body of work inside a Project.
+- Content Plan is the core planning object.
+- Module is optional.
+- Artifact means a concrete generated document.
+- Template is separate from Workstream and controls presentation style.
+- Conversations and Sources belong to the Project context.
+- Jobs are operational entities attached to Workstreams.
+- Coverage and scope planning are more central than raw text generation.
+- Curriculum is not a separate required core entity.
+- The product is not an LMS, tutoring platform, or Learning Journey system.
 
-This document should serve as the working source of truth until revised by product review.
+## Current Hypotheses Summary
+
+- Scope review may be a key trust and differentiation moment.
+- Recommended Workstream + Template combinations may reduce friction.
+- Template previews may be more effective than labels alone.
+- Project-level context reuse may materially improve later outputs.
+
+## Source Of Truth Statement
+
+This document is the current canonical Product Bible for the product as of August 14, 2026. It should be used as the source of truth for product behavior and product terminology until superseded by a later approved revision.
