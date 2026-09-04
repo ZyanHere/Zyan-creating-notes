@@ -1,91 +1,67 @@
-# agent
+# agent — SALVAGE
 
-Planning and generation. **The only place in the system an LLM is called.**
+**This package does not import and does not run.** `models.py` was deleted, and
+`__init__.py`, `fill.py` and `cli.py` all import from it.
 
-This is step 2 of Phase 1 in `../Phase-1-Build-Plan.md`: given a plan that
-already declares the blocks, the model writes their content — and nothing else.
+Current source of truth: **`../Product-Semantics.md` (Rev. 2)**.
+Recoverable in full from commit `07ebf72`, *"Snapshot before the vocabulary reset"*.
 
-```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-pip install -e ..\document-engine
+---
 
-Copy-Item .env.example .env          # then add an OpenRouter key
+## What was deleted, and why
 
-python -m agent fill plans\module-01.json --pdf out\generated.pdf
+| Deleted | Reason |
+|---|---|
+| `models.py` | The single most-invalidated file in the repo. It **is** the dead vocabulary — `BlockSpec` as a union of 8, `SectionPlan`, `archetype: Literal["layer-stack"]`. No notion of artifact type, job, learning situation, or omission consequence. |
+| `plans/*.json` | Hand-written stand-ins for a planner that never existed, in a format that is now wrong. `ai-ml-dl.json` is where a `layer-stack` was forced onto a **containment** relation — the case that started the reset. |
+| `tests/` | Every assertion tested the dead vocabulary. The `FakeClient` technique is twelve lines and trivially re-invented. |
+
+## What was kept, and why
+
+| Kept | Value |
+|---|---|
+| `client.py` | **Survives whole.** Provider-neutral: one call, plain text in and out; OpenRouter reaches any model by changing a string. Also carries the `.env`-discovery fix — dotenv searches upward from the working directory, so a `.env` inside the package is never found without an absolute path. |
+| `fill.py` | **Partly alive, kept intact rather than gutted.** Alive: the retry-with-reason loop, `_extract_json` (models emit fences and commentary regardless of instructions), and pass-through blocks restored to their planned positions. Dead: `_build_block`'s type table, `PROSE_TYPES`, and the findings model — see below. |
+| `cli.py` | Shape only. The command changes from *"fill a plan"* to something that starts from a situation. |
+| `requirements.txt` · `.env.example` · `pytest.ini` | Infrastructure. `.env.example` records that free model ids move — `llama-3.3-70b:free` went paid mid-session. |
+
+## The part I got wrong: caps as findings
+
+`fill.py` splits *structure fails* from *caps are findings*. The split is right; what
+it measures is not.
+
+A cap of 90 words is a proxy for treatment budget. Product Semantics §9 puts the
+floor at **where treatment stops supporting the kind of capability targeted**, and a
+word count cannot express that. "Five words over" is close to meaningless. The
+finding that would matter is *this concept got a definition where a generative target
+needs a worked example* — a judgment about treatment kind.
+
+And §4 locks that this class of check is **partially verifiable**: a reader model, not
+an assertion suite. `fill.py` has nowhere to put one.
+
+So the contract shape survives — state it in the prompt, check it on return, retry
+with the reason attached. What it checks does not.
+
+## Why the rebuild is bigger here than in the engine
+
+The engine loses its design and keeps its mechanism; HTML → Chromium is neutral
+about everything the reset decided. The agent is the reverse. About half its code
+carries over, but its **shape** does not:
+
+```
+OLD     spec → plan → fill                    three straight-line transforms
+
+NEW     reconstruct the situation             interactive — ask only what
+                                              materially changes the artifact
+        derive job from artifact type         new
+        scope + depth allocation
+        project omission consequence          new; must precede any budget move
+        structure
+        select representations                now a first-class decision
+        generate content
+        negotiate the budget                  new: compress, remove leaves,
+                                              truncate, mark the gap
 ```
 
-## What `fill` does
-
-```
-DocumentPlan  ──fill()──>  Document  ──engine.render()──>  PDF
-(structure)                (structure + content)
-```
-
-The plan declares each block's type, its constraints and a brief. The model
-returns content keyed to those blocks. **It cannot add a block, drop one,
-reorder them, or change a type.**
-
-```json
-{ "type": "para", "max_words": 75,
-  "brief": "LangChain is a good abstraction, but when something breaks you
-            need to know what is underneath…" }
-```
-
-Two kinds of block appear in a plan:
-
-- **prose specs** — `para` `subheading` `code` `callout` `list` `badge`.
-  The model writes these.
-- **structural blocks** — `figure` `cheatsheet`. Already authored, copied
-  through untouched, and never shown to the model. A figure is an archetype
-  with data; the model selects from archetypes that exist, it never invents
-  one. Generating that data is later work.
-
-## The contract, stated and checked
-
-Contract 8 of `../Foundation.md`: *every constraint the verifier checks is also
-stated in the prompt.* Validation is a safety net, not the mechanism — a
-pipeline that relies on checking alone burns retries on failures a sentence
-would have prevented.
-
-Stated in the prompt **and** checked on return:
-
-| | fails | notes |
-|---|---|---|
-| block count, types, order | ✓ | fixed by the plan |
-| required fields present | ✓ | |
-| no HTML in any text | ✓ | the template owns presentation |
-| Document Model validity | ✓ | the engine's own Pydantic models |
-| word / line / item caps | | recorded as **findings** |
-
-Caps are a budget for the writer, not a structural requirement: a 95-word
-paragraph against a 90-word cap is a note, not a broken document. Structure is
-what fails, and a failure is retried with the reason attached — up to three
-attempts, then it gives up rather than shipping something malformed.
-
-## Why not the provider's JSON-schema mode
-
-OpenRouter is OpenAI-API compatible, so one client reaches any model by
-changing `OPENROUTER_MODEL`. Free models mostly do **not** support strict
-JSON-schema output, and depending on it would quietly make the pipeline
-provider-specific.
-
-So the agent validates and retries instead. That works everywhere, and it is
-the honest form of the question step 2 exists to answer: *can a model hold to a
-schema?* — not *can the API force it to?*
-
-Responses wrapped in markdown fences or surrounded by commentary are unwrapped
-rather than rejected; models do that regardless of instructions.
-
-## Tests
-
-```bash
-python -m pytest agent/tests -q          # 18 tests, no API key needed
-python -m pytest agent/tests -q -m live  # one real call, needs a key
-```
-
-The contract lives in `validate_section`, so nearly all of it is testable
-offline; a scripted fake client exercises the retry loop. The live test is
-step 2's success criterion: **regenerate the same section three times and get
-three valid documents.**
+Two of those are **loops** — one with the user, one with the renderer. The old chain
+had neither, and a loop cannot be added to a straight line without rebuilding it.
