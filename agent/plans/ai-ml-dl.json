@@ -1,0 +1,229 @@
+{
+  "title": "AI, Machine Learning, Deep Learning",
+  "subtitle": "Three words, one nesting",
+  "eyebrow": "FOUNDATIONS 01",
+  "running_title": "AI FOUNDATIONS",
+  "footer_text": "AI, Machine Learning, Deep Learning — Three words, one nesting",
+  "cover": false,
+  "context": "Technically literate readers who keep hearing AI, ML and DL used interchangeably — developers, analysts and students who can read Python but have never trained a model. They do not need a maths course. They need the three words pinned down precisely enough to use them correctly, to read a job description or a vendor claim without being misled, and to tell which of the three a given problem actually calls for. Be concrete and use real library names. Never hedge with phrases like 'in today's fast-moving world'.",
+
+  "sections": [
+    {
+      "label": "OVERVIEW",
+      "heading": { "lead": "Three Words,", "accent": "One Nesting" },
+      "blocks": []
+    },
+    {
+      "label": "WHAT YOU'LL UNDERSTAND",
+      "blocks": [
+        {
+          "type": "list",
+          "marker": "arrow",
+          "count": 5,
+          "max_words_per_item": 20,
+          "brief": "What the reader will be able to do after this document: state precisely what separates AI, machine learning and deep learning; explain why machine learning is used at all instead of writing the rules by hand; recognise from a problem description whether classical ML or deep learning fits; read the vocabulary — features, labels, training, inference, parameters — without guessing; spot the three claims that most often mark marketing rather than engineering."
+        }
+      ]
+    },
+    {
+      "label": "THE SHORT ANSWER",
+      "blocks": [
+        {
+          "type": "para",
+          "max_words": 80,
+          "brief": "The three terms are not competitors and not synonyms — they nest, each inside the last. Artificial intelligence is the widest: any machine performing a task we would call intelligent, including hand-written rules with no learning in them. Machine learning is the subset where the rules are learned from data instead of written. Deep learning is the subset of machine learning that uses neural networks with many layers."
+        }
+      ]
+    },
+    {
+      "label": "WHY THE CONFUSION COSTS YOU",
+      "blocks": [
+        {
+          "type": "para",
+          "max_words": 65,
+          "brief": "Using the words loosely leads to concrete mistakes: reaching for a neural network on a problem a decision tree solves better and cheaper, or believing a product is learning when it is running a rules engine someone wrote by hand. Precision here is not pedantry — it changes which tool gets picked and what a claim is worth."
+        }
+      ]
+    },
+
+    {
+      "label": "SECTION 1",
+      "heading": { "lead": "The Nesting,", "accent": "From the Outside In" },
+      "rule_before": true,
+      "blocks": [
+        {
+          "type": "para",
+          "max_words": 90,
+          "brief": "Artificial intelligence as a field is older than machine learning and much broader. A chess engine searching moves, a thermostat following a schedule, an expert system with hundreds of hand-written if-then rules — all are AI, and none of them learn anything. The defining property of AI is the task being performed, never the method. This is why the term alone tells you almost nothing about how a system works."
+        },
+        {
+          "type": "para",
+          "max_words": 85,
+          "brief": "Machine learning narrows it sharply. Instead of a programmer writing the rule, an algorithm derives the rule from examples. Show it ten thousand labelled emails and it works out what separates spam from the rest. Nobody wrote that rule, and often nobody could have — the point of machine learning is precisely the problems where the rule is real but too intricate to state."
+        },
+        {
+          "type": "figure",
+          "archetype": "layer-stack",
+          "number": "1.1",
+          "caption": "Each term is a subset of the one below it, not a competitor to it.",
+          "layers": [
+            { "text": "LLMs and generative AI", "width": 40, "tone": "l5", "note": "← chatbots live here" },
+            { "text": "DEEP LEARNING · neural networks, many layers", "width": 60, "tone": "l4", "note": "← a subset of ML" },
+            { "text": "MACHINE LEARNING · rules learned from data", "width": 76, "tone": "l2", "note": "← a subset of AI" },
+            { "text": "ARTIFICIAL INTELLIGENCE · the whole field, learning or not", "width": 94, "tone": "base", "note": "← the outer set" }
+          ]
+        },
+        {
+          "type": "callout",
+          "label": "CONCEPT",
+          "max_words": 70,
+          "brief": "The single question that separates machine learning from the rest of AI: who wrote the rule? If a person wrote it, it is AI but not machine learning, no matter how sophisticated. If it was derived from data, it is machine learning. Everything else — accuracy, scale, how impressive the demo looks — is beside the point."
+        }
+      ]
+    },
+
+    {
+      "label": "SECTION 2",
+      "heading": { "lead": "What Makes It", "accent": "Machine Learning" },
+      "rule_before": true,
+      "blocks": [
+        {
+          "type": "para",
+          "max_words": 80,
+          "brief": "Every supervised machine learning problem has the same three parts. Features are the inputs, conventionally written `X` — the columns you know. Labels are the answers, written `y` — the column you want to predict. The model is the function fitted between them. Training finds that function from examples; inference applies it to inputs it has never seen."
+        },
+        {
+          "type": "subheading",
+          "max_words": 6,
+          "brief": "Name the fit-then-predict pattern that follows."
+        },
+        {
+          "type": "para",
+          "max_words": 75,
+          "brief": "Classical machine learning is unglamorous and extremely effective on tabular data. `scikit-learn` gives nearly every algorithm the same two methods — `fit` to learn, `predict` to apply — so swapping a logistic regression for a gradient-boosted tree is a one-line change. Holding back a test split matters because a model that has seen the answers can memorise instead of generalising."
+        },
+        {
+          "type": "code",
+          "lang": "python",
+          "file": "classical_ml.py",
+          "max_lines": 24,
+          "brief": "A complete, runnable classical ML example on tabular data using scikit-learn. Load a built-in dataset, split it into train and test sets with a fixed random_state so the run is reproducible, fit a RandomForestClassifier, predict on the held-out test set, and print the accuracy. Comment the lines whose purpose is not obvious from the code itself, especially why the test split is held back."
+        },
+        {
+          "type": "callout",
+          "label": "CODE NOTE",
+          "subtitle": "THE TEST SPLIT",
+          "max_words": 60,
+          "brief": "Why accuracy measured on training data is worthless: a model that memorised the answers scores perfectly and predicts nothing. The held-out split is the only honest measure, and a large gap between training and test accuracy is the signature of overfitting."
+        }
+      ]
+    },
+
+    {
+      "label": "SECTION 3",
+      "heading": { "lead": "Where Deep Learning", "accent": "Actually Differs" },
+      "rule_before": true,
+      "blocks": [
+        {
+          "type": "para",
+          "max_words": 90,
+          "brief": "Classical machine learning needs someone to decide what the inputs should be. Predicting house prices means choosing the columns: square footage, postcode, year built. That choice is feature engineering, it is most of the work, and it requires knowing the domain. Deep learning's real difference is that the network learns the features too — give it raw pixels or raw text and the useful representations are discovered during training rather than specified in advance."
+        },
+        {
+          "type": "subheading",
+          "max_words": 6,
+          "brief": "Name what a layer of a network does."
+        },
+        {
+          "type": "para",
+          "max_words": 80,
+          "brief": "A neural network is a stack of layers, each a matrix multiplication followed by a non-linear function. Depth is what the word deep refers to: early layers pick up simple structure such as edges, later layers combine those into something meaningful. The price is data and compute — deep learning typically needs far more of both than a tree-based model that would perform just as well on a spreadsheet."
+        },
+        {
+          "type": "code",
+          "lang": "python",
+          "file": "tiny_net.py",
+          "max_lines": 26,
+          "brief": "A minimal neural network in PyTorch, showing structure rather than solving a real task. Define a small network with nn.Sequential containing two linear layers with a ReLU between them, create a loss function and an optimiser, then run a short training loop over dummy tensors: zero the gradients, forward pass, compute loss, backward pass, optimiser step. Comment each stage of the loop so the reader can see that training is that four-line cycle repeated."
+        },
+        {
+          "type": "callout",
+          "label": "GOTCHA",
+          "max_words": 65,
+          "brief": "Deep learning is not the upgrade. On tabular data of moderate size, gradient-boosted trees routinely beat neural networks while training in seconds on a laptop and remaining possible to explain. Reaching for a network by default costs time, money and interpretability, and often accuracy as well."
+        }
+      ]
+    },
+
+    {
+      "label": "SECTION 4",
+      "heading": { "lead": "Choosing", "accent": "Between Them" },
+      "rule_before": true,
+      "blocks": [
+        {
+          "type": "para",
+          "max_words": 70,
+          "brief": "The choice is usually decided by the shape of the data rather than by ambition. Structured rows and columns point one way; raw perceptual data — images, audio, free text — points the other. How much labelled data exists is the second question, and it rules out deep learning more often than anything else does."
+        },
+        {
+          "type": "list",
+          "marker": "arrow",
+          "count": 5,
+          "max_words_per_item": 26,
+          "brief": "Practical selection rules, each naming the situation and the choice: tabular data under roughly a hundred thousand rows favours gradient-boosted trees; images, audio and free text favour deep learning because the features cannot be listed by hand; a few hundred labelled examples rules out training a network from scratch, so fine-tune a pretrained one or stay classical; when a decision must be explained to a regulator or a customer, prefer a model whose reasoning can be inspected; and if hand-written rules already solve it, that is the correct answer rather than a lesser one."
+        },
+        {
+          "type": "callout",
+          "label": "BUILD TIP",
+          "max_words": 60,
+          "brief": "Start with the simplest model that could work and treat it as the baseline to beat. A logistic regression trained in ten seconds tells you whether the signal exists at all. Without that number, no later result means anything, because there is nothing to compare it to."
+        }
+      ]
+    },
+
+    {
+      "label": "SECTION 5",
+      "heading": { "lead": "The Vocabulary,", "accent": "Pinned Down" },
+      "rule_before": true,
+      "blocks": [
+        {
+          "type": "para",
+          "max_words": 60,
+          "brief": "Most of the confusion around these three words is vocabulary rather than concept. The terms below appear in every library, every tutorial and every job description, and they mean the same thing across all of them."
+        },
+        {
+          "type": "cheatsheet",
+          "rows": [
+            { "label": "Features", "code": "X — the input columns you know" },
+            { "label": "Labels", "code": "y — the answer you want predicted" },
+            { "label": "Training", "code": "model.fit(X_train, y_train)" },
+            { "label": "Inference", "code": "model.predict(X_new)" },
+            { "label": "Parameters", "code": "learned by fit() — weights" },
+            { "label": "Hyperparameters", "code": "chosen by you, before fit()" },
+            { "label": "Overfitting", "code": "train accuracy >> test accuracy" },
+            { "label": "Epoch", "code": "one pass over the training data" }
+          ]
+        },
+        {
+          "type": "callout",
+          "label": "TRY THIS",
+          "max_words": 60,
+          "brief": "A concrete exercise: take the classical example from Section 2 and replace only the classifier line, first with LogisticRegression and then with GradientBoostingClassifier, leaving everything else untouched. Compare the three accuracies. The point is that the interface never changed, which is what makes scikit-learn worth learning first."
+        }
+      ]
+    },
+
+    {
+      "label": "RECAP",
+      "heading": { "lead": "What to", "accent": "Carry Forward" },
+      "rule_before": true,
+      "blocks": [
+        {
+          "type": "para",
+          "max_words": 70,
+          "brief": "Restate the nesting in one pass and close on the practical consequence: AI is the task, machine learning is the method of learning the rule from data, deep learning is the method of learning the features as well. Which one a problem needs is decided by the data available, not by which term sounds most advanced."
+        }
+      ]
+    }
+  ]
+}

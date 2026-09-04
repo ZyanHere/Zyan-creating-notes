@@ -14,3 +14,7 @@ build/
 .idea/
 .vscode/
 Thumbs.db
+out/
+__pycache__/
+*.pyc
+.pytest_cache/

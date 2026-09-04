@@ -1,0 +1,16 @@
+# Generated documents. Everything here is reproducible from a plan file.
+out/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+*.egg-info/
+
+# Secrets
+.env
+
+# OS
+.DS_Store
+Thumbs.db

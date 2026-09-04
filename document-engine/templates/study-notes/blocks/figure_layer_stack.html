@@ -1,0 +1,15 @@
+<figure class="block figure">
+  <div class="stack">
+    {%- for layer in b.layers %}
+    <div class="stack__slot">
+      <div class="stack__bar stack__bar--{{ layer.tone }}" style="width: {{ layer.width }}%">
+        {{ layer.text }}
+        {%- if layer.note %}<span class="stack__note">{{ layer.note }}</span>{% endif %}
+      </div>
+    </div>
+    {%- endfor %}
+  </div>
+  <figcaption class="figure__caption">
+    {%- if b.number %}FIG {{ b.number }} &mdash; {% endif %}{{ b.caption }}
+  </figcaption>
+</figure>

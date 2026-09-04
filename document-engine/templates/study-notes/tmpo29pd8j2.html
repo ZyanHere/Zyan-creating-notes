@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>LLMs for Builders</title>
+<link rel="stylesheet" href="../../themes/slate-amber.css">
+<link rel="stylesheet" href="layout.css">
+</head>
+<body>
+<div class="doc">  <section class="section"><div class="label">OVERVIEW</div>    <h2 class="heading">What You&#39;ll      <span class="heading__accent">Learn &amp; Build</span></h2>  </section>  <section class="section"><div class="label">LEARNING OBJECTIVES</div><ul class="block list list--arrow">  <li class="list__item">Make raw API calls to OpenAI and Anthropic — both sync and async — and understand the full request/response structure</li>  <li class="list__item">Understand tokens: what they are, how to count them with <code class="chip">tiktoken</code>, why they&#39;re the core cost and capacity unit</li>  <li class="list__item">Build a cost estimator that tells you what any given chain will cost before you run it</li>  <li class="list__item">Use structured output mode and function calling to get reliable, validated JSON from any LLM</li>  <li class="list__item">Write a production-grade retry wrapper with exponential backoff that all future modules will reuse</li>  <li class="list__item">Understand what prompt injection is and how to defend against it at the API layer</li></ul>
+  </section>  <section class="section"><div class="label">WHY START HERE</div><p class="block para">LangChain and LangGraph are powerful abstractions — but when something breaks, you need to understand what&#39;s actually happening underneath. This module strips away the framework and works directly with the HTTP APIs. By the time you add LangChain in Module 02, you&#39;ll know exactly what it&#39;s doing for you and when to step around it.</p>
+  </section>  <section class="section"><div class="label">THE PROJECT</div><p class="block para"><strong>Structured Document Extractor</strong> — accepts unstructured text (invoice, email, article), uses a Pydantic schema to define the output shape, calls the OpenAI API in structured output mode, returns validated JSON, and prints token usage and estimated cost per run. ~80 lines, fully annotated, copy-paste ready.</p>
+  </section>  <section class="section section--ruled"><div class="label">SECTION 1</div>    <h2 class="heading">Why This Series      <span class="heading__accent">Starts Here</span></h2><p class="block para">Every LangChain tutorial starts with <code class="chip">from langchain_openai import ChatOpenAI</code> — and that&#39;s fine for getting something working. But it hides something important: every LLM call is ultimately an HTTP POST to an API endpoint. Knowing that endpoint — its request structure, its response format, its error codes — is the difference between a developer who can only follow tutorials and one who can debug, optimise, and extend them.</p>
+<p class="block para">This series teaches the agentic stack from the inside out. We start at the raw API layer, then add LangChain&#39;s abstractions in Module 02, agents in Module 04, and multi-agent graphs in Module 06. By the time you&#39;re building production systems in Tier 4, every component will make sense because you built it from scratch first.</p>
+<figure class="block figure">
+  <div class="stack">    <div class="stack__slot">
+      <div class="stack__bar stack__bar--l5" style="width: 56%">
+        Multi-agent · MCP · Production (Modules 07+)      </div>
+    </div>    <div class="stack__slot">
+      <div class="stack__bar stack__bar--l4" style="width: 56%">
+        AgentExecutor · LangGraph (Modules 04–06)      </div>
+    </div>    <div class="stack__slot">
+      <div class="stack__bar stack__bar--l3" style="width: 66%">
+        LCEL chains · prompts · output parsers (Module 02)      </div>
+    </div>    <div class="stack__slot">
+      <div class="stack__bar stack__bar--l2" style="width: 74%">
+        ChatOpenAI · ChatAnthropic (LangChain model wrappers)<span class="stack__note">← Module 02</span>      </div>
+    </div>    <div class="stack__slot">
+      <div class="stack__bar stack__bar--l1" style="width: 82%">
+        openai · anthropic (Python SDKs)<span class="stack__note">← THIS MODULE</span>      </div>
+    </div>    <div class="stack__slot">
+      <div class="stack__bar stack__bar--base" style="width: 90%">
+        RAW HTTP · POST /v1/messages · POST /v1/chat/completions<span class="stack__note">← THIS MODULE</span>      </div>
+    </div>  </div>
+  <figcaption class="figure__caption">FIG 1.1 &mdash; The LangChain abstraction stack. This module covers layers 0 and 1.
+  </figcaption>
+</figure>
+<div class="block callout">
+  <div class="callout__label">CONCEPT</div>
+  <p class="callout__text">An LLM API is a stateless HTTP endpoint. Every call is independent — no memory, no continuity. When LangChain adds &#34;memory&#34;, it&#39;s reconstructing conversation history in the prompt on every call. When an agent &#34;reasons over multiple steps&#34;, it&#39;s making multiple separate API calls. Understanding this makes the entire agentic stack easier to reason about.</p>
+</div>
+  </section>  <section class="section section--ruled"><div class="label">SECTION 2</div>    <h2 class="heading">The OpenAI and      <span class="heading__accent">Anthropic APIs</span></h2><p class="block para">Two APIs dominate the current LLM landscape for builders: OpenAI&#39;s Chat Completions API and Anthropic&#39;s Messages API. They have slightly different request structures and philosophies, but the same fundamental model: you send a list of messages, you get a completion back.</p>
+<h3 class="subheading">OpenAI: Chat Completions API</h3>
+<p class="block para">The OpenAI Python SDK (<code class="chip">openai==1.x</code>) wraps the <code class="chip">POST /v1/chat/completions</code> endpoint. The message list has three roles: <strong>system</strong> (instructions), <strong>user</strong> (input), and <strong>assistant</strong> (prior model responses, for multi-turn conversations).</p>
+<div class="block code">
+  <div class="code__head">python &middot; openai_basic.py</div>
+  <pre class="code__body">import os
+from openai import OpenAI
+
+client = OpenAI(api_key=os.getenv(&#34;OPENAI_API_KEY&#34;))  # never hardcode keys
+
+response = client.chat.completions.create(
+    model=&#34;gpt-4o-mini&#34;,             # check platform.openai.com for latest
+    messages=[
+        {&#34;role&#34;: &#34;system&#34;,  &#34;content&#34;: &#34;You are a concise technical assistant.&#34;},
+        {&#34;role&#34;: &#34;user&#34;,    &#34;content&#34;: &#34;What is a transformer model in one sentence?&#34;},
+    ],
+    temperature=0.3,               # lower = more deterministic
+    max_tokens=150,
+)
+
+# Response structure
+text    = response.choices[0].message.content
+p_tok   = response.usage.prompt_tokens
+c_tok   = response.usage.completion_tokens
+total   = response.usage.total_tokens
+
+print(text)
+print(f&#34;Tokens — prompt: {p_tok}, completion: {c_tok}, total: {total}&#34;)</pre>
+</div>
+<div class="block callout">
+  <div class="callout__label">CODE NOTE &mdash; TEMPERATURE</div>
+  <p class="callout__text"><code class="chip">temperature=0.3</code> is a reasonable default for extraction and classification work. Values near 0 make the model near-deterministic; values above 1.0 make it erratic. It is not a quality dial.</p>
+</div>
+  </section>
+</div>
+</body>
+</html>
