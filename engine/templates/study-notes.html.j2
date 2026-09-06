@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{{ doc.title }}</title>
+<style>
+  /* One template. The catalogue is Semantics §2's open question and stays shut. */
+
+  @page {
+    size: A4;
+    margin: 20mm 18mm 18mm 18mm;
+    @bottom-center { content: counter(page); }
+  }
+
+  :root {
+    --ink:      #1a1c20;
+    --soft:     #4a5058;
+    --muted:    #767d87;
+    --rule:     #d8dce2;
+    --hairline: #eceff3;
+    --accent:   #1b4d6b;
+    --gap:      #8a4a35;
+    --gap-bg:   #fbf3f0;
+    --code-bg:  #f6f7f9;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+    font-size: 10.8pt;
+    line-height: 1.55;
+    color: var(--ink);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ---------- front matter ---------- */
+
+  .front { margin-bottom: 14mm; }
+
+  h1 {
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 22pt;
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+    margin: 0 0 3mm;
+    text-wrap: balance;
+  }
+
+  .subtitle {
+    font-size: 12pt;
+    color: var(--soft);
+    margin: 0 0 7mm;
+    line-height: 1.4;
+  }
+
+  .orient {
+    border-top: 1.5pt solid var(--ink);
+    border-bottom: 0.5pt solid var(--rule);
+    padding: 3.5mm 0;
+    display: table;
+    width: 100%;
+  }
+  .orient .row { display: table-row; }
+  .orient .k, .orient .v { display: table-cell; padding: 1.2mm 0; vertical-align: baseline; }
+  .orient .k {
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 7.5pt;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--muted);
+    width: 30mm;
+    white-space: nowrap;
+    padding-right: 5mm;
+  }
+  .orient .v { font-size: 10pt; color: var(--soft); }
+
+  /* ---------- sections ---------- */
+
+  h2 {
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 13.5pt;
+    line-height: 1.25;
+    margin: 9mm 0 3mm;
+    padding-bottom: 1.6mm;
+    border-bottom: 0.5pt solid var(--rule);
+    break-after: avoid;
+    text-wrap: balance;
+  }
+  h2:first-of-type { margin-top: 0; }
+
+  p { margin: 0 0 3.2mm; orphans: 2; widows: 2; }
+
+  ul, ol { margin: 0 0 3.5mm; padding-left: 6mm; }
+  li { margin-bottom: 1.4mm; }
+  li::marker { color: var(--muted); }
+
+  /* ---------- departures from prose ---------- */
+
+  figure { margin: 0 0 4.5mm; break-inside: avoid; }
+
+  figcaption {
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 8pt;
+    color: var(--muted);
+    margin-top: 1.6mm;
+    line-height: 1.45;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 9.3pt;
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  th {
+    text-align: left;
+    font-size: 7.6pt;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    padding: 0 4mm 1.6mm 0;
+    border-bottom: 0.9pt solid var(--ink);
+  }
+  td {
+    padding: 2mm 4mm 2mm 0;
+    border-bottom: 0.4pt solid var(--hairline);
+    vertical-align: top;
+    line-height: 1.4;
+  }
+  tr:last-child td { border-bottom: none; }
+
+  pre {
+    background: var(--code-bg);
+    border-left: 1.5pt solid var(--accent);
+    padding: 3mm 4mm;
+    margin: 0;
+    font-family: "Cascadia Mono", Consolas, "DejaVu Sans Mono", monospace;
+    font-size: 8.8pt;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    break-inside: avoid;
+  }
+
+  .example {
+    border: 0.5pt solid var(--rule);
+    border-radius: 1mm;
+    padding: 3.5mm 4.5mm 2mm;
+    margin: 0 0 4.5mm;
+    break-inside: avoid;
+  }
+  .example .label {
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 7.5pt;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.8mm;
+  }
+  .example .title {
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    font-size: 10pt;
+    margin-bottom: 2.4mm;
+  }
+  .example ol { margin-bottom: 1.5mm; padding-left: 5.5mm; }
+  .example li { font-size: 10pt; }
+
+  .check {
+    border-left: 1.5pt solid var(--muted);
+    padding: 0.5mm 0 0.5mm 4mm;
+    margin: 0 0 4.5mm;
+    break-inside: avoid;
+  }
+  .check .q { font-weight: 600; margin-bottom: 1.8mm; }
+  .check .a { color: var(--soft); font-size: 10.2pt; }
+  .check .a::before {
+    content: "→ ";
+    color: var(--muted);
+  }
+
+  .callout {
+    background: var(--code-bg);
+    border-left: 1.5pt solid var(--soft);
+    padding: 3mm 4mm;
+    margin: 0 0 4.5mm;
+    font-size: 10.2pt;
+    break-inside: avoid;
+  }
+  .callout.warning { background: var(--gap-bg); border-left-color: var(--gap); }
+  .callout .title {
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    font-size: 9pt;
+    margin-bottom: 1.4mm;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+
+  /* ---------- marked gaps ---------- */
+
+  .gaps { break-before: page; }
+  .gaps h2 { border-bottom-color: var(--gap); }
+  .gaps .lede { color: var(--soft); margin-bottom: 5mm; }
+
+  .gap {
+    border-top: 0.5pt solid var(--hairline);
+    padding: 3.5mm 0;
+    break-inside: avoid;
+  }
+  .gap:first-of-type { border-top: 0.9pt solid var(--gap); }
+  .gap .topic {
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    font-size: 10.5pt;
+    color: var(--gap);
+    margin-bottom: 1.8mm;
+  }
+  .gap .field { display: table; width: 100%; }
+  .gap .field .k, .gap .field .v { display: table-cell; padding-bottom: 1.2mm; }
+  .gap .field .k {
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 7.5pt;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    width: 32mm;
+    white-space: nowrap;
+    padding-right: 4mm;
+    vertical-align: baseline;
+  }
+  .gap .field .v { font-size: 10pt; color: var(--soft); line-height: 1.45; }
+
+  /* ---------- colophon ---------- */
+
+  .colophon {
+    margin-top: 10mm;
+    padding-top: 2.5mm;
+    border-top: 0.5pt solid var(--rule);
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 7.5pt;
+    color: var(--muted);
+    letter-spacing: 0.03em;
+  }
+</style>
+</head>
+<body>
+
+<div class="front">
+  <h1>{{ doc.title }}</h1>
+  {% if doc.subtitle %}<p class="subtitle">{{ doc.subtitle }}</p>{% endif %}
+  <div class="orient">
+    <div class="row"><div class="k">Assumes</div><div class="v">{{ doc.assumed_entry }}</div></div>
+    <div class="row"><div class="k">After this</div><div class="v">{{ doc.target_capability }}</div></div>
+  </div>
+</div>
+
+{% for section in doc.sections %}
+<section>
+  <h2>{{ section.heading }}</h2>
+  {% for b in section.blocks %}
+
+    {% if b.kind == "prose" %}
+      {% for para in b.text.split("\n\n") %}{% if para.strip() %}<p>{{ para.strip() | inline }}</p>{% endif %}{% endfor %}
+
+    {% elif b.kind == "list" %}
+      {% if b.ordered %}<ol>{% else %}<ul>{% endif %}
+        {% for item in b['items'] %}<li>{{ item | inline }}</li>{% endfor %}
+      {% if b.ordered %}</ol>{% else %}</ul>{% endif %}
+
+    {% elif b.kind == "code" %}
+      <figure>
+        <pre><code>{{ b.code }}</code></pre>
+        {% if b.caption %}<figcaption>{{ b.caption }}</figcaption>{% endif %}
+      </figure>
+
+    {% elif b.kind == "table" %}
+      <figure>
+        <table>
+          <thead><tr>{% for h in b.headers %}<th>{{ h }}</th>{% endfor %}</tr></thead>
+          <tbody>
+            {% for row in b.rows %}<tr>{% for cell in row %}<td>{{ cell | inline }}</td>{% endfor %}</tr>{% endfor %}
+          </tbody>
+        </table>
+        {% if b.caption %}<figcaption>{{ b.caption }}</figcaption>{% endif %}
+      </figure>
+
+    {% elif b.kind == "example" %}
+      <div class="example">
+        <div class="label">Worked example</div>
+        <div class="title">{{ b.title }}</div>
+        <ol>{% for step in b.steps %}<li>{{ step | denumber | inline }}</li>{% endfor %}</ol>
+      </div>
+
+    {% elif b.kind == "question" %}
+      <div class="check">
+        <div class="q">{{ b.prompt | inline }}</div>
+        <div class="a">{{ b.answer | inline }}</div>
+      </div>
+
+    {% elif b.kind == "callout" %}
+      <div class="callout {{ b.tone }}">
+        {% if b.title %}<div class="title">{{ b.title }}</div>{% endif %}
+        <p>{{ b.text | inline }}</p>
+      </div>
+
+    {% else %}
+      {# Rev. 3 instrument: a kind this template cannot draw used to render
+         as nothing at all. Silence is the failure that hid the dropped chips
+         blocks. Reported by the engine; invisible on paper. #}
+      <div class="unrendered" data-kind="{{ b.kind }}"{% if b.kind == "relation" %} data-relation="{{ b.relation }}"{% endif %} style="display:none"></div>
+    {% endif %}
+  {% endfor %}
+</section>
+{% endfor %}
+
+{% if doc.deliberate_omissions %}
+<section class="gaps">
+  <h2>What this deliberately leaves out</h2>
+  <p class="lede">Each of these was excluded on purpose. Warning about a missing
+  concept is not teaching it — treat this as a boundary, not a summary.</p>
+  {% for gap in doc.deliberate_omissions %}
+  <div class="gap">
+    <div class="topic">{{ gap.topic }}</div>
+    <div class="field">
+      <div class="k">Consequence</div><div class="v">{{ gap.consequence }}</div>
+    </div>
+    <div class="field">
+      <div class="k">Learn it before</div><div class="v">{{ gap.when_to_learn }}</div>
+    </div>
+  </div>
+  {% endfor %}
+</section>
+{% endif %}
+
+<div class="colophon">{{ colophon }}</div>
+
+</body>
+</html>

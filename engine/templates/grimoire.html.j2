@@ -1,0 +1,642 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{{ doc.title }}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=IM+Fell+English+SC&display=swap">
+<style>
+  /* A fourth template. Semantics §2: presentation only.
+
+     Parchment ground, ornamented rules, and a figure treatment sized so one
+     figure dominates the page it sits on. The block vocabulary is untouched --
+     this renders the same Document as study-notes, and neither may change what
+     it says. */
+
+  :root {
+    --parchment: #f2e6cd;
+    --parchment-2: #ece0c3;
+    --ink: #2e2114;
+    --ink-soft: #4a3826;
+    --oxblood: #6d2018;
+    --gold: #9a7226;
+    --gold-lit: #b8912f;
+    --rule: #c9b48b;
+    --rule-dark: #a8926a;
+  }
+
+  /* Full bleed, by the route night-lab measured: page margin zero so the ground
+     reaches the paper edge, with the vertical rhythm carried by a repeating
+     thead/tfoot. A parchment page with white margins is not a parchment page. */
+  @page { size: A4; margin: 0; }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0; padding: 0;
+    background:
+      radial-gradient(70% 50% at 20% 12%, rgba(255,250,238,.75) 0%, rgba(255,250,238,0) 60%),
+      radial-gradient(60% 45% at 85% 88%, rgba(170,140,90,.16) 0%, rgba(170,140,90,0) 62%),
+      var(--parchment);
+  }
+
+  body {
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 11.4pt;
+    line-height: 1.6;
+    color: var(--ink);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  p { margin: 0 0 3.6mm; text-align: justify; }
+  strong { font-weight: 600; color: var(--oxblood); }
+  em { color: var(--ink-soft); }
+  code {
+    font-family: "IM Fell English SC", Georgia, serif;
+    font-size: .94em;
+    color: var(--oxblood);
+    background: rgba(154,114,38,.10);
+    padding: .3mm 1.2mm;
+  }
+
+  table.sheet { width: 100%; border-collapse: collapse; }
+  table.sheet > thead > tr > td { height: 18mm; padding: 0; border: 0; }
+  table.sheet > tfoot > tr > td {
+    height: 16mm; padding: 0; border: 0;
+    text-align: center; vertical-align: middle;
+    color: var(--rule-dark); font-size: 10pt;
+  }
+  table.sheet > tbody > tr > td { padding: 0 22mm; border: 0; vertical-align: top; }
+
+  /* ---------------- cover ---------------- */
+
+  .cover {
+    position: relative;
+    height: 297mm;
+    padding: 38mm 26mm 24mm;
+    text-align: center;
+    background:
+      radial-gradient(75% 55% at 50% 30%, rgba(255,252,242,.85) 0%, rgba(255,252,242,0) 68%),
+      var(--parchment-2);
+  }
+  .cover .frame {
+    position: absolute; inset: 12mm;
+    border: .5mm double var(--rule-dark);
+  }
+  .cover .frame::after {
+    content: ""; position: absolute; inset: 2.5mm;
+    border: .2mm solid var(--rule);
+  }
+  .cover .content { position: relative; }
+  .cover .eyebrow {
+    font-family: "IM Fell English SC", serif;
+    font-size: 11pt; letter-spacing: .28em;
+    color: var(--gold);
+    margin-bottom: 10mm;
+  }
+  .cover h1 {
+    font-family: Cinzel, Georgia, serif;
+    font-size: 33pt; font-weight: 700; line-height: 1.18;
+    letter-spacing: .02em;
+    color: var(--oxblood);
+    margin: 0 0 8mm;
+  }
+  .cover h1 .tail { color: var(--gold); display: block; font-size: .72em; margin-top: 3mm; }
+  .cover .subtitle {
+    font-size: 13.5pt; font-style: italic; line-height: 1.6;
+    color: var(--ink-soft);
+    margin: 0 auto 12mm; max-width: 120mm;
+  }
+  .cover .chips {
+    display: flex; flex-wrap: wrap; gap: 3mm; justify-content: center;
+    margin-bottom: 14mm;
+  }
+  .cover .chip {
+    font-family: "IM Fell English SC", serif;
+    font-size: 9.6pt; letter-spacing: .08em;
+    padding: 1.8mm 4mm;
+    border: .25mm solid var(--rule-dark);
+    color: var(--ink-soft);
+    background: rgba(255,252,242,.55);
+  }
+  .cover .notes {
+    font-family: "IM Fell English SC", serif;
+    font-size: 10.4pt; line-height: 2; color: var(--gold);
+  }
+  .cover .footer {
+    position: absolute; left: 26mm; right: 26mm; bottom: 22mm;
+    display: flex; justify-content: space-between;
+    font-family: "IM Fell English SC", serif;
+    font-size: 9.4pt; letter-spacing: .14em;
+    color: var(--rule-dark);
+  }
+
+  /* ---------------- ornament ---------------- */
+
+  .flourish {
+    display: flex; align-items: center; gap: 4mm;
+    color: var(--rule-dark);
+    margin: 0 0 6mm;
+  }
+  .flourish::before, .flourish::after {
+    content: ""; flex: 1; height: .25mm; background: var(--rule);
+  }
+  .flourish span { font-size: 11pt; color: var(--gold); }
+
+  /* ---------------- page furniture ---------------- */
+
+  .runhead {
+    display: flex; justify-content: space-between;
+    font-family: "IM Fell English SC", serif;
+    font-size: 9.4pt; letter-spacing: .16em;
+    color: var(--rule-dark);
+    padding-bottom: 2.6mm;
+    border-bottom: .25mm solid var(--rule);
+    margin-bottom: 9mm;
+  }
+
+  .orient {
+    border: .25mm solid var(--rule-dark);
+    background: rgba(255,252,242,.5);
+    padding: 5mm 6mm;
+    margin-bottom: 10mm;
+    break-inside: avoid;
+  }
+  .orient .row { display: flex; gap: 5mm; margin-bottom: 2.6mm; }
+  .orient .row:last-child { margin-bottom: 0; }
+  .orient .k {
+    flex: 0 0 30mm;
+    font-family: "IM Fell English SC", serif;
+    font-size: 9.4pt; letter-spacing: .12em;
+    color: var(--gold);
+  }
+  .orient .v { flex: 1; font-size: 10.6pt; color: var(--ink-soft); }
+
+  section { margin-bottom: 10mm; }
+
+  .eyebrow-s {
+    font-family: "IM Fell English SC", serif;
+    font-size: 9.6pt; letter-spacing: .2em;
+    color: var(--gold);
+    margin-bottom: 1.6mm;
+  }
+  h2 {
+    font-family: Cinzel, Georgia, serif;
+    font-size: 17pt; font-weight: 600; line-height: 1.24;
+    color: var(--oxblood);
+    margin: 0 0 5mm;
+    padding-bottom: 3mm;
+    border-bottom: .4mm double var(--rule-dark);
+    break-after: avoid;
+  }
+  h2 .tail { color: var(--gold); }
+
+  /* An illuminated initial on the section's opening paragraph. */
+  h2 + p::first-letter {
+    font-family: Cinzel, Georgia, serif;
+    font-size: 30pt;
+    font-weight: 700;
+    color: var(--oxblood);
+    float: left;
+    line-height: .84;
+    padding: 1mm 2mm 0 0;
+  }
+
+  .subhead {
+    font-family: "IM Fell English SC", serif;
+    font-size: 10.4pt; letter-spacing: .16em;
+    color: var(--gold);
+    margin: 7mm 0 2.6mm;
+    break-after: avoid;
+  }
+  h3 {
+    font-family: Cinzel, Georgia, serif;
+    font-size: 12pt; font-weight: 600;
+    color: var(--ink);
+    margin: 7mm 0 2.6mm;
+    break-after: avoid;
+  }
+
+  .body-chips { display: flex; flex-wrap: wrap; gap: 2.6mm; margin: 0 0 6mm; }
+  .body-chips .chip {
+    font-family: "IM Fell English SC", serif;
+    font-size: 9.4pt;
+    padding: 1.4mm 3mm;
+    border: .25mm solid var(--rule-dark);
+    color: var(--ink-soft);
+  }
+
+  ul, ol { margin: 0 0 4.5mm; padding-left: 7mm; }
+  li { margin-bottom: 2mm; }
+  li::marker { color: var(--gold); }
+
+  /* ---------------- figures: hero treatment ---------------- */
+
+  /* Sized and spaced so a figure dominates the page it lands on rather than
+     sitting inside the text as an aside. `break-inside: avoid` keeps it whole. */
+  figure {
+    margin: 9mm 0 9mm;
+    padding: 7mm 6mm 5mm;
+    border-top: .4mm double var(--rule-dark);
+    border-bottom: .4mm double var(--rule-dark);
+    background: rgba(255,252,242,.45);
+    break-inside: avoid;
+  }
+  figcaption {
+    font-family: "IM Fell English SC", serif;
+    font-size: 9.8pt; line-height: 1.5;
+    color: var(--ink-soft);
+    text-align: center;
+    margin-top: 5mm;
+  }
+
+  pre {
+    background: rgba(255,252,242,.7);
+    border-left: .6mm solid var(--gold);
+    padding: 4.5mm 5mm;
+    margin: 0;
+    overflow-x: hidden;
+  }
+  pre code {
+    background: none; padding: 0;
+    font-family: "IM Fell English SC", Georgia, serif;
+    font-size: 9.4pt; line-height: 1.55;
+    color: var(--ink);
+  }
+
+  /* ---------------- relational realizations ---------------- */
+  /* Rev. 3 §2's honesty table, in this template's palette. `is-subset-of` gets
+     nested regions because nesting enforces the transitivity containment
+     claims; `precedes` keeps the layered flow. A relation with no realization
+     built is reported by the engine, never approximated. */
+
+  /* Rev. 3 §10 stage 2, the structural filter. Nested regions stay *honest* at
+     any depth -- nesting is what containment claims -- but past a handful of
+     levels the rings sit closer than a line of type and the labels collide.
+     That is a legibility disqualification, not a truth one, so the answer is
+     the next realization the honesty table permits for `is-subset-of`:
+     indented layers. Reporting nothing would drop a figure that can be drawn.
+     The threshold is uncalibrated -- Rev. 3 §13 has no principled line yet. */
+  .indent { display: flex; flex-direction: column; gap: 1.6mm; }
+  .indent .lvl { display: grid; grid-template-columns: 1fr 46mm; gap: 4mm; align-items: baseline; }
+  .indent .bar {
+    display: flex; align-items: center; gap: 2.4mm;
+    padding: 1.8mm 3mm;
+    border-left: 1mm solid;
+  }
+  .indent .nm { font-size: 9.6pt; }
+  .indent .nt { font-size: 8.6pt; line-height: 1.4; }
+
+  .euler { position: relative; width: 92mm; height: 92mm; margin: 0 auto; }
+  .euler .region {
+    position: absolute;
+    left: 50%; bottom: 0;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    border: .3mm solid rgba(46,33,20,.45);
+    display: flex; justify-content: center;
+  }
+  .euler .region .lbl {
+    font-family: "IM Fell English SC", serif;
+    font-size: 9.6pt;
+    color: var(--ink);
+    text-shadow: 0 0 1.4mm rgba(255,252,242,.9);
+    margin-top: 9%;
+    max-width: 62%;
+    line-height: 1.25;
+    text-align: center;
+  }
+  .euler-wrap { display: grid; grid-template-columns: 1fr 54mm; gap: 7mm; align-items: center; }
+  .euler-key { display: flex; flex-direction: column; gap: 3mm; }
+  .euler-key .row { display: flex; gap: 2.6mm; align-items: flex-start; }
+  .euler-key .dot { flex: 0 0 2.8mm; height: 2.8mm; border-radius: 50%; margin-top: 1.4mm;
+                    border: .2mm solid rgba(46,33,20,.35); }
+  .euler-key .txt { font-size: 9.6pt; line-height: 1.45; color: var(--ink-soft); }
+  .euler-key .txt b { font-family: "IM Fell English SC", serif; font-size: 9.6pt;
+                      font-weight: 400; color: var(--oxblood); }
+
+  .stack { display: flex; flex-direction: column; gap: 2.6mm; }
+  .stack .row { display: grid; grid-template-columns: 1fr 38mm; gap: 4mm; align-items: center; }
+  .stack .layer {
+    display: flex; align-items: center; justify-content: center;
+    justify-self: center;
+    padding: 3.4mm 5mm;
+    border: .25mm solid rgba(46,33,20,.4);
+    font-family: "IM Fell English SC", serif;
+    font-size: 9.8pt;
+    color: var(--ink);
+    text-align: center;
+  }
+  .stack .note { font-size: 9pt; line-height: 1.4; color: var(--ink-soft); text-align: left; }
+  .stack .row:nth-child(1) .layer { width: 46%; background: #e8d3a6; }
+  .stack .row:nth-child(2) .layer { width: 55%; background: #d9bd85; }
+  .stack .row:nth-child(3) .layer { width: 64%; background: #c7a163; }
+  .stack .row:nth-child(4) .layer { width: 73%; background: #b08847; }
+  .stack .row:nth-child(5) .layer { width: 82%; background: #9a7438; }
+  .stack .row:nth-child(6) .layer { width: 92%; background: #85602c; }
+  .stack .layer.emph { box-shadow: 0 0 0 .5mm var(--gold); }
+
+  /* `table-layout: fixed` is load-bearing, not tidiness. A table cell cannot
+     shrink below its content's minimum width, so a seven-column table pushed
+     the whole sheet wrapper 17px past the paper and Chromium rescaled every
+     page to 98% to compensate. Fixed layout makes the columns share what is
+     available and wrap instead. */
+  table:not(.sheet) {
+    width: 100%; border-collapse: collapse; table-layout: fixed;
+    font-size: 9.8pt; margin: 0;
+  }
+  table:not(.sheet) th, table:not(.sheet) td { overflow-wrap: break-word; }
+  th {
+    font-family: "IM Fell English SC", serif;
+    font-size: 9.8pt; letter-spacing: .1em;
+    color: var(--oxblood);
+    text-align: left;
+    padding: 2.8mm 3mm;
+    border-bottom: .4mm double var(--rule-dark);
+  }
+  td {
+    padding: 2.8mm 3mm;
+    border-bottom: .2mm solid var(--rule);
+    vertical-align: top;
+  }
+
+  .callout {
+    border: .25mm solid var(--rule-dark);
+    border-left: .8mm solid var(--gold);
+    background: rgba(255,252,242,.6);
+    padding: 4.5mm 5mm;
+    margin: 0 0 6mm;
+    break-inside: avoid;
+  }
+  .callout.warning { border-left-color: var(--oxblood); }
+  .callout .label {
+    font-family: "IM Fell English SC", serif;
+    font-size: 9.4pt; letter-spacing: .16em;
+    color: var(--gold);
+    margin-bottom: 2mm;
+  }
+  .callout.warning .label { color: var(--oxblood); }
+  .callout .title {
+    font-family: Cinzel, serif; font-size: 11pt; font-weight: 600;
+    color: var(--ink); margin-bottom: 1.8mm;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+
+  .example, .check {
+    border: .25mm solid var(--rule-dark);
+    background: rgba(255,252,242,.45);
+    padding: 4.5mm 5mm;
+    margin: 0 0 6mm;
+    break-inside: avoid;
+  }
+  .example .label, .check .label {
+    font-family: "IM Fell English SC", serif;
+    font-size: 9.4pt; letter-spacing: .16em;
+    color: var(--gold);
+    margin-bottom: 2.6mm;
+  }
+  .example .title {
+    font-family: Cinzel, serif; font-size: 11pt; font-weight: 600;
+    color: var(--oxblood); margin-bottom: 2.6mm;
+  }
+  .example ol { margin-bottom: 0; }
+  .check .q { margin-bottom: 2.2mm; }
+  .check .a { color: var(--oxblood); font-style: italic; }
+
+  .gaps { break-before: page; }
+  .gap { border-top: .25mm solid var(--rule); padding: 4.5mm 0; break-inside: avoid; }
+  .gap .topic {
+    font-family: Cinzel, serif; font-size: 11pt; font-weight: 600;
+    color: var(--oxblood); margin-bottom: 2mm;
+  }
+  .gap .k {
+    font-family: "IM Fell English SC", serif;
+    font-size: 9.4pt; letter-spacing: .1em; color: var(--gold);
+  }
+
+  .colophon {
+    margin-top: 12mm; padding-top: 3.5mm;
+    border-top: .25mm solid var(--rule);
+    font-family: "IM Fell English SC", serif;
+    font-size: 8.8pt; letter-spacing: .06em;
+    color: var(--rule-dark);
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+{# Ring fills for the nested-regions realization: outermost first. #}
+{% set RING_FILL = ["#e8d3a6","#d9bd85","#c7a163","#b08847","#96702f","#7c5a24"] %}
+{% set EMPH = "var(--gold-lit)" %}
+
+{% if doc.cover %}
+{% set c = doc.cover %}
+<div class="cover">
+  <div class="frame"></div>
+  <div class="content">
+    <div class="eyebrow">{{ c.eyebrow }}</div>
+    <h1>{{ c.title }}{% if c.title_tail %}<span class="tail">{{ c.title_tail }}</span>{% endif %}</h1>
+    {% if c.subtitle_lines %}
+    <p class="subtitle">
+      {% for line in c.subtitle_lines %}{{ line }}{% if not loop.last %}<br>{% endif %}{% endfor %}
+    </p>
+    {% endif %}
+    <div class="flourish"><span>&#10087;</span></div>
+    {% if c.chips %}
+    <div class="chips">
+      {% for chip in c.chips %}<span class="chip">{{ chip }}</span>{% endfor %}
+    </div>
+    {% endif %}
+    {% if c.notes %}
+    <div class="notes">
+      {% for note in c.notes %}{{ note | inline }}{% if not loop.last %}<br>{% endif %}{% endfor %}
+    </div>
+    {% endif %}
+  </div>
+  <div class="footer">
+    <span>{{ c.footer_left or "" }}</span>
+    <span>{{ c.footer_right or "" }}</span>
+  </div>
+</div>
+{% endif %}
+
+<table class="sheet">
+<thead><tr><td></td></tr></thead>
+<tfoot><tr><td>&#10087;</td></tr></tfoot>
+<tbody><tr><td>
+
+{% if doc.running_head_left or doc.running_head_right %}
+<div class="runhead">
+  <span>{{ doc.running_head_left or "" }}</span>
+  <span>{{ doc.running_head_right or "" }}</span>
+</div>
+{% endif %}
+
+{% if not doc.cover %}
+<h1 style="font-family:Cinzel,serif;font-size:24pt;font-weight:700;color:var(--oxblood);
+           margin:0 0 3mm;text-align:center;">{{ doc.title }}</h1>
+{% if doc.subtitle %}
+<p style="text-align:center;font-style:italic;color:var(--ink-soft);margin:0 0 9mm;">{{ doc.subtitle }}</p>
+{% endif %}
+{% endif %}
+
+<div class="orient">
+  <div class="row"><div class="k">This assumes</div><div class="v">{{ doc.assumed_entry }}</div></div>
+  <div class="row"><div class="k">Thereafter</div><div class="v">{{ doc.target_capability }}</div></div>
+</div>
+
+{% for section in doc.sections %}
+<section>
+  {% if section.eyebrow %}<div class="eyebrow-s">{{ section.eyebrow }}</div>{% endif %}
+  <h2>{{ section.heading }}{% if section.heading_tail %} <span class="tail">{{ section.heading_tail }}</span>{% endif %}</h2>
+
+  {% for b in section.blocks %}
+
+    {% if b.kind == "prose" %}
+      {% for para in b.text.split("\n\n") %}{% if para.strip() %}<p>{{ para.strip() | inline }}</p>{% endif %}{% endfor %}
+
+    {% elif b.kind == "subhead" %}
+      <div class="subhead">{{ b.label }}</div>
+
+    {% elif b.kind == "heading" %}
+      <h3>{{ b.text }}</h3>
+
+    {% elif b.kind == "chips" %}
+      <div class="body-chips">{% for chip in b['items'] %}<span class="chip">{{ chip }}</span>{% endfor %}</div>
+
+    {% elif b.kind == "list" %}
+      {% if b.ordered %}
+      <ol>{% for item in b['items'] %}<li>{{ item | inline }}</li>{% endfor %}</ol>
+      {% else %}
+      <ul>{% for item in b['items'] %}<li>{{ item | inline }}</li>{% endfor %}</ul>
+      {% endif %}
+
+    {% elif b.kind == "relation" and b.relation == "is-subset-of" %}
+      {% set NESTABLE = b.entities|length <= 6 %}
+      <figure data-relation="{{ b.relation }}"
+              data-realization="{{ "nested-regions" if NESTABLE else "indented-layers" }}">
+      {% if NESTABLE %}
+        <div class="euler-wrap">
+          <div class="euler">
+            {% for e in b.entities %}
+            <div class="region"
+                 style="width:{{ 100 - loop.index0 * (70 / (b.entities|length)) }}%;
+                        height:{{ 100 - loop.index0 * (70 / (b.entities|length)) }}%;
+                        background:{{ RING_FILL[loop.index0 % 6] }};
+                        {% if e.emphasis %}box-shadow:0 0 0 .5mm {{ EMPH }};{% endif %}">
+              <span class="lbl">{{ e.label }}</span>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="euler-key">
+            {% for e in b.entities %}
+            <div class="row">
+              <span class="dot" style="background:{{ RING_FILL[loop.index0 % 6] }}"></span>
+              <span class="txt"><b>{{ e.label }}</b>{% if e.note %}<br>{{ e.note }}{% endif %}</span>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% else %}
+        <div class="indent">
+          {% for e in b.entities %}
+          <div class="lvl">
+            <div class="bar"
+                 style="margin-left:{{ loop.index0 * 5 }}mm;
+                        border-left-color:{{ RING_FILL[loop.index0 % 6] }};
+                        background:{{ RING_FILL[loop.index0 % 6] }}33;
+                        {% if e.emphasis %}box-shadow:0 0 0 .4mm {{ EMPH }};{% endif %}">
+              <span class="nm">{{ e.label }}</span>
+            </div>
+            <span class="nt">{% if e.note %}{{ e.note }}{% endif %}</span>
+          </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+        {% if b.caption %}<figcaption>{{ b.caption }}</figcaption>{% endif %}
+      </figure>
+
+    {% elif b.kind == "relation" and b.relation == "precedes" %}
+      <figure data-relation="{{ b.relation }}" data-realization="layered-flow">
+        <div class="stack">
+          {% for e in b.entities | reverse %}
+          <div class="row">
+            <div class="layer{% if e.emphasis %} emph{% endif %}">{{ e.label }}</div>
+            <span class="note">{% if e.note %}{{ e.note }}{% endif %}</span>
+          </div>
+          {% endfor %}
+        </div>
+        {% if b.caption %}<figcaption>{{ b.caption }}</figcaption>{% endif %}
+      </figure>
+
+    {% elif b.kind == "code" %}
+      <figure>
+        <pre><code>{{ b.code }}</code></pre>
+        {% if b.caption %}<figcaption>{{ b.caption }}</figcaption>{% endif %}
+      </figure>
+
+    {% elif b.kind == "table" %}
+      <figure>
+        <table>
+          <thead><tr>{% for h in b.headers %}<th>{{ h }}</th>{% endfor %}</tr></thead>
+          <tbody>
+            {% for row in b.rows %}
+            <tr>{% for cell in row %}<td>{{ cell | inline }}</td>{% endfor %}</tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% if b.caption %}<figcaption>{{ b.caption }}</figcaption>{% endif %}
+      </figure>
+
+    {% elif b.kind == "callout" %}
+      <div class="callout {{ b.tone }}">
+        {% if b.label %}<div class="label">{{ b.label }}</div>{% endif %}
+        {% if b.title %}<div class="title">{{ b.title }}</div>{% endif %}
+        <p>{{ b.text | inline }}</p>
+      </div>
+
+    {% elif b.kind == "example" %}
+      <div class="example">
+        <div class="label">Worked passage</div>
+        <div class="title">{{ b.title }}</div>
+        <ol>{% for step in b.steps %}<li>{{ step | denumber | inline }}</li>{% endfor %}</ol>
+      </div>
+
+    {% elif b.kind == "question" %}
+      <div class="check">
+        <div class="label">Examination</div>
+        <div class="q">{{ b.prompt | inline }}</div>
+        <div class="a">{{ b.answer | inline }}</div>
+      </div>
+
+    {% else %}
+      {# Rev. 3 instrument: a kind this template cannot draw used to render as
+         nothing at all. Reported by the engine; invisible on paper. #}
+      <div class="unrendered" data-kind="{{ b.kind }}"{% if b.kind == "relation" %} data-relation="{{ b.relation }}"{% endif %} style="display:none"></div>
+    {% endif %}
+  {% endfor %}
+</section>
+{% endfor %}
+
+{% if doc.deliberate_omissions %}
+<section class="gaps">
+  <h2>Left out of this volume</h2>
+  {% for gap in doc.deliberate_omissions %}
+  <div class="gap">
+    <div class="topic">{{ gap.topic }}</div>
+    <div><span class="k">Consequence</span> &nbsp; {{ gap.consequence }}</div>
+    <div><span class="k">Learn it before</span> &nbsp; {{ gap.when_to_learn }}</div>
+  </div>
+  {% endfor %}
+</section>
+{% endif %}
+
+{% if colophon %}<div class="colophon">{{ colophon }}</div>{% endif %}
+
+</td></tr></tbody>
+</table>
+
+</body>
+</html>

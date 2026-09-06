@@ -1,0 +1,674 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{{ doc.title }}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  /* A second template. Semantics §2: a template constrains presentation, never
+     content -- the blocks below are the same blocks study-notes renders, in a
+     different visual language. */
+
+  :root {
+    --paper:      #f4f3fd;
+    --ink:        #1d1b4b;
+    --body:       #2f2d55;
+    --violet:     #4a35d6;
+    --violet-dim: #6b5ce0;
+    --hairline:   #dedcf3;
+    --rule:       #cbc8ec;
+    --chip-bg:    #ffffff;
+    --code-bg:    #e8e6fa;
+    --concept-bg: #e9edfb;
+    --cover-1:    #1b1259;
+    --cover-2:    #241a6e;
+    --cover-3:    #14235e;
+    --cyan:       #35d0e8;
+    --cover-dim:  #9d97d8;
+  }
+
+  @page {
+    size: A4;
+    margin: 18mm 20mm 16mm 20mm;
+  }
+  @page :first { margin: 0; }
+
+  * { box-sizing: border-box; }
+
+  /* NOTE: a full-bleed page tint is NOT achievable here. Chromium neither
+     propagates html/body background into the @page margin area nor lets a
+     position:fixed layer escape the content box when printing. The cover works
+     only because @page :first sets margin 0. A paged-media engine (WeasyPrint,
+     Prince) paints @page backgrounds natively; this is the first observed cost
+     of System Design §3 choosing Chromium to satisfy the geometry invariant. */
+  html, body { margin: 0; padding: 0; }
+
+  body {
+    font-family: Poppins, "Segoe UI", Helvetica, sans-serif;
+    font-size: 10.2pt;
+    line-height: 1.58;
+    color: var(--body);
+    background: var(--paper);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  code, .mono {
+    font-family: "JetBrains Mono", Consolas, monospace;
+  }
+
+  /* ---------------- cover ---------------- */
+
+  .cover {
+    position: relative;
+    width: 100%;
+    height: 297mm;
+    padding: 34mm 24mm 18mm;
+    background:
+      radial-gradient(80% 55% at 82% 8%, rgba(53,208,232,.14) 0%, rgba(53,208,232,0) 60%),
+      radial-gradient(70% 50% at 12% 78%, rgba(120,80,220,.20) 0%, rgba(120,80,220,0) 62%),
+      linear-gradient(150deg, var(--cover-3) 0%, var(--cover-1) 42%, var(--cover-2) 100%);
+    color: #fff;
+    overflow: hidden;
+    break-after: page;
+  }
+
+  .cover .circuit {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .cover .content { position: relative; }
+
+  .cover .eyebrow {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 8.4pt;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--cover-dim);
+    margin-bottom: 16mm;
+  }
+
+  .cover .label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9.4pt;
+    font-weight: 700;
+    letter-spacing: .3em;
+    color: var(--cyan);
+    margin-bottom: 4mm;
+  }
+
+  .cover h1 {
+    font-size: 40pt;
+    font-weight: 700;
+    line-height: 1.03;
+    letter-spacing: -.02em;
+    margin: 0 0 6mm;
+  }
+  .cover h1 .tail { color: var(--cyan); }
+
+  .cover .subtitle {
+    font-size: 13pt;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #d8d5f2;
+    margin: 0 0 14mm;
+  }
+
+  .cover .chips { display: flex; flex-wrap: wrap; gap: 3mm; margin-bottom: 14mm; }
+  .cover .chip {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 8.6pt;
+    padding: 2.4mm 4mm;
+    border: .35mm solid rgba(53,208,232,.45);
+    border-radius: 1.4mm;
+    color: #bfeef7;
+    background: rgba(53,208,232,.06);
+    white-space: nowrap;
+  }
+  .cover .chip:nth-child(5n) {
+    border-color: rgba(150,110,255,.55);
+    color: #d3c4ff;
+    background: rgba(150,110,255,.10);
+  }
+
+  .cover .notes { font-size: 11pt; color: #cfcbee; line-height: 1.7; }
+
+  .cover .footer {
+    position: absolute;
+    left: 24mm; right: 24mm; bottom: 16mm;
+  }
+  .cover .footer .rule {
+    height: .5mm;
+    background: linear-gradient(90deg, var(--cyan), #7a5cf0 55%, rgba(122,92,240,0));
+    margin-bottom: 5mm;
+  }
+  .cover .footer .row {
+    display: flex; justify-content: space-between;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 8.4pt;
+    color: #8f88cf;
+  }
+
+  /* ---------------- running head / foot ---------------- */
+
+  .runhead {
+    display: flex; justify-content: space-between;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 8pt;
+    font-weight: 500;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: #8f8bbe;
+    margin-bottom: 11mm;
+  }
+
+  /* ---------------- sections ---------------- */
+
+  section { margin-bottom: 7mm; }
+
+  .eyebrow-s {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 8.4pt;
+    font-weight: 700;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--violet);
+    margin-bottom: 3mm;
+    break-after: avoid;
+  }
+
+  h2 {
+    font-size: 25pt;
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -.02em;
+    color: var(--ink);
+    margin: 0 0 5mm;
+    break-after: avoid;
+  }
+  h2 .tail { color: var(--violet); }
+
+  h3 {
+    font-size: 14pt;
+    font-weight: 600;
+    color: var(--violet);
+    margin: 8mm 0 3mm;
+    break-after: avoid;
+  }
+
+  /* Body chips. The only .chip rules were scoped to `.cover`, so a chips block
+     inside a section rendered as unstyled spans running into one another. */
+  .body-chips { display: flex; flex-wrap: wrap; gap: 2.5mm; margin: 0 0 5mm; }
+  .body-chips .chip {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 7.6pt;
+    padding: 1.6mm 3mm;
+    border: 0.3mm solid var(--violet-dim);
+    border-radius: 1.2mm;
+    color: var(--violet-dim);
+  }
+
+  .subhead {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 8.4pt;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--violet-dim);
+    margin: 5.5mm 0 2.6mm;
+    break-after: avoid;
+  }
+
+  p { margin: 0 0 3.2mm; orphans: 2; widows: 2; }
+
+  code {
+    background: var(--code-bg);
+    color: var(--ink);
+    padding: .5mm 1.6mm;
+    border-radius: .8mm;
+    font-size: .88em;
+  }
+
+  strong { font-weight: 600; color: var(--ink); }
+
+  /* arrow list with hairline separators */
+  ul.arrow { list-style: none; margin: 0 0 5mm; padding: 0; }
+  ul.arrow li {
+    display: flex; gap: 3.5mm;
+    padding: 2.1mm 0;
+    border-bottom: .25mm solid var(--hairline);
+    break-inside: avoid;
+  }
+  ul.arrow li:last-child { border-bottom: none; }
+  ul.arrow li::before {
+    content: "\2192";
+    color: #17b8a6;
+    font-weight: 700;
+    flex: none;
+  }
+
+  ul.plain { margin: 0 0 4mm; padding-left: 5mm; }
+  ul.plain li { margin-bottom: 1.4mm; }
+  ol { margin: 0 0 4mm; padding-left: 5.5mm; }
+
+  hr.divider {
+    border: 0;
+    border-top: .3mm solid var(--rule);
+    margin: 9mm 0;
+  }
+
+  /* ---------------- stack diagram ---------------- */
+
+  figure { margin: 0 0 6mm; break-inside: avoid; }
+
+  /* The stack is inset from the text column so the marginal notes have room.
+     A note that overflows the page width makes Chromium shrink-to-fit the
+     ENTIRE document -- it cost this template 9% of its cover before the
+     overflow guard in render.py existed to catch it. */
+  .stack { display: flex; flex-direction: column; gap: 2.2mm; }
+
+  /* Each layer is a row: the bar centred in the left column, its marginal note
+     in a fixed gutter on the right. The note used to be absolutely positioned
+     with `white-space: nowrap`, which let a long one run clean off the paper --
+     and Chromium's answer to that is to shrink-to-fit the WHOLE document, so
+     one long note silently rescaled every page. In a grid row the note wraps
+     inside the gutter and the row grows to hold it. */
+  .stack .row {
+    display: grid;
+    grid-template-columns: 1fr 36mm;
+    gap: 3mm;
+    align-items: center;
+  }
+  .stack .layer {
+    display: flex; align-items: center; justify-content: center;
+    justify-self: center;
+    border-radius: 1.6mm;
+    padding: 3mm 5mm;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 8pt;
+    color: #fff;
+    text-align: center;
+  }
+  .stack .note {
+    font-size: 7.2pt;
+    line-height: 1.35;
+    color: #8f8bbe;
+    text-align: left;
+  }
+  .stack .row:nth-child(1) .layer { width: 46%; background: #8b5cf6; }
+  .stack .row:nth-child(2) .layer { width: 55%; background: #7c4dee; }
+  .stack .row:nth-child(3) .layer { width: 64%; background: #5b3ce0; }
+  .stack .row:nth-child(4) .layer { width: 73%; background: #4a35d6; }
+  .stack .row:nth-child(5) .layer { width: 82%; background: #2e2496; }
+  .stack .row:nth-child(6) .layer { width: 92%; background: #171246; }
+  .stack .layer.emph { color: var(--cyan); font-weight: 700; }
+
+  figcaption {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 8.4pt;
+    color: #8f8bbe;
+    text-align: center;
+    margin-top: 4mm;
+  }
+
+  /* ---------------- callout ---------------- */
+
+  .callout {
+    background: var(--concept-bg);
+    border-left: 1mm solid var(--violet);
+    border-radius: 0 1.4mm 1.4mm 0;
+    padding: 5mm 6mm;
+    margin: 0 0 6mm;
+    break-inside: avoid;
+  }
+  .callout.warning { background: #fdeceb; border-left-color: #c0392b; }
+  .callout .label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 8.2pt;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--violet);
+    margin-bottom: 2.4mm;
+  }
+  .callout .title { font-weight: 600; color: var(--ink); margin-bottom: 1.6mm; }
+  .callout p:last-child { margin-bottom: 0; }
+
+  /* ---------------- code, table, example, check ---------------- */
+
+  pre {
+    background: #ffffff;
+    border: .25mm solid var(--hairline);
+    border-left: 1mm solid var(--violet);
+    border-radius: 0 1.4mm 1.4mm 0;
+    padding: 4mm 5mm;
+    margin: 0 0 5mm;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 8.6pt;
+    line-height: 1.55;
+    white-space: pre-wrap;
+    break-inside: avoid;
+  }
+
+
+  /* ---------------- relational realizations ---------------- */
+  /* Which geometry a relation may use is Rev. 3 §2's honesty table, not taste.
+     `is-subset-of` gets nested regions because nesting *enforces* transitivity:
+     you cannot draw C inside B inside A without also drawing C inside A, which
+     is exactly what containment claims. A layered stack claims "sits on top of"
+     and was false here. Relations with no realization built are reported by the
+     engine, never approximated with a geometry that answers a different claim. */
+
+  /* Rev. 3 §10 stage 2, the structural filter. Nested regions stay *honest* at
+     any depth -- nesting is what containment claims -- but past a handful of
+     levels the rings sit closer than a line of type and the labels collide.
+     That is a legibility disqualification, not a truth one, so the answer is
+     the next realization the honesty table permits for `is-subset-of`:
+     indented layers. Reporting nothing would drop a figure that can be drawn.
+     The threshold is uncalibrated -- Rev. 3 §13 has no principled line yet. */
+  .indent { display: flex; flex-direction: column; gap: 1.6mm; }
+  .indent .lvl { display: grid; grid-template-columns: 1fr 46mm; gap: 4mm; align-items: baseline; }
+  .indent .bar {
+    display: flex; align-items: center; gap: 2.4mm;
+    padding: 1.8mm 3mm;
+    border-left: 1mm solid;
+  }
+  .indent .nm { font-size: 9.6pt; }
+  .indent .nt { font-size: 8.6pt; line-height: 1.4; }
+
+  .euler { position: relative; width: 78mm; height: 78mm; margin: 0 auto; }
+  .euler .region {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    border: .3mm solid rgba(255,255,255,.55);
+    display: flex;
+    justify-content: center;
+  }
+  .euler .region .lbl {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 8pt;
+    font-weight: 600;
+    color: #ffffff;
+    /* Percentage margin resolves against the region's width, and the regions
+       are square, so this places every label at the same relative depth --
+       where the chord is wide enough to hold it. At the very top of the arc a
+       long label spills outside its own circle and reads as belonging to none. */
+    margin-top: 9%;
+    max-width: 62%;
+    line-height: 1.25;
+    text-align: center;
+  }
+  .euler-key { display: flex; flex-direction: column; gap: 2.2mm; }
+  .euler-key .row { display: flex; gap: 2.4mm; align-items: flex-start; }
+  .euler-key .dot {
+    flex: 0 0 2.6mm; height: 2.6mm; border-radius: 50%; margin-top: 1mm;
+  }
+  .euler-key .txt { font-size: 8pt; line-height: 1.4; color: #4a4668; }
+  .euler-key .txt b { font-family: "JetBrains Mono", monospace; font-size: 7.6pt; color: var(--ink); }
+  .euler-wrap { display: grid; grid-template-columns: 1fr 52mm; gap: 6mm; align-items: center; }
+
+  table { border-collapse: collapse; width: 100%; font-size: 9.4pt; }
+  th {
+    text-align: left;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 7.8pt;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--violet-dim);
+    padding: 0 4mm 2mm 0;
+    border-bottom: .4mm solid var(--violet);
+  }
+  td {
+    padding: 2.4mm 4mm 2.4mm 0;
+    border-bottom: .25mm solid var(--hairline);
+    vertical-align: top;
+  }
+
+  .example, .check {
+    border: .25mm solid var(--hairline);
+    background: #fff;
+    border-radius: 1.4mm;
+    padding: 4mm 5mm;
+    margin: 0 0 5mm;
+    break-inside: avoid;
+  }
+  .example .label, .check .label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 8pt;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--violet);
+    margin-bottom: 2.4mm;
+  }
+  .example .title { font-weight: 600; color: var(--ink); margin-bottom: 2mm; }
+  .check .a { color: var(--violet-dim); }
+
+  /* ---------------- gaps ---------------- */
+
+  .gaps { break-before: page; }
+  .gap { border-top: .25mm solid var(--hairline); padding: 4mm 0; break-inside: avoid; }
+  .gap .topic { font-weight: 600; color: #c0392b; margin-bottom: 2mm; }
+  .gap .k {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 7.6pt; letter-spacing: .12em; text-transform: uppercase;
+    color: #8f8bbe;
+  }
+</style>
+</head>
+<body>
+{# Ring fills for the nested-regions realization: outermost first. #}
+{% set RING_FILL = ["#4a35d6","#5b3ce0","#7c4dee","#8b5cf6","#a78bfa","#c4b5fd"] %}
+{% set EMPH = "var(--cyan)" %}
+
+{% if doc.cover %}
+{% set c = doc.cover %}
+<div class="cover">
+  <svg class="circuit" viewBox="0 0 210 297" preserveAspectRatio="none">
+    <g fill="none" stroke="#6f66d8" stroke-width="0.22" opacity="0.5">
+      <path d="M20 24 L20 62 L120 62 L120 84 L178 84 L178 148"/>
+      <path d="M92 112 L145 112 L145 168 L196 168"/>
+      <path d="M14 176 L50 176 L50 140 L128 140 L128 196 L162 196 L162 232"/>
+      <path d="M36 210 L70 210 L70 258 L136 258"/>
+      <path d="M120 56 L120 40 L186 40"/>
+    </g>
+    <g fill="#35d0e8" opacity="0.55">
+      <circle cx="120" cy="56" r="1.1"/><circle cx="178" cy="84" r="1.1"/>
+      <circle cx="92" cy="112" r="1.1"/><circle cx="14" cy="176" r="1.1"/>
+      <circle cx="70" cy="238" r="1.1"/><circle cx="128" cy="140" r="1.1"/>
+    </g>
+  </svg>
+
+  <div class="content">
+    <div class="eyebrow">{{ c.eyebrow }}</div>
+    {% if c.label %}<div class="label">{{ c.label }}</div>{% endif %}
+    <h1>{{ c.title }}{% if c.title_tail %} <span class="tail">{{ c.title_tail }}</span>{% endif %}</h1>
+    {% if c.subtitle_lines %}
+    <p class="subtitle">
+      {% for line in c.subtitle_lines %}{{ line }}{% if not loop.last %}<br>{% endif %}{% endfor %}
+    </p>
+    {% endif %}
+    {% if c.chips %}
+    <div class="chips">
+      {% for chip in c.chips %}<span class="chip">{{ chip }}</span>{% endfor %}
+    </div>
+    {% endif %}
+    {% if c.notes %}
+    <div class="notes">
+      {% for note in c.notes %}{{ note | inline }}{% if not loop.last %}<br>{% endif %}{% endfor %}
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="footer">
+    <div class="rule"></div>
+    <div class="row">
+      <span>{{ c.footer_left or "" }}</span>
+      <span>{{ c.footer_right or "" }}</span>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% if doc.running_head_left or doc.running_head_right %}
+<div class="runhead">
+  <span>{{ doc.running_head_left or "" }}</span>
+  <span>{{ doc.running_head_right or "" }}</span>
+</div>
+{% endif %}
+
+{% for section in doc.sections %}
+<section>
+  {% if section.eyebrow %}<div class="eyebrow-s">{{ section.eyebrow }}</div>{% endif %}
+  <h2>{{ section.heading }}{% if section.heading_tail %} <span class="tail">{{ section.heading_tail }}</span>{% endif %}</h2>
+
+  {% for b in section.blocks %}
+
+    {% if b.kind == "prose" %}
+      {% for para in b.text.split("\n\n") %}{% if para.strip() %}<p>{{ para.strip() | inline }}</p>{% endif %}{% endfor %}
+
+    {% elif b.kind == "subhead" %}
+      <div class="subhead">{{ b.label }}</div>
+
+    {% elif b.kind == "heading" %}
+      <h3>{{ b.text }}</h3>
+
+    {% elif b.kind == "chips" %}
+      <div class="body-chips">{% for chip in b['items'] %}<span class="chip">{{ chip }}</span>{% endfor %}</div>
+
+    {% elif b.kind == "list" %}
+      {% if b.ordered %}
+        <ol>{% for item in b['items'] %}<li>{{ item | inline }}</li>{% endfor %}</ol>
+      {% else %}
+        <ul class="arrow">{% for item in b['items'] %}<li><span>{{ item | inline }}</span></li>{% endfor %}</ul>
+      {% endif %}
+
+    {% elif b.kind == "relation" and b.relation == "is-subset-of" %}
+      {% set NESTABLE = b.entities|length <= 6 %}
+      <figure data-relation="{{ b.relation }}"
+              data-realization="{{ "nested-regions" if NESTABLE else "indented-layers" }}">
+      {% if NESTABLE %}
+        <div class="euler-wrap">
+          <div class="euler">
+            {% for e in b.entities %}
+            <div class="region"
+                 style="width:{{ 100 - loop.index0 * (70 / (b.entities|length)) }}%;
+                        height:{{ 100 - loop.index0 * (70 / (b.entities|length)) }}%;
+                        background:{{ RING_FILL[loop.index0 % 6] }};
+                        {% if e.emphasis %}box-shadow:0 0 0 .5mm {{ EMPH }};{% endif %}">
+              <span class="lbl">{{ e.label }}</span>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="euler-key">
+            {% for e in b.entities %}
+            <div class="row">
+              <span class="dot" style="background:{{ RING_FILL[loop.index0 % 6] }}"></span>
+              <span class="txt"><b>{{ e.label }}</b>{% if e.note %}<br>{{ e.note }}{% endif %}</span>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% else %}
+        <div class="indent">
+          {% for e in b.entities %}
+          <div class="lvl">
+            <div class="bar"
+                 style="margin-left:{{ loop.index0 * 5 }}mm;
+                        border-left-color:{{ RING_FILL[loop.index0 % 6] }};
+                        background:{{ RING_FILL[loop.index0 % 6] }}33;
+                        {% if e.emphasis %}box-shadow:0 0 0 .4mm {{ EMPH }};{% endif %}">
+              <span class="nm">{{ e.label }}</span>
+            </div>
+            <span class="nt">{% if e.note %}{{ e.note }}{% endif %}</span>
+          </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+        {% if b.caption %}<figcaption>{{ b.caption }}</figcaption>{% endif %}
+      </figure>
+
+    {% elif b.kind == "relation" and b.relation == "precedes" %}
+      {# Unchanged realization, deliberately: this change replaces the geometry's
+         NAME with the relation's, it does not redesign the flow. #}
+      <figure data-relation="{{ b.relation }}" data-realization="layered-flow">
+        <div class="stack">
+          {% for e in b.entities | reverse %}
+          <div class="row">
+            <div class="layer{% if e.emphasis %} emph{% endif %}">{{ e.label }}</div>
+            <span class="note">{% if e.note %}{{ e.note }}{% endif %}</span>
+          </div>
+          {% endfor %}
+        </div>
+        {% if b.caption %}<figcaption>{{ b.caption }}</figcaption>{% endif %}
+      </figure>
+
+    {% elif b.kind == "callout" %}
+      <div class="callout {{ b.tone }}">
+        {% if b.label %}<div class="label">{{ b.label }}</div>{% endif %}
+        {% if b.title %}<div class="title">{{ b.title }}</div>{% endif %}
+        <p>{{ b.text | inline }}</p>
+      </div>
+
+    {% elif b.kind == "code" %}
+      <figure>
+        <pre><code>{{ b.code }}</code></pre>
+        {% if b.caption %}<figcaption>{{ b.caption }}</figcaption>{% endif %}
+      </figure>
+
+    {% elif b.kind == "table" %}
+      <figure>
+        <table>
+          <thead><tr>{% for h in b.headers %}<th>{{ h }}</th>{% endfor %}</tr></thead>
+          <tbody>{% for row in b.rows %}<tr>{% for cell in row %}<td>{{ cell | inline }}</td>{% endfor %}</tr>{% endfor %}</tbody>
+        </table>
+        {% if b.caption %}<figcaption>{{ b.caption }}</figcaption>{% endif %}
+      </figure>
+
+    {% elif b.kind == "example" %}
+      <div class="example">
+        <div class="label">Worked example</div>
+        <div class="title">{{ b.title }}</div>
+        <ol>{% for step in b.steps %}<li>{{ step | denumber | inline }}</li>{% endfor %}</ol>
+      </div>
+
+    {% elif b.kind == "question" %}
+      <div class="check">
+        <div class="label">Check</div>
+        <div class="title">{{ b.prompt }}</div>
+        <div class="a">{{ b.answer | inline }}</div>
+      </div>
+
+    {% else %}
+      {# Rev. 3 instrument: a kind this template cannot draw used to render
+         as nothing at all. Silence is the failure that hid the dropped chips
+         blocks. Reported by the engine; invisible on paper. #}
+      <div class="unrendered" data-kind="{{ b.kind }}"{% if b.kind == "relation" %} data-relation="{{ b.relation }}"{% endif %} style="display:none"></div>
+{% endif %}
+  {% endfor %}
+</section>
+{% endfor %}
+
+{% if doc.deliberate_omissions %}
+<section class="gaps">
+  <div class="eyebrow-s">Boundaries</div>
+  <h2>What this deliberately <span class="tail">leaves out</span></h2>
+  {% for gap in doc.deliberate_omissions %}
+  <div class="gap">
+    <div class="topic">{{ gap.topic }}</div>
+    <div><span class="k">Consequence</span> &nbsp; {{ gap.consequence }}</div>
+    <div><span class="k">Learn it before</span> &nbsp; {{ gap.when_to_learn }}</div>
+  </div>
+  {% endfor %}
+</section>
+{% endif %}
+
+</body>
+</html>
