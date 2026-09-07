@@ -90,13 +90,24 @@ POLICY: dict[AxisName, AxisPolicy] = {
         because="Semantics §1 — binding. It fixes what may be assumed, and "
         "assuming wrongly is not recoverable by any later decision.",
     ),
-    "target_capability": AxisPolicy(
+    "artifact_type": AxisPolicy(
         askable=True,
         blocking=False,
         prerequisite=False,
         priority=3,
+        because="Semantics §1 — user-set and binding. §2 uses long notes vs short "
+        "notes as its own example of two presets over one job that produce "
+        "materially different plans. Often established by the wording ('quick "
+        "revision sheet', 'detailed notes'), so inferred far more often than asked.",
+    ),
+    "target_capability": AxisPolicy(
+        askable=True,
+        blocking=False,
+        prerequisite=False,
+        priority=4,
         because="Semantics §2 LOCKED — a useful follow-up, but the target may not "
-        "exist yet and that is a legitimate state. Asked, never blocking.",
+        "exist yet and that is a legitimate state; §1 also notes it is often "
+        "implied by purpose. Asked last of the four, never blocking.",
     ),
     "capacity": AxisPolicy(
         askable=False,
@@ -113,14 +124,6 @@ POLICY: dict[AxisName, AxisPolicy] = {
         prerequisite=False,
         priority=91,
         because="Semantics §1 — biasing, not binding. A default is always defensible.",
-    ),
-    "artifact_type": AxisPolicy(
-        askable=False,
-        blocking=False,
-        prerequisite=False,
-        priority=92,
-        because="Semantics §2 — a preset over a job. The system derives the job; "
-        "the preset has a sane default.",
     ),
     "template": AxisPolicy(
         askable=False,
@@ -243,7 +246,29 @@ class Sufficiency:
 # The decider
 # ---------------------------------------------------------------------------
 
-DEFAULT_BUDGET = 2
+# A ceiling on one turn, not a target and not a definition of readiness.
+# Sufficiency decides how many questions actually appear; this only bounds a
+# model that marks everything material. Set to the number of askable axes so a
+# genuinely bare request can be resolved in ONE turn rather than several --
+# fewest conversational turns is the goal, not fewest questions.
+DEFAULT_BUDGET = 4
+
+
+STRENGTH_RANK = {"unknown": 0, "guessed": 1, "inferred": 2, "stated": 3}
+
+
+def improved(before: "Sufficiency | None", after: "Sufficiency") -> bool:
+    """Did the last answer move any axis forward?
+
+    Sufficiency, not a turn count, decides when to stop asking. But a model that
+    keeps asking about an axis the user has now answered would loop forever, so
+    the second exit is *no progress*: if nothing strengthened, asking again will
+    not help and the plan is derived on what is known.
+    """
+    if before is None:
+        return True
+    old = {a.axis: STRENGTH_RANK[a.strength] for a in before.axes}
+    return any(STRENGTH_RANK[a.strength] > old.get(a.axis, -1) for a in after.axes)
 
 
 def decide(
@@ -337,17 +362,39 @@ def _verify(spans: list[Span], utterances: list[str]) -> tuple[tuple[Span, ...],
     verified: list[Span] = []
     unverified: list[str] = []
     for span in spans:
-        if 0 <= span.utterance_ord < len(utterances) and _contains(
-            utterances[span.utterance_ord], span.quote
-        ):
+        text = (
+            utterances[span.utterance_ord]
+            if 0 <= span.utterance_ord < len(utterances)
+            else None
+        )
+        if text is not None and _contains(text, span.quote) and _discriminating(text, span.quote):
             verified.append(span)
         else:
             unverified.append(span.quote)
     return tuple(verified), tuple(unverified)
 
 
+# A span that quotes nearly the whole utterance points at nothing in particular.
+# Observed: for "i need notes on signal and system" the model cited "need notes
+# on signal and system" as support for purpose, entry point AND target -- all
+# three resolved, all three read as `inferred`, and nothing was asked. Evidence
+# that supports every reading equally is evidence for none of them.
+#
+# Only applied to utterances long enough for the choice to mean something: a
+# two-word answer legitimately IS the whole evidence for what it answers.
+_DISCRIMINATING_MIN_WORDS = 5
+_DISCRIMINATING_MAX_SHARE = 0.7
+
+
 def _contains(text: str, quote: str) -> bool:
     return bool(quote.strip()) and quote.strip().casefold() in text.casefold()
+
+
+def _discriminating(text: str, quote: str) -> bool:
+    whole = len(text.split())
+    if whole < _DISCRIMINATING_MIN_WORDS:
+        return True
+    return len(quote.split()) / whole <= _DISCRIMINATING_MAX_SHARE
 
 
 def _strength(reading: AxisReading, verified: tuple[Span, ...]) -> Strength:
@@ -399,4 +446,32 @@ def _explain(verdict: AxisVerdict, *, asked: bool, over_budget: bool) -> AxisVer
         askable=verdict.askable,
         asked=asked,
         reason=reason,
+    )
+
+
+def from_json(blob: dict) -> Sufficiency | None:
+    """Rehydrate a stored record, so the next turn can ask whether the last
+    answer actually moved anything."""
+    if not blob or "axes" not in blob:
+        return None
+    return Sufficiency(
+        verdict=blob["verdict"],
+        budget=blob.get("budget", DEFAULT_BUDGET),
+        asking=tuple(blob.get("asking", ())),
+        over_budget=tuple(blob.get("over_budget", ())),
+        axes=tuple(
+            AxisVerdict(
+                axis=a["axis"],
+                value=a.get("value"),
+                strength=a["strength"],
+                verified=tuple(Span(**v) for v in a.get("verified", [])),
+                unverified=tuple(a.get("unverified", ())),
+                material=a.get("material", False),
+                would_differ=a.get("would_differ"),
+                askable=a.get("askable", False),
+                asked=a.get("asked", False),
+                reason=a.get("reason", ""),
+            )
+            for a in blob["axes"]
+        ),
     )

@@ -31,6 +31,7 @@ from pydantic import BaseModel, Field, ValidationError
 
 from agent.providers import Completion, Provider, select_provider
 from agent.sufficiency import AxisName, AxisReading
+from agent.treatment import ProseFailure, shortfalls, weight
 
 PROMPT_INTERPRET = "interpret_v1"
 PROMPT_DERIVE = "derive_v1"
@@ -119,6 +120,15 @@ class Covered(BaseModel):
     concept: str
     depth: str = Field(description="How far this is taken: mention · explain · work through.")
     why: str = Field(description="What it contributes to the target capability.")
+    anticipates: ProseFailure = Field(
+        default="none",
+        description=(
+            "Which failure of prose this concept's content is expected to hit, "
+            "from Architecture §13's seven. NOT a choice of diagram -- that is "
+            "decided later, per placement. This says only that prose alone will "
+            "not carry it, and in which way. 'none' when prose is sufficient."
+        ),
+    )
 
 
 class Scope(BaseModel):
@@ -426,20 +436,72 @@ def _strip_fence(text: str) -> str:
 # Derived, not decided
 # ---------------------------------------------------------------------------
 
+# Pages per concept at each depth. Multiplied by a treatment weight, because
+# content is not prose-equivalent: a concept whose meaning is spatial does not
+# cost the same page as a definition taken to the same depth. Both coefficients
+# are guesses -- nothing has measured them -- but they are tied to the depth and
+# treatment actually allocated rather than to a page count someone wanted, which
+# is what Architecture §11 requires.
 _DEPTH_PAGES = {"mention": 0.15, "explain": 0.5, "work through": 1.0}
+_DEPTH_MINUTES = {"mention": 2, "explain": 8, "work through": 20}
 
 
-def derive_extent(scope: Scope, partition: Partition) -> str:
+def _depth(value: str) -> str:
+    return value.strip().lower()
+
+
+def _pages(covered) -> float:
+    return sum(
+        _DEPTH_PAGES.get(_depth(c.depth), 0.5) * weight(getattr(c, "anticipates", "none"))
+        for c in covered
+    )
+
+
+def _round_pages(pages: float) -> str:
+    return f"~{pages:.0f} pages" if pages >= 1.5 else "~1 page"
+
+
+def derive_extent(scope: Scope, partition: Partition) -> dict:
     """Architecture §14: reporting extent is an obligation, not a field.
 
-    Computed from the depths actually allocated, so it moves when scope moves
-    and cannot claim "about two pages" with nothing behind it. Crude on purpose
-    -- a real estimate needs a rendered page, which this gate does not have.
+    Computed from the depths and treatments actually allocated, so it moves when
+    either moves and cannot claim "about two pages" with nothing behind it.
+    Reported per unit as well, because a contents page is where a reader judges
+    size.
     """
-    pages = sum(_DEPTH_PAGES.get(c.depth.strip().lower(), 0.5) for c in scope.covered)
-    pages = max(pages, 0.5)
-    low, high = round(pages * 0.8, 1), round(pages * 1.3, 1)
-    return (
-        f"about {low:g}–{high:g} pages — {len(scope.covered)} concepts across "
-        f"{len(partition.units)} unit(s), at the depths allocated above"
+    pages = max(_pages(scope.covered), 0.5)
+    minutes = sum(
+        _DEPTH_MINUTES.get(_depth(c.depth), 8) * weight(getattr(c, "anticipates", "none"))
+        for c in scope.covered
     )
+
+    by_concept = {c.concept: c for c in scope.covered}
+    per_unit: dict[str, str] = {}
+    for unit in partition.units:
+        covered = [by_concept[name] for name in unit.covers if name in by_concept]
+        if covered:
+            per_unit[unit.heading] = _round_pages(max(_pages(covered), 0.5))
+
+    study = f"{minutes:.0f} min" if minutes < 90 else f"about {minutes / 60:.0f} hours"
+
+    return {
+        "total": f"{_round_pages(pages)} · {study}",
+        "pages": _round_pages(pages),
+        "study_time": study,
+        "parts": len(partition.units),
+        "per_unit": per_unit,
+    }
+
+
+def derive_feasibility(scope: Scope) -> dict:
+    """What this build cannot do for this content, before it is approved.
+
+    Architecture §13 and §14: an unservable prose failure must be reported, not
+    silently answered with prose. Derived, never written by the model -- the
+    model says what the content needs, code says what we can serve.
+    """
+    gaps = shortfalls(scope.covered)
+    return {
+        "serves_everything": not gaps,
+        "shortfalls": [g.to_json() for g in gaps],
+    }

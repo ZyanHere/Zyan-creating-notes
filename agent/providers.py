@@ -43,12 +43,21 @@ from __future__ import annotations
 
 import json
 import os
+import time
 from dataclasses import dataclass
 from typing import Any, Protocol
 
 import httpx
 
 TIMEOUT = httpx.Timeout(600.0, connect=15.0)
+
+
+_TRANSIENT_ATTEMPTS = 3
+_TRANSIENT_BACKOFF = 2.0  # seconds, multiplied by the attempt number
+
+
+class _Transient(RuntimeError):
+    """Worth another try: an upstream 5xx or a transport fault."""
 
 
 class NoProviderConfigured(RuntimeError):
@@ -172,15 +181,28 @@ class OpenAICompatibleProvider:
             "max_tokens": max_tokens,
         }
         headers = {"Authorization": f"Bearer {self._key}", **self._extra}
-        with httpx.Client(timeout=TIMEOUT) as client:
-            response = client.post(
-                f"{self._base}/chat/completions", headers=headers, json=body
-            )
-        _raise_for_status(response, self.name, self.model)
 
-        payload = response.json()
-        if "error" in payload and not payload.get("choices"):
-            raise RuntimeError(f"{self.name} error: {json.dumps(payload['error'])[:400]}")
+        # Free-tier upstreams return 502 "temporarily overloaded" often enough
+        # that a single attempt loses whole conversations. Retry only what is
+        # safely retryable -- transport faults and upstream 5xx -- and never a
+        # 4xx, which will fail identically.
+        payload = None
+        for attempt in range(_TRANSIENT_ATTEMPTS):
+            try:
+                with httpx.Client(timeout=TIMEOUT) as client:
+                    response = client.post(
+                        f"{self._base}/chat/completions", headers=headers, json=body
+                    )
+                _raise_for_status(response, self.name, self.model)
+                payload = response.json()
+                if "error" in payload and not payload.get("choices"):
+                    raise _Transient(json.dumps(payload["error"])[:400])
+                break
+            except (_Transient, httpx.TransportError) as error:
+                if attempt == _TRANSIENT_ATTEMPTS - 1:
+                    raise RuntimeError(f"{self.name} error: {error}") from error
+                time.sleep(_TRANSIENT_BACKOFF * (attempt + 1))
+        assert payload is not None
 
         choice = payload["choices"][0]
         if choice.get("finish_reason") == "length":
@@ -266,7 +288,9 @@ def _raise_for_status(response: httpx.Response, provider: str, model: str) -> No
             "\n  Rate limited. OpenRouter free variants allow 20/min and 50/day "
             "until $10 of credit has ever been purchased."
         )
-    raise RuntimeError(f"{provider} returned {response.status_code}: {detail}{hint}")
+    # 5xx is the upstream having a bad minute; 4xx will fail the same way again.
+    error = _Transient if response.status_code >= 500 else RuntimeError
+    raise error(f"{provider} returned {response.status_code}: {detail}{hint}")
 
 
 # ---------------------------------------------------------------------------
