@@ -1,69 +1,59 @@
-// What the last correction did, shown before the revised plan.
+// What the last correction did, in the reader's words.
 //
-// "Deferred" is not an error state: it is the system correctly declining a
-// well-formed request that belongs to a gate which does not exist yet, and it
-// has to read that way. Drift is surfaced, never repaired.
+// The decision names never appear. "Deferred" is not an error state: it is the
+// system correctly declining a request that belongs to a stage which does not
+// exist yet. Drift stays visible — "we changed something you didn't ask about"
+// is the user's concern, not a system-quality metric — while the inverse signal
+// (routed to but unchanged) is ours, and lives in provenance.
 
 import type { Turn } from "@/lib/api";
+import { decisionName } from "@/lib/compose";
 
-const NAMES: Record<string, string> = {
-  interpret_situation: "what we read your request as",
-  derive_structure: "what concepts exist",
-  relevance: "what's in play for you",
-  scope: "what's covered",
-  consequence: "what's left out",
-  partition: "the units",
-  traversal: "the order",
-  intake_strategy: "what to ask next",
-};
-
-const name = (k: string) => NAMES[k] ?? k;
+const list = (kinds: string[]) => kinds.map(decisionName).join(" · ");
 
 export function TurnReport({ turn }: { turn: Turn }) {
+  const changed = turn.actual.filter((k) => k !== "intake_strategy");
+  const unchanged = turn.unchanged.filter((k) => k !== "intake_strategy");
+
   return (
     <div className="rounded-2xl border border-[color:var(--line)] bg-[color:var(--panel-strong)] p-5">
       <p className="text-sm leading-6 text-[color:var(--ink)]">
-        <span className="text-[color:var(--muted)]">Read as: </span>
+        <span className="text-[color:var(--muted)]">We read that as: </span>
         {turn.reading}
       </p>
 
       {turn.out_of_scope && (
         <p className="mt-3 rounded-xl border border-sky-200 bg-sky-50 p-3 text-sm leading-6 text-sky-900">
-          Not a plan decision — {turn.out_of_scope} Nothing in the plan changed.
+          That&apos;s about how it will look rather than what it says, so nothing
+          in the plan changed — {turn.out_of_scope}
         </p>
       )}
 
       {turn.not_understood && (
         <p className="mt-3 rounded-xl border border-amber-300 bg-amber-50 p-3 text-sm leading-6 text-amber-900">
-          That didn&apos;t land anywhere. Try saying it a different way — name what
-          feels wrong about the plan.
+          That didn&apos;t land anywhere. Try naming what feels wrong about the
+          plan above — what&apos;s missing, too deep, in the wrong order.
         </p>
       )}
 
-      {turn.actual.length > 0 && (
-        <p className="mt-3 text-sm leading-6 text-[color:var(--ink)]">
-          <span className="text-[color:var(--muted)]">Changed: </span>
-          {turn.actual.map(name).join(", ")}
-        </p>
+      {changed.length > 0 && (
+        <>
+          <p className="mt-3 text-sm leading-6 text-[color:var(--ink)]">
+            <span className="text-[color:var(--muted)]">Updated: </span>
+            {list(changed)}
+          </p>
+          {unchanged.length > 0 && (
+            <p className="mt-0.5 text-sm leading-6 text-[color:var(--muted)]">
+              Left alone: {list(unchanged)}
+            </p>
+          )}
+        </>
       )}
 
-      {turn.actual.length > 0 && (
-        <p className="mt-1 text-sm leading-6 text-[color:var(--muted)]">
-          Untouched: {turn.unchanged.map(name).join(", ")}
-        </p>
-      )}
-
-      {/* Reported, never repaired. */}
       {turn.unclaimed_drift.length > 0 && (
-        <p className="mt-3 text-xs leading-5 text-amber-800">
-          Also moved without being asked to:{" "}
-          {turn.unclaimed_drift.map(name).join(", ")}
-        </p>
-      )}
-      {turn.claimed_but_unchanged.length > 0 && (
-        <p className="mt-1 text-xs leading-5 text-amber-800">
-          Said it would change but didn&apos;t:{" "}
-          {turn.claimed_but_unchanged.map(name).join(", ")}
+        <p className="mt-3 text-sm leading-6 text-amber-800">
+          We also changed {list(turn.unclaimed_drift)} without being asked — check
+          that above.
         </p>
       )}
     </div>

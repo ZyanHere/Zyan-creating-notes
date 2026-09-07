@@ -8,11 +8,12 @@
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { api, type Commitment, type PlanView, type Sufficiency } from "@/lib/api";
-import { PlanBody } from "@/components/plan/PlanBody";
+import { compose } from "@/lib/compose";
+import { PlanDocument } from "@/components/plan/PlanDocument";
+import { Provenance } from "@/components/plan/Provenance";
 import { TurnReport } from "@/components/plan/TurnReport";
 import { CorrectionBox } from "@/components/plan/CorrectionBox";
 import { Questions } from "@/components/plan/Questions";
-import { WhatWeKnow } from "@/components/plan/WhatWeKnow";
 
 export default function ProjectPage() {
   const { id } = useParams<{ id: string }>();
@@ -93,25 +94,21 @@ export default function ProjectPage() {
         ← all projects
       </a>
 
-      <header className="mt-6">
-        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--muted)]">
-          {needsSubject
-            ? "What are we studying?"
-            : asking
-              ? "Reading your request"
-              : "Proposed plan"}
-        </p>
-        <h1 className="mt-3 text-3xl font-semibold tracking-tight text-[color:var(--ink)]">
-          {view.decisions.interpret_situation?.subject ?? view.title}
-        </h1>
-        <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
-          {needsSubject
-            ? "I couldn't tell what subject this is about, and there's nothing to plan without one."
-            : asking
-              ? "These would change the plan a lot, so I'd rather ask than guess."
-              : "Nothing has been written yet. Read this, and say what's wrong."}
-        </p>
-      </header>
+      {(needsSubject || asking) && (
+        <header className="mt-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--muted)]">
+            {needsSubject ? "What are we studying?" : "Reading your request"}
+          </p>
+          <h1 className="mt-3 text-3xl font-semibold tracking-tight text-[color:var(--ink)]">
+            {view.decisions.interpret_situation?.subject ?? view.title}
+          </h1>
+          <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
+            {needsSubject
+              ? "I couldn't tell what subject this is about, and there's nothing to plan without one."
+              : "These would change the plan a lot, so I'd rather ask than guess."}
+          </p>
+        </header>
+      )}
 
       {commitment ? (
         <div className="mt-8 rounded-2xl border border-emerald-200 bg-emerald-50 p-6">
@@ -171,22 +168,26 @@ export default function ProjectPage() {
         </div>
       )}
 
-      {sufficiency && !needsSubject && (
-        <div className="mt-6">
-          <WhatWeKnow sufficiency={sufficiency} />
+      {!asking && !needsSubject && (
+        <div className="mt-2 flex-1">
+          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--muted)]">
+            The document we&apos;d make
+          </p>
+          <p className="mb-6 mt-2 text-sm leading-6 text-[color:var(--muted)]">
+            Nothing is written yet. Read it and tell us what&apos;s wrong.
+          </p>
+          <PlanDocument
+            doc={compose(
+              view.decisions,
+              view.extent,
+              view.feasibility,
+              sufficiency,
+              view.title,
+            )}
+          />
+          <Provenance decisions={view.decisions} sufficiency={sufficiency} />
         </div>
       )}
-
-      <div className="mt-4 flex-1">
-        {!asking && !needsSubject && (
-        <PlanBody
-          decisions={view.decisions}
-          extent={view.extent}
-          questions={view.questions}
-          changed={changed}
-        />
-        )}
-      </div>
 
       {!commitment && !asking && !needsSubject && (
         <CorrectionBox

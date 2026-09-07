@@ -75,12 +75,33 @@ export type Sufficiency = {
   axes: AxisVerdict[];
 };
 
+export type Extent = {
+  total?: string;
+  pages?: string;
+  study_time?: string;
+  parts?: number;
+  per_unit?: Record<string, string>;
+};
+
+export type Shortfall = {
+  failure: string;
+  concepts: string[];
+  licenses: string;
+  note: string;
+};
+
+export type Feasibility = {
+  serves_everything?: boolean;
+  shortfalls?: Shortfall[];
+};
+
 export type PlanView = {
   project_id: string;
   title: string;
   decisions: Decisions;
   questions: Question[];
-  extent: string;
+  extent: Extent;
+  feasibility: Feasibility;
   approved: boolean;
   state: "needs_subject" | "asking" | "planned";
   sufficiency: Sufficiency | Record<string, never>;
