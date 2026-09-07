@@ -18,6 +18,7 @@ from typing import Mapping
 
 import agent
 import engine
+from agent.contracts import PERCEPTUAL_REFERENT, normalize_diagnosis
 from backend import config
 
 OUT = Path("out")
@@ -60,6 +61,20 @@ class RepresentationReport:
 
     scale: float
     """What Chromium shrank the document to. Below 1.0, a figure overflowed."""
+
+    stated_gaps: tuple[str, ...]
+    """Figures the document said it needed and did not draw.
+
+    The guard in `agent.contracts` makes a diagnosed `perceptual-referent` illegal
+    to realize, so the only legal form it can take is a callout carrying the brief.
+    Counting them is how the boundary becomes measurable: a run with three stated
+    gaps asked for three figures this build cannot produce, which is the demand
+    signal for Visual-Requirement-Routing §5's asset socket.
+
+    Deliberately absent from `is_clean`. A stated gap is the system behaving
+    correctly under a real limit, not a defect -- treating it as one would create
+    pressure to drop the report, which is the quiet omission Semantics §12
+    forbids."""
 
     def is_clean(self) -> bool:
         return not (self.undiagnosed or self.unlisted or self.unrendered) and self.scale >= 1.0
@@ -140,6 +155,7 @@ def generate(
                 "undiagnosed": report.undiagnosed,
                 "unlisted": list(report.unlisted),
                 "unrendered": list(report.unrendered),
+                "stated_gaps": list(report.stated_gaps),
                 "scale": report.scale,
                 "template": rendered.render_environment.get("template_id"),
             },
@@ -169,6 +185,7 @@ def _representation_report(doc, rendered) -> RepresentationReport:
     pairs: list[tuple[str, str]] = []
     undiagnosed = 0
     unlisted: list[str] = []
+    stated_gaps: list[str] = []
 
     # Realizations come back in document order, one per relational block that a
     # template actually drew, so they zip onto the relational blocks in order.
@@ -189,6 +206,10 @@ def _representation_report(doc, rendered) -> RepresentationReport:
             pairs.append((diagnosis, block.kind, relation, realization))
             if diagnosis.strip().lower().startswith("unlisted"):
                 unlisted.append(diagnosis.strip())
+            if normalize_diagnosis(diagnosis) == PERCEPTUAL_REFERENT:
+                # The guard leaves only one legal shape for this, so anything
+                # reaching here is a brief rather than a figure.
+                stated_gaps.append(getattr(block, "title", None) or block.text[:120])
 
     return RepresentationReport(
         pairs=tuple(pairs),
@@ -196,6 +217,7 @@ def _representation_report(doc, rendered) -> RepresentationReport:
         unlisted=tuple(unlisted),
         unrendered=tuple(sorted(set(rendered.unrendered))),
         scale=rendered.scale,
+        stated_gaps=tuple(stated_gaps),
     )
 
 

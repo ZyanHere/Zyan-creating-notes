@@ -17,7 +17,7 @@ from dataclasses import dataclass, field
 from typing import Any
 
 import agent.plan as planning
-from agent.sufficiency import DEFAULT_BUDGET, AxisReading, decide
+from agent.sufficiency import DEFAULT_BUDGET, AxisReading, decide, from_json, improved
 from agent.plan import (
     ALL_DECISIONS,
     INTERACTION_DECISIONS,
@@ -27,6 +27,7 @@ from agent.plan import (
     Scope,
     Situation,
     derive_extent,
+    derive_feasibility,
 )
 from backend.store import (
     Commitment,
@@ -77,7 +78,8 @@ class PlanView:
     project_id: str
     title: str
     decisions: dict[str, dict]
-    extent: str
+    extent: dict
+    feasibility: dict
     approved: bool
     state: str = "planned"  # needs_subject | asking | planned
     sufficiency: dict = field(default_factory=dict)
@@ -95,6 +97,7 @@ class PlanView:
             "decisions": self.decisions,
             "questions": self.questions,
             "extent": self.extent,
+            "feasibility": self.feasibility,
             "approved": self.approved,
             "state": self.state,
             "sufficiency": self.sufficiency,
@@ -123,7 +126,10 @@ class PlanService:
 
     # -- turns --------------------------------------------------------------
 
-    MAX_INTAKE_ROUNDS = 2
+    # A crash barrier, not a policy: sufficiency and progress decide when to
+    # stop asking. This only stops a model that keeps producing new material
+    # unknowns after every answer.
+    MAX_INTAKE_ROUNDS = 4
 
     def create(self, text: str) -> PlanView:
         """A request in. Read it, and ask before planning if anything material
@@ -137,17 +143,29 @@ class PlanService:
         return self.view(project.id)
 
     def answer(self, project_id: str, text: str) -> PlanView:
-        """An answer is testimony, so the situation is re-read from the whole
-        transcript rather than patched. The loop terminates when nothing
-        material is left to ask, or at MAX_INTAKE_ROUNDS -- a question is an
-        offer to correct early, never a way to keep the user in a form."""
+        """An answer is testimony, so the whole transcript is re-read and
+        sufficiency is judged again from scratch.
+
+        Readiness is sufficiency, never a turn count. The only other exit is
+        *no progress*: if an answer strengthened nothing, asking again will not
+        either, and the plan is derived on what is known. `MAX_INTAKE_ROUNDS` is
+        a crash barrier behind both, not a definition of ready.
+        """
+        before = from_json(self._sufficiency(project_id))
         self.store.add_utterance(project_id, "user", text)
         self._read(project_id)
+        after = from_json(self._sufficiency(project_id))
+
         rounds = sum(
             1 for d in self.store.decision_history(project_id) if d.kind == "intake_strategy"
         )
-        verdict = self._sufficiency(project_id)["verdict"]
-        if verdict == "sufficient" or (verdict == "ask" and rounds >= self.MAX_INTAKE_ROUNDS):
+        stalled = after is not None and not improved(before, after)
+        if (
+            after is None
+            or after.verdict == "sufficient"
+            or stalled
+            or rounds >= self.MAX_INTAKE_ROUNDS
+        ):
             self._plan(project_id)
         return self.view(project_id)
 
@@ -249,6 +267,7 @@ class PlanService:
             title=project.title,
             decisions=decisions,
             extent=_extent(decisions),
+            feasibility=_feasibility(decisions),
             approved=bool(self.store.commitments(project_id)),
             last_turn=_turn_from_json(json.loads(router[-1].text)) if router else None,
             transcript=[
@@ -327,6 +346,14 @@ class PlanService:
         return snapshot
 
 
+def _feasibility(decisions: dict[str, dict]) -> dict:
+    """Derived, never written by the model. Architecture §13/§14: an unservable
+    prose failure is reported before approval, not answered with prose."""
+    if "scope" not in decisions:
+        return {}
+    return derive_feasibility(Scope(**decisions["scope"]))
+
+
 def _turn_json(turn: Routed) -> dict:
     return {
         "correction": turn.correction,
@@ -351,10 +378,10 @@ def _turn_from_json(data: dict) -> Routed:
     )
 
 
-def _extent(decisions: dict[str, dict]) -> str:
+def _extent(decisions: dict[str, dict]) -> dict:
     """Derived, never written by the model (Architecture §14)."""
     if "scope" not in decisions or "partition" not in decisions:
-        return "not yet derived"
+        return {}
     return derive_extent(Scope(**decisions["scope"]), Partition(**decisions["partition"]))
 
 
