@@ -114,9 +114,12 @@ LANDSCAPE = {
 PLAN = {
     "scope": {
         "covered": [
-            {"concept": "Primate lineage", "depth": "explain", "why": "Anchors the rest."},
-            {"concept": "Australopithecus", "depth": "explain", "why": "Transition genus."},
-            {"concept": "Homo erectus", "depth": "work through", "why": "Most-asked."},
+            {"concept": "Primate lineage", "depth": "explain", "why": "Anchors the rest.",
+             "anticipates": "none"},
+            {"concept": "Australopithecus", "depth": "explain", "why": "Transition genus.",
+             "anticipates": "none"},
+            {"concept": "Homo erectus", "depth": "work through", "why": "Most-asked.",
+             "anticipates": "cross-reference"},
         ],
         "cut": [],
     },
@@ -340,7 +343,10 @@ def test_extent_is_derived_from_scope_not_written_by_the_model() -> None:
         Partition(**PLAN["partition"]),
     )
     assert small != bigger
-    assert "pages" in small
+    assert small["pages"].endswith("pages") or small["pages"] == "~1 page"
+    # per-unit, because a contents page is where a reader judges size
+    assert set(small["per_unit"]) == {u["heading"] for u in PLAN["partition"]["units"]}
+    assert small["parts"] == 2
 
 
 def test_extent_moves_when_scope_moves(service: PlanService) -> None:
@@ -468,18 +474,44 @@ def test_a_question_never_blocks(tmp_path) -> None:
     assert service.proceed(view.project_id).state == "planned"
 
 
-def test_the_intake_loop_terminates(tmp_path) -> None:
-    """A model that keeps finding things to ask must not keep the user in a
-    form. Sufficiency ends it; the round cap is the backstop."""
+def test_readiness_is_sufficiency_not_a_turn_count(tmp_path) -> None:
+    """A model that keeps asking about an axis the user just answered must not
+    keep the user in a form. The exit is *no progress*: if an answer
+    strengthened nothing, asking again will not either."""
     service = PlanService(
         FileStore(tmp_path),
         provider=StubProvider(READING_ASKING, READING_ASKING, LANDSCAPE, PLAN),
     )
     view = service.create(REQUEST)
+    assert view.state == "asking"
+
+    # the second read is identical -- nothing strengthened -- so it plans
+    after = service.answer(view.project_id, "Answer MCQs")
+    assert after.state == "planned"
+
+
+def test_a_productive_answer_keeps_the_loop_open(tmp_path) -> None:
+    """Progress, not a count: an answer that strengthens one axis while another
+    stays weak and material is allowed to produce a second question."""
+    second_round = {
+        "interpret_situation": SITUATION,
+        "axes": [
+            _axis("subject", "Human evolution", "stated", "human evolution"),
+            _axis("target_capability", "Answer MCQs", "stated", "NEET"),
+            _axis("entry_point", None, "unknown", material="changes_the_plan"),
+        ]
+        + [_axis(a) for a in ("purpose", "capacity", "depth_register", "artifact_type", "template")],
+        "proposed_questions": [{**QUESTION, "axis": "entry_point"}],
+    }
+    service = PlanService(
+        FileStore(tmp_path), provider=StubProvider(READING_ASKING, second_round)
+    )
+    view = service.create(REQUEST)
     after = service.answer(view.project_id, "Answer MCQs")
 
-    assert after.state == "planned"
-    assert service.MAX_INTAKE_ROUNDS == 2
+    assert after.state == "asking"
+    assert after.sufficiency["asking"] == ["entry_point"]
+    assert service.MAX_INTAKE_ROUNDS >= 4  # a crash barrier, not the policy
 
 
 def test_capacity_is_not_asked_for_upfront(service: PlanService) -> None:
@@ -488,4 +520,4 @@ def test_capacity_is_not_asked_for_upfront(service: PlanService) -> None:
     correction, not as an intake question."""
     view = opened(service)
     assert view.decisions["interpret_situation"]["capacity"] is None
-    assert view.extent and "pages" in view.extent
+    assert view.extent["pages"] and view.extent["study_time"]

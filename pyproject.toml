@@ -1,0 +1,28 @@
+[project]
+name = "notes-engine"
+version = "0.1.0"
+requires-python = ">=3.12"
+
+# Build Spec §2. Three packages, three import boundaries, enforced by
+# tests/test_boundaries.py rather than by convention.
+dependencies = [
+    "anthropic>=1.0",      # agent/ only
+    "pydantic>=2.7",       # agent/contracts
+    "fastapi>=0.115",      # backend/api
+    "uvicorn>=0.30",
+    "psycopg[binary]>=3.2", # backend/store only
+    "jinja2>=3.1",         # engine/merge
+    "playwright>=1.47",    # engine/measure, engine/render
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-asyncio>=0.24"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+filterwarnings = ["error"]
+markers = ["slow: needs a browser or a model call"]
+
+[tool.setuptools]
+packages = ["backend", "agent", "engine"]

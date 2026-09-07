@@ -1,4 +1,4 @@
-# Product Semantics — Rev. 2
+# Product Semantics — Rev. 3
 
 **4 Sep 2026 · supersedes the thesis sections of `Foundation.md` (Rev. 4)**
 
@@ -8,6 +8,8 @@ This document records **product semantics only**. No architecture, no schema, no
 
 That separation is deliberate and it is the correction that produced this document. The previous attempt sized an architecture against a single benchmark PDF before the vocabulary was known, and every decision downstream came out too small — eight block types, one figure archetype, one template. The vocabulary is settled here first.
 
+> **Changes in Rev. 3.** §1 corrected: *budget* merged two different things and one of them contradicted §1's own thesis. It is now split into **capacity** (user, optional) and **extent** (system, derived). §9 is consequently a conditional branch rather than the default path. Three new open questions in §13. Everything else is unchanged.
+>
 > **Changes in Rev. 2.** §2 is new: artifact type, template and learning situation are three separate layers, and *document job* was wrongly listed in §1 as something the user picks. §7 is new: the candidate artifact types. Purpose is no longer categorical. Everything else is unchanged.
 
 ---
@@ -44,7 +46,7 @@ Mixing these axes is what made the earlier taxonomy incoherent. They are separat
 | **Purpose** — what they must be able to do afterwards | user | binding; arbitrates every trade-off |
 | Entry point — current capability relative to the subject | user | binding |
 | Target capability | user, often implied by purpose | binding |
-| Budget — time or pages | user | hard limit |
+| **Capacity** — time available, deadline, effort | user | optional; hard limit when stated |
 | Depth **register** — survey / working / rigorous | user | biasing |
 | **Artifact type** — see §2 and §7 | user | binding unless infeasible, and infeasibility must be **reported** |
 | **Template** — see §2 | user | biasing; constrains presentation only |
@@ -55,12 +57,33 @@ Mixing these axes is what made the earlier taxonomy incoherent. They are separat
 | Structure — documents, sections, order | **system** | |
 | Representation — prose, table, figure, example, code, exercise | **system** | |
 | Set relations — how artifacts depend on each other | **system** | |
+| **Extent** — pages, words, study time | **system** | derived; an output of planning |
 
 Two splits carry weight:
 
 **Depth splits in two.** Register is a user preference; allocation is a system decision. Conflating them made "shallow but broad" look impossible. A user asking for rigorous notes is not asking for equal rigour everywhere — the system still decides where rigour is worth spending.
 
 **Representation, not "block."** *Block* is implementation language. At product level the question is what the best representation of this knowledge is, and the candidates are prose, comparison, example, question, code, diagram, table, sequence, exercise.
+
+**Budget splits in two — LOCKED.** Rev. 2 listed *"budget — time or pages"* as a single user-set axis. Two different things were merged, and one of them contradicted the thesis directly above it: knowing how many pages a subject needs to carry this reader from entry to target requires exactly the subject knowledge §1 says the user does not have.
+
+```
+CAPACITY   what the learner has to spend        the user knows this honestly
+           "two weeks" · "my exam is next month" · "not much time"
+           optional; binding when stated
+
+EXTENT     what the plan actually requires      derived from the situation
+           modules · study time · pages · total curriculum scale
+           an OUTPUT of planning, never normally an input
+```
+
+*Time* is why they were merged: **"I have two hours"** is capacity and **"a forty-minute read"** is extent. They are opposite sides of the same comparison.
+
+The user is not asked for extent. The system derives it and **reports** it — a plan that turns out to be six months of work is information the learner needs, not a failure. Where a user does state a hard limit ("under 10 pages"), it binds as capacity; that is the exception, not the standard interaction.
+
+Corollary for interaction design: capacity need not be asked upfront. Deriving a plan and revealing its scale is often what *causes* the learner to state a capacity they would not have volunteered.
+
+Artifact-type presets (§2) are how capacity is usually expressed in practice — *short notes* and *long notes* state capacity by a recognisable name rather than a number.
 
 ### The artifact teaches; the product is not a tutor — LOCKED
 
@@ -307,6 +330,10 @@ Explicitly rejected: "a figure earns its place when the prose replacing it would
 
 ## 9. Budget pressure
 
+> **This section is a conditional branch, not the default path — LOCKED (Rev. 3).**
+>
+> Budget pressure is the **gap between derived extent and stated capacity** (§1). No stated capacity, no gap, no pressure: the default is to plan what the target actually requires and report its extent. Everything below fires only when a capacity constraint exists and the derived extent exceeds it.
+
 ### Short notes are not a document kind — LOCKED
 
 > "Short notes" is the **construct** job operating under a budget smaller than sufficiency wants.
@@ -516,6 +543,30 @@ Q5   what decisions can the user correct, at what stage, and what does
      the right dimensions?
 
 —    execute a procedure: never stress-tested. Is it real?
+
+—    when does an unexpectedly large extent indicate a bad partition,
+     and when is it genuine scale? Large-because-several-capabilities-
+     were-merged is a partition fault; large-because-the-capability-is-
+     genuinely-big is not. Without the distinction the system splits
+     to make documents smaller, which is the page-count-driven
+     planning Rev. 3 exists to remove.
+
+—    do §9's budget-pressure transformations lift from the concept
+     graph to the member graph of a set? Compressing within a member,
+     dropping a leaf member and truncating the set after member N are
+     structurally analogous, but a member is not a concept node —
+     whether caching is droppable depends on target and purpose, not
+     on its position. NOT DERIVED. Needs a discriminating test.
+
+—    external scope authorities: an exam syllabus, university
+     curriculum, certification requirement, job description, textbook
+     chapter list, official documentation, or uploaded course material
+     can constrain the plan independently of the system's own
+     projection — §1 currently lists coverage as always system-decided.
+     Open on two counts: whether this is a new binding axis or a target
+     stated by reference to a document, and what each kind of authority
+     can actually constrain (coverage, depth, terminology, ordering,
+     assessment expectations, required capabilities).
 ```
 
 ---

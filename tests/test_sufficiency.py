@@ -17,6 +17,8 @@ from agent.sufficiency import (
     AxisReading,
     Span,
     decide,
+    from_json,
+    improved,
 )
 
 SAID = ["i need to revise human evolution for NEET"]
@@ -51,7 +53,9 @@ def test_only_the_subject_can_block() -> None:
 
 
 def test_capacity_and_the_biasing_axes_are_never_asked() -> None:
-    for axis in ("capacity", "depth_register", "artifact_type", "template"):
+    """Capacity because §1's corollary makes the extent report what elicits it;
+    depth register and template because they are biasing, not binding."""
+    for axis in ("capacity", "depth_register", "template"):
         assert not POLICY[axis].askable
         assert POLICY[axis].because
 
@@ -230,3 +234,178 @@ def test_the_record_round_trips_for_storage() -> None:
 @pytest.mark.parametrize("axis", AXES)
 def test_every_axis_has_a_policy_with_a_citation(axis: str) -> None:
     assert POLICY[axis].because
+
+
+# --- artifact type: askable, and usually inferred ---------------------------
+
+
+def test_artifact_type_is_askable() -> None:
+    """Semantics §1 makes it user-set and binding; §2 uses long-vs-short notes
+    as its own example of two presets that produce different plans."""
+    assert POLICY["artifact_type"].askable
+    assert not POLICY["artifact_type"].blocking
+
+
+def test_artifact_type_established_by_wording_is_not_asked() -> None:
+    said = ["short revision notes on signals and systems for GATE"]
+    result = decide(
+        [
+            reading("subject", source="stated", spans=((0, "signals and systems"),)),
+            reading("purpose", source="stated", spans=((0, "GATE"),)),
+            reading("artifact_type", value="short notes", source="stated",
+                    spans=((0, "short revision notes"),)),
+            reading("entry_point", source="unknown", value=None),
+        ],
+        said,
+    )
+    assert not result.by_axis("artifact_type").asked
+    assert result.by_axis("artifact_type").strength == "stated"
+    assert result.asking == ("entry_point",)
+
+
+def test_a_request_that_settles_everything_asks_nothing() -> None:
+    """The point of inferring first: fewest turns, not filled fields."""
+    said = ["short revision notes on signals and systems for GATE, i've done the basics"]
+    everything = [
+        reading(a, source="stated", spans=((0, "GATE"),), material="no_effect")
+        for a in ("subject", "purpose", "entry_point", "artifact_type", "target_capability")
+    ]
+    result = decide(everything, said)
+    assert result.verdict == "sufficient"
+    assert result.asking == ()
+
+
+# --- readiness is sufficiency, not a turn count -----------------------------
+
+
+def test_progress_is_measured_by_strength_not_by_turns() -> None:
+    said = ["notes on signals and systems"]
+    weak = decide(
+        [subject_known(), reading("purpose", source="unknown", value=None)], said
+    )
+    assert improved(None, weak)          # the first read always counts as progress
+    assert not improved(weak, weak)      # an answer that strengthened nothing did not
+
+    stronger = decide(
+        [subject_known(), reading("purpose", source="stated", spans=((0, "notes"),))], said
+    )
+    assert improved(weak, stronger)
+
+
+def test_a_stored_record_rehydrates_for_the_next_turn() -> None:
+    result = decide([subject_known(), reading("purpose", spans=((0, "human evolution"),))], SAID)
+    again = from_json(result.to_json())
+    assert again is not None
+    assert [a.strength for a in again.axes] == [a.strength for a in result.axes]
+    assert not improved(result, again)
+
+
+def test_the_budget_ceiling_covers_every_askable_axis() -> None:
+    """So a genuinely bare request resolves in ONE turn rather than several."""
+    askable = [a for a in AXES if POLICY[a].askable and not POLICY[a].prerequisite]
+    assert DEFAULT_BUDGET >= len(askable)
+
+
+def test_a_span_covering_the_whole_request_supports_nothing() -> None:
+    """Observed in the wild: for a seven-word request the model cited six of
+    those words as support for purpose, entry point AND target. All three
+    resolved, all three read as inferred, and nothing was asked. Evidence that
+    backs every reading equally backs none of them."""
+    said = ["i need notes on signal and system"]
+    whole = "need notes on signal and system"
+    result = decide(
+        [
+            reading("subject", source="stated", spans=((0, "signal and system"),)),
+            reading("purpose", source="inferred", spans=((0, whole),)),
+        ],
+        said,
+    )
+    assert result.by_axis("purpose").strength == "guessed"
+    assert result.by_axis("purpose").asked
+    assert result.by_axis("subject").strength == "stated"
+
+
+def test_a_short_answer_is_allowed_to_be_its_own_evidence() -> None:
+    """The rule must not punish a two-word reply, where the whole utterance
+    genuinely is the evidence for what it answers."""
+    said = ["notes on signals", "GATE prep"]
+    result = decide(
+        [
+            reading("subject", source="stated", spans=((0, "signals"),)),
+            reading("purpose", source="stated", spans=((1, "GATE prep"),)),
+        ],
+        said,
+    )
+    assert result.by_axis("purpose").strength == "stated"
+
+
+# --- treatment: content is not prose-equivalent ------------------------------
+
+
+def test_the_capability_table_covers_every_prose_failure() -> None:
+    from agent.treatment import CAPABILITY, FAILURES
+
+    assert set(FAILURES) <= set(CAPABILITY)
+    assert all(CAPABILITY[f].licenses and CAPABILITY[f].note for f in FAILURES)
+
+
+def test_spatial_content_costs_more_than_prose_at_the_same_depth() -> None:
+    """The claim being removed is that all content is prose-equivalent."""
+    from agent.plan import Partition, Scope, derive_extent
+
+    def scope(anticipates):
+        return Scope(
+            covered=[
+                {"concept": f"C{i}", "depth": "explain", "why": "w", "anticipates": anticipates}
+                for i in range(6)
+            ],
+            cut=[],
+        )
+
+    part = Partition(units=[{"heading": "U", "covers": [f"C{i}" for i in range(6)],
+                             "why_here": "w"}])
+    prose = derive_extent(scope("none"), part)
+    spatial = derive_extent(scope("perceptual-referent"), part)
+    assert spatial["pages"] != prose["pages"]
+
+
+def test_an_unservable_treatment_is_reported_before_approval() -> None:
+    """Architecture §13: report the limitation, never substitute prose for it."""
+    from agent.plan import Scope, derive_feasibility
+
+    result = derive_feasibility(
+        Scope(
+            covered=[
+                {"concept": "Structure of the small intestine", "depth": "explain",
+                 "why": "w", "anticipates": "perceptual-referent"},
+                {"concept": "Enzyme comparison", "depth": "explain",
+                 "why": "w", "anticipates": "cross-reference"},
+            ],
+            cut=[],
+        )
+    )
+    assert not result["serves_everything"]
+    gaps = result["shortfalls"]
+    assert [g["failure"] for g in gaps] == ["perceptual-referent"]
+    assert gaps[0]["concepts"] == ["Structure of the small intestine"]
+    # the served one is not reported as a gap
+    assert all(g["failure"] != "cross-reference" for g in gaps)
+
+
+def test_content_prose_can_carry_reports_no_shortfall() -> None:
+    from agent.plan import Scope, derive_feasibility
+
+    result = derive_feasibility(
+        Scope(covered=[{"concept": "A", "depth": "explain", "why": "w"}], cut=[])
+    )
+    assert result["serves_everything"]
+    assert result["shortfalls"] == []
+
+
+def test_anticipates_names_a_failure_never_a_diagram() -> None:
+    """The plan schema stays domain-free and realization-free: selecting a
+    figure is decision 11, at the demo gate."""
+    from agent.treatment import FAILURES
+
+    banned = ("diagram", "image", "figure", "chart", "venn", "anatom")
+    assert all(not any(b in f for b in banned) for f in FAILURES)
