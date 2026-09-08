@@ -1,8 +1,9 @@
-// Client for the plan gate. Five endpoints, no state of its own.
+// Client for the plan gate and the generation that follows it.
 //
-// The backend is synchronous: a turn is one or two model calls and takes
-// 20-60s. Every caller has to hold a pending state for that long -- see
-// `Plan-Gate-Milestone` §6. The job queue arrives at M4 with a reason.
+// Two timing shapes, deliberately different. Plan turns are synchronous: one or
+// two model calls, 20-60s, and the caller holds a pending state. Generation is
+// not -- it is minutes long and has returned empty, so it starts and is polled.
+// See `backend/jobs.py` for why that is a thread and not a queue.
 
 const BASE = process.env.NEXT_PUBLIC_API ?? "http://127.0.0.1:8000";
 
@@ -117,6 +118,66 @@ export type Commitment = {
   snapshot: Record<string, unknown>;
 };
 
+export type UnitReport = {
+  heading: string;
+  generated: boolean;
+  satisfied: boolean;
+  concepts_required: string[];
+  concepts_covered: string[];
+  concepts_missing: string[];
+  // Observation only, never a requirement: the treatment taxonomy has not
+  // had its design pass, so nothing here decides `satisfied`.
+  treatments_anticipated: string[];
+  treatments_produced: string[];
+  depths_required: string[];
+  blocks: number;
+  words: number;
+  notes: string[];
+};
+
+export type Fulfilment = {
+  satisfied: boolean;
+  coverage: number;
+  units_approved: string[];
+  units_generated: string[];
+  units_missing: string[];
+  concepts_required: string[];
+  concepts_covered: string[];
+  concepts_missing: string[];
+  changed: string[];
+  problems: string[];
+  units: UnitReport[];
+};
+
+export type Generation = {
+  state: "idle" | "running" | "done" | "failed";
+  // Whether the artifact delivers the approved plan. Separate from `state`:
+  // the job can finish cleanly and still not have produced what was agreed,
+  // and collapsing the two is how an incomplete document reported success.
+  satisfied?: boolean;
+  fulfilment?: Fulfilment | null;
+  calls?: number;
+  seconds?: number;
+  error?: string | null;
+  pdf?: string;
+  title?: string;
+  pages?: number;
+  provider?: string;
+  model?: string;
+  repairs?: number;
+  representation?: {
+    stated_gaps: string[];
+    unrendered: string[];
+    undiagnosed: number;
+    scale: number;
+  };
+};
+
+// Inline by default so it renders in the page; `download` sets the attachment
+// disposition for an explicit save.
+export const artifactUrl = (id: string, download = false) =>
+  `${BASE}/projects/${id}/artifact.pdf${download ? "?download=1" : ""}`;
+
 async function call<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(`${BASE}${path}`, {
     ...init,
@@ -154,4 +215,11 @@ export const api = {
       method: "POST",
       body: JSON.stringify({ decision_ids: [] }),
     }),
+
+  // Refused without an approved plan, by design: generating from an unapproved
+  // plan is the failure the gate exists to prevent.
+  startGeneration: (id: string) =>
+    call<Generation>(`/projects/${id}/generate`, { method: "POST" }),
+
+  getGeneration: (id: string) => call<Generation>(`/projects/${id}/generation`),
 };

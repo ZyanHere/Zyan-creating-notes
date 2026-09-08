@@ -2,8 +2,9 @@
 
 // The plan screen: the whole plan, the last turn's report, and one free-text box.
 //
-// Ends at approval. There is no demo stage to go to, and the confirmation says
-// so rather than leaving a dead end.
+// Ends at a document. Approval commits the decisions and hands them to the
+// generator, which writes exactly what was approved -- so the plan is a promise
+// the artifact keeps, rather than a screen the user passes through.
 
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
@@ -14,6 +15,7 @@ import { Provenance } from "@/components/plan/Provenance";
 import { TurnReport } from "@/components/plan/TurnReport";
 import { CorrectionBox } from "@/components/plan/CorrectionBox";
 import { Questions } from "@/components/plan/Questions";
+import { GenerationPanel } from "@/components/plan/Generation";
 
 export default function ProjectPage() {
   const { id } = useParams<{ id: string }>();
@@ -82,8 +84,17 @@ export default function ProjectPage() {
   }
 
   const changed = view.last_turn?.actual ?? [];
-  const asking = view.state === "asking";
+  // `asking` requires something to ask. A state that says "I'd rather ask than
+  // guess" over an empty question list is a page with no control on it, which is
+  // how a graph cheat-sheet request dead-ended. Belt and braces: the backend no
+  // longer produces that state, and this cannot render it if it does.
+  const asking = view.state === "asking" && view.questions.length > 0;
   const needsSubject = view.state === "needs_subject";
+  const unplanned = !asking && !needsSubject && !view.decisions.scope;
+  // Approval survives a reload; `commitment` only exists in the session that
+  // clicked it. Reading both means coming back to an approved project shows the
+  // document rather than asking you to approve it again.
+  const approved = Boolean(commitment) || view.approved;
   // The backend sends {} until the first read completes.
   const sufficiency: Sufficiency | null =
     "verdict" in view.sufficiency ? (view.sufficiency as Sufficiency) : null;
@@ -110,23 +121,27 @@ export default function ProjectPage() {
         </header>
       )}
 
-      {commitment ? (
-        <div className="mt-8 rounded-2xl border border-emerald-200 bg-emerald-50 p-6">
-          <h2 className="text-lg font-semibold text-emerald-900">Plan approved</h2>
-          <p className="mt-2 text-sm leading-6 text-emerald-900">
-            {commitment.decision_ids.length} decisions committed at{" "}
-            {commitment.approved_at}.
-          </p>
-          <p className="mt-3 text-sm leading-6 text-emerald-900">
-            The next stage would build a sample page from this plan so you can
-            check the treatment before the whole thing is written.{" "}
-            <strong>That stage doesn&apos;t exist yet</strong> — this is where the
-            build currently stops.
-          </p>
-        </div>
+      {approved ? (
+        <>
+          <div className="mt-8 rounded-2xl border border-emerald-200 bg-emerald-50 p-6">
+            <h2 className="text-lg font-semibold text-emerald-900">Plan approved</h2>
+            <p className="mt-2 text-sm leading-6 text-emerald-900">
+              {commitment
+                ? `${commitment.decision_ids.length} decisions committed at ${commitment.approved_at}.`
+                : "Committed earlier."}{" "}
+              What gets written is what you just read.
+            </p>
+            <p className="mt-3 text-sm leading-6 text-emerald-900">
+              A sample page to check the treatment before the whole thing is
+              written would come next. <strong>That stage doesn&apos;t exist
+              yet</strong> — for now this writes the whole document.
+            </p>
+          </div>
+          <GenerationPanel projectId={id} />
+        </>
       ) : null}
 
-      {view.last_turn && !commitment && (
+      {view.last_turn && !approved && (
         <div className="mt-8">
           <TurnReport turn={view.last_turn} />
         </div>
@@ -168,7 +183,26 @@ export default function ProjectPage() {
         </div>
       )}
 
-      {!asking && !needsSubject && (
+      {unplanned && (
+        <div className="mt-8 rounded-2xl border border-[color:var(--line)] bg-[color:var(--panel)] p-6">
+          <h2 className="text-lg font-semibold tracking-tight text-[color:var(--ink)]">
+            Nothing to ask
+          </h2>
+          <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
+            We read your request and there was nothing worth asking about — but
+            the plan didn&apos;t get built. Nothing is lost; try again.
+          </p>
+          <button
+            onClick={skipQuestions}
+            disabled={pending}
+            className="mt-4 rounded-full bg-[color:var(--ink)] px-5 py-2.5 text-sm font-medium text-white disabled:opacity-40"
+          >
+            {pending ? "Planning…" : "Plan it"}
+          </button>
+        </div>
+      )}
+
+      {!asking && !needsSubject && !unplanned && (
         <div className="mt-2 flex-1">
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--muted)]">
             The document we&apos;d make
@@ -189,7 +223,7 @@ export default function ProjectPage() {
         </div>
       )}
 
-      {!commitment && !asking && !needsSubject && (
+      {!approved && !asking && !needsSubject && !unplanned && (
         <CorrectionBox
           onSubmit={correct}
           onApprove={approve}
