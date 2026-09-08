@@ -105,6 +105,16 @@ is defensible; teach it when it is not.
 
 ## Output
 
+Every block's `kind` is one of exactly these, spelled exactly like this:
+
+`prose` · `list` · `code` · `table` · `example` · `question` · `callout` ·
+`subhead` · `heading` · `chips` · `relation`
+
+They are not the schema's class names. A check question is `question`, not
+`checkquestion`; a worked example is `example`; a bullet list is `list`; a
+relational figure is `relation`.
+
+
 Fill the schema. `assumed_entry` and `target_capability` are for the reader, not
 for us — state them plainly enough that someone can tell in five seconds whether
 this document is for them.
