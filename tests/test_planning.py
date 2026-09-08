@@ -521,3 +521,50 @@ def test_capacity_is_not_asked_for_upfront(service: PlanService) -> None:
     view = opened(service)
     assert view.decisions["interpret_situation"]["capacity"] is None
     assert view.extent["pages"] and view.extent["study_time"]
+
+
+# --------------------------------------------------------------------------
+# The empty-question dead end
+# --------------------------------------------------------------------------
+
+
+def test_a_wanted_question_the_model_never_wrote_does_not_strand_the_user(
+    tmp_path,
+) -> None:
+    """The decider names axes worth asking about; the model authors the
+    questions. Nothing makes those agree, and `_read` intersects them.
+
+    A real request -- "i need a cheat sheet for graph dsa questions for my
+    interview" -- produced verdict `ask` on `target_capability` with zero
+    surviving questions, so the page said "I'd rather ask than guess" and then
+    showed nothing at all: no questions, no plan, no control.
+
+    A question that does not exist cannot be answered, so it cannot be a reason
+    to wait.
+    """
+    axes = [dict(a) for a in AXES_SUFFICIENT]
+    for axis in axes:
+        if axis["axis"] == "target_capability":
+            axis["source"] = "unknown"
+            axis["supported_by"] = []
+            axis["materiality"] = "changes_the_plan"
+
+    reading = {
+        "interpret_situation": SITUATION,
+        "axes": axes,
+        # The decider wants target_capability asked; the model wrote nothing.
+        "proposed_questions": [],
+    }
+    service = PlanService(
+        FileStore(tmp_path), provider=StubProvider(reading, LANDSCAPE, PLAN)
+    )
+    view = service.create(REQUEST)
+
+    assert view.sufficiency["verdict"] == "ask", "the decider still wants to ask"
+    assert view.sufficiency["asking"] == ["target_capability"]
+    assert view.questions == [], "nothing survived the intersection"
+
+    assert view.state != "asking", (
+        "state 'asking' with no questions renders a page with no control on it"
+    )
+    assert view.decisions.get("scope"), "planning must proceed when nothing can be asked"

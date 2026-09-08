@@ -200,6 +200,70 @@
   }
   .callout p:last-child { margin-bottom: 0; }
 
+  /* ---------- structural labels ---------- */
+
+  .subhead {
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 8pt;
+    font-weight: 600;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 5mm 0 2mm;
+  }
+  h3 {
+    font-size: 11.5pt;
+    font-weight: 600;
+    margin: 5mm 0 2mm;
+    color: var(--ink);
+  }
+  .chips { margin: 2mm 0 4mm; }
+  .chips .chip {
+    display: inline-block;
+    border: 0.5pt solid var(--rule);
+    border-radius: 1.6mm;
+    padding: .7mm 2.2mm;
+    margin: 0 1.4mm 1.4mm 0;
+    font-size: 8.6pt;
+    color: var(--soft);
+  }
+
+  /* ---------- relational figures ----------
+     One geometry per relation, each permitted for that relation by
+     Representation Boundary Rev. 3 §2's honesty table. The template chooses
+     among honest options; it never picks a geometry the relation forbids.
+     `causes` is deliberately NOT the `precedes` geometry: sharing it is the
+     table's named dishonesty, because it collapses order into causation. */
+
+  figure { margin: 3mm 0 5mm; break-inside: avoid; }
+  figure figcaption {
+    font-size: 8.8pt;
+    color: var(--muted);
+    margin-top: 1.6mm;
+  }
+  .rel { border-top: 0.9pt solid var(--ink); padding-top: 2.4mm; }
+  .rel .item { display: flex; align-items: baseline; gap: 2.4mm; padding: 1.4mm 0; }
+  .rel .item + .item { border-top: 0.4pt solid var(--hairline); }
+  .rel .lbl { font-weight: 600; font-size: 10.2pt; overflow-wrap: break-word; }
+  .rel .note { color: var(--soft); font-size: 9.4pt; }
+  .rel .emph .lbl { color: var(--accent); }
+  .rel .mark {
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 8pt;
+    color: var(--muted);
+    min-width: 9mm;
+  }
+  /* Containment and composition: depth is meaning, so it is drawn as depth. */
+  .rel.nest .item { border-top: none; }
+  .rel.nest .bar {
+    border-left: 1.5pt solid var(--accent);
+    padding-left: 2.4mm;
+    flex: 1;
+  }
+  /* Association asserts no order and no direction, so it gets neither. */
+  .rel.flat { display: flex; flex-wrap: wrap; gap: 2mm; }
+  .rel.flat .item { border: 0.5pt solid var(--rule); border-radius: 1.6mm; padding: 1.6mm 2.4mm; }
+
   /* ---------- marked gaps ---------- */
 
   .gaps { break-before: page; }
@@ -306,6 +370,81 @@
         {% if b.title %}<div class="title">{{ b.title }}</div>{% endif %}
         <p>{{ b.text | inline }}</p>
       </div>
+
+    {% elif b.kind == "subhead" %}
+      <div class="subhead">{{ b.label }}</div>
+
+    {% elif b.kind == "heading" %}
+      <h3>{{ b.text }}</h3>
+
+    {% elif b.kind == "chips" %}
+      <div class="chips">{% for chip in b['items'] %}<span class="chip">{{ chip }}</span>{% endfor %}</div>
+
+    {% elif b.kind == "relation" and b.relation in ("is-subset-of", "is-part-of") %}
+      {# Indented layers. Honest for both: the table permits it for containment,
+         and for composition as a bracket/tree reading. Not Euler nesting, which
+         reads is-a and would be false for is-part-of. #}
+      <figure data-relation="{{ b.relation }}" data-realization="indented-layers">
+        <div class="rel nest">
+          {% for e in b.entities %}
+          <div class="item{% if e.emphasis %} emph{% endif %}" style="margin-left:{{ loop.index0 * 5 }}mm">
+            <div class="bar">
+              <span class="lbl">{{ e.label }}</span>
+              {% if e.note %}<span class="note">{{ e.note }}</span>{% endif %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% if b.caption %}<figcaption>{{ b.caption }}</figcaption>{% endif %}
+      </figure>
+
+    {% elif b.kind == "relation" and b.relation == "precedes" %}
+      {# Numbered steps. Permitted for order; asserts no interval, which an
+         evenly-spaced timeline would. #}
+      <figure data-relation="{{ b.relation }}" data-realization="numbered-steps">
+        <div class="rel">
+          {% for e in b.entities %}
+          <div class="item{% if e.emphasis %} emph{% endif %}">
+            <span class="mark">{{ loop.index }}</span>
+            <span class="lbl">{{ e.label }}</span>
+            {% if e.note %}<span class="note">{{ e.note }}</span>{% endif %}
+          </div>
+          {% endfor %}
+        </div>
+        {% if b.caption %}<figcaption>{{ b.caption }}</figcaption>{% endif %}
+      </figure>
+
+    {% elif b.kind == "relation" and b.relation == "causes" %}
+      {# Labelled arrows. The label is load-bearing: an unlabelled arrow here is
+         indistinguishable from `precedes`, which is the honesty table's named
+         failure -- order silently read as causation. #}
+      <figure data-relation="{{ b.relation }}" data-realization="labelled-arrows">
+        <div class="rel">
+          {% for e in b.entities %}
+          <div class="item{% if e.emphasis %} emph{% endif %}">
+            <span class="mark">{% if not loop.first %}causes ↓{% endif %}</span>
+            <span class="lbl">{{ e.label }}</span>
+            {% if e.note %}<span class="note">{{ e.note }}</span>{% endif %}
+          </div>
+          {% endfor %}
+        </div>
+        {% if b.caption %}<figcaption>{{ b.caption }}</figcaption>{% endif %}
+      </figure>
+
+    {% elif b.kind == "relation" and b.relation == "associates-with" %}
+      {# Undirected and unordered. Any arrow would assert direction and any
+         sequence would assert order; the payload gives neither. #}
+      <figure data-relation="{{ b.relation }}" data-realization="undirected-cluster">
+        <div class="rel flat">
+          {% for e in b.entities %}
+          <div class="item{% if e.emphasis %} emph{% endif %}">
+            <span class="lbl">{{ e.label }}</span>
+            {% if e.note %}<span class="note">{{ e.note }}</span>{% endif %}
+          </div>
+          {% endfor %}
+        </div>
+        {% if b.caption %}<figcaption>{{ b.caption }}</figcaption>{% endif %}
+      </figure>
 
     {% else %}
       {# Rev. 3 instrument: a kind this template cannot draw used to render
