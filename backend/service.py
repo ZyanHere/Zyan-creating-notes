@@ -94,6 +94,13 @@ class GenerateResult:
     repairs: int
     render_environment: Mapping[str, str]
     representation: RepresentationReport
+    fulfilment: dict | None = None
+    """Whether the artifact delivers the approved plan, and where it does not.
+
+    Carried out of the service rather than logged, because a completeness check
+    nobody sees is the same as no check: the caller has to be able to refuse to
+    call this a success."""
+    calls: int = 1
 
 
 def slugify(text: str, *, limit: int = 60) -> str:
@@ -102,13 +109,22 @@ def slugify(text: str, *, limit: int = 60) -> str:
 
 
 def generate(
-    request: str, *, out_dir: Path = OUT, template_id: str | None = None
+    request: str,
+    *,
+    out_dir: Path = OUT,
+    template_id: str | None = None,
+    plan: dict | None = None,
 ) -> GenerateResult:
     """One learner request in; one PDF on disk out.
 
-    Synchronous on purpose. Background execution arrives at M4 when a set of
-    members makes the wait genuinely long; adding it now would be infrastructure
-    ahead of a reason.
+    `plan` is an approved plan's snapshot. When present it is the brief and the
+    request is context -- which is what closes the gap between the plan gate and
+    this function. Without it, approval would commit a set of decisions that
+    nothing downstream ever read.
+
+    Synchronous here on purpose: the wait is handled by the caller running this
+    off the request thread (`backend/jobs.py`), not by this function knowing
+    about jobs.
     """
     if not config.provider_is_configured():
         raise RuntimeError(
@@ -117,7 +133,7 @@ def generate(
             "in .env (see .env.example)."
         )
 
-    generated = agent.generate_document(request)
+    generated = agent.generate_document(request, plan=plan)
     doc = generated.document
 
     # Semantics §2: the template is the user's, and it constrains presentation
@@ -156,6 +172,11 @@ def generate(
                 "unlisted": list(report.unlisted),
                 "unrendered": list(report.unrendered),
                 "stated_gaps": list(report.stated_gaps),
+                "calls": generated.calls,
+                "repairs": generated.repairs,
+                "fulfilment": (
+                    generated.fulfilment.to_json() if generated.fulfilment else None
+                ),
                 "scale": report.scale,
                 "template": rendered.render_environment.get("template_id"),
             },
@@ -177,6 +198,8 @@ def generate(
         repairs=generated.repairs,
         render_environment=rendered.render_environment,
         representation=report,
+        fulfilment=generated.fulfilment.to_json() if generated.fulfilment else None,
+        calls=generated.calls,
     )
 
 

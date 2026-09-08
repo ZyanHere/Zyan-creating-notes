@@ -138,7 +138,9 @@ class PlanService:
         project = self.store.create_project(USER, title=text[:80])
         self.store.add_utterance(project.id, "user", text)
         self._read(project.id)
-        if self._sufficiency(project.id)["verdict"] == "sufficient":
+        if self._sufficiency(project.id)["verdict"] == "sufficient" or not self._pending(
+            project.id
+        ):
             self._plan(project.id)
         return self.view(project.id)
 
@@ -165,6 +167,7 @@ class PlanService:
             or after.verdict == "sufficient"
             or stalled
             or rounds >= self.MAX_INTAKE_ROUNDS
+            or not self._pending(project_id)
         ):
             self._plan(project_id)
         return self.view(project_id)
@@ -254,12 +257,18 @@ class PlanService:
         router = [u for u in utterances if u.role == "router"]
         intake = current.get("intake_strategy")
         sufficiency = intake.output.get("sufficiency", {}) if intake else {}
+        questions = (intake.output.get("questions") if intake else None) or []
         if "scope" in current:
             state = "planned"
         elif sufficiency.get("verdict") == "needs_subject":
             state = "needs_subject"
-        else:
+        elif questions:
             state = "asking"
+        else:
+            # No plan, nothing to ask, and a subject we have. Reachable only if
+            # planning failed after the read -- a provider fault, say. `asking`
+            # here used to strand the user on a page with no control at all.
+            state = "unplanned"
         return PlanView(
             state=state,
             sufficiency=sufficiency,
@@ -315,6 +324,22 @@ class PlanService:
         plan_call = planning.plan(situation, landscape, provider=self.provider)
         for kind, output in plan_call.outputs.items():
             self._write(project_id, kind, output, plan_call)
+
+    def _pending(self, project_id: str) -> list[dict]:
+        """Questions that actually survived to be asked.
+
+        The decider names axes worth asking about; the model authors the
+        questions. Nothing makes those agree -- `_read` intersects them, and the
+        intersection can be empty, which is how a request for a graph cheat
+        sheet reached a page that said "I'd rather ask than guess" and then
+        asked nothing.
+
+        A question that does not exist cannot be answered, so it cannot be a
+        reason to wait. Semantics §3: a question is an offer to correct early,
+        never a blocker.
+        """
+        intake = self.store.current_decisions(project_id).get("intake_strategy")
+        return (intake.output.get("questions") if intake else None) or []
 
     def _sufficiency(self, project_id: str) -> dict:
         intake = self.store.current_decisions(project_id).get("intake_strategy")
