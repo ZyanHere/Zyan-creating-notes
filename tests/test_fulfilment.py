@@ -372,5 +372,99 @@ def test_the_heading_is_the_plans_not_the_models() -> None:
 
 
 def test_a_plan_with_no_units_is_refused_rather_than_half_written() -> None:
-    with pytest.raises(ValueError, match="no units"):
+    with pytest.raises(ValueError, match="nothing to write"):
         _from_plan("x", {"scope": {"covered": []}}, provider=Scripted())
+
+
+# --------------------------------------------------------------------------
+# Curriculum → modules
+# --------------------------------------------------------------------------
+
+CURRICULUM = {
+    "interpret_situation": {
+        "subject": "Agentic AI",
+        "purpose": "Interview preparation",
+        "entry_point": "Nothing",
+        "target_capability": "Build and talk about agentic systems",
+        "capacity": None,
+        "stated": [],
+        "inferred": [],
+    },
+    "scope": {
+        "covered": [
+            {"concept": "Chat Completions API", "depth": "work through", "why": "x", "anticipates": "none"},
+            {"concept": "Retrieval basics", "depth": "explain", "why": "x", "anticipates": "none"},
+            {"concept": "Chunking strategies", "depth": "explain", "why": "x", "anticipates": "none"},
+        ],
+        "cut": [],
+    },
+    "partition": {
+        "modules": [
+            {
+                "title": "LLM API Foundations",
+                "covers": ["Chat Completions API"],
+                "why_here": "Everything else calls a model.",
+                "capability": "Call a model from your own code and shape its output.",
+            },
+            {
+                "title": "RAG Fundamentals",
+                "covers": ["Retrieval basics", "Chunking strategies"],
+                "why_here": "One pipeline.",
+                "capability": "Build a retrieval pipeline over your own documents.",
+            },
+        ]
+    },
+    "traversal": {"sequence": ["LLM API Foundations", "RAG Fundamentals"], "why": "APIs first."},
+    "consequence": {"exclusions": []},
+    "extent": {"per_unit": {"LLM API Foundations": "~8 pages"}},
+}
+
+
+def test_work_orders_come_from_modules() -> None:
+    orders = requirements(CURRICULUM)
+    assert [o["heading"] for o in orders] == ["LLM API Foundations", "RAG Fundamentals"]
+    assert [c["concept"] for c in orders[1]["concepts"]] == [
+        "Retrieval basics",
+        "Chunking strategies",
+    ]
+
+
+def test_a_legacy_plan_still_opens() -> None:
+    """17 stored projects have `partition.units` — sections of one document,
+    written before the curriculum layer. They must keep working, and they are
+    not silently re-read as modules."""
+    legacy = {
+        **CURRICULUM,
+        "partition": {
+            "units": [
+                {"heading": "One", "covers": ["Chat Completions API"], "why_here": "x"},
+            ]
+        },
+        "traversal": {"sequence": ["One"], "why": "x"},
+    }
+    orders = requirements(legacy)
+    assert [o["heading"] for o in orders] == ["One", "Also covered"]
+
+
+def test_a_curriculum_refuses_to_be_written_as_one_document() -> None:
+    """Several modules is several PDFs. One document with a thin section per
+    module is not the artifact the plan promised, and producing it would be the
+    generator committing the exact failure fulfilment.py exists to prevent."""
+    with pytest.raises(ValueError, match="curriculum of 2 modules"):
+        _from_plan("agentic ai notes", CURRICULUM, provider=Scripted())
+
+
+def test_a_single_module_plan_generates_normally() -> None:
+    """One module is a document, not a curriculum of one."""
+    single = {
+        **CURRICULUM,
+        "scope": {"covered": CURRICULUM["scope"]["covered"][1:], "cut": []},
+        "partition": {"modules": [CURRICULUM["partition"]["modules"][1]]},
+        "traversal": {"sequence": ["RAG Fundamentals"], "why": "x"},
+    }
+    provider = Scripted(
+        _section("RAG Fundamentals", ["Retrieval basics.", "Chunking strategies matter."])
+    )
+    generated = _from_plan("rag notes", single, provider=provider)
+    assert [s.heading for s in generated.document.sections] == ["RAG Fundamentals"]
+    assert generated.fulfilment.satisfied

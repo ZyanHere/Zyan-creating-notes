@@ -409,3 +409,163 @@ def test_anticipates_names_a_failure_never_a_diagram() -> None:
 
     banned = ("diagram", "image", "figure", "chart", "venn", "anatom")
     assert all(not any(b in f for b in banned) for f in FAILURES)
+
+
+# --------------------------------------------------------------------------
+# Provenance: a span can exist and still not be evidence
+# --------------------------------------------------------------------------
+
+FROM_SCRATCH = "i need agentic ai notes for interview, from scratch"
+
+
+def _reading(axis, value, source, quote, materiality="changes_the_plan"):
+    return AxisReading(
+        axis=axis,
+        value=value,
+        source=source,
+        supported_by=[Span(utterance_ord=0, quote=quote)],
+        would_differ="a different plan",
+        materiality=materiality,
+    )
+
+
+def test_a_span_that_denies_the_reading_does_not_verify_it() -> None:
+    """The real failure. `entry_point` read as "Beginner to agentic AI; assumes
+    general ML/LLM literacy", citing the span "from scratch" in support.
+
+    The quote is really in the request, so existence-checking passed and
+    promoted the reading from `guessed` to `inferred` — out of reach of the
+    question that would have caught it. Everything downstream then built on
+    literacy the user said they did not have.
+    """
+    result = decide(
+        [
+            _reading("subject", "Agentic AI", "stated", "agentic ai"),
+            _reading(
+                "entry_point",
+                "Beginner to agentic AI; assumes general ML/LLM literacy",
+                "inferred",
+                "from scratch",
+            ),
+        ],
+        [FROM_SCRATCH],
+    )
+    entry = next(a for a in result.axes if a.axis == "entry_point")
+    assert entry.verified == (), "a quote that denies the reading is not support"
+    assert entry.unverified == ("from scratch",)
+    assert entry.weak, "unsupported, so it must not sit at `inferred`"
+    assert entry.material
+    assert "entry_point" in result.asking, "weak and material — it must be asked"
+    assert result.verdict == "ask"
+
+
+def test_the_same_span_supports_a_reading_that_agrees_with_it() -> None:
+    """The check must not fire on every mention of prior knowledge — only where
+    the quote and the reading actually disagree."""
+    result = decide(
+        [
+            _reading("subject", "Agentic AI", "stated", "agentic ai"),
+            _reading("entry_point", "No prior exposure to agents or LLM APIs", "stated", "from scratch"),
+        ],
+        [FROM_SCRATCH],
+    )
+    entry = next(a for a in result.axes if a.axis == "entry_point")
+    assert len(entry.verified) == 1
+    assert entry.strength == "stated"
+    assert "entry_point" not in result.asking
+
+
+def test_a_negated_claim_of_prior_knowledge_is_not_a_contradiction() -> None:
+    """"assumes no prior exposure" is the opposite claim from "assumes prior
+    exposure" and differs by one word."""
+    result = decide(
+        [
+            _reading("subject", "Agentic AI", "stated", "agentic ai"),
+            _reading("entry_point", "Assumes no prior exposure to agents", "stated", "from scratch"),
+        ],
+        [FROM_SCRATCH],
+    )
+    entry = next(a for a in result.axes if a.axis == "entry_point")
+    assert len(entry.verified) == 1, "negated prior-knowledge is agreement, not contradiction"
+
+
+def test_an_unrelated_quote_is_untouched_by_the_check() -> None:
+    """The check is one narrow family. A quote with no polarity claim in it must
+    verify exactly as before."""
+    result = decide(
+        [
+            _reading("subject", "Agentic AI", "stated", "agentic ai"),
+            _reading("purpose", "Interview preparation", "inferred", "for interview"),
+        ],
+        [FROM_SCRATCH],
+    )
+    purpose = next(a for a in result.axes if a.axis == "purpose")
+    assert len(purpose.verified) == 1
+    assert purpose.strength == "inferred"
+
+
+def test_a_stated_constraint_binds_the_axis_it_names() -> None:
+    """Semantics §1: stated constraints bind. A statement *about* an axis that
+    comes back as an *inference* on that axis was reinterpreted, not honoured —
+    even when the words themselves carry no polarity to check."""
+    readings = [
+        _reading("subject", "Agentic AI", "stated", "agentic ai"),
+        _reading("entry_point", "Comfortable with Python and ML basics", "inferred", "agentic ai"),
+    ]
+    free = decide(readings, [FROM_SCRATCH])
+    assert not next(a for a in free.axes if a.axis == "entry_point").weak
+
+    bound = decide(
+        readings,
+        [FROM_SCRATCH],
+        stated=[{"text": "from scratch", "axis": "entry_point"}],
+    )
+    entry = next(a for a in bound.axes if a.axis == "entry_point")
+    assert entry.weak, "a statement about this axis was read as an inference"
+    assert "entry_point" in bound.asking
+
+
+def test_legacy_stated_strings_bind_nothing() -> None:
+    """Plans stored `stated` as bare strings with no attribution. They must keep
+    behaving as they did rather than being retro-fitted with constraints the
+    model never attributed."""
+    readings = [
+        _reading("subject", "Agentic AI", "stated", "agentic ai"),
+        _reading("entry_point", "Comfortable with Python", "inferred", "agentic ai"),
+    ]
+    result = decide(readings, [FROM_SCRATCH], stated=["from scratch"])
+    assert not next(a for a in result.axes if a.axis == "entry_point").weak
+
+
+def test_a_short_request_whose_subject_is_quoted_minimally_verifies() -> None:
+    """A real failure: for "i need notes on agentic AI" the model cited the whole
+    six-word utterance as its span for subject. `_discriminating` discards a
+    quote covering most of an utterance -- rightly, since such a quote supports
+    every axis equally -- so subject fell to `guessed` and the gate demanded a
+    subject the request plainly states.
+
+    The guard stays. The citation was the fault: `agentic AI` is available as a
+    two-word span, and the prompt now says to quote the shortest span that
+    establishes the reading. Both halves are pinned here.
+    """
+    said = ["i need notes on agentic AI"]
+
+    whole = decide([_reading("subject", "agentic AI", "stated", "i need notes on agentic AI")], said)
+    lazy = next(a for a in whole.axes if a.axis == "subject")
+    assert lazy.weak, "a whole-utterance quote must still be discarded"
+
+    minimal = decide([_reading("subject", "agentic AI", "stated", "agentic AI")], said)
+    tight = next(a for a in minimal.axes if a.axis == "subject")
+    assert not tight.weak, "the minimal span must verify"
+    assert tight.strength == "stated"
+    assert minimal.verdict == "sufficient"
+
+
+def test_the_prompt_tells_the_model_to_quote_minimally() -> None:
+    """The guard cannot be loosened without reintroducing the failure it exists
+    for, so the fix has to live in the instruction."""
+    import pathlib
+
+    prompt = pathlib.Path("agent/prompts/interpret_v1.md").read_text(encoding="utf-8")
+    assert "SHORTEST SPAN" in prompt
+    assert "DISCARDED" in prompt

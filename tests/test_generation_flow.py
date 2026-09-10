@@ -226,3 +226,233 @@ def test_each_relation_gets_its_own_geometry_in_the_default_template() -> None:
 
     assert realizations["precedes"] != realizations["causes"]
     assert len(set(realizations.values())) >= 4, realizations
+
+
+# ---------------------------------------------------------------------------
+# The Project as the durable object: what survives a restart, and what comes
+# out of it in one download.
+#
+# Both go through the HTTP surface, because both failures were surface
+# failures: a reopened project reported a bare "done" for work it had fully
+# described on disk, and there was no way to get a curriculum out except one
+# PDF at a time.
+# ---------------------------------------------------------------------------
+
+CURRICULUM = {
+    "interpret_situation": {"subject": "Human digestion", "purpose": "Class 11"},
+    "scope": {
+        "covered": [
+            {"concept": "Alimentary canal", "depth": "explain", "why": "The spine of it."},
+            {"concept": "Villi", "depth": "work through", "why": "Absorption."},
+        ],
+        "cut": [],
+    },
+    "partition": {
+        "modules": [
+            {
+                "title": "The canal",
+                "covers": ["Alimentary canal"],
+                "why_here": "Orientation.",
+                "capability": "Trace a meal.",
+            },
+            {
+                "title": "Absorption",
+                "covers": ["Villi"],
+                "why_here": "One mechanism.",
+                "capability": "Explain uptake.",
+            },
+        ]
+    },
+    "traversal": {"sequence": ["The canal", "Absorption"], "why": "Order."},
+    "extent": {"per_unit": {"The canal": "~4 pages", "Absorption": "~3 pages"}},
+}
+
+
+@pytest.fixture()
+def client(tmp_path, monkeypatch):
+    """A live API over a temp store and a temp artifact directory.
+
+    `JOBS` is left empty on purpose: an empty job table is exactly what a
+    restarted server has, so every assertion below is about what the Project
+    can reconstruct from disk alone.
+    """
+    from fastapi.testclient import TestClient
+
+    from backend import api, service
+    from backend.planning import PlanService
+    from backend.store import Commitment, Decision, FileStore, commit_hash
+
+    monkeypatch.setattr(service, "OUT", tmp_path / "out")
+    plans = PlanService(FileStore(tmp_path / "projects"))
+    monkeypatch.setattr(api, "_plans", plans)
+    api.JOBS._jobs.clear()
+
+    project = plans.store.create_project("local", title="notes on human digestion")
+    plans.store.add_utterance(project.id, "user", "notes on human digestion")
+    # The decision rows, not just the commitment: approval snapshots decisions
+    # that already exist, and the displayed title is derived from them. A
+    # fixture with a commitment and no decisions is a project that cannot
+    # happen.
+    for kind, output in CURRICULUM.items():
+        plans.store.put_decision(
+            Decision(
+                id=f"d-{kind}",
+                project_id=project.id,
+                kind=kind,
+                status="committed",
+                freshness="current",
+                inputs_hash="h",
+                output=output,
+            )
+        )
+    plans.store.add_commitment(
+        Commitment(
+            id="c1",
+            project_id=project.id,
+            kind="plan",
+            snapshot=CURRICULUM,
+            decision_ids=["d1"],
+            decision_ids_hash=commit_hash(["d1"]),
+            decision_environment={},
+            approved_by=None,
+        )
+    )
+    return TestClient(api.app), project.id, tmp_path / "out" / "artifacts" / project.id
+
+
+def _write_module(artifacts, title, *, pages=3, satisfied=True):
+    """A generated module, as `service.generate` leaves it on disk."""
+    import json
+
+    from backend.service import slugify
+
+    artifacts.mkdir(parents=True, exist_ok=True)
+    stem = slugify(title)
+    (artifacts / f"{stem}.pdf").write_bytes(
+        b"%PDF-1.4\n/Type /Pages\n" + b"/Type /Page\n" * pages
+    )
+    (artifacts / f"{stem}.report.json").write_text(
+        json.dumps(
+            {
+                "title": title,
+                "calls": 3,
+                "stated_gaps": ["a diagram we could not draw"],
+                "unrendered": [],
+                "fulfilment": {
+                    "satisfied": satisfied,
+                    "coverage": 1.0,
+                    "units_approved": ["x"],
+                    "units_generated": ["x"],
+                    "concepts_required": ["x"],
+                    "concepts_covered": ["x"],
+                    "problems": [],
+                    "units": [],
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+
+
+def test_a_reopened_project_remembers_what_it_produced(client) -> None:
+    """The restart case. `service.generate` has always written a report sidecar
+    beside every PDF and nothing ever read it, so page count, cost and the
+    fulfilment check lived only in the in-memory job and died with the process:
+    reopening a project showed a bare "done" for work the system had fully
+    described on disk."""
+    api_client, project_id, artifacts = client
+    _write_module(artifacts, "The canal", pages=7)
+
+    modules = api_client.get(f"/projects/{project_id}/modules").json()["modules"]
+    written, pending = modules[0], modules[1]
+
+    assert written["state"] == "done"
+    assert written["pages"] == 7
+    assert written["calls"] == 3
+    assert written["satisfied"] is True
+    assert written["fulfilment"]["coverage"] == 1.0
+    assert written["representation"]["stated_gaps"] == ["a diagram we could not draw"]
+    # The module nobody has written stays plainly un-written.
+    assert pending["state"] == "idle"
+    assert "pages" not in pending
+
+
+def test_a_module_without_its_sidecar_is_still_done(client) -> None:
+    """The PDF is the record. An older or interrupted run may have no sidecar,
+    and that must not demote finished work back to `idle`."""
+    api_client, project_id, artifacts = client
+    _write_module(artifacts, "The canal")
+    (artifacts / "the-canal.report.json").unlink()
+
+    modules = api_client.get(f"/projects/{project_id}/modules").json()["modules"]
+
+    assert modules[0]["state"] == "done"
+    assert modules[0]["pages"] == 3
+    assert modules[0].get("fulfilment") is None
+
+
+def test_the_index_counts_what_is_written(client) -> None:
+    api_client, project_id, artifacts = client
+    row = api_client.get("/projects").json()[0]
+    assert (row["modules_done"], row["modules_total"]) == (0, 2)
+    assert row["title"] == "Human digestion"
+    assert row["query"] == "notes on human digestion"
+
+    _write_module(artifacts, "The canal")
+    row = api_client.get("/projects").json()[0]
+    assert (row["modules_done"], row["modules_total"]) == (1, 2)
+
+
+def test_export_carries_the_written_modules_in_curriculum_order(client) -> None:
+    """A curriculum is several PDFs, and fetching 25 of them one at a time is
+    not a download. The `NN-` prefix exists only inside the archive: on disk a
+    module's PDF is named from its title with no ordering, so unzipping would
+    otherwise present the curriculum alphabetically -- the one order the plan
+    explicitly decided against."""
+    import io
+    import zipfile
+
+    api_client, project_id, artifacts = client
+    # Written out of order, to prove the archive follows the plan and not the
+    # filesystem.
+    _write_module(artifacts, "Absorption")
+    _write_module(artifacts, "The canal")
+
+    response = api_client.get(f"/projects/{project_id}/export.zip")
+
+    assert response.status_code == 200
+    assert response.headers["x-modules-written"] == "2"
+    assert response.headers["x-modules-total"] == "2"
+    names = zipfile.ZipFile(io.BytesIO(response.content)).namelist()
+    assert names == [
+        "human-digestion/01-the-canal.pdf",
+        "human-digestion/02-absorption.pdf",
+        "human-digestion/plan.json",
+    ]
+
+
+def test_export_includes_only_what_exists(client) -> None:
+    import io
+    import zipfile
+
+    api_client, project_id, artifacts = client
+    _write_module(artifacts, "Absorption")
+
+    response = api_client.get(f"/projects/{project_id}/export.zip")
+
+    assert response.headers["x-modules-written"] == "1"
+    assert response.headers["x-modules-total"] == "2"
+    names = zipfile.ZipFile(io.BytesIO(response.content)).namelist()
+    assert "human-digestion/02-absorption.pdf" in names
+    assert not any("the-canal" in n for n in names)
+
+
+def test_export_refuses_an_empty_project(client) -> None:
+    """An empty zip is a download that looks like it worked."""
+    api_client, project_id, _ = client
+
+    response = api_client.get(f"/projects/{project_id}/export.zip")
+
+    assert response.status_code == 409
+    assert "no module of this project has been written" in response.json()["detail"]
+

@@ -62,15 +62,19 @@ SITUATION = {
     "purpose": "NEET",
     "target_capability": "Sequence hominin forms and name their traits.",
     "capacity": None,
-    "stated": ["NEET syllabus only"],
+    "stated": [{"text": "NEET syllabus only", "axis": None}],
     "inferred": ["Assumed the written exam, not the practical."],
 }
 
 READING_SUFFICIENT = {
     "interpret_situation": SITUATION,
     "axes": AXES_SUFFICIENT,
-    "proposed_questions": [],
 }
+
+def intake(*questions) -> dict:
+    """What `ask()` returns: the wording for axes the decider already chose."""
+    return {"questions": list(questions)}
+
 
 QUESTION = {
     "axis": "target_capability",
@@ -91,7 +95,6 @@ READING_ASKING = {
         else _axis("target_capability", None, "unknown", material="changes_the_plan")
         for a in AXES_SUFFICIENT
     ],
-    "proposed_questions": [QUESTION],
 }
 
 LANDSCAPE = {
@@ -133,12 +136,18 @@ PLAN = {
         ]
     },
     "partition": {
-        "units": [
-            {"heading": "Where humans sit", "covers": ["Primate lineage"], "why_here": "Entry."},
+        "modules": [
             {
-                "heading": "The hominins",
+                "title": "Where humans sit",
+                "covers": ["Primate lineage"],
+                "why_here": "Entry.",
+                "capability": "Place humans on the primate tree.",
+            },
+            {
+                "title": "The hominins",
                 "covers": ["Australopithecus", "Homo erectus"],
                 "why_here": "One sequence.",
+                "capability": "Order the hominin forms and say what changed at each.",
             },
         ]
     },
@@ -182,7 +191,13 @@ def service(tmp_path) -> PlanService:
 
 
 def opened(service: PlanService):
-    return service.create(REQUEST)
+    """A project with a plan on it.
+
+    Two steps now, because they are two different things: the conversational
+    turn reads the request, and planning is asked for. `create()` never plans.
+    """
+    view = service.create(REQUEST)
+    return service.proceed(view.project_id)
 
 
 # --- the three classes of decision ------------------------------------------
@@ -257,7 +272,7 @@ def test_routing_is_the_routers_judgement_not_a_fixed_mapping(service: PlanServi
     """A capacity change may move partition too. The loop asserts agreement
     between the declared set and the actual set — never a phrase-to-decision map."""
     view = opened(service)
-    single_unit = {"units": [PLAN["partition"]["units"][0]]}
+    single_unit = {"modules": [PLAN["partition"]["modules"][0]]}
     service.provider = StubProvider(
         routing(
             ["scope", "partition", "traversal"],
@@ -345,7 +360,7 @@ def test_extent_is_derived_from_scope_not_written_by_the_model() -> None:
     assert small != bigger
     assert small["pages"].endswith("pages") or small["pages"] == "~1 page"
     # per-unit, because a contents page is where a reader judges size
-    assert set(small["per_unit"]) == {u["heading"] for u in PLAN["partition"]["units"]}
+    assert set(small["per_unit"]) == {m["title"] for m in PLAN["partition"]["modules"]}
     assert small["parts"] == 2
 
 
@@ -409,6 +424,7 @@ def test_a_view_survives_a_restart(tmp_path) -> None:
     store = FileStore(tmp_path)
     first = PlanService(store, provider=StubProvider(READING_SUFFICIENT, LANDSCAPE, PLAN))
     view = first.create(REQUEST)
+    first.proceed(view.project_id)
     first.provider = StubProvider(routing([], reading="deferred", out_of_scope="demo stage"))
     first.correct(view.project_id, "make it black")
 
@@ -425,7 +441,7 @@ def test_a_bare_request_asks_before_it_plans(tmp_path) -> None:
     """The defect this replaced: questions were computed after the plan, so a
     six-word request produced a full plan and asked nothing. Architecture §4
     puts the intake loop first and terminates it on sufficiency."""
-    service = PlanService(FileStore(tmp_path), provider=StubProvider(READING_ASKING))
+    service = PlanService(FileStore(tmp_path), provider=StubProvider(READING_ASKING, intake(QUESTION)))
     view = service.create(REQUEST)
 
     assert view.state == "asking"
@@ -438,7 +454,7 @@ def test_a_bare_request_asks_before_it_plans(tmp_path) -> None:
 def test_questions_are_objective_with_distinct_options(tmp_path) -> None:
     """Semantics §1: the learner cannot specify their entry point but can
     recognise it. Options are how recognition is offered."""
-    service = PlanService(FileStore(tmp_path), provider=StubProvider(READING_ASKING))
+    service = PlanService(FileStore(tmp_path), provider=StubProvider(READING_ASKING, intake(QUESTION)))
     question = service.create(REQUEST).questions[0]
 
     assert 2 <= len(question["options"]) <= 4
@@ -451,12 +467,12 @@ def test_questions_are_objective_with_distinct_options(tmp_path) -> None:
 
 
 def test_an_answer_is_testimony_and_the_situation_is_re_read(tmp_path) -> None:
-    service = PlanService(FileStore(tmp_path), provider=StubProvider(READING_ASKING))
+    service = PlanService(FileStore(tmp_path), provider=StubProvider(READING_ASKING, intake(QUESTION)))
     view = service.create(REQUEST)
     service.provider = StubProvider(READING_SUFFICIENT, LANDSCAPE, PLAN)
     after = service.answer(view.project_id, "Answer MCQs")
 
-    assert after.state == "planned"
+    assert after.state == "ready", "answering ends the conversation, not the wait"
     said = [u.text for u in service.store.utterances(view.project_id) if u.role == "user"]
     assert said == [REQUEST, "Answer MCQs"]
     # re-read, not patched: interpret_situation has a second row
@@ -466,7 +482,7 @@ def test_an_answer_is_testimony_and_the_situation_is_re_read(tmp_path) -> None:
 
 def test_a_question_never_blocks(tmp_path) -> None:
     """Semantics §3. The user can always proceed on the carried defaults."""
-    service = PlanService(FileStore(tmp_path), provider=StubProvider(READING_ASKING))
+    service = PlanService(FileStore(tmp_path), provider=StubProvider(READING_ASKING, intake(QUESTION)))
     view = service.create(REQUEST)
     assert view.state == "asking"
 
@@ -480,14 +496,17 @@ def test_readiness_is_sufficiency_not_a_turn_count(tmp_path) -> None:
     strengthened nothing, asking again will not either."""
     service = PlanService(
         FileStore(tmp_path),
-        provider=StubProvider(READING_ASKING, READING_ASKING, LANDSCAPE, PLAN),
+        provider=StubProvider(READING_ASKING, intake(QUESTION), READING_ASKING, intake(QUESTION), LANDSCAPE, PLAN),
     )
     view = service.create(REQUEST)
     assert view.state == "asking"
 
-    # the second read is identical -- nothing strengthened -- so it plans
+    # the second read is identical -- nothing strengthened -- so the
+    # conversation closes. Planning is a separate, explicit step.
     after = service.answer(view.project_id, "Answer MCQs")
-    assert after.state == "planned"
+    assert after.state == "ready"
+    assert after.decisions["intake_strategy"]["exhausted"]
+    assert "strengthened nothing" in after.decisions["intake_strategy"]["closed_because"]
 
 
 def test_a_productive_answer_keeps_the_loop_open(tmp_path) -> None:
@@ -501,10 +520,15 @@ def test_a_productive_answer_keeps_the_loop_open(tmp_path) -> None:
             _axis("entry_point", None, "unknown", material="changes_the_plan"),
         ]
         + [_axis(a) for a in ("purpose", "capacity", "depth_register", "artifact_type", "template")],
-        "proposed_questions": [{**QUESTION, "axis": "entry_point"}],
     }
     service = PlanService(
-        FileStore(tmp_path), provider=StubProvider(READING_ASKING, second_round)
+        FileStore(tmp_path),
+        provider=StubProvider(
+            READING_ASKING,
+            intake(QUESTION),
+            second_round,
+            intake({**QUESTION, "axis": "entry_point"}),
+        ),
     )
     view = service.create(REQUEST)
     after = service.answer(view.project_id, "Answer MCQs")
@@ -549,14 +573,11 @@ def test_a_wanted_question_the_model_never_wrote_does_not_strand_the_user(
             axis["supported_by"] = []
             axis["materiality"] = "changes_the_plan"
 
-    reading = {
-        "interpret_situation": SITUATION,
-        "axes": axes,
-        # The decider wants target_capability asked; the model wrote nothing.
-        "proposed_questions": [],
-    }
+    reading = {"interpret_situation": SITUATION, "axes": axes}
     service = PlanService(
-        FileStore(tmp_path), provider=StubProvider(reading, LANDSCAPE, PLAN)
+        FileStore(tmp_path),
+        # The decider wants target_capability asked; `ask()` comes back empty.
+        provider=StubProvider(reading, intake(), LANDSCAPE, PLAN),
     )
     view = service.create(REQUEST)
 
@@ -564,7 +585,233 @@ def test_a_wanted_question_the_model_never_wrote_does_not_strand_the_user(
     assert view.sufficiency["asking"] == ["target_capability"]
     assert view.questions == [], "nothing survived the intersection"
 
-    assert view.state != "asking", (
+    assert view.state == "ready", (
         "state 'asking' with no questions renders a page with no control on it"
     )
-    assert view.decisions.get("scope"), "planning must proceed when nothing can be asked"
+    assert not view.decisions.get("scope"), "planning waits to be asked for"
+    assert service.proceed(view.project_id).decisions.get("scope")
+
+
+def test_both_repair_prompts_ask_for_the_whole_object() -> None:
+    """A model handed an error naming `interpret_situation` returned a bare
+    Situation where a `Reading` was required — twice — and took the request
+    down with it. The old wording invited exactly that:
+
+        "Fix exactly this and reply with the corrected JSON object only"
+
+    beside a dotted path. This was fixed in `agent/generate.py` first and the
+    twin in `agent/plan.py` was missed, so both are pinned here together.
+    """
+    import inspect
+
+    from agent.generate import _parse_or_repair
+    from agent.plan import _call
+
+    for fn in (_call, _parse_or_repair):
+        source = inspect.getsource(fn)
+        assert "COMPLETE" in source, f"{fn.__name__} must demand the whole object"
+        assert "not a request" in source, (
+            f"{fn.__name__} must say the dotted paths are a location, not a request"
+        )
+
+
+def test_the_repair_names_the_required_top_level_keys() -> None:
+    """Read off the schema rather than written out, so it stays true for every
+    call that uses `_call` — Reading, Landscape, PlanBody, Routing."""
+    from agent.plan import Reading
+
+    required = Reading.model_json_schema().get("required", [])
+    assert "interpret_situation" in required and "axes" in required
+
+
+def test_a_pre_plan_utterance_is_testimony_not_a_correction() -> None:
+    """`needs_subject` is *before* a plan exists, so the reply is an answer.
+
+    Routing it to `correct()` ran the correction router over decisions that do
+    not exist — a long call that could not succeed, and the user's answer was
+    never read. Observed live: three retries, 15-30 minutes each, no progress.
+    """
+    import inspect
+
+    from backend import api
+
+    source = inspect.getsource(api.add_utterance)
+    assert '"asking", "needs_subject", "ready"' in source, (
+        "every pre-plan state must route to answer(), not correct()"
+    )
+
+
+def test_an_identical_answer_repeated_is_a_retry_not_new_testimony(tmp_path) -> None:
+    """A turn that dies after the utterance is written leaves it persisted, so
+    pressing the button again appends it twice. One real project reached four
+    copies of the same answer."""
+    store = FileStore(tmp_path)
+    service = PlanService(store, provider=StubProvider(READING_ASKING, intake(QUESTION)))
+    view = service.create(REQUEST)
+
+    answer = "Why you want it: NEET"
+    service.provider = StubProvider(READING_SUFFICIENT, LANDSCAPE, PLAN)
+    service.answer(view.project_id, answer)
+
+    said = [u.text for u in store.utterances(view.project_id) if u.role == "user"]
+    before = len(said)
+
+    # The same answer again, as a retry would send it.
+    service.provider = StubProvider(READING_SUFFICIENT, LANDSCAPE, PLAN)
+    service.answer(view.project_id, answer)
+    said = [u.text for u in store.utterances(view.project_id) if u.role == "user"]
+
+    assert len(said) == before, f"the retry duplicated the answer: {said}"
+    assert said.count(answer) == 1
+
+
+def test_a_conversational_turn_is_exactly_one_model_call(tmp_path) -> None:
+    """The turn the user waits on, and the whole requirement.
+
+    Two things used to ride along on it. `interpret` authored questions for
+    every weak axis it could see -- discarded whenever the verdict was
+    `sufficient`, which is the common case -- and `create()` then ran `_plan()`
+    inline, so a request that stated its own purpose and entry point paid for
+    curriculum derivation before the user saw anything back.
+
+    Neither happens now. One call: read the request.
+    """
+    provider = StubProvider(READING_SUFFICIENT, LANDSCAPE, PLAN)
+    service = PlanService(FileStore(tmp_path), provider=provider)
+    view = service.create(REQUEST)
+
+    assert len(provider.seen) == 1, f"expected interpret only, got {len(provider.seen)}"
+    assert view.state == "ready", "enough is known; the user has not asked for a plan"
+    assert view.questions == []
+    assert "scope" not in view.decisions, "nothing was derived or planned"
+
+
+def test_planning_happens_only_when_the_user_asks_for_it(tmp_path) -> None:
+    provider = StubProvider(READING_SUFFICIENT, LANDSCAPE, PLAN)
+    service = PlanService(FileStore(tmp_path), provider=provider)
+    view = service.create(REQUEST)
+    assert view.state == "ready"
+
+    planned = service.proceed(view.project_id)
+    assert planned.state == "planned"
+    assert planned.decisions.get("scope")
+    # interpret, then derive and plan -- the expensive pair, and only on request.
+    assert len(provider.seen) == 3
+
+
+def test_questions_are_written_only_for_the_axes_the_decider_named(tmp_path) -> None:
+    """`ask()` writes the wording. It does not choose the subject of the
+    conversation, and it is never handed axes nobody asked about — which is what
+    keeps this from becoming a fixed questionnaire."""
+    provider = StubProvider(READING_ASKING, intake(QUESTION))
+    service = PlanService(FileStore(tmp_path), provider=provider)
+    view = service.create(REQUEST)
+
+    assert view.state == "asking"
+    asked = view.sufficiency["asking"]
+    assert asked, "the decider chose at least one axis"
+
+    ask_prompt = provider.seen[-1]
+    for axis in asked:
+        assert axis in ask_prompt, f"{axis} was chosen but not sent to ask()"
+    assert "and no others" in ask_prompt
+
+
+def test_the_same_topic_is_excluded_once(tmp_path) -> None:
+    """A model that names the same exclusion twice has stated one exclusion.
+
+    Observed: two `Multi-modal agents (vision, audio, code)` entries in one plan.
+    Nothing downstream reads a repeat as anything but a repeat -- the plan lists
+    it twice, the brief hands the writer the same exclusion twice, and the
+    reader is told the same thing twice. It also collided in the UI, where
+    `topic` is the list's React key.
+    """
+    from agent.plan import Consequence
+
+    consequence = Consequence.model_validate(
+        {
+            "exclusions": [
+                {"topic": "Multi-modal agents", "consequence": "a", "when_to_learn": "x"},
+                {"topic": "Fine-tuning", "consequence": "b", "when_to_learn": "y"},
+                # Same topic, second phrasing -- and a case/space variant, which
+                # is how it actually turns up.
+                {"topic": " multi-modal agents ", "consequence": "c", "when_to_learn": "z"},
+            ]
+        }
+    )
+
+    topics = [e.topic for e in consequence.exclusions]
+    assert topics == ["Multi-modal agents", "Fine-tuning"]
+    # First occurrence wins: the plan's ordering is the model's priority
+    # ordering, and rewriting it here would be a second, unasked-for decision.
+    assert consequence.exclusions[0].consequence == "a"
+
+
+# --- the project index ------------------------------------------------------
+#
+# A Project is the durable object; the index is the only way back to one. These
+# pin the two facts a row needs to be usable -- what it is, and how far it got.
+
+
+def test_a_summary_names_the_subject_not_the_raw_query(service) -> None:
+    """The stored title is the first 80 characters of what the user typed, so an
+    index built on it showed four rows all reading `i need notes in agentic ai`.
+    The displayed title is derived from the plan's own subject instead, and the
+    query is carried separately because it is what the user recognises."""
+    view = service.create(REQUEST)
+    summary = service.summary(view.project_id)
+
+    assert summary.title == "Human evolution"
+    assert summary.query == REQUEST
+    # Deriving rather than renaming: the stored row is untouched, so there are
+    # never two titles to keep in sync.
+    assert service.store.get_project(view.project_id).title == REQUEST
+
+
+def test_a_summary_falls_back_to_the_query_before_anything_is_read(tmp_path) -> None:
+    """A project whose opening read never landed has no subject to show. It is
+    reported as `unread` rather than `ready`, because "ready to plan" over a
+    project with no decisions is the index claiming work exists when none does
+    -- which is what 9 of the 35 projects on the author's machine actually are,
+    left behind by provider outages."""
+    store = FileStore(tmp_path)
+    project = store.create_project("local", title=REQUEST)
+    store.add_utterance(project.id, "user", REQUEST)
+
+    summary = PlanService(store).summary(project.id)
+
+    assert summary.title == REQUEST
+    assert summary.query == REQUEST
+    assert summary.state == "unread"
+
+
+def test_summary_and_view_never_disagree_about_state(service) -> None:
+    """Two readers of the same rows. A project that says `ready` in the index and
+    `asking` when opened is the app forgetting what it asked you, so both go
+    through `lifecycle_state`."""
+    view = service.create(REQUEST)
+    assert service.summary(view.project_id).state == view.state
+
+    service.proceed(view.project_id)
+    after = service.view(view.project_id)
+    assert service.summary(view.project_id).state == after.state == "planned"
+
+
+def test_summaries_skips_a_project_it_cannot_read(service, tmp_path) -> None:
+    """One corrupt file must not cost the user every other project."""
+    good = service.create(REQUEST).project_id
+    (tmp_path / "not-a-project.json").write_text("{ broken", encoding="utf-8")
+
+    ids = [s.id for s in service.summaries()]
+
+    assert ids == [good]
+
+
+def test_approval_shows_on_the_summary(service) -> None:
+    view = service.create(REQUEST)
+    service.proceed(view.project_id)
+    assert service.summary(view.project_id).approved is False
+
+    service.approve(view.project_id)
+    assert service.summary(view.project_id).approved is True
+
