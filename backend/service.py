@@ -133,6 +133,18 @@ def generate(
             "in .env (see .env.example)."
         )
 
+    # Checked here rather than at `render_pdf` below, which is where it would
+    # naturally be caught: the model call between the two takes minutes and is
+    # billed, and its output is not persisted until after the render succeeds.
+    # Discovering a missing browser at the end therefore throws away the whole
+    # generation. A filesystem stat before spending anything is the whole fix.
+    if install := engine.render.browser_ready():
+        raise RuntimeError(
+            "Chromium is not installed for Playwright, so the PDF could not be "
+            "written -- refused now rather than after a generation that would be "
+            f"discarded. Install it once with:\n\n    {install}"
+        )
+
     generated = agent.generate_document(request, plan=plan)
     doc = generated.document
 
@@ -189,7 +201,7 @@ def generate(
         title=doc.title,
         pdf_path=pdf_path,
         html_path=html_path,
-        pages_estimate=_count_pages(rendered.pdf),
+        pages_estimate=count_pages(rendered.pdf),
         input_tokens=generated.input_tokens,
         output_tokens=generated.output_tokens,
         provider=generated.provider,
@@ -244,6 +256,10 @@ def _representation_report(doc, rendered) -> RepresentationReport:
     )
 
 
-def _count_pages(pdf: bytes) -> int:
-    """Page count without a PDF library: /Type /Page occurrences, minus /Pages."""
+def count_pages(pdf: bytes) -> int:
+    """Page count without a PDF library: /Type /Page occurrences, minus /Pages.
+
+    Public because the API counts pages for an already-written module too: the
+    report sidecar records what a *run* observed, and a page count belongs to
+    the PDF, so a project reopened after a restart has to read it off the file."""
     return max(pdf.count(b"/Type /Page") - pdf.count(b"/Type /Pages"), 1)

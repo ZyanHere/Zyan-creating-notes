@@ -17,6 +17,9 @@ from dataclasses import dataclass, field
 from typing import Any
 
 import agent.plan as planning
+from agent.coherence import analyse, capability_support
+from agent.coherence import support_to_json
+from agent.coherence import to_json as coherence_json
 from agent.sufficiency import DEFAULT_BUDGET, AxisReading, decide, from_json, improved
 from agent.plan import (
     ALL_DECISIONS,
@@ -81,7 +84,13 @@ class PlanView:
     extent: dict
     feasibility: dict
     approved: bool
-    state: str = "planned"  # needs_subject | asking | planned
+    capability_support: list = field(default_factory=list)
+    """Which claims in each module's capability are backed by concepts it
+    actually covers. DIAGNOSTIC ONLY -- see agent/coherence.py."""
+    coherence: list = field(default_factory=list)
+    """Where each module's dependencies live. DIAGNOSTIC ONLY -- nothing reads
+    it to decide anything, and no threshold is applied. See agent/coherence.py."""
+    state: str = "planned"  # needs_subject | asking | ready | planned
     sufficiency: dict = field(default_factory=dict)
     last_turn: Routed | None = None
     transcript: list[dict] = field(default_factory=list)
@@ -101,9 +110,96 @@ class PlanView:
             "approved": self.approved,
             "state": self.state,
             "sufficiency": self.sufficiency,
+            "coherence": self.coherence,
+            "capability_support": self.capability_support,
             "transcript": self.transcript,
             "last_turn": None if self.last_turn is None else _turn_json(self.last_turn),
         }
+
+
+def lifecycle_state(current: dict[str, Decision]) -> str:
+    """Where a project has got to, from its decision rows alone.
+
+    Module-level and shared, because two callers need it and they must not
+    disagree: `view()` renders one project, `summary()` lists many. A project
+    that reads `ready` on the index and `asking` when opened is a bug the user
+    experiences as the app forgetting what it asked them.
+    """
+    intake = current.get("intake_strategy")
+    intake_output = intake.output if intake else {}
+    sufficiency = intake_output.get("sufficiency", {})
+
+    if "scope" in current:
+        return "planned"
+    if not current:
+        # No decision rows at all: the opening read never landed, so the request
+        # was stored and nothing was ever made of it. Reported rather than
+        # folded into `ready`, because "ready to plan" over an empty project is
+        # the index telling the user work exists when none does -- and 30 of the
+        # 35 projects on this machine are exactly that, from provider outages.
+        return "unread"
+    if sufficiency.get("verdict") == "needs_subject":
+        return "needs_subject"
+    if (intake_output.get("questions") or []) and not intake_output.get("exhausted"):
+        return "asking"
+    # Enough is known and no plan has been built. The normal end of a
+    # conversation, not a failure: planning costs minutes, so the user asks for
+    # it rather than being charged for it by surprise.
+    return "ready"
+
+
+@dataclass(frozen=True, slots=True)
+class ProjectSummary:
+    """One row of the project index.
+
+    Deliberately not a `PlanView`. Listing every project through `view()` would
+    run coherence and capability analysis N times to render N list rows that
+    show neither -- so this reads the same rows and computes only what a row
+    displays.
+
+    `title` is DERIVED, never stored: the subject the system settled on, falling
+    back to the raw query until one exists. `project.title` is the first 80
+    characters of what the user typed, which is why the index used to be a
+    column of identical rows. Deriving it here rather than rewriting the stored
+    title also means a correction that changes the subject relabels the project
+    on the next read, with nothing to keep in sync.
+    """
+
+    id: str
+    title: str
+    query: str
+    created_at: str
+    state: str
+    approved: bool
+
+    def to_json(self) -> dict[str, Any]:
+        return {
+            "id": self.id,
+            "title": self.title,
+            "query": self.query,
+            "created_at": self.created_at,
+            "state": self.state,
+            "approved": self.approved,
+        }
+
+
+@dataclass(frozen=True, slots=True)
+class _SystemDecision:
+    """A decision the system made, with no model behind it.
+
+    `_write` records what a decision cost. Some decisions cost nothing because
+    no model was asked -- closing the intake conversation is code applying a
+    rule, and recording it as a zero-cost call is more honest than inventing a
+    provider for it.
+    """
+
+    model: str = ""
+    prompt_version: str = ""
+    input_tokens: int = 0
+    output_tokens: int = 0
+
+
+_NO_CALL = _SystemDecision()
 
 
 class PlanService:
@@ -132,16 +228,20 @@ class PlanService:
     MAX_INTAKE_ROUNDS = 4
 
     def create(self, text: str) -> PlanView:
-        """A request in. Read it, and ask before planning if anything material
-        is genuinely unknown -- Architecture §4 puts the intake loop first and
-        terminates it on sufficiency, not on a fixed number of turns."""
+        """A request in, read and answered. **Never plans.**
+
+        A conversational turn is one narrowly scoped model call: read what they
+        said, and ask the one thing that matters. This used to run `_plan()`
+        inline whenever the first reading came back sufficient, so a request
+        that stated its own purpose and entry point -- *"short revision notes on
+        signals and systems for GATE, i've done the basics"* -- paid for
+        curriculum derivation before the user had seen a single word back.
+
+        Planning is `proceed()`, and the user asks for it.
+        """
         project = self.store.create_project(USER, title=text[:80])
         self.store.add_utterance(project.id, "user", text)
         self._read(project.id)
-        if self._sufficiency(project.id)["verdict"] == "sufficient" or not self._pending(
-            project.id
-        ):
-            self._plan(project.id)
         return self.view(project.id)
 
     def answer(self, project_id: str, text: str) -> PlanView:
@@ -154,7 +254,17 @@ class PlanService:
         a crash barrier behind both, not a definition of ready.
         """
         before = from_json(self._sufficiency(project_id))
-        self.store.add_utterance(project_id, "user", text)
+        # A turn that dies after this write leaves the answer persisted, so
+        # pressing the button again appends it a second time -- one real project
+        # reached four identical copies. An identical answer repeated with
+        # nothing said in between is a retry, not new testimony, and duplicating
+        # it inflates the transcript that every later span resolves against.
+        #
+        # Only on the intake path. A repeated *correction* can be meaningful:
+        # "shorter" then "shorter" plausibly asks for shorter still.
+        said = [u.text for u in self.store.utterances(project_id) if u.role == "user"]
+        if not said or said[-1] != text:
+            self.store.add_utterance(project_id, "user", text)
         self._read(project_id)
         after = from_json(self._sufficiency(project_id))
 
@@ -162,6 +272,10 @@ class PlanService:
             1 for d in self.store.decision_history(project_id) if d.kind == "intake_strategy"
         )
         stalled = after is not None and not improved(before, after)
+        # These conditions used to trigger `_plan()` here. They still decide the
+        # same thing -- whether asking again is worth a turn -- but the answer is
+        # now a *state*, not an action: the conversation is over, and the user
+        # decides when to spend minutes on a plan.
         if (
             after is None
             or after.verdict == "sufficient"
@@ -169,8 +283,32 @@ class PlanService:
             or rounds >= self.MAX_INTAKE_ROUNDS
             or not self._pending(project_id)
         ):
-            self._plan(project_id)
+            self._close_intake(project_id, stalled=stalled, rounds=rounds)
         return self.view(project_id)
+
+    def _close_intake(self, project_id: str, *, stalled: bool, rounds: int) -> None:
+        """Record that the conversation is finished, and why.
+
+        The questions are kept rather than deleted -- what the decider wanted to
+        ask, and why it stopped asking, is exactly the evidence `intake_strategy`
+        exists to hold.
+        """
+        current = self.store.current_decisions(project_id).get("intake_strategy")
+        if current is None or current.output.get("exhausted"):
+            return
+        reason = (
+            "the last answer strengthened nothing"
+            if stalled
+            else f"{rounds} rounds of questions"
+            if rounds >= self.MAX_INTAKE_ROUNDS
+            else "nothing material left to ask"
+        )
+        self._write(
+            project_id,
+            "intake_strategy",
+            {**current.output, "exhausted": True, "closed_because": reason},
+            _NO_CALL,
+        )
 
     def proceed(self, project_id: str) -> PlanView:
         """Plan now, on the defaults each open question carries. Semantics §3:
@@ -247,6 +385,40 @@ class PlanService:
 
     # -- reads --------------------------------------------------------------
 
+    def summary(self, project_id: str) -> ProjectSummary:
+        """One project, as the index shows it. Cheaper than `view()` by design."""
+        project = self.store.get_project(project_id)
+        if project is None:
+            raise KeyError(project_id)
+        current = self.store.current_decisions(project_id)
+        situation = (current["interpret_situation"].output or {}) if (
+            "interpret_situation" in current
+        ) else {}
+        said = [u.text for u in self.store.utterances(project_id) if u.role == "user"]
+        return ProjectSummary(
+            id=project.id,
+            title=situation.get("subject") or project.title,
+            # The opening request, not the whole transcript: it is what the user
+            # recognises the project by, and later corrections are refinements
+            # of it rather than alternative names for it.
+            query=said[0] if said else project.title,
+            created_at=project.created_at,
+            state=lifecycle_state(current),
+            approved=bool(self.store.commitments(project_id)),
+        )
+
+    def summaries(self) -> list[ProjectSummary]:
+        """Every project, newest first. Skips any that fail to load rather than
+        failing the whole index -- one unreadable file must not cost the user
+        every other project."""
+        out = []
+        for project in self.store.projects():
+            try:
+                out.append(self.summary(project.id))
+            except (KeyError, ValueError, TypeError):
+                continue
+        return out
+
     def view(self, project_id: str) -> PlanView:
         project = self.store.get_project(project_id)
         if project is None:
@@ -257,25 +429,19 @@ class PlanService:
         router = [u for u in utterances if u.role == "router"]
         intake = current.get("intake_strategy")
         sufficiency = intake.output.get("sufficiency", {}) if intake else {}
-        questions = (intake.output.get("questions") if intake else None) or []
-        if "scope" in current:
-            state = "planned"
-        elif sufficiency.get("verdict") == "needs_subject":
-            state = "needs_subject"
-        elif questions:
-            state = "asking"
-        else:
-            # No plan, nothing to ask, and a subject we have. Reachable only if
-            # planning failed after the read -- a provider fault, say. `asking`
-            # here used to strand the user on a page with no control at all.
-            state = "unplanned"
         return PlanView(
-            state=state,
+            state=lifecycle_state(current),
             sufficiency=sufficiency,
             project_id=project_id,
             title=project.title,
             decisions=decisions,
             extent=_extent(decisions),
+            coherence=coherence_json(
+                analyse(decisions.get("derive_structure"), decisions.get("partition"))
+            ),
+            capability_support=support_to_json(
+                capability_support(decisions.get("partition"))
+            ),
             feasibility=_feasibility(decisions),
             approved=bool(self.store.commitments(project_id)),
             last_turn=_turn_from_json(json.loads(router[-1].text)) if router else None,
@@ -287,11 +453,23 @@ class PlanService:
     # -- internals ----------------------------------------------------------
 
     def _read(self, project_id: str) -> None:
-        """interpret_situation, then the decider over the model's axis readings.
+        """Read the request, decide what is worth asking, then write only those.
 
-        The model proposes; policy and the budget dispose. `intake_strategy`
-        holds both the surviving questions and the sufficiency record, so why
-        each axis was or was not asked outlives the turn.
+        Three steps, and the middle one is free:
+
+            interpret   a model call -- what the request says, and what backs it
+            decide()    pure code -- which axes are weak, material and askable
+            ask()       a model call ONLY if `asking` is non-empty
+
+        The model used to do steps 1 and 3 in one call, authoring questions for
+        every weak axis it could see. `_read` then discarded the ones policy did
+        not choose -- all of them whenever the verdict was `sufficient`, which is
+        the common case. Measured on "i need notes on VLSI": 102s and five
+        questions written, of which the budget could use at most four and
+        `asking` typically names one or two.
+
+        The model still chooses nothing about *what* is asked. `decide()` names
+        the axes from the model's own readings; `ask()` writes the wording.
         """
         said = [u.text for u in self.store.utterances(project_id) if u.role == "user"]
         call = planning.interpret("\n\n".join(said), provider=self.provider)
@@ -299,15 +477,33 @@ class PlanService:
         self._write(project_id, "interpret_situation", call.outputs["interpret_situation"], call)
 
         readings = [AxisReading(**a) for a in call.outputs.get("axes", [])]
-        sufficiency = decide(readings, said, budget=self.question_budget)
-        proposed = call.outputs.get("proposed_questions", [])
-        surviving = [q for q in proposed if q.get("axis") in sufficiency.asking]
+        # Semantics §1: stated constraints bind. The decider needs them to see
+        # when a statement about an axis came back as an inference on that axis.
+        situation = call.outputs["interpret_situation"] or {}
+        stated = situation.get("stated") or []
+        sufficiency = decide(
+            readings, said, stated=stated, budget=self.question_budget
+        )
+
+        questions: list[dict] = []
+        intake_call = call
+        if sufficiency.asking:
+            intake_call = planning.ask(
+                Situation(**situation), sufficiency.asking, provider=self.provider
+            )
+            # The wording is the model's; the axes are not. Anything it wrote for
+            # an axis nobody asked about is dropped rather than shown.
+            questions = [
+                q
+                for q in intake_call.outputs.get("questions", [])
+                if q.get("axis") in sufficiency.asking
+            ]
 
         self._write(
             project_id,
             "intake_strategy",
-            {"questions": surviving, "sufficiency": sufficiency.to_json()},
-            call,
+            {"questions": questions, "sufficiency": sufficiency.to_json()},
+            intake_call,
         )
 
     def _plan(self, project_id: str) -> None:

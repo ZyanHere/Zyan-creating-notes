@@ -232,6 +232,41 @@ _FOOTER = (
 )
 
 
+class BrowserMissing(RuntimeError):
+    """Playwright is installed but its Chromium build was never downloaded.
+
+    Its own message for this is a 9-line ASCII box wrapped in a
+    `BrowserType.launch:` prefix, which reads like a crash in our code and, at
+    the end of a generation, arrives after the model has already been paid for.
+    Named so callers can check *before* spending anything -- `browser_ready()`
+    costs a filesystem stat.
+    """
+
+
+def browser_ready() -> str | None:
+    """None when a browser can actually be launched, else the command to fix it.
+
+    Launches and closes one, rather than stat-ing `chromium.executable_path`:
+    headless `launch()` runs the *headless shell*, a separate download from full
+    Chromium, so the obvious check passes on exactly the installation this is
+    meant to catch -- `chromium-1234` present, `chromium_headless_shell-1234`
+    missing, which is the shape the error actually arrives in.
+
+    Costs about a second. That is the point of comparison: the call it guards
+    takes minutes and is billed.
+
+    A string rather than a bool because there is exactly one useful thing to say
+    when it is missing, and every caller would otherwise reinvent it.
+    """
+    try:
+        with sync_playwright() as p:
+            browser = p.chromium.launch()
+            browser.close()
+    except Exception:  # noqa: BLE001 - any failure here means "not usable"
+        return "playwright install chromium"
+    return None
+
+
 def render_pdf(
     doc: Mapping[str, Any] | Any,
     *,
@@ -249,7 +284,15 @@ def render_pdf(
     options = _PAGE_OPTIONS.get(template_id, {"page_numbers": True})
 
     with sync_playwright() as p:
-        browser = p.chromium.launch()
+        try:
+            browser = p.chromium.launch()
+        except Exception as exc:  # noqa: BLE001 - re-raised, narrowed below
+            if "Executable doesn't exist" not in str(exc):
+                raise
+            raise BrowserMissing(
+                "Chromium is not installed for Playwright, so nothing can be "
+                "rendered. Install it once with:\n\n    playwright install chromium"
+            ) from exc
         try:
             page = browser.new_page()
             page.set_content(html, wait_until="networkidle")
