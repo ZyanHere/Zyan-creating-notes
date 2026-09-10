@@ -33,6 +33,9 @@ constraint, not request counts:
 So the request-capped provider beats the token-capped one for us, which is the
 opposite of how these tiers are usually ranked.
 
+The 50/day budget is account-wide across every :free variant, so exhausting it
+is not worked around by switching to another free slug.
+
 Gemini is deliberately last: Google's free-tier terms state that submitted
 content is used to "provide, improve, and develop Google products and services"
 and that "human reviewers may read, annotate, and process your API input and
@@ -58,6 +61,27 @@ _TRANSIENT_BACKOFF = 2.0  # seconds, multiplied by the attempt number
 
 class _Transient(RuntimeError):
     """Worth another try: an upstream 5xx or a transport fault."""
+
+
+class ProviderUnavailable(RuntimeError):
+    """Every retry was spent and the upstream never answered usefully.
+
+    Distinct from `_Transient`, which means *try again*: this one means we did,
+    and stopped. It exists because the exhausted-retry path used to raise a bare
+    `RuntimeError` -- the one exception type nothing can catch without also
+    catching genuine bugs -- so a provider outage surfaced to the user as a 500
+    with a stack trace, after eight minutes of silent retrying.
+    """
+
+
+class ProviderRefused(RuntimeError):
+    """A 4xx: the request itself is wrong, and retrying changes nothing.
+
+    A withdrawn model name, an exhausted rate limit, a bad key. Named for the
+    same reason as `ProviderUnavailable` -- it was a bare `RuntimeError`, so a
+    404 for a model that is simply no longer offered reached the user as a 500
+    with a stack trace instead of the message that already says what to set.
+    """
 
 
 class NoProviderConfigured(RuntimeError):
@@ -156,11 +180,15 @@ class OpenAICompatibleProvider:
         model: str,
         label: str,
         extra_headers: dict[str, str] | None = None,
+        override: str | None = None,
     ) -> None:
         self._key = api_key
         self._base = base_url.rstrip("/")
         self._extra = extra_headers or {}
-        self.model = os.environ.get("MODEL", model)
+        # An explicit override beats MODEL, which beats the provider default.
+        # Reading the situation and designing a curriculum are different jobs
+        # and do not need the same model.
+        self.model = override or os.environ.get("MODEL", model)
         self.name = label
 
     def complete(
@@ -200,7 +228,10 @@ class OpenAICompatibleProvider:
                 break
             except (_Transient, httpx.TransportError) as error:
                 if attempt == _TRANSIENT_ATTEMPTS - 1:
-                    raise RuntimeError(f"{self.name} error: {error}") from error
+                    raise ProviderUnavailable(
+                        f"{self.name}/{self.model} did not answer after "
+                        f"{_TRANSIENT_ATTEMPTS} attempts. Last error: {error}"
+                    ) from error
                 time.sleep(_TRANSIENT_BACKOFF * (attempt + 1))
         assert payload is not None
 
@@ -284,12 +315,17 @@ def _raise_for_status(response: httpx.Response, provider: str, model: str) -> No
     if response.status_code in (400, 404) and "model" in detail.lower():
         hint = f"\n  Set MODEL=<name> if {model!r} is no longer offered on this tier."
     elif response.status_code == 429:
+        # The daily budget is account-wide across every :free variant, so the
+        # obvious move -- try a different free model -- fails identically, and a
+        # message that does not say so sends you round the loop again.
         hint = (
             "\n  Rate limited. OpenRouter free variants allow 20/min and 50/day "
-            "until $10 of credit has ever been purchased."
+            "until $10 of credit has ever been purchased, and that daily budget is "
+            "shared by every :free model on the account -- switching slugs will not "
+            "help."
         )
     # 5xx is the upstream having a bad minute; 4xx will fail the same way again.
-    error = _Transient if response.status_code >= 500 else RuntimeError
+    error = _Transient if response.status_code >= 500 else ProviderRefused
     raise error(f"{provider} returned {response.status_code}: {detail}{hint}")
 
 
@@ -316,27 +352,34 @@ _OPENAI_COMPATIBLE: dict[str, tuple[str, str, str, dict[str, str]]] = {
 }
 
 
-def select_provider() -> Provider:
+def select_provider(model: str | None = None) -> Provider:
     """Anthropic if configured, then OpenRouter, then the rest.
 
     Override with PROVIDER=anthropic|openrouter|groq|cerebras|gemini
     and MODEL=<name>.
+
+    `model` overrides both, for one call. Reading a request and asking the next
+    question is a comprehension task; deriving a curriculum is a design task.
+    They were served by the same very large model because nothing had ever
+    asked for anything else, not because they need the same one.
     """
     forced = os.environ.get("PROVIDER", "").strip().lower()
 
     if forced in ("", "anthropic") and os.environ.get("ANTHROPIC_API_KEY"):
-        return AnthropicProvider()
+        return AnthropicProvider(model)
 
-    for env_name, (base, model, label, headers) in _OPENAI_COMPATIBLE.items():
+    for env_name, (base, default, label, headers) in _OPENAI_COMPATIBLE.items():
         if forced not in ("", label):
             continue
         key = os.environ.get(env_name)
         if key:
-            return OpenAICompatibleProvider(key, base, model, label, headers)
+            return OpenAICompatibleProvider(
+                key, base, default, label, headers, override=model
+            )
 
     gemini_key = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
     if forced in ("", "gemini") and gemini_key:
-        return GeminiProvider(gemini_key)
+        return GeminiProvider(gemini_key, model)
 
     raise NoProviderConfigured(
         "No model provider configured. Set one of:\n"

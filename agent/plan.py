@@ -27,13 +27,21 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Literal
 
-from pydantic import BaseModel, Field, ValidationError
+from pydantic import (
+    BaseModel,
+    Field,
+    ValidationError,
+    field_validator,
+    model_serializer,
+    model_validator,
+)
 
 from agent.providers import Completion, Provider, select_provider
 from agent.sufficiency import AxisName, AxisReading
 from agent.treatment import ProseFailure, shortfalls, weight
 
 PROMPT_INTERPRET = "interpret_v1"
+PROMPT_ASK = "ask_v1"
 PROMPT_DERIVE = "derive_v1"
 PROMPT_PLAN = "plan_v3"
 PROMPT_REVISE = "plan_revise_v2"
@@ -63,6 +71,29 @@ DecisionKind = Literal[
 # ---------------------------------------------------------------------------
 
 
+class StatedConstraint(BaseModel):
+    """Something the user actually said, and which axis it constrains.
+
+    The attribution is what makes Semantics §1 enforceable rather than
+    aspirational. "from scratch" is a statement *about the entry point*; without
+    saying so, nothing could notice when the entry point came back asserting the
+    opposite -- which is exactly what happened, and it removed every foundational
+    concept from the landscape before any other decision ran.
+    """
+
+    text: str = Field(description="What they said, in their words.")
+    axis: AxisName | None = Field(
+        default=None,
+        description=(
+            "Which situation axis this constrains, if it clearly constrains one: "
+            "subject · purpose · entry_point · target_capability · capacity · "
+            "depth_register · artifact_type · template. Null if it constrains "
+            "none of them or several. A constraint you attribute to an axis MUST "
+            "be honoured by your reading of that axis."
+        ),
+    )
+
+
 class Situation(BaseModel):
     """`interpret_situation` — what the system read the request as."""
 
@@ -74,9 +105,11 @@ class Situation(BaseModel):
     capacity: str | None = Field(
         default=None, description="Any stated limit on time, length or effort. Null if none."
     )
-    stated: list[str] = Field(
-        default_factory=list, description="Constraints the user actually said. Never inferred ones."
+    stated: list[StatedConstraint] = Field(
+        default_factory=list,
+        description="Constraints the user actually said. Never inferred ones.",
     )
+
     inferred: list[str] = Field(
         default_factory=list,
         description=(
@@ -86,11 +119,31 @@ class Situation(BaseModel):
         ),
     )
 
+    @field_validator("stated", mode="before")
+    @classmethod
+    def _accept_bare_strings(cls, value):
+        """Legacy plans stored `stated` as plain strings, with no attribution.
+        They load, and they bind nothing -- which is the behaviour they were
+        written under."""
+        if isinstance(value, list):
+            return [{"text": v, "axis": None} if isinstance(v, str) else v for v in value]
+        return value
+
 
 class Concept(BaseModel):
     name: str
     built_from: list[str] = Field(
         default_factory=list, description="Concepts in this list that must come first."
+    )
+    family: str = Field(
+        default="",
+        description=(
+            "The kind of thing this is, in your own words -- e.g. 'core mechanism', "
+            "'failure mode', 'applied case', 'tooling', 'evaluation', 'emerging "
+            "standard'. Not a fixed vocabulary: name what is true of THIS subject. "
+            "It makes the landscape's shape inspectable, so a whole kind of "
+            "material going missing is visible."
+        ),
     )
 
 
@@ -152,23 +205,119 @@ class Consequence(BaseModel):
 
     exclusions: list[Exclusion]
 
+    @field_validator("exclusions", mode="after")
+    @classmethod
+    def _one_entry_per_topic(cls, value: list[Exclusion]) -> list[Exclusion]:
+        """The same topic excluded twice is one exclusion, not two.
+
+        Models emit a topic twice often enough -- usually with two phrasings of
+        the same consequence -- and nothing downstream treats it as anything but
+        a repeat: the plan lists it twice, the brief hands the writer the same
+        exclusion twice, and the reader is told the same thing twice. First
+        occurrence wins, because the plan's ordering is the model's own
+        priority ordering and reordering it here would be a second decision.
+        """
+        seen: set[str] = set()
+        kept: list[Exclusion] = []
+        for exclusion in value:
+            key = exclusion.topic.strip().casefold()
+            if key in seen:
+                continue
+            seen.add(key)
+            kept.append(exclusion)
+        return kept
+
+
+class Module(BaseModel):
+    """One module of the curriculum. **Becomes its own PDF.**
+
+    Architecture decision 9. Not a chapter and not a section -- those are
+    decision 10, and they live *inside* a module. The test for whether something
+    is a module rather than a chapter is `capability`: a module corresponds to
+    something the learner would exercise on its own.
+    """
+
+    title: str = Field(description="The module's name. Becomes the document's title.")
+    covers: list[str] = Field(description="Which covered concepts land in this module.")
+    why_here: str = Field(description="Why these belong together as one module.")
+    capability: str = Field(
+        description=(
+            "What the learner can do after this module that they could not "
+            "before. Concrete and exercisable on its own -- this is what makes "
+            "it a module rather than a chapter of a bigger one."
+        )
+    )
+
 
 class Unit(BaseModel):
+    """LEGACY: a section of a single document.
+
+    Kept only so plans written before the curriculum layer existed still open.
+    These were never modules, and are not re-labelled as modules -- doing so
+    would claim a decomposition the planner never made.
+    """
+
     heading: str
     covers: list[str] = Field(description="Which covered concepts land here.")
     why_here: str = Field(description="Why these belong together as one unit.")
 
 
 class Partition(BaseModel):
-    """`partition` — how in-scope material divides."""
+    """`partition` — how the in-scope material divides into modules.
 
-    units: list[Unit]
+    Architecture: *universal, may resolve to one member*. One module is a
+    perfectly good answer for a narrow request; a broad one divides into many.
+    The count is derived from the scope, never fixed.
+    """
+
+    modules: list[Module] = Field(default_factory=list)
+    units: list[Unit] = Field(
+        default_factory=list, description="LEGACY. Do not produce these."
+    )
+
+    @model_validator(mode="after")
+    def _one_shape_or_the_other(self):
+        if not self.modules and not self.units:
+            raise ValueError("partition must divide the scope into at least one module")
+        return self
+
+    @model_serializer(mode="wrap")
+    def _drop_the_empty_shape(self, handler):
+        """A stored record carries only the shape it actually is.
+
+        Writing `"units": []` into every new decision would put a legacy field in
+        records that have no legacy, and a reader six months from now would
+        reasonably wonder which one is authoritative.
+        """
+        data = handler(self)
+        for key in ("modules", "units"):
+            if not data.get(key):
+                data.pop(key, None)
+        return data
+
+    @property
+    def is_legacy(self) -> bool:
+        return not self.modules and bool(self.units)
+
+    @property
+    def parts(self) -> list[tuple[str, list[str]]]:
+        """(title, covered concepts) for each part, whichever shape this is.
+
+        The one place the two are treated alike, and only for arithmetic that
+        does not care -- page counts and coverage. Anything that means "this is
+        a separate PDF" must ask `modules` directly.
+        """
+        if self.modules:
+            return [(m.title, m.covers) for m in self.modules]
+        return [(u.heading, u.covers) for u in self.units]
 
 
 class Traversal(BaseModel):
-    """`traversal` — teachable order over the units."""
+    """`traversal` — the order the modules should be taken in."""
 
-    sequence: list[str] = Field(description="Unit headings, in the order they should be read.")
+    sequence: list[str] = Field(
+        description="Module titles, in the order they should be read."
+    )
     why: str = Field(description="Why this order, in one or two sentences.")
 
 
@@ -223,13 +372,19 @@ class Intake(BaseModel):
 
 
 class Reading(BaseModel):
-    """What the request says, and what is still worth asking about it.
+    """What the request says. The first thing that happens, and a fast one.
 
-    These two run together and before anything else. Architecture §4 puts the
-    intake loop first and terminates it on sufficiency; decision 0 cannot judge
-    what is worth asking without a reading of the situation to judge against, so
-    the loop closes through interpretation: read -> ask -> the answer is new
-    testimony -> read again.
+    Architecture §4 puts the intake loop first and terminates it on sufficiency.
+    Decision 0 cannot judge what is worth asking without a reading to judge
+    against, so the loop closes through interpretation: read -> ask -> the answer
+    is new testimony -> read again.
+
+    **Questions are NOT produced here.** They used to be, and every one whose
+    axis the decider did not choose was thrown away -- all of them whenever the
+    verdict was `sufficient`, which is the common case. Authoring 2-4 options
+    with their implications for eight axes is most of this call's output, and it
+    was speculative work. Now `decide()` runs first, in code, and `ask()` writes
+    questions for exactly the axes it named.
     """
 
     interpret_situation: Situation
@@ -238,13 +393,6 @@ class Reading(BaseModel):
             "One reading per situation axis, with what supports it. The decider "
             "combines these with policy; the model does not choose what is asked."
         )
-    )
-    proposed_questions: list[Question] = Field(
-        default_factory=list,
-        description=(
-            "One per axis you read as weak and plan-changing. Propose freely -- "
-            "policy and the question budget decide which survive."
-        ),
     )
 
 
@@ -327,11 +475,54 @@ def _prompt(version: str) -> str:
     return (_PROMPTS / f"{version}.md").read_text(encoding="utf-8")
 
 
+def conversational_provider() -> Provider:
+    """The model that talks to the user.
+
+    Reading a request and writing the next question is a comprehension task and
+    the user is sitting there waiting for it. Deriving a curriculum is a design
+    task nobody watches. `INTERPRET_MODEL` lets them be different models; unset,
+    everything behaves as before.
+    """
+    return select_provider(os.environ.get("INTERPRET_MODEL") or None)
+
+
 def interpret(transcript: str, *, provider: Provider | None = None) -> Call:
-    """interpret_situation · intake_strategy. Runs first, and again per answer."""
-    provider = provider or select_provider()
+    """`interpret_situation` — what the request says. The turn the user waits on.
+
+    Reads only. Questions are written by `ask()`, after `decide()` has said which
+    axes are worth one.
+    """
+    provider = provider or conversational_provider()
     result, completion = _call(provider, PROMPT_INTERPRET, transcript, Reading)
     return _as_call(result.model_dump(), completion, PROMPT_INTERPRET, Reading)
+
+
+def ask(
+    situation: Situation,
+    asking: "list[str] | tuple[str, ...]",
+    *,
+    provider: Provider | None = None,
+) -> Call:
+    """`intake_strategy` — write a question for each axis the decider named.
+
+    Only called when there is something to ask, and only ever for the axes named.
+    That is the whole saving: the model used to author questions for every weak
+    axis it could see, and `_read` discarded the ones policy did not choose --
+    every one of them whenever the verdict was `sufficient`.
+
+    Which axes get asked is still decided from the model's own readings by
+    `sufficiency.decide()`, never from a fixed order. This call writes the
+    wording; it does not choose the subject of the conversation.
+    """
+    provider = provider or conversational_provider()
+    user = (
+        f"The learner's situation as you read it:\n\n"
+        f"{situation.model_dump_json(indent=2)}\n\n"
+        f"Write one question for each of these axes, and no others: "
+        f"{', '.join(asking)}"
+    )
+    result, completion = _call(provider, PROMPT_ASK, user, Intake)
+    return _as_call(result.model_dump(), completion, PROMPT_ASK, Intake)
 
 
 def derive(situation: Situation, *, provider: Provider | None = None) -> Call:
@@ -398,11 +589,28 @@ def _call(provider: Provider, version: str, user: str, model):
     try:
         return model.model_validate_json(_strip_fence(completion.text)), completion
     except (ValidationError, ValueError) as first:
+        # "Reply with the corrected JSON object" beside an error naming
+        # `interpret_situation` reads as "send me that object" -- and the model
+        # did exactly that, returning a bare Situation where a Reading was
+        # required, twice, and taking the whole request down with it. The field
+        # paths are a location, not a request.
+        #
+        # The required keys are read off the schema rather than written out, so
+        # this stays true for every call that uses it: Reading, Landscape,
+        # PlanBody, Routing.
+        required = ", ".join(
+            f"`{key}`" for key in model.model_json_schema().get("required", [])
+        )
         retry = provider.complete(
             system=system,
             user=(
-                f"{user}\n\nYour previous reply did not validate. Fix exactly this and "
-                f"reply with the corrected JSON object only:\n\n{str(first)[:2000]}"
+                f"{user}\n\nYour previous reply did not validate.\n\n"
+                "Reply with the COMPLETE top-level JSON object again"
+                + (f", whose keys are {required}" if required else "")
+                + ". Fix only what the errors below name. Their dotted paths say "
+                "WHERE each problem is; they are not a request to send that part "
+                "on its own. JSON only, no prose, no fence.\n\n"
+                f"{str(first)[:2000]}"
             ),
             schema=model.model_json_schema(),
             max_tokens=MAX_TOKENS,
@@ -477,18 +685,22 @@ def derive_extent(scope: Scope, partition: Partition) -> dict:
 
     by_concept = {c.concept: c for c in scope.covered}
     per_unit: dict[str, str] = {}
-    for unit in partition.units:
-        covered = [by_concept[name] for name in unit.covers if name in by_concept]
+    for title, covers in partition.parts:
+        covered = [by_concept[name] for name in covers if name in by_concept]
         if covered:
-            per_unit[unit.heading] = _round_pages(max(_pages(covered), 0.5))
+            per_unit[title] = _round_pages(max(_pages(covered), 0.5))
 
     study = f"{minutes:.0f} min" if minutes < 90 else f"about {minutes / 60:.0f} hours"
 
+    # Architecture §11: extent is derived per part and summed. Never
+    # capacity divided by the number of parts -- sizes emerge from what each
+    # capability requires, and a count is not a budget.
     return {
         "total": f"{_round_pages(pages)} · {study}",
         "pages": _round_pages(pages),
         "study_time": study,
-        "parts": len(partition.units),
+        "parts": len(partition.parts),
+        "modules": len(partition.modules),
         "per_unit": per_unit,
     }
 

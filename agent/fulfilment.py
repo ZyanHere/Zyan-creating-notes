@@ -219,11 +219,14 @@ class Fulfilment:
 
 
 def requirements(plan: dict) -> list[dict]:
-    """The approved plan, reshaped as one work order per unit.
+    """The approved plan, reshaped as one work order per part.
 
-    This is what makes per-unit generation possible without handing the whole
+    This is what makes per-part generation possible without handing the whole
     plan to every call: each order carries its own concepts, depths and
     anticipated treatments, and nothing else.
+
+    Reads `partition.modules` (a curriculum's modules, each destined to be its
+    own PDF) and falls back to legacy `partition.units`.
     """
     scope = plan.get("scope") or {}
     partition = plan.get("partition") or {}
@@ -231,7 +234,13 @@ def requirements(plan: dict) -> list[dict]:
     extent = (plan.get("extent") or {}).get("per_unit") or {}
 
     by_concept = {c["concept"]: c for c in scope.get("covered", [])}
-    units = {u["heading"]: u for u in partition.get("units", [])}
+    units = {p["title"]: p for p in partition.get("modules") or []} or {
+        # Legacy: plans written before the curriculum layer, whose `units` were
+        # sections of one document. Read so old projects still work; never
+        # re-labelled modules, because the planner never made that decomposition.
+        u["heading"]: u
+        for u in partition.get("units") or []
+    }
     order = [h for h in traversal.get("sequence", []) if h in units] or list(units)
     for heading in units:
         if heading not in order:

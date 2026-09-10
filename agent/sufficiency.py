@@ -275,6 +275,7 @@ def decide(
     readings: list[AxisReading],
     utterances: list[str],
     *,
+    stated: "list | tuple" = (),
     budget: int = DEFAULT_BUDGET,
 ) -> Sufficiency:
     """Combine the model's readings with the policy, and say what to ask.
@@ -286,6 +287,16 @@ def decide(
     silently -- it becomes visible in the plan as an assumption instead.
     """
     seen = {r.axis: r for r in readings}
+    # Axes the user made a statement about. Semantics §1: only stated
+    # constraints bind, and a stated negative binds as hard as a positive -- so
+    # a statement about an axis that comes back as an *inference* on that axis
+    # was reinterpreted, not honoured. "from scratch" produced an entry point
+    # asserting prior literacy, and nothing noticed.
+    bound = {
+        axis
+        for axis in (_constraint_axis(c) for c in stated)
+        if axis is not None
+    }
     verdicts: list[AxisVerdict] = []
 
     for axis in AXES:
@@ -308,8 +319,12 @@ def decide(
             )
             continue
 
-        verified, unverified = _verify(reading.supported_by, utterances)
+        verified, unverified = _verify(reading.supported_by, utterances, reading.value)
         strength = _strength(reading, verified)
+        if axis in bound and reading.source != "stated":
+            # A user statement about this axis, read as an inference rather than
+            # honoured as a statement. Semantics §1: stated constraints bind.
+            strength = "guessed" if reading.value is not None else "unknown"
         material = reading.materiality == "changes_the_plan"
 
         verdicts.append(
@@ -357,8 +372,31 @@ def decide(
     )
 
 
-def _verify(spans: list[Span], utterances: list[str]) -> tuple[tuple[Span, ...], tuple[str, ...]]:
-    """A span counts only if its quote is really in the utterance it names."""
+def _constraint_axis(constraint) -> str | None:
+    """Which axis a stated constraint is about, if the model attributed one.
+
+    Tolerates the legacy shape, where `stated` was a bare list of strings with
+    no attribution -- those bind nothing, which is the behaviour those plans
+    were written under.
+    """
+    if isinstance(constraint, str):
+        return None
+    axis = constraint.get("axis") if isinstance(constraint, dict) else getattr(constraint, "axis", None)
+    return axis if axis in AXES else None
+
+
+def _verify(
+    spans: list[Span], utterances: list[str], value: str | None = None
+) -> tuple[tuple[Span, ...], tuple[str, ...]]:
+    """A span counts only if its quote is really in the utterance it names,
+    points at something in particular, and does not deny what it was cited for.
+
+    Existence was never the whole test -- `_discriminating` already refused a
+    quote that supports every reading equally. `_supports` refuses one that
+    supports the opposite of its own reading. Both exist because a verified span
+    *upgrades* strength, and an upgrade earned by evidence that is not evidence
+    silences the question that would have caught the error.
+    """
     verified: list[Span] = []
     unverified: list[str] = []
     for span in spans:
@@ -367,7 +405,12 @@ def _verify(spans: list[Span], utterances: list[str]) -> tuple[tuple[Span, ...],
             if 0 <= span.utterance_ord < len(utterances)
             else None
         )
-        if text is not None and _contains(text, span.quote) and _discriminating(text, span.quote):
+        if (
+            text is not None
+            and _contains(text, span.quote)
+            and _discriminating(text, span.quote)
+            and _supports(value, span.quote)
+        ):
             verified.append(span)
         else:
             unverified.append(span.quote)
@@ -384,6 +427,88 @@ def _verify(spans: list[Span], utterances: list[str]) -> tuple[tuple[Span, ...],
 # two-word answer legitimately IS the whole evidence for what it answers.
 _DISCRIMINATING_MIN_WORDS = 5
 _DISCRIMINATING_MAX_SHARE = 0.7
+
+
+# A span that exists, discriminates, and still does not support the reading --
+# because it says the opposite of it.
+#
+# Observed: for "i need agentic ai notes for interview, from scratch" the model
+# read `entry_point` as "Beginner to agentic AI; assumes general ML/LLM
+# literacy" and cited the span **"from scratch"** in support. The quote is real,
+# so verification passed and promoted the reading from `guessed` to `inferred`,
+# which put it out of reach of the question that would have caught it. Nothing
+# downstream could recover: `derive_structure` built its whole landscape on the
+# assumption of prior literacy, so API foundations were never in the graph to
+# cut.
+#
+# THIS IS NOT GENERAL CONTRADICTION DETECTION, and must not be described as
+# such. It is one family -- prior knowledge asserted against a quote that denies
+# any -- chosen because it is the family that actually failed, and because the
+# polarity is unambiguous in the words themselves.
+_DENIES_PRIOR = (
+    "from scratch",
+    "from zero",
+    "from the ground up",
+    "from nothing",
+    "no experience",
+    "no background",
+    "no prior",
+    "never used",
+    "never worked",
+    "complete beginner",
+    "total beginner",
+    "absolute beginner",
+    "zero experience",
+    "know nothing",
+    "starting fresh",
+    "brand new",
+)
+
+_CLAIMS_PRIOR = (
+    "assumes",
+    "assumed",
+    "already know",
+    "already familiar",
+    "familiar with",
+    "prior exposure",
+    "prior experience",
+    "comfortable with",
+    "has used",
+    "background in",
+    "literacy",
+    "knows what",
+)
+
+_NEGATORS = ("no", "not", "none", "nothing", "never", "zero", "without", "little")
+
+
+def _claims_prior_knowledge(value: str) -> bool:
+    """Does this reading assert the learner already knows something?
+
+    Negation-aware, because "assumes no prior exposure" is the opposite claim
+    from "assumes prior exposure" and differs by one word.
+    """
+    lowered = value.casefold()
+    for marker in _CLAIMS_PRIOR:
+        start = lowered.find(marker)
+        if start < 0:
+            continue
+        before = lowered[:start].split()[-3:]
+        after = lowered[start + len(marker) :].split()[:2]
+        if any(n in before for n in _NEGATORS) or any(n in after for n in _NEGATORS):
+            continue  # "assumes no prior exposure" is the opposite claim
+        return True
+    return False
+
+
+def _supports(value: str | None, quote: str) -> bool:
+    """Does this quote support the reading it was cited for, or deny it?"""
+    if not value:
+        return True
+    q = quote.casefold()
+    if not any(d in q for d in _DENIES_PRIOR):
+        return True
+    return not _claims_prior_knowledge(value)
 
 
 def _contains(text: str, quote: str) -> bool:

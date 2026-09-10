@@ -123,9 +123,23 @@ def _from_plan(request: str, plan: dict, *, provider: Provider) -> Generated:
     missing -- and if it is still short, that survives into the report rather
     than being smoothed over.
     """
+    modules = ((plan.get("partition") or {}).get("modules")) or []
+    if len(modules) > 1:
+        # A curriculum is several PDFs. Writing it as one document with a thin
+        # section per module would deliver something the plan did not promise --
+        # the exact failure `fulfilment.py` exists to prevent, committed by the
+        # generator itself. Refuse until set generation is built.
+        titles = ", ".join(m.get("title", "?") for m in modules)
+        raise ValueError(
+            f"This plan is a curriculum of {len(modules)} modules ({titles}), and "
+            "each is meant to become its own PDF. Generating a set is not built "
+            "yet — writing them into one document would not be the artifact you "
+            "approved."
+        )
+
     orders = requirements(plan)
     if not orders:
-        raise ValueError("the approved plan has no units to write")
+        raise ValueError("the approved plan has nothing to write")
 
     situation = plan.get("interpret_situation") or {}
     schema = Section.model_json_schema()

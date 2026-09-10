@@ -4,10 +4,13 @@ for it: what exists, and what relevance judged to be in play.
 You now produce the four decisions the user will see and approve. Do not
 re-derive concepts and do not re-judge relevance — work over what you are given.
 
-## `traversal` — teachable order
+## `traversal` — the order the modules should be taken in
 
 Order by what makes the material teachable, not by what is logically prior. You
-may motivate before you build. Never reference something before it is defined.
+may motivate before you build. Never reference something before it is defined —
+a module that assumes another must come after it.
+
+`sequence` is the module titles from `partition`, in reading order.
 
 ## `consequence` — what each omission costs
 
@@ -68,14 +71,87 @@ Two things depend on this and neither is cosmetic:
 So diagnose honestly. Marking spatial content `none` to keep the plan tidy
 produces exactly the silent failure this field exists to prevent.
 
-## `partition` — how the material divides
+## `partition` — dividing the scope into MODULES
 
-Units, each with the covered concepts that land there and *why those belong
-together*. Groupings with a reason, not chapter titles. One unit is legitimate.
+You are planning a **curriculum**. Divide the in-scope material into modules.
 
-Length is not a reason to split. A member is complete on its own terms; "Part 1"
-of a chain is a document with an interior cut.
+**Each module becomes its own PDF.** Not a chapter, not a section — a document
+the learner receives on its own, reads on its own, and could work through
+without the others open beside it.
 
-`traversal.sequence` must contain exactly these headings, each once.
+**The number of modules comes from the scope, and nothing else.** There is no
+target count.
+
+- *"cheat sheet for graph DSA questions for my interview"* — one subject, one
+  sitting, one thing to walk in able to do. **One module.** Its internal
+  structure is decided later; do not invent modules to represent it.
+- *"agentic AI for interviews, from scratch"* — LLM/API foundations, LangChain,
+  LangGraph, memory, RAG, evals, guardrails. Each is separately learnable and
+  separately usable. **Many modules.**
+
+Most narrow requests are one module. Do not split one because it feels small,
+and do not merge several because the list looks long.
+
+### The test: could they exercise it on its own?
+
+For each module, state `capability` — what the learner can *do* afterwards that
+they could not before. Concrete, and true of that module alone.
+
+If you cannot write a capability that stands without the other modules, it is
+not a module. It is a section of one, and it belongs inside a module instead.
+
+*"Build a retrieval pipeline over your own documents"* is a capability.
+*"Understand part 2 of RAG"* is not.
+
+### The capability must be in the register of the job
+
+The situation names a **job**. Write the capability in the terms that job is
+completed in — otherwise you promise something the artifact is not trying to do.
+
+| Job | The learner ends up able to |
+|---|---|
+| orient | explain · compare · distinguish · justify · recognise · answer |
+| construct | build · implement · derive · apply · produce |
+| retrieve | recall · state · identify on sight |
+| look up | find · check · look up quickly |
+| execute a procedure | carry out · follow · perform |
+
+For *"agentic AI notes for interview"* the job is **orient** and the target is
+*answer interview questions*. So *"architect caching, routing and fallback
+chains"* is the wrong promise — nothing in an orienting document teaches
+architecting. *"Compare caching and routing strategies and justify a choice"* is
+the same material, honestly described.
+
+This is not a word list to satisfy. It is a check that the capability describes
+what the reader will actually be able to do when they finish **this** document.
+
+### The capability must be backed by the concepts in the module
+
+Every claim in the capability has to be something the module's concepts contain.
+A capability that promises *"design iterative retrieval loops with query
+reformulation"* over a scope holding one concept called *RAG for Agents* is
+writing a cheque the scope cannot cash — the reader is promised three things and
+given one.
+
+If the capability needs a concept the module does not have, either the concept
+belongs in the module or the claim does not belong in the capability.
+
+### Length is never a reason to split — this is a hard rule
+
+Splitting a single tight subject because it would be long produces "Part 1 /
+Part 2", which is packaging, not a curriculum. Part 1 of a chain is one document
+with a cut through the middle of it: broken, not divided.
+
+If a module is large, it stays one module and is large.
+
+### Fields
+
+Per module: `title` (becomes the PDF's title), `covers` (which covered concepts
+land in it), `why_here` (why these belong together), `capability`.
+
+Every covered concept should land in exactly one module.
+
+`traversal.sequence` must contain exactly the module titles, each once, in the
+order a learner should take them.
 
 Fill the schema. No prose outside it.
