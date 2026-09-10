@@ -1,15 +1,75 @@
 @import "tailwindcss";
 
+/* ---------------------------------------------------------------------------
+   Dark, warm, orange-accented.
+
+   ORANGE IS THE ACCENT, NOT THE BODY COLOUR. This app's whole job is showing
+   people long documents to read, and saturated orange body text on black
+   halates -- the glyph edges bloom and the eye keeps refocusing. So body copy
+   is a warm off-white, and orange carries the identity where it is read in
+   glances rather than paragraphs: eyebrows, links, the primary action, focus
+   rings, the rules down the left of a list, active markers, numbers.
+
+   The ground is warm near-black (#0b0a09) rather than #000. Against pure black,
+   orange vibrates; a few points of warmth in the ground settles it and makes
+   the hairlines legible.
+--------------------------------------------------------------------------- */
+
 :root {
-  --canvas: #f4f1ea;
-  --sidebar: #ebe5d8;
-  --panel: rgba(255, 252, 246, 0.86);
-  --panel-soft: #f8f4ec;
-  --panel-strong: #f7f1e4;
-  --ink: #1d2a37;
-  --muted: #667382;
-  --line: rgba(39, 53, 70, 0.12);
-  --line-strong: rgba(29, 42, 55, 0.22);
+  /* surfaces, darkest to lightest */
+  --canvas: #0b0a09;
+  --sidebar: #0e0c0b;
+  --panel: #151210;
+  --panel-soft: #121010;
+  --panel-strong: #1b1714;
+  --raised: #221d19;
+
+  /* text */
+  --ink: #f4ece2;
+  --muted: #a2958a;
+  --soft: #6f655c; /* was used by Fulfilment.tsx but never defined */
+
+  /* hairlines. Warm, so they read as part of the same light as the ground. */
+  --line: rgba(255, 232, 205, 0.1);
+  --line-strong: rgba(255, 232, 205, 0.22);
+
+  /* the accent */
+  --accent: #ff7a18;
+  --accent-bright: #ff9445;
+  --accent-dim: #c25812;
+  --accent-bg: rgba(255, 122, 24, 0.1);
+  --accent-line: rgba(255, 122, 24, 0.35);
+  --on-accent: #1a0d04; /* text on a filled orange button */
+
+  /* status. Warn is pulled yellow, away from the accent, so "careful" and
+     "this is the primary action" never read as the same signal. */
+  --ok: #4cbf6a;
+  --ok-ink: #8ee0a1;
+  --ok-bg: rgba(76, 191, 106, 0.1);
+  --ok-line: rgba(76, 191, 106, 0.3);
+
+  --warn: #e0b341;
+  --warn-ink: #f2cf78;
+  --warn-bg: rgba(224, 179, 65, 0.1);
+  --warn-line: rgba(224, 179, 65, 0.3);
+
+  --bad: #f2645a;
+  --bad-ink: #ff9c94;
+  --bad-bg: rgba(242, 100, 90, 0.1);
+  --bad-line: rgba(242, 100, 90, 0.32);
+
+  --info: #5aa9f0;
+  --info-ink: #9ccdf8;
+  --info-bg: rgba(90, 169, 240, 0.1);
+  --info-line: rgba(90, 169, 240, 0.3);
+
+  /* One monospace line is the whole typographic trick here: eyebrows, labels
+     and figures set in mono against a humanist sans reads as a technical
+     document rather than a web page, and costs no webfont. */
+  --font-sans: "Avenir Next", "Segoe UI Variable Text", "Segoe UI", system-ui,
+    sans-serif;
+  --font-mono: "Cascadia Code", "JetBrains Mono", ui-monospace, "SF Mono",
+    Consolas, monospace;
 }
 
 @theme inline {
@@ -22,16 +82,50 @@
 }
 
 html {
-  background:
-    radial-gradient(circle at top left, rgba(255, 255, 255, 0.92), transparent 30%),
-    linear-gradient(180deg, #f9f6ef 0%, #f0eadf 100%);
+  color-scheme: dark;
+  background-color: var(--canvas);
 }
 
+/* The glow: a warm orange bloom behind the top of the document, fading to the
+   flat canvas within the first screen or so.
+
+   It scrolls with the page, and both of the alternatives were tried and
+   rejected on this exact screen:
+
+     - A `position: fixed` pseudo-element with `z-index: -1` black-holed
+       everything below the fold. `layout.tsx` puts `h-full` on <html>, so the
+       root box is one viewport tall while the document scrolls thousands, and a
+       negative-z layer inside it has nowhere defined to sit behind content that
+       overflows. It also carries `pointer-events: none`, so `elementFromPoint`
+       kept reporting the text underneath and the DOM looked perfectly healthy
+       while the page rendered black.
+     - `background-attachment: fixed` on the root repaints the whole background
+       on every scroll frame. Same black result under a headless compositor, and
+       mobile browsers widely ignore the property anyway.
+
+   Scrolling it is also the better design: the bloom belongs behind the title,
+   and a long document then scrolls onto calm, flat ground instead of dragging a
+   light source down the page with it. `background-repeat: no-repeat` is what
+   stops the bloom tiling down a 4000px page. */
 body {
   min-height: 100vh;
-  background: transparent;
   color: var(--ink);
-  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  background-color: transparent;
+  background-image:
+    radial-gradient(
+      120ch 55ch at 50% -18ch,
+      rgba(255, 122, 24, 0.13),
+      transparent 70%
+    ),
+    radial-gradient(
+      80ch 45ch at 12% 2%,
+      rgba(255, 160, 80, 0.055),
+      transparent 65%
+    );
+  background-repeat: no-repeat;
 }
 
 a {
@@ -40,10 +134,210 @@ a {
 }
 
 button,
-input {
+input,
+textarea {
   font: inherit;
 }
 
+/* Visible focus, in the accent, everywhere -- the old sheet had none at all, so
+   the whole app was unusable from the keyboard. `:focus-visible` keeps it off
+   mouse clicks. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
 ::selection {
-  background: rgba(84, 130, 255, 0.18);
+  background: rgba(255, 122, 24, 0.28);
+  color: var(--ink);
+}
+
+::placeholder {
+  color: var(--soft);
+}
+
+/* Dark scrollbars. Without these Windows paints a bright grey trough down the
+   side of the page, which is the single most obvious tell of a light theme
+   wearing dark paint. */
+* {
+  scrollbar-color: var(--raised) transparent;
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--raised);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #332c26;
+  background-clip: content-box;
+}
+
+/* `details` markers inherit a light-theme triangle otherwise. */
+summary {
+  list-style: none;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+/* --- small reusable pieces, used across several components ---------------- */
+
+/* The eyebrow: mono, letterspaced, small. The app's most repeated element. */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.eyebrow-accent {
+  color: var(--accent);
+}
+
+/* Panels. The border is doing the work, not a shadow: on a dark ground a drop
+   shadow is invisible, and a lifted hairline is what actually reads as raised. */
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+}
+
+.panel-lift {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 236, 214, 0.055),
+    0 1px 2px rgba(0, 0, 0, 0.4),
+    0 8px 24px -12px rgba(0, 0, 0, 0.6);
+}
+
+/* Buttons ------------------------------------------------------------------ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  padding: 0.625rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease,
+    transform 0.1s ease;
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(0.5px);
+}
+
+.btn:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--on-accent);
+  border: 1px solid transparent;
+  font-weight: 600;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--accent-bright);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line-strong);
+}
+
+.btn-ghost:hover:not(:disabled) {
+  border-color: var(--accent-line);
+  color: var(--accent-bright);
+}
+
+/* Inputs ------------------------------------------------------------------- */
+
+.field {
+  width: 100%;
+  resize: none;
+  border-radius: 1rem;
+  border: 1px solid var(--line);
+  background: var(--panel-soft);
+  color: var(--ink);
+  outline: none;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.field:hover:not(:disabled) {
+  border-color: var(--line-strong);
+}
+
+.field:focus {
+  border-color: var(--accent-line);
+  background: var(--panel);
+  outline: none;
+}
+
+.field:disabled {
+  opacity: 0.6;
+}
+
+/* Status blocks ------------------------------------------------------------ */
+
+.note {
+  border-radius: 0.875rem;
+  border: 1px solid;
+  padding: 1rem;
+}
+
+.note-ok {
+  border-color: var(--ok-line);
+  background: var(--ok-bg);
+  color: var(--ok-ink);
+}
+
+.note-warn {
+  border-color: var(--warn-line);
+  background: var(--warn-bg);
+  color: var(--warn-ink);
+}
+
+.note-bad {
+  border-color: var(--bad-line);
+  background: var(--bad-bg);
+  color: var(--bad-ink);
+}
+
+.note-info {
+  border-color: var(--info-line);
+  background: var(--info-bg);
+  color: var(--info-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
 }

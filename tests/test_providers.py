@@ -5,7 +5,9 @@ is few requests with very large outputs, so request-capped tiers beat
 token-per-minute-capped ones. Groq's free plan allows 8k tokens/minute, and a
 single study document is ~15k tokens -- one call does not fit. OpenRouter's free
 variants cap requests (20/min, 50/day) and not tokens, so the same free budget
-buys ~50 documents a day instead of zero.
+buys ~50 documents a day instead of zero. That daily budget is account-wide
+across every :free model, so exhausting it is not worked around by switching
+slugs -- only by switching providers.
 
 Gemini is last on a different axis: its free-tier terms allow training on
 submitted content and human review of input and output.
@@ -70,6 +72,24 @@ def test_openrouter_beats_groq_when_both_are_present(
     monkeypatch.setenv("GROQ_API_KEY", "x")
     monkeypatch.setenv("OPENROUTER_API_KEY", "x")
     assert select_provider().name == "openrouter"
+
+
+
+def test_the_rate_limit_message_points_at_the_way_out(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """A 429 on OpenRouter is account-wide across every :free model, so the
+    message must say that switching slugs is not the fix -- that was the loop
+    people actually got stuck in."""
+    import httpx
+
+    from agent import providers
+
+    response = httpx.Response(429, text='{"error": {"code": 429}}')
+    with pytest.raises(providers.ProviderRefused) as caught:
+        providers._raise_for_status(response, "openrouter", "some/model:free")
+
+    assert "switching slugs will not help" in str(caught.value)
 
 
 def test_anthropic_wins_over_every_free_tier(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -143,3 +163,41 @@ def test_max_output_tokens_is_configurable(monkeypatch: pytest.MonkeyPatch) -> N
     finally:
         monkeypatch.delenv("MAX_OUTPUT_TOKENS")
         importlib.reload(generate)
+
+
+def test_exhausted_retries_raise_a_catchable_type(monkeypatch) -> None:
+    """The exhausted-retry path used to raise a bare `RuntimeError` — the one
+    type nothing can catch without also catching genuine bugs. A provider outage
+    therefore reached the user as a 500 with a stack trace, after minutes of
+    silent retrying.
+    """
+    import httpx
+
+    from agent import providers
+
+    def always_fails(self, *args, **kwargs):
+        raise httpx.ConnectError("upstream refused")
+
+    monkeypatch.setattr(httpx.Client, "post", always_fails)
+    monkeypatch.setattr(providers, "_TRANSIENT_BACKOFF", 0)
+
+    provider = providers.OpenAICompatibleProvider(
+        api_key="k", base_url="https://example.invalid", model="m", label="stub"
+    )
+    with pytest.raises(providers.ProviderUnavailable) as caught:
+        provider.complete(system="s", user="u", schema={}, max_tokens=10)
+
+    assert "after 3 attempts" in str(caught.value)
+    assert "upstream refused" in str(caught.value)
+
+
+def test_every_provider_failure_the_api_can_hit_is_caught() -> None:
+    """`_guard` must name each one. A provider failure is not a server fault and
+    must not surface as a traceback."""
+    import inspect
+
+    from backend import api
+
+    source = inspect.getsource(api._guard)
+    for exception in ("NoProviderConfigured", "ProviderUnavailable", "OutputTruncated"):
+        assert exception in source, f"{exception} would escape as a 500"

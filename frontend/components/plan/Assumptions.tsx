@@ -17,8 +17,8 @@ export function Assumptions({ assumptions }: { assumptions: Assumption[] }) {
   const withDetail = assumptions.filter((a) => a.detail);
 
   return (
-    <section className="mt-10 rounded-2xl border border-amber-200/70 bg-amber-50/50 p-5">
-      <h2 className="text-xs font-semibold uppercase tracking-[0.24em] text-amber-900">
+    <section className="note note-warn mt-10 p-5">
+      <h2 className="eyebrow" style={{ color: "var(--warn-ink)" }}>
         We assumed — you didn&apos;t say, so we decided
       </h2>
 
@@ -27,18 +27,22 @@ export function Assumptions({ assumptions }: { assumptions: Assumption[] }) {
           <li key={a.text} className="text-sm leading-6 text-[color:var(--ink)]">
             · {a.text}
             {open && a.detail && (
-              <span className="block pl-3 text-sm leading-6 text-amber-900">{a.detail}</span>
+              <span className="mt-1 block border-l border-[color:var(--warn-line)] pl-3 text-sm leading-6 text-[color:var(--warn-ink)]">
+              {a.detail}
+            </span>
             )}
           </li>
         ))}
       </ul>
 
       <div className="mt-3 flex flex-wrap items-center gap-3">
-        <p className="text-sm text-amber-900">Say so below if any of these are wrong.</p>
+        <p className="text-sm text-[color:var(--warn-ink)]">
+          Say so below if any of these are wrong.
+        </p>
         {withDetail.length > 0 && (
           <button
             onClick={() => setOpen((v) => !v)}
-            className="text-sm text-amber-900 underline"
+            className="text-sm text-[color:var(--warn-ink)] underline decoration-[color:var(--warn-line)] underline-offset-4 hover:decoration-current"
           >
             {open ? "Hide" : `Why these matter (${withDetail.length})`}
           </button>

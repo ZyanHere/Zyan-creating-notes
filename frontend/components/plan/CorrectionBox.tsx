@@ -5,6 +5,7 @@
 // milestone tests. A structured correction UI would test something else.
 
 import { useState } from "react";
+import { Spinner } from "@/components/ui/Spinner";
 
 export function CorrectionBox({
   onSubmit,
@@ -12,6 +13,7 @@ export function CorrectionBox({
   pending,
   disabled,
   hideApprove = false,
+  embedded = false,
   label = "Anything wrong? Say it however you like.",
 }: {
   onSubmit: (text: string) => void;
@@ -19,6 +21,12 @@ export function CorrectionBox({
   pending: boolean;
   disabled: boolean;
   hideApprove?: boolean;
+  /** Inside a panel rather than pinned to the page.
+   *
+   *  The two uses need opposite chrome. Pinned, it is a bar over the document
+   *  and needs its own ground and a top edge to sit against; inside a panel,
+   *  that same ground and edge draw a seam across the card it lives in. */
+  embedded?: boolean;
   label?: string;
 }) {
   const [text, setText] = useState("");
@@ -30,7 +38,13 @@ export function CorrectionBox({
   }
 
   return (
-    <div className="sticky bottom-0 border-t border-[color:var(--line)] bg-[color:var(--canvas)]/95 pb-6 pt-5 backdrop-blur">
+    <div
+      className={
+        embedded
+          ? ""
+          : "sticky bottom-0 z-10 border-t border-[color:var(--line)] bg-[color:var(--canvas)]/85 pb-6 pt-5 backdrop-blur-xl"
+      }
+    >
       <label className="text-sm text-[color:var(--muted)]">{label}</label>
       <textarea
         value={text}
@@ -41,21 +55,28 @@ export function CorrectionBox({
         rows={2}
         disabled={pending || disabled}
         placeholder="i only have four days · you've missed X entirely · go deeper on Y"
-        className="mt-2 w-full resize-none rounded-2xl border border-[color:var(--line)] bg-[color:var(--panel)] p-4 text-sm leading-6 text-[color:var(--ink)] outline-none placeholder:text-[color:var(--muted)]/60 focus:border-[color:var(--line-strong)] disabled:opacity-60"
+        className="field mt-2 p-4 text-sm leading-6"
       />
       <div className="mt-3 flex flex-wrap items-center gap-3">
         <button
           onClick={send}
           disabled={pending || disabled || !text.trim()}
-          className="rounded-full border border-[color:var(--line-strong)] px-5 py-2.5 text-sm font-medium text-[color:var(--ink)] disabled:opacity-40"
+          className="btn btn-ghost"
         >
-          {pending ? "Revising…" : "Send correction"}
+          {pending ? (
+            <>
+              <Spinner />
+              Revising…
+            </>
+          ) : (
+            "Send correction"
+          )}
         </button>
         {!hideApprove && (
         <button
           onClick={onApprove}
           disabled={pending || disabled}
-          className="rounded-full bg-[color:var(--ink)] px-5 py-2.5 text-sm font-medium text-white disabled:opacity-40"
+          className="btn btn-primary"
         >
           This is right — approve
         </button>

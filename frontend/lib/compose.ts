@@ -57,6 +57,10 @@ export type ContentUnit = {
   why: string;
   extent: string | null;
   items: ContentItem[];
+  /** What the learner can do after this module, on its own. Only modules have
+   *  one — it is the test that separates a module from a chapter. Null for a
+   *  legacy plan's sections, which never had one. */
+  capability: string | null;
 };
 
 export type Omission = { topic: string; consequence: string; whenToLearn: string };
@@ -86,6 +90,9 @@ export type PlanDoc = {
   stated: string[];
   orderNote: string | null;
   contents: ContentUnit[];
+  /** Several modules, so several PDFs — the page frames itself differently. */
+  isCurriculum: boolean;
+  moduleCount: number;
   wontCover: Omission[];
   assumptions: Assumption[];
   cannotDo: CannotDo[];
@@ -101,25 +108,44 @@ export function compose(
 ): PlanDoc {
   const s = decisions.interpret_situation;
   const covered = decisions.scope?.covered ?? [];
-  const units = decisions.partition?.units ?? [];
+
+  // Modules are the curriculum's parts — each becomes its own PDF. `units` is
+  // the legacy shape: sections of a single document, from before the curriculum
+  // layer existed. Read so old projects still open; never relabelled modules.
+  const modules = decisions.partition?.modules ?? [];
+  const legacy = decisions.partition?.units ?? [];
+  const parts = modules.length
+    ? modules.map((m) => ({
+        heading: m.title,
+        why: m.why_here,
+        covers: m.covers,
+        capability: m.capability as string | null,
+      }))
+    : legacy.map((u) => ({
+        heading: u.heading,
+        why: u.why_here,
+        covers: u.covers,
+        capability: null,
+      }));
 
   // Traversal owns the order; partition owns the grouping. The reader sees one
-  // contents list, which is both.
+  // list, which is both.
   const ordered = decisions.traversal?.sequence?.length
     ? decisions.traversal.sequence
-    : units.map((u) => u.heading);
-  const byHeading = new Map(units.map((u) => [u.heading, u]));
+    : parts.map((p) => p.heading);
+  const byHeading = new Map(parts.map((p) => [p.heading, p]));
   const byConcept = new Map(covered.map((c) => [c.concept, c]));
 
   const contents: ContentUnit[] = ordered
     .map((heading) => {
-      const unit = byHeading.get(heading);
-      if (!unit) return null;
+      const part = byHeading.get(heading);
+      if (!part) return null;
       return {
         heading,
-        why: unit.why_here,
+        why: part.why,
+        capability: part.capability,
         extent: extent?.per_unit?.[heading] ?? null,
-        items: unit.covers
+        items: part.covers
           .map((name) => byConcept.get(name))
           .filter((c): c is ContentItem => Boolean(c)),
       };
@@ -134,16 +160,29 @@ export function compose(
     contents.push({
       heading: "Also covered",
       why: "Not yet grouped into a part.",
+      capability: null,
       extent: null,
       items: orphans,
     });
   }
 
-  const wontCover: Omission[] = (decisions.consequence?.exclusions ?? []).map((e) => ({
-    topic: e.topic,
-    consequence: e.consequence,
-    whenToLearn: e.when_to_learn,
-  }));
+  // Deduped here as well as in the plan contract, because plans approved before
+  // that validator existed are still on disk and still render. `topic` is the
+  // list's React key, so a repeat is a duplicate-key warning as well as a
+  // paragraph the reader is shown twice.
+  const seenExclusions = new Set<string>();
+  const wontCover: Omission[] = (decisions.consequence?.exclusions ?? [])
+    .filter((e) => {
+      const key = e.topic.trim().toLowerCase();
+      if (seenExclusions.has(key)) return false;
+      seenExclusions.add(key);
+      return true;
+    })
+    .map((e) => ({
+      topic: e.topic,
+      consequence: e.consequence,
+      whenToLearn: e.when_to_learn,
+    }));
 
   // Two sources of "we decided this for you": what the model recorded as
   // inferred, and axes the decider judged worth asking about but could not fit
@@ -170,10 +209,19 @@ export function compose(
     why: s.note,
   }));
 
+  // A curriculum's headline is how many documents it is, because that is the
+  // thing the reader is about to receive. One module is a document, not a
+  // curriculum of one, and reads as it always did.
+  const moduleCount = modules.length;
+  const isCurriculum = moduleCount > 1;
+
   const meta: string[] = [];
+  if (isCurriculum) meta.push(`${moduleCount} modules · ${moduleCount} PDFs`);
   if (extent?.pages) meta.push(extent.pages);
   if (extent?.study_time) meta.push(extent.study_time);
-  if (contents.length) meta.push(`${contents.length} part${contents.length === 1 ? "" : "s"}`);
+  if (!isCurriculum && contents.length > 1) {
+    meta.push(`${contents.length} parts`);
+  }
 
   return {
     title: s?.subject ?? fallbackTitle,
@@ -182,9 +230,13 @@ export function compose(
     writtenFor: s?.entry_point ?? null,
     byTheEnd: s?.target_capability ?? null,
     capacity: s?.capacity ?? null,
-    stated: s?.stated ?? [],
+    // Objects since constraints gained axis attribution; legacy plans hold
+    // bare strings. The reader only ever wanted the words.
+    stated: (s?.stated ?? []).map((c) => (typeof c === "string" ? c : c.text)),
     orderNote: decisions.traversal?.why ?? null,
     contents,
+    isCurriculum,
+    moduleCount,
     wontCover,
     assumptions,
     cannotDo,

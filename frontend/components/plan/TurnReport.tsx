@@ -16,21 +16,21 @@ export function TurnReport({ turn }: { turn: Turn }) {
   const unchanged = turn.unchanged.filter((k) => k !== "intake_strategy");
 
   return (
-    <div className="rounded-2xl border border-[color:var(--line)] bg-[color:var(--panel-strong)] p-5">
+    <div className="panel panel-lift bg-[color:var(--panel-strong)] p-5">
       <p className="text-sm leading-6 text-[color:var(--ink)]">
         <span className="text-[color:var(--muted)]">We read that as: </span>
         {turn.reading}
       </p>
 
       {turn.out_of_scope && (
-        <p className="mt-3 rounded-xl border border-sky-200 bg-sky-50 p-3 text-sm leading-6 text-sky-900">
+        <p className="note note-info mt-3 p-3 text-sm leading-6">
           That&apos;s about how it will look rather than what it says, so nothing
           in the plan changed — {turn.out_of_scope}
         </p>
       )}
 
       {turn.not_understood && (
-        <p className="mt-3 rounded-xl border border-amber-300 bg-amber-50 p-3 text-sm leading-6 text-amber-900">
+        <p className="note note-warn mt-3 p-3 text-sm leading-6">
           That didn&apos;t land anywhere. Try naming what feels wrong about the
           plan above — what&apos;s missing, too deep, in the wrong order.
         </p>
@@ -51,7 +51,7 @@ export function TurnReport({ turn }: { turn: Turn }) {
       )}
 
       {turn.unclaimed_drift.length > 0 && (
-        <p className="mt-3 text-sm leading-6 text-amber-800">
+        <p className="mt-3 text-sm leading-6 text-[color:var(--warn-ink)]">
           We also changed {list(turn.unclaimed_drift)} without being asked — check
           that above.
         </p>

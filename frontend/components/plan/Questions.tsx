@@ -1,20 +1,26 @@
 "use client";
 
-// Every question the decider chose, on one screen.
+// The decider's questions, one at a time, answered in a single turn.
 //
-// The axes are independent — why you want it does not depend on what you
-// already know — so serialising them buys nothing and costs turns. The goal is
-// planning sufficiency in the fewest conversational turns, and one screen of
-// three choices is one turn.
+// SERIALISED IN PRESENTATION, NOT IN CONVERSATION. The axes are independent —
+// why you want it does not depend on what you already know — so asking them as
+// three round trips would buy nothing and cost two extra model calls. This asks
+// them one at a time and submits every answer together, so the turn count is
+// still one. One card with one question is a decision; three stacked cards with
+// eleven options between them is a form, and a form is the thing people abandon.
 //
 // Objective, not open-ended: Semantics §1 says the learner cannot reliably
 // *specify* their entry point or target, but can *recognise* their situation
-// when it is put in front of them. "Something else" and "plan it anyway" are
-// always available — §3 makes a question an offer to correct early, never a gate.
+// when it is put in front of them. So each question offers recognisable options
+// — and every one of them also carries a free-text row, because the option list
+// is the system's guess at the shape of the answer and sometimes that guess is
+// wrong. "Skip" and "use the defaults" stay available throughout: §3 makes a
+// question an offer to correct early, never a gate.
 
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import type { Question } from "@/lib/api";
 import { axisName } from "@/lib/compose";
+import { Spinner } from "@/components/ui/Spinner";
 
 export function Questions({
   questions,
@@ -27,110 +33,325 @@ export function Questions({
   onSkip: () => void;
   pending: boolean;
 }) {
+  // `at === questions.length` is the review step, not a question.
+  const [at, setAt] = useState(0);
   const [picked, setPicked] = useState<Record<string, string>>({});
-  const [other, setOther] = useState("");
+  const [custom, setCustom] = useState<Record<string, string>>({});
 
-  if (questions.length === 0) return null;
+  const total = questions.length;
+  const reviewing = at >= total;
+  const q = reviewing ? null : questions[at];
 
-  const answered = questions.filter((q) => picked[q.axis]).length;
+  const answerFor = useCallback(
+    (axis: string) => custom[axis]?.trim() || picked[axis] || null,
+    [custom, picked],
+  );
 
-  function send() {
+  const go = useCallback(
+    (to: number) => setAt(Math.max(0, Math.min(total, to))),
+    [total],
+  );
+
+  const choose = useCallback(
+    (axis: string, label: string) => {
+      if (pending) return;
+      // Picking from the list retracts anything typed for the same axis --
+      // otherwise the free text would silently win while the highlighted row
+      // said something else.
+      setPicked((p) => ({ ...p, [axis]: label }));
+      setCustom((c) => ({ ...c, [axis]: "" }));
+      setAt((i) => i + 1);
+    },
+    [pending],
+  );
+
+  // Number keys pick an option. The numerals beside each row are a promise that
+  // this works; without the handler they are decoration that reads as one.
+  useEffect(() => {
+    if (!q || pending) return;
+    const options = q.options;
+    const axis = q.axis;
+    function onKey(event: KeyboardEvent) {
+      const el = document.activeElement;
+      if (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement) return;
+      const n = Number(event.key);
+      if (Number.isInteger(n) && n >= 1 && n <= options.length) {
+        event.preventDefault();
+        choose(axis, options[n - 1].label);
+      }
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [q, pending, choose]);
+
+  if (total === 0) return null;
+
+  function submit() {
     if (pending) return;
     // The answer is testimony, so it is written the way a person would say it
     // rather than as a form payload.
     const lines = questions
-      .filter((q) => picked[q.axis])
-      .map((q) => `${axisName(q.axis)}: ${picked[q.axis]}`);
-    if (other.trim()) lines.push(other.trim());
-    if (lines.length > 0) onAnswer(lines.join("\n"));
+      .map((x) => {
+        const said = answerFor(x.axis);
+        return said ? `${axisName(x.axis)}: ${said}` : null;
+      })
+      .filter((line): line is string => line !== null);
+    // Skipping every question is a real choice, and it is exactly the one
+    // "use the defaults" makes. Sending an empty correction instead would be a
+    // live-looking button that does nothing -- which is what this did first.
+    if (lines.length === 0) onSkip();
+    else onAnswer(lines.join("\n"));
+  }
+
+  if (reviewing) {
+    const answered = questions.filter((x) => answerFor(x.axis)).length;
+    return (
+      <section className="panel panel-lift overflow-hidden">
+        <header className="flex flex-wrap items-center justify-between gap-3 border-b border-[color:var(--line)] px-5 py-4">
+          <h2 className="text-base font-semibold tracking-[-0.01em] text-[color:var(--ink)]">
+            {answered === total
+              ? "That's everything"
+              : `${answered} of ${total} answered`}
+          </h2>
+          <span className="font-[family-name:var(--font-mono)] text-[0.6875rem] uppercase tracking-wider text-[color:var(--soft)]">
+            Change anything before we plan
+          </span>
+        </header>
+
+        <ul>
+          {questions.map((x, i) => {
+            const said = answerFor(x.axis);
+            return (
+              <li
+                key={x.axis}
+                className="flex items-baseline gap-3 border-b border-[color:var(--line)] px-5 py-3"
+              >
+                <span className="font-[family-name:var(--font-mono)] text-[0.6875rem] tabular-nums text-[color:var(--soft)]">
+                  {i + 1}
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm text-[color:var(--muted)]">{x.question}</p>
+                  <p
+                    className={`text-sm leading-6 ${
+                      said ? "text-[color:var(--ink)]" : "italic text-[color:var(--soft)]"
+                    }`}
+                  >
+                    {said ?? "skipped — we'll use the default"}
+                  </p>
+                </div>
+                <button
+                  onClick={() => go(i)}
+                  disabled={pending}
+                  className="shrink-0 text-sm text-[color:var(--muted)] underline decoration-[color:var(--line-strong)] underline-offset-4 transition-colors hover:text-[color:var(--accent)] disabled:opacity-40"
+                >
+                  Change
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+
+        <div className="flex flex-wrap items-center gap-3 px-5 py-4">
+          <button onClick={submit} disabled={pending} className="btn btn-primary">
+            {pending ? (
+              <>
+                <Spinner />
+                Planning…
+              </>
+            ) : (
+              "Plan it"
+            )}
+          </button>
+          {pending ? (
+            <span className="text-sm text-[color:var(--muted)]">
+              Working out the plan. Up to a minute.
+            </span>
+          ) : (
+            <button
+              onClick={onSkip}
+              className="text-sm text-[color:var(--muted)] underline decoration-[color:var(--line-strong)] underline-offset-4 transition-colors hover:text-[color:var(--accent)]"
+            >
+              Use the defaults instead
+            </button>
+          )}
+        </div>
+      </section>
+    );
+  }
+
+  const axis = q!.axis;
+  const typed = custom[axis] ?? "";
+
+  function commitTyped() {
+    if (pending || !typed.trim()) return;
+    // Typing wins over any earlier pick on this axis, and `answerFor` already
+    // prefers it -- clearing the pick keeps the review step honest.
+    setPicked((p) => ({ ...p, [axis]: "" }));
+    setAt((i) => i + 1);
   }
 
   return (
-    <section className="space-y-5">
-      {questions.map((q) => (
-        <div
-          key={q.axis}
-          className="rounded-2xl border border-[color:var(--line)] bg-[color:var(--panel)] p-6"
-        >
-          <h2 className="text-lg font-semibold tracking-tight text-[color:var(--ink)]">
-            {q.question}
+    <section className="panel panel-lift overflow-hidden">
+      {/* The pager takes its own row below 640px. Beside a question that wraps
+          to three lines it reads as though it belongs to the last of them. */}
+      <header className="flex flex-col gap-1.5 border-b border-[color:var(--line)] px-5 py-4 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
+        <div className="min-w-0 sm:order-first">
+          <h2 className="text-base font-semibold leading-6 tracking-[-0.01em] text-[color:var(--ink)]">
+            {q!.question}
           </h2>
-          <p className="mt-1.5 text-sm leading-6 text-[color:var(--muted)]">
-            {q.why_it_matters}
-          </p>
+          {q!.why_it_matters && (
+            <p className="mt-1 text-sm leading-6 text-[color:var(--muted)]">
+              {q!.why_it_matters}
+            </p>
+          )}
+        </div>
 
-          <div className="mt-4 space-y-2.5">
-            {q.options.map((o) => {
-              const on = picked[q.axis] === o.label;
-              return (
-                <button
-                  key={o.label}
-                  disabled={pending}
-                  onClick={() => setPicked((p) => ({ ...p, [q.axis]: o.label }))}
-                  className={`w-full rounded-xl border p-4 text-left transition disabled:opacity-50 ${
+        <nav
+          className="order-first flex shrink-0 items-center gap-0.5 self-end sm:order-none sm:self-auto"
+          aria-label="Questions"
+        >
+          <Step
+            label="Previous question"
+            glyph="‹"
+            onClick={() => go(at - 1)}
+            disabled={pending || at === 0}
+          />
+          <span className="px-1 font-[family-name:var(--font-mono)] text-[0.6875rem] tabular-nums text-[color:var(--muted)]">
+            {at + 1} of {total}
+          </span>
+          <Step
+            label="Next question"
+            glyph="›"
+            onClick={() => go(at + 1)}
+            disabled={pending}
+          />
+          <Step
+            label="Skip all — use the defaults"
+            glyph="✕"
+            onClick={onSkip}
+            disabled={pending}
+            className="ml-1"
+          />
+        </nav>
+      </header>
+
+      <ul>
+        {q!.options.map((o, k) => {
+          const on = picked[axis] === o.label && !typed.trim();
+          return (
+            <li key={o.label}>
+              <button
+                disabled={pending}
+                onClick={() => choose(axis, o.label)}
+                className={`group flex w-full items-center gap-3 border-b border-[color:var(--line)] px-5 py-3.5 text-left transition-colors disabled:opacity-50 ${
+                  on ? "bg-[color:var(--accent-bg)]" : "hover:bg-[color:var(--panel-strong)]"
+                }`}
+              >
+                <span
+                  aria-hidden
+                  className={`grid h-6 w-6 shrink-0 place-items-center rounded-md border font-[family-name:var(--font-mono)] text-[0.6875rem] tabular-nums transition-colors ${
                     on
-                      ? "border-[color:var(--ink)] bg-[color:var(--panel-strong)]"
-                      : "border-[color:var(--line)] bg-[color:var(--panel-soft)] hover:border-[color:var(--line-strong)]"
+                      ? "border-[color:var(--accent)] bg-[color:var(--accent)] text-[color:var(--on-accent)]"
+                      : "border-[color:var(--line)] bg-[color:var(--panel-strong)] text-[color:var(--muted)] group-hover:border-[color:var(--accent-line)] group-hover:text-[color:var(--accent)]"
                   }`}
                 >
-                  <span className="block text-sm font-medium text-[color:var(--ink)]">
-                    {o.label}
-                    {o.label === q.default_label && (
-                      <span className="ml-2 text-xs font-normal text-[color:var(--muted)]">
+                  {k + 1}
+                </span>
+
+                <span className="min-w-0 flex-1">
+                  <span className="flex flex-wrap items-baseline gap-x-2">
+                    <span className="text-sm font-medium text-[color:var(--ink)]">
+                      {o.label}
+                    </span>
+                    {o.label === q!.default_label && (
+                      <span className="font-[family-name:var(--font-mono)] text-[0.625rem] uppercase tracking-wider text-[color:var(--soft)]">
                         default
                       </span>
                     )}
                   </span>
-                  <span className="mt-1 block text-sm leading-6 text-[color:var(--muted)]">
-                    {o.implication}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      ))}
+                  {o.implication && (
+                    <span className="mt-0.5 block text-sm leading-6 text-[color:var(--muted)]">
+                      {o.implication}
+                    </span>
+                  )}
+                </span>
 
-      <div className="rounded-2xl border border-[color:var(--line)] bg-[color:var(--panel-soft)] p-5">
-        <label className="text-sm text-[color:var(--muted)]">
-          Anything else we should know? Say it in your own words.
-        </label>
+                <span
+                  aria-hidden
+                  className={`shrink-0 transition-all ${
+                    on
+                      ? "text-[color:var(--accent)]"
+                      : "text-[color:var(--soft)] opacity-0 group-hover:translate-x-0.5 group-hover:opacity-100"
+                  }`}
+                >
+                  →
+                </span>
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+
+      {/* The row that is on every question. The options are the system's guess
+          at the shape of the answer; this is where the guess being wrong stops
+          being the user's problem. */}
+      <div className="flex items-center gap-3 px-5 py-3">
+        <span
+          aria-hidden
+          className={`grid h-6 w-6 shrink-0 place-items-center rounded-md border text-[0.6875rem] transition-colors ${
+            typed.trim()
+              ? "border-[color:var(--accent)] bg-[color:var(--accent)] text-[color:var(--on-accent)]"
+              : "border-[color:var(--line)] bg-[color:var(--panel-strong)] text-[color:var(--muted)]"
+          }`}
+        >
+          ✎
+        </span>
         <input
-          value={other}
-          onChange={(e) => setOther(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && send()}
+          value={typed}
+          onChange={(e) => setCustom((c) => ({ ...c, [axis]: e.target.value }))}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") commitTyped();
+          }}
           disabled={pending}
-          placeholder="use lots of analogies · include solved numericals · keep it short"
-          className="mt-2 w-full rounded-xl border border-[color:var(--line)] bg-[color:var(--panel)] px-4 py-2.5 text-sm text-[color:var(--ink)] outline-none placeholder:text-[color:var(--muted)]/60 focus:border-[color:var(--line-strong)] disabled:opacity-50"
+          placeholder="Something else"
+          aria-label="Answer in your own words"
+          className="min-w-0 flex-1 bg-transparent text-sm text-[color:var(--ink)] outline-none disabled:opacity-50"
         />
-
-        <div className="mt-4 flex flex-wrap items-center gap-3">
-          <button
-            onClick={send}
-            disabled={pending || (answered === 0 && !other.trim())}
-            className="rounded-full bg-[color:var(--ink)] px-5 py-2.5 text-sm font-medium text-white disabled:opacity-40"
-          >
-            {pending ? "Planning…" : "Plan it"}
-          </button>
-          <button
-            onClick={onSkip}
-            disabled={pending}
-            className="text-sm text-[color:var(--muted)] underline disabled:opacity-40"
-          >
-            Skip — use the defaults
-          </button>
-          {!pending && questions.length > 1 && (
-            <span className="text-sm text-[color:var(--muted)]">
-              {answered} of {questions.length} answered
-            </span>
-          )}
-          {pending && (
-            <span className="text-sm text-[color:var(--muted)]">
-              Working out the plan. Up to a minute.
-            </span>
-          )}
-        </div>
+        <button
+          onClick={typed.trim() ? commitTyped : () => go(at + 1)}
+          disabled={pending}
+          className="btn btn-ghost shrink-0 px-4 py-1.5 text-[0.8125rem]"
+        >
+          {typed.trim() ? "Save" : "Skip"}
+        </button>
       </div>
     </section>
+  );
+}
+
+function Step({
+  label,
+  glyph,
+  onClick,
+  disabled,
+  className = "",
+}: {
+  label: string;
+  glyph: string;
+  onClick: () => void;
+  disabled: boolean;
+  className?: string;
+}) {
+  return (
+    <button
+      type="button"
+      title={label}
+      aria-label={label}
+      onClick={onClick}
+      disabled={disabled}
+      className={`grid h-6 w-6 place-items-center rounded-md text-sm text-[color:var(--muted)] transition-colors hover:bg-[color:var(--panel-strong)] hover:text-[color:var(--accent)] disabled:pointer-events-none disabled:opacity-30 ${className}`}
+    >
+      {glyph}
+    </button>
   );
 }

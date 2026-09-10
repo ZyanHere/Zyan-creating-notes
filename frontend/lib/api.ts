@@ -24,12 +24,23 @@ export type Situation = {
   purpose: string;
   target_capability: string;
   capacity: string | null;
-  stated: string[];
+  /** What the user actually said, with the axis it constrains (null if none).
+   *  Legacy plans stored bare strings. */
+  stated: (string | { text: string; axis: string | null })[];
   inferred: string[];
 };
 
 export type Covered = { concept: string; depth: string; why: string };
 export type Exclusion = { topic: string; consequence: string; when_to_learn: string };
+/** A module of the curriculum. Becomes its own PDF. */
+export type Module = {
+  title: string;
+  covers: string[];
+  why_here: string;
+  capability: string;
+};
+
+/** LEGACY: a section of a single document, from before the curriculum layer. */
 export type Unit = { heading: string; covers: string[]; why_here: string };
 
 export type Decisions = {
@@ -38,7 +49,7 @@ export type Decisions = {
   relevance?: { judgements: { concept: string; in_play: boolean; why: string }[] };
   scope?: { covered: Covered[]; cut: string[] };
   consequence?: { exclusions: Exclusion[] };
-  partition?: { units: Unit[] };
+  partition?: { modules?: Module[]; units?: Unit[] };
   traversal?: { sequence: string[]; why: string };
   intake_strategy?: { questions: Question[] };
 };
@@ -175,6 +186,50 @@ export type Generation = {
 
 // Inline by default so it renders in the page; `download` sets the attachment
 // disposition for an explicit save.
+export type ModuleState = {
+  index: number;
+  title: string;
+  capability: string;
+  why_here: string;
+  concepts: string[];
+  /** Each concept with the depth it was approved at, read from the *committed*
+   *  snapshot rather than from current decisions — so the generation screen
+   *  shows the promise that was actually made. Absent on legacy snapshots. */
+  coverage?: { concept: string; depth: string; why: string }[];
+  extent: string | null;
+  state: "idle" | "running" | "done" | "failed";
+  seconds?: number;
+  error?: string | null;
+  pdf?: string;
+  pages?: number;
+  calls?: number;
+  satisfied?: boolean;
+  fulfilment?: Fulfilment | null;
+  representation?: { stated_gaps: string[]; unrendered: string[] };
+};
+
+/** One row of the project index.
+ *
+ *  `title` is derived server-side from the plan's subject and falls back to the
+ *  raw query; `query` is always the opening request. Two fields rather than one
+ *  because the derived title is what tells two projects apart, and the query is
+ *  what the user recognises as theirs. */
+export type ProjectSummary = {
+  id: string;
+  title: string;
+  query: string;
+  created_at: string;
+  state: "unread" | "needs_subject" | "asking" | "ready" | "planned";
+  approved: boolean;
+  modules_done: number;
+  modules_total: number;
+};
+
+export const projectExportUrl = (id: string) => `${BASE}/projects/${id}/export.zip`;
+
+export const moduleArtifactUrl = (id: string, index: number, download = false) =>
+  `${BASE}/projects/${id}/modules/${index}/artifact.pdf${download ? "?download=1" : ""}`;
+
 export const artifactUrl = (id: string, download = false) =>
   `${BASE}/projects/${id}/artifact.pdf${download ? "?download=1" : ""}`;
 
@@ -191,8 +246,7 @@ async function call<T>(path: string, init?: RequestInit): Promise<T> {
 }
 
 export const api = {
-  listProjects: () =>
-    call<{ id: string; title: string; created_at: string }[]>("/projects"),
+  listProjects: () => call<ProjectSummary[]>("/projects"),
 
   createProject: (text: string) =>
     call<PlanView>("/projects", { method: "POST", body: JSON.stringify({ text }) }),
@@ -218,8 +272,14 @@ export const api = {
 
   // Refused without an approved plan, by design: generating from an unapproved
   // plan is the failure the gate exists to prevent.
-  startGeneration: (id: string) =>
-    call<Generation>(`/projects/${id}/generate`, { method: "POST" }),
+  // Modules are the unit of generation. One at a time, on demand -- never a
+  // batch over the curriculum.
+  listModules: (id: string) =>
+    call<{ modules: ModuleState[] }>(`/projects/${id}/modules`),
 
-  getGeneration: (id: string) => call<Generation>(`/projects/${id}/generation`),
+  generateModule: (id: string, index: number) =>
+    call<{ state: string; index: number }>(
+      `/projects/${id}/modules/${index}/generate`,
+      { method: "POST" },
+    ),
 };

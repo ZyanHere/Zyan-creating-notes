@@ -18,22 +18,12 @@ export function FulfilmentReport({ report }: { report: Fulfilment }) {
   const pct = Math.round(report.coverage * 100);
 
   return (
-    <section
-      className={`mt-5 rounded-xl border p-4 ${
-        ok
-          ? "border-emerald-200 bg-emerald-50"
-          : "border-amber-300 bg-amber-50"
-      }`}
-    >
-      <p
-        className={`text-xs font-semibold uppercase tracking-[0.22em] ${
-          ok ? "text-emerald-800" : "text-amber-900"
-        }`}
-      >
+    <section className={`note mt-5 ${ok ? "note-ok" : "note-warn"}`}>
+      <p className="eyebrow" style={{ color: "inherit" }}>
         {ok ? "Matches your approved plan" : "Does not match your approved plan"}
       </p>
 
-      <p className={`mt-2 text-sm leading-6 ${ok ? "text-emerald-900" : "text-amber-950"}`}>
+      <p className="mt-2 text-sm leading-6">
         {report.units_generated.length} of {report.units_approved.length} parts written ·{" "}
         {report.concepts_covered.length} of {report.concepts_required.length} topics
         covered ({pct}%)
@@ -42,7 +32,7 @@ export function FulfilmentReport({ report }: { report: Fulfilment }) {
       {!ok && (
         <ul className="mt-3 space-y-1.5">
           {report.problems.map((problem) => (
-            <li key={problem} className="text-sm leading-6 text-amber-950">
+            <li key={problem} className="text-sm leading-6">
               — {problem}
             </li>
           ))}
@@ -50,7 +40,7 @@ export function FulfilmentReport({ report }: { report: Fulfilment }) {
       )}
 
       <details className="mt-3">
-        <summary className="cursor-pointer text-sm text-[color:var(--muted)]">
+        <summary className="cursor-pointer text-sm text-[color:var(--muted)] transition-colors hover:text-[color:var(--accent)]">
           Part by part
         </summary>
         <table className="mt-3 w-full text-sm">
@@ -67,7 +57,9 @@ export function FulfilmentReport({ report }: { report: Fulfilment }) {
                 <td className="py-1.5 pr-3">
                   {unit.heading}
                   {!unit.generated && (
-                    <span className="ml-2 text-xs text-amber-800">not written</span>
+                    <span className="ml-2 font-[family-name:var(--font-mono)] text-[0.6875rem] text-[color:var(--warn-ink)]">
+                      not written
+                    </span>
                   )}
                 </td>
                 <td className="py-1.5 pr-3 tabular-nums text-[color:var(--muted)]">
