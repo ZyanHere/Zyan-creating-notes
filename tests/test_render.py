@@ -269,3 +269,78 @@ def test_cardinality_selects_among_honest_realizations(template_id: str) -> None
     assert 'data-realization="indented-layers"' in render(9)
     # the claim never changes, only the geometry answering it
     assert 'data-relation="is-subset-of"' in render(9)
+
+
+# --- the pre-spend guard ----------------------------------------------------
+#
+# `service.generate` refuses before the model call when Chromium is absent,
+# because the model call takes minutes, is billed, and its output is not
+# persisted until after the render. These pin the two ways that guard can be
+# wrong -- missing the condition it exists for, and firing when it should not.
+
+
+def test_a_half_installed_chromium_is_reported_missing(tmp_path, monkeypatch) -> None:
+    """The shape the failure actually arrives in.
+
+    Headless `launch()` runs the *headless shell*, a separate download from
+    full Chromium, so `chromium-<build>` can be present while
+    `chromium_headless_shell-<build>` is not. A check that stats only
+    `chromium.executable_path` passes on exactly this installation -- which is
+    how the first version of this guard reported "ready" on a machine that
+    could not render.
+    """
+    from engine.render import browser_missing
+
+    chrome = tmp_path / "chromium-1234" / "chrome-win64" / "chrome.exe"
+    chrome.parent.mkdir(parents=True)
+    chrome.touch()
+    monkeypatch.setenv("PLAYWRIGHT_BROWSERS_PATH", str(tmp_path))
+
+    message = browser_missing()
+
+    assert message and "playwright install chromium" in message
+    assert "headless shell" in message, "it must name which half is missing"
+    # The message names where it looked, so a wrong registry is visible in the
+    # error rather than requiring someone to guess at it.
+    assert str(tmp_path) in message
+
+
+def test_nothing_installed_is_reported_missing(tmp_path, monkeypatch) -> None:
+    from engine.render import browser_missing
+
+    monkeypatch.setenv("PLAYWRIGHT_BROWSERS_PATH", str(tmp_path))
+
+    message = browser_missing()
+
+    assert message and "playwright install chromium" in message
+
+
+def test_an_undiagnosable_playwright_never_refuses(monkeypatch) -> None:
+    """Fails open. Twice this guard asserted "Chromium is not installed" from a
+    failure it had not diagnosed, and blocked generation on a machine where the
+    browser was fine. A guard in front of a paid call may cost a wasted render
+    when it is wrong; it may never cost a run that would have worked."""
+    from engine import render
+
+    def exploded():
+        raise RuntimeError("driver did not start")
+
+    monkeypatch.setattr(render, "sync_playwright", exploded)
+
+    assert render.browser_missing() is None
+    assert render.browser_status()["ok"] is False, "still reported, just not acted on"
+
+
+@pytest.mark.slow
+def test_a_working_install_is_never_reported_missing() -> None:
+    """The guard must not be the reason a healthy run is refused.
+
+    Its first version launched a real browser and treated *any* failure as "not
+    installed", so one flaky launch blocked generation on a machine where
+    Chromium was fine -- a worse failure than the one it was added to prevent.
+    It now answers only "is the software absent", which cannot fail that way.
+    """
+    from engine.render import browser_missing
+
+    assert browser_missing() is None
+

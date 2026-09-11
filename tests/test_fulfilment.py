@@ -24,7 +24,7 @@ from agent.fulfilment import (
     section_text,
 )
 from agent.generate import _from_plan
-from agent.providers import Completion
+from agent.providers import Completion, ProviderRefused
 
 PLAN = {
     "interpret_situation": {
@@ -468,3 +468,77 @@ def test_a_single_module_plan_generates_normally() -> None:
     generated = _from_plan("rag notes", single, provider=provider)
     assert [s.heading for s in generated.document.sections] == ["RAG Fundamentals"]
     assert generated.fulfilment.satisfied
+
+
+def test_a_unit_whose_call_never_succeeded_says_so() -> None:
+    """"Missing" and "never asked for" are different failures.
+
+    Observed: a 4-unit plan produced 3 sections and 3 calls. The fourth call
+    raised, the generator swallowed the exception, and the run was reported
+    only as "doesn't match what was approved" -- which reads as a model that
+    omitted a part. The actual cause was a call that never succeeded, most
+    often a spent rate limit on the free tier. Same symptom, opposite fix, so
+    the reason has to survive into the report.
+    """
+    single = {
+        **CURRICULUM,
+        "scope": {"covered": CURRICULUM["scope"]["covered"][1:], "cut": []},
+        "partition": {"modules": [CURRICULUM["partition"]["modules"][1]]},
+        "traversal": {"sequence": ["RAG Fundamentals"], "why": "x"},
+    }
+
+    class RateLimited(Scripted):
+        def complete(self, **kwargs):
+            raise ProviderRefused("openrouter returned 429: rate limit exceeded")
+
+    with pytest.raises(ValueError, match="produced no usable part"):
+        _from_plan("rag notes", single, provider=RateLimited())
+
+
+def test_the_reason_reaches_the_unit_report() -> None:
+    """One unit failing must not cost the others -- and the survivor's report
+    has to name why the casualty is absent."""
+    two_units = {
+        **CURRICULUM,
+        "partition": {
+            "modules": [
+                {
+                    "title": "Everything",
+                    "covers": ["Vector Embeddings", "RAG Fundamentals"],
+                    "why_here": "x",
+                    "capability": "y",
+                }
+            ]
+        },
+        "traversal": {"sequence": ["Everything"], "why": "x"},
+    }
+
+    class OneThenDead(Scripted):
+        def __init__(self, *replies):
+            super().__init__(*replies)
+            self.calls = 0
+
+        def complete(self, **kwargs):
+            self.calls += 1
+            if self.calls > 1:
+                raise ProviderRefused("openrouter returned 429: rate limit exceeded")
+            return super().complete(**kwargs)
+
+    provider = OneThenDead(
+        _section("Vector Embeddings", ["Vector embeddings map text to vectors."])
+    )
+    generated = _from_plan("rag notes", two_units, provider=provider)
+
+    assert not generated.fulfilment.satisfied
+    absent = [u for u in generated.fulfilment.units if not u.generated]
+    assert absent, "the unwritten unit is still reported"
+    note = " ".join(absent[0].notes)
+    assert "429" in note and "ProviderRefused" in note, note
+
+
+def test_an_unwritten_unit_with_no_known_reason_keeps_the_plain_note() -> None:
+    """`check_unit` is called from places that have no exception to offer."""
+    order = {"heading": "Traversals", "concepts": [{"concept": "BFS Traversal"}]}
+
+    assert check_unit(order, None).notes == ("no section was produced for this unit",)
+
