@@ -18,15 +18,15 @@ export function FulfilmentReport({ report }: { report: Fulfilment }) {
   const pct = Math.round(report.coverage * 100);
 
   return (
-    <section className={`note mt-5 ${ok ? "note-ok" : "note-warn"}`}>
+    <section className={`note mt-5 text-sm ${ok ? "note-ok" : "note-warn"}`}>
       <p className="eyebrow" style={{ color: "inherit" }}>
-        {ok ? "Matches your approved plan" : "Does not match your approved plan"}
+        {ok ? "Verification passed" : "Verification failed"}
       </p>
 
-      <p className="mt-2 text-sm leading-6">
-        {report.units_generated.length} of {report.units_approved.length} parts written ·{" "}
-        {report.concepts_covered.length} of {report.concepts_required.length} topics
-        covered ({pct}%)
+      <p className="mt-2 font-[family-name:var(--font-mono)] text-[0.8125rem] tabular-nums">
+        {report.units_generated.length}/{report.units_approved.length} parts ·{" "}
+        {report.concepts_covered.length}/{report.concepts_required.length} topics ·
+        coverage {pct}%
       </p>
 
       {!ok && (
@@ -61,6 +61,19 @@ export function FulfilmentReport({ report }: { report: Fulfilment }) {
                       not written
                     </span>
                   )}
+                  {/* Why it is absent, when the generator knew. "Missing" reads
+                      as a model that skipped a part; a call that never
+                      succeeded -- a spent rate limit, most often -- is the
+                      opposite problem and has a different fix. */}
+                  {!unit.generated &&
+                    unit.notes.map((note) => (
+                      <span
+                        key={note}
+                        className="mt-0.5 block text-xs leading-5 text-[color:var(--soft)]"
+                      >
+                        {note}
+                      </span>
+                    ))}
                 </td>
                 <td className="py-1.5 pr-3 tabular-nums text-[color:var(--muted)]">
                   {unit.concepts_covered.length}/{unit.concepts_required.length}
@@ -77,9 +90,10 @@ export function FulfilmentReport({ report }: { report: Fulfilment }) {
       {/* The check is completeness, not quality. Saying so is the difference
           between a check and a claim -- and how a treatment is best taught is a
           question the system has not answered yet. */}
-      <p className="mt-3 text-xs leading-5 text-[color:var(--muted)]">
-        &ldquo;Covered&rdquo; means the topic appears in the part it was planned
-        for. It doesn&apos;t judge how well it was taught.
+      {/* The check's own docstring says it checks completeness and not
+          treatment. Saying so is the difference between a check and a claim. */}
+      <p className="mt-3 font-[family-name:var(--font-mono)] text-[0.625rem] uppercase tracking-wider text-[color:var(--soft)]">
+        completeness only — not a judgement of how well it was taught
       </p>
     </section>
   );

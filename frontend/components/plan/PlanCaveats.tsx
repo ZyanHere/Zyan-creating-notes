@@ -16,9 +16,9 @@ export function PlanCaveats({ doc }: { doc: PlanDoc }) {
   return (
     <>
       {doc.wontCover.length > 0 && (
-        <section className="mt-10">
-          <h2 className="eyebrow">What this won&apos;t cover</h2>
-          <ul className="mt-4 space-y-4">
+        <section className="margined mt-14">
+          <p className="rail">Excluded</p>
+          <ul className="space-y-4">
             {doc.wontCover.map((o) => (
               <li key={o.topic} className="border-l-2 border-[color:var(--accent-line)] pl-4">
                 <p className="text-sm font-medium text-[color:var(--ink)]">{o.topic}</p>
@@ -35,11 +35,12 @@ export function PlanCaveats({ doc }: { doc: PlanDoc }) {
       )}
 
       {doc.cannotDo.length > 0 && (
-        <section className="note note-bad mt-10 p-5">
-          <h2 className="eyebrow" style={{ color: "var(--bad-ink)" }}>
-            What we can&apos;t give you for this subject
-          </h2>
-          <p className="mt-2 text-sm leading-6">
+        <section className="margined mt-14">
+          <p className="rail" style={{ color: "var(--bad-ink)" }}>
+            Cannot produce
+          </p>
+          <div className="note note-bad">
+          <p className="text-sm leading-6">
             This content needs treatment we can&apos;t produce yet. We&apos;ll write
             it as prose — which is worse for this material, not equivalent.
           </p>
@@ -53,6 +54,7 @@ export function PlanCaveats({ doc }: { doc: PlanDoc }) {
               </li>
             ))}
           </ul>
+          </div>
         </section>
       )}
 

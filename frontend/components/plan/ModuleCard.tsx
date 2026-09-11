@@ -33,32 +33,21 @@ function depthSummary(coverage: ModuleState["coverage"]): string {
   return [...counts.entries()].map(([word, n]) => `${n} ${word}`).join(" · ");
 }
 
+/** A plate number in the margin. A figure, not a badge -- the row's left rule
+ *  already carries the state, so the numeral only has to be readable. */
 function Numeral({ module }: { module: ModuleState }) {
-  const base =
-    "grid h-7 w-7 shrink-0 place-items-center rounded-full font-[family-name:var(--font-mono)] text-xs tabular-nums";
-  if (module.state === "done") {
-    return (
-      <span aria-hidden className={`${base} bg-[color:var(--ok)] text-[color:var(--canvas)]`}>
-        ✓
-      </span>
-    );
-  }
-  if (module.state === "running") {
-    return (
-      <span
-        aria-hidden
-        className={`${base} bg-[color:var(--accent)] text-[color:var(--on-accent)]`}
-      >
-        {module.index}
-      </span>
-    );
-  }
+  const tone =
+    module.state === "done"
+      ? "text-[color:var(--ok)]"
+      : module.state === "running"
+        ? "text-[color:var(--accent)]"
+        : "text-[color:var(--soft)]";
   return (
     <span
       aria-hidden
-      className={`${base} border border-[color:var(--line-strong)] text-[color:var(--muted)]`}
+      className={`w-6 shrink-0 pt-1 font-[family-name:var(--font-mono)] text-[0.6875rem] tabular-nums ${tone}`}
     >
-      {module.index}
+      {module.state === "done" ? "✓" : String(module.index).padStart(2, "0")}
     </span>
   );
 }
@@ -83,15 +72,15 @@ export function ModuleCard({
 
   return (
     <li
-      className={`overflow-hidden rounded-2xl border transition-colors ${
+      className={`border-l-2 transition-colors ${
         m.state === "done"
-          ? "border-[color:var(--ok-line)] bg-[color:var(--ok-bg)]"
+          ? "border-[color:var(--ok)] bg-[color:var(--ok-bg)]"
           : m.state === "running"
-            ? "border-[color:var(--accent-line)] bg-[color:var(--accent-bg)]"
-            : "panel panel-lift"
+            ? "border-[color:var(--accent)] bg-[color:var(--accent-bg)]"
+            : "border-transparent hover:bg-[color:var(--panel-soft)]"
       }`}
     >
-      <div className="p-5">
+      <div className="py-5 pl-4 pr-1">
         <div className="flex flex-wrap items-start justify-between gap-3">
           {/* A real basis, not bare `flex-1`: with a zero basis the title
               shrinks to a one-word column while the shrink-0 action group keeps
@@ -99,7 +88,7 @@ export function ModuleCard({
           <div className="flex min-w-0 flex-1 basis-64 items-start gap-3">
             <Numeral module={m} />
             <div className="min-w-0">
-              <h3 className="text-base font-semibold leading-6 tracking-[-0.01em] text-[color:var(--ink)]">
+              <h3 className="font-[family-name:var(--font-serif)] text-[1.0625rem] leading-6 text-[color:var(--ink)]">
                 {m.title}
               </h3>
               {m.capability && (
@@ -118,7 +107,7 @@ export function ModuleCard({
               <button
                 onClick={onWrite}
                 disabled={busy}
-                className="btn btn-primary px-4 py-2"
+                className="btn btn-primary"
                 title={busy ? "Another module is being written" : undefined}
               >
                 Write it
@@ -127,7 +116,7 @@ export function ModuleCard({
             {m.state === "running" && (
               <span className="inline-flex items-center gap-2 text-sm text-[color:var(--accent)]">
                 <Spinner />
-                Writing
+                writing · headless chromium
                 {typeof m.seconds === "number" ? (
                   <span className="font-[family-name:var(--font-mono)] text-xs tabular-nums opacity-80">
                     {Math.round(m.seconds)}s
@@ -138,7 +127,7 @@ export function ModuleCard({
               </span>
             )}
             {m.state === "failed" && (
-              <button onClick={onWrite} disabled={busy} className="btn btn-primary px-4 py-2">
+              <button onClick={onWrite} disabled={busy} className="btn btn-primary">
                 Try again
               </button>
             )}
@@ -148,16 +137,31 @@ export function ModuleCard({
                   href={moduleArtifactUrl(projectId, m.index)}
                   target="_blank"
                   rel="noreferrer"
-                  className="btn btn-primary px-4 py-2"
+                  className="btn btn-primary"
                 >
                   Open
                 </a>
                 <a
                   href={moduleArtifactUrl(projectId, m.index, true)}
-                  className="btn btn-ghost px-4 py-2"
+                  className="btn btn-ghost"
                 >
                   Download
                 </a>
+                {/* A document that does not match the approved plan is the one
+                    case where the check has told the reader something is wrong
+                    and offered nothing to do about it. Writing it again is the
+                    fix, and it is often the whole fix -- the usual cause is a
+                    call that failed rather than a model that cannot do it. */}
+                {m.satisfied === false && (
+                  <button
+                    onClick={onWrite}
+                    disabled={busy}
+                    className="btn btn-ghost"
+                    title={busy ? "Another module is being written" : undefined}
+                  >
+                    Write it again
+                  </button>
+                )}
               </>
             )}
           </div>
@@ -168,7 +172,9 @@ export function ModuleCard({
             because the panel it controls is a sibling below the padding box. */}
         <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 font-[family-name:var(--font-mono)] text-[0.6875rem] uppercase tracking-wider text-[color:var(--soft)]">
           <span>
-            {m.state === "done" && m.pages ? `${m.pages} pages` : m.extent ?? "—"}
+            {m.state === "done" && m.pages
+              ? `rendered · ${m.pages} pages`
+              : m.extent ?? "—"}
           </span>
           <span aria-hidden className="opacity-40">
             ·
@@ -206,27 +212,35 @@ export function ModuleCard({
 
         {m.state === "done" && m.satisfied === false && !expanded && (
           <p className="mt-3 text-sm leading-6 text-[color:var(--warn-ink)]">
-            Written, but it doesn&apos;t match what was approved — open it to see
-            what&apos;s missing.
+            Written, but it doesn&apos;t match what was approved — open{" "}
+            <button
+              onClick={onToggle}
+              className="underline decoration-[color:var(--warn-line)] underline-offset-4 hover:decoration-current"
+            >
+              what&apos;s in it
+            </button>{" "}
+            to see which part is missing and why.
           </p>
         )}
       </div>
 
       {expanded && (
-        <div className="border-t border-[color:var(--line)] bg-[color:var(--panel-soft)]/60 px-5 py-4">
+        <div className="border-t border-[color:var(--line)] bg-[color:var(--panel-soft)]/60 py-4 pl-4 pr-1">
           {m.why_here && (
             <p className="text-sm leading-6 text-[color:var(--muted)]">{m.why_here}</p>
           )}
 
           {coverage.length > 0 ? (
-            <ul className="mt-3 space-y-0.5 border-l border-[color:var(--line-strong)] pl-4">
+            <ul className="mt-3 space-y-1">
               {coverage.map((c) => (
                 <li
                   key={c.concept}
-                  className="group flex flex-wrap items-baseline justify-between gap-x-4 rounded-md py-0.5 transition-colors hover:bg-[color:var(--panel-strong)]"
+                  className="group flex flex-wrap items-baseline justify-between gap-x-4 border-b border-dotted border-[color:var(--line)] pb-1"
                   title={c.why}
                 >
-                  <span className="text-sm text-[color:var(--ink)]">{c.concept}</span>
+                  <span className="font-[family-name:var(--font-serif)] text-sm text-[color:var(--ink)]">
+                    {c.concept}
+                  </span>
                   <span className="shrink-0 font-[family-name:var(--font-mono)] text-[0.625rem] uppercase tracking-wider text-[color:var(--soft)] transition-colors group-hover:text-[color:var(--accent)]">
                     {depthWord(c.depth)}
                   </span>
@@ -244,7 +258,7 @@ export function ModuleCard({
           {m.fulfilment && <FulfilmentReport report={m.fulfilment} />}
 
           {m.representation?.stated_gaps?.length ? (
-            <div className="mt-4 rounded-xl border border-[color:var(--line)] bg-[color:var(--panel)] p-4">
+            <div className="mt-4 sheet-soft p-4">
               <p className="eyebrow">Figures we couldn&apos;t draw</p>
               <ul className="mt-2 space-y-1.5">
                 {m.representation.stated_gaps.map((gap) => (

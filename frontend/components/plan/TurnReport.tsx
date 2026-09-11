@@ -16,7 +16,7 @@ export function TurnReport({ turn }: { turn: Turn }) {
   const unchanged = turn.unchanged.filter((k) => k !== "intake_strategy");
 
   return (
-    <div className="panel panel-lift bg-[color:var(--panel-strong)] p-5">
+    <div className="sheet-soft p-5">
       <p className="text-sm leading-6 text-[color:var(--ink)]">
         <span className="text-[color:var(--muted)]">We read that as: </span>
         {turn.reading}

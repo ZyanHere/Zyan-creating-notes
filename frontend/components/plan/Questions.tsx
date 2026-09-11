@@ -106,12 +106,10 @@ export function Questions({
   if (reviewing) {
     const answered = questions.filter((x) => answerFor(x.axis)).length;
     return (
-      <section className="panel panel-lift overflow-hidden">
+      <section className="sheet overflow-hidden">
         <header className="flex flex-wrap items-center justify-between gap-3 border-b border-[color:var(--line)] px-5 py-4">
-          <h2 className="text-base font-semibold tracking-[-0.01em] text-[color:var(--ink)]">
-            {answered === total
-              ? "That's everything"
-              : `${answered} of ${total} answered`}
+          <h2 className="font-[family-name:var(--font-serif)] text-[1.0625rem] text-[color:var(--ink)]">
+            {answered === total ? "That's everything" : `${answered} of ${total} answered`}
           </h2>
           <span className="font-[family-name:var(--font-mono)] text-[0.6875rem] uppercase tracking-wider text-[color:var(--soft)]">
             Change anything before we plan
@@ -164,7 +162,7 @@ export function Questions({
           </button>
           {pending ? (
             <span className="text-sm text-[color:var(--muted)]">
-              Working out the plan. Up to a minute.
+              deriving the curriculum · up to a minute
             </span>
           ) : (
             <button
@@ -191,12 +189,12 @@ export function Questions({
   }
 
   return (
-    <section className="panel panel-lift overflow-hidden">
+    <section className="sheet overflow-hidden">
       {/* The pager takes its own row below 640px. Beside a question that wraps
           to three lines it reads as though it belongs to the last of them. */}
       <header className="flex flex-col gap-1.5 border-b border-[color:var(--line)] px-5 py-4 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
         <div className="min-w-0 sm:order-first">
-          <h2 className="text-base font-semibold leading-6 tracking-[-0.01em] text-[color:var(--ink)]">
+          <h2 className="font-[family-name:var(--font-serif)] text-[1.0625rem] leading-6 text-[color:var(--ink)]">
             {q!.question}
           </h2>
           {q!.why_it_matters && (
@@ -243,16 +241,18 @@ export function Questions({
               <button
                 disabled={pending}
                 onClick={() => choose(axis, o.label)}
-                className={`group flex w-full items-center gap-3 border-b border-[color:var(--line)] px-5 py-3.5 text-left transition-colors disabled:opacity-50 ${
-                  on ? "bg-[color:var(--accent-bg)]" : "hover:bg-[color:var(--panel-strong)]"
+                className={`group flex w-full items-start gap-3 border-b border-l-2 border-b-[color:var(--line)] px-5 py-3.5 text-left transition-colors disabled:opacity-50 ${
+                  on
+                    ? "border-l-[color:var(--accent)] bg-[color:var(--accent-bg)]"
+                    : "border-l-transparent hover:bg-[color:var(--panel-strong)]"
                 }`}
               >
                 <span
                   aria-hidden
-                  className={`grid h-6 w-6 shrink-0 place-items-center rounded-md border font-[family-name:var(--font-mono)] text-[0.6875rem] tabular-nums transition-colors ${
+                  className={`w-5 shrink-0 pt-1 font-[family-name:var(--font-mono)] text-[0.6875rem] tabular-nums transition-colors ${
                     on
-                      ? "border-[color:var(--accent)] bg-[color:var(--accent)] text-[color:var(--on-accent)]"
-                      : "border-[color:var(--line)] bg-[color:var(--panel-strong)] text-[color:var(--muted)] group-hover:border-[color:var(--accent-line)] group-hover:text-[color:var(--accent)]"
+                      ? "text-[color:var(--accent)]"
+                      : "text-[color:var(--soft)] group-hover:text-[color:var(--accent)]"
                   }`}
                 >
                   {k + 1}
@@ -260,7 +260,7 @@ export function Questions({
 
                 <span className="min-w-0 flex-1">
                   <span className="flex flex-wrap items-baseline gap-x-2">
-                    <span className="text-sm font-medium text-[color:var(--ink)]">
+                    <span className="font-[family-name:var(--font-serif)] text-[0.9375rem] text-[color:var(--ink)]">
                       {o.label}
                     </span>
                     {o.label === q!.default_label && (
@@ -278,7 +278,7 @@ export function Questions({
 
                 <span
                   aria-hidden
-                  className={`shrink-0 transition-all ${
+                  className={`shrink-0 pt-0.5 transition-all ${
                     on
                       ? "text-[color:var(--accent)]"
                       : "text-[color:var(--soft)] opacity-0 group-hover:translate-x-0.5 group-hover:opacity-100"
@@ -298,10 +298,8 @@ export function Questions({
       <div className="flex items-center gap-3 px-5 py-3">
         <span
           aria-hidden
-          className={`grid h-6 w-6 shrink-0 place-items-center rounded-md border text-[0.6875rem] transition-colors ${
-            typed.trim()
-              ? "border-[color:var(--accent)] bg-[color:var(--accent)] text-[color:var(--on-accent)]"
-              : "border-[color:var(--line)] bg-[color:var(--panel-strong)] text-[color:var(--muted)]"
+          className={`w-5 shrink-0 text-[0.6875rem] transition-colors ${
+            typed.trim() ? "text-[color:var(--accent)]" : "text-[color:var(--soft)]"
           }`}
         >
           ✎
@@ -315,12 +313,12 @@ export function Questions({
           disabled={pending}
           placeholder="Something else"
           aria-label="Answer in your own words"
-          className="min-w-0 flex-1 bg-transparent text-sm text-[color:var(--ink)] outline-none disabled:opacity-50"
+          className="min-w-0 flex-1 bg-transparent font-[family-name:var(--font-serif)] text-[0.9375rem] text-[color:var(--ink)] outline-none placeholder:text-[color:var(--soft)] placeholder:italic disabled:opacity-50"
         />
         <button
           onClick={typed.trim() ? commitTyped : () => go(at + 1)}
           disabled={pending}
-          className="btn btn-ghost shrink-0 px-4 py-1.5 text-[0.8125rem]"
+          className="btn btn-ghost shrink-0"
         >
           {typed.trim() ? "Save" : "Skip"}
         </button>

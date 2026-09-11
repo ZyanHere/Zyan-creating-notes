@@ -7,10 +7,10 @@
 // the artifact keeps, rather than a screen the user passes through.
 
 import { useCallback, useEffect, useState } from "react";
-import Link from "next/link";
 import { useParams } from "next/navigation";
 import { api, type Commitment, type PlanView, type Sufficiency } from "@/lib/api";
 import { compose } from "@/lib/compose";
+import { Docket } from "@/components/plan/Docket";
 import { PlanDocument } from "@/components/plan/PlanDocument";
 import { PlanCaveats } from "@/components/plan/PlanCaveats";
 import { Provenance } from "@/components/plan/Provenance";
@@ -90,7 +90,6 @@ export default function ProjectPage() {
     );
   }
 
-  const changed = view.last_turn?.actual ?? [];
   // `asking` requires something to ask. A state that says "I'd rather ask than
   // guess" over an empty question list is a page with no control on it, which is
   // how a graph cheat-sheet request dead-ended. Belt and braces: the backend no
@@ -117,69 +116,49 @@ export default function ProjectPage() {
   );
 
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-3xl flex-col px-6 py-10">
-      {/* The project bar. Small on purpose: it says which project you are in,
-          not what the document is — the plan below has its own cover, and two
-          big titles stacked would read as one thing named twice. It is the only
-          part of this page that is present in every state, which is what makes
-          the page feel like a place rather than a step. */}
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 border-b border-[color:var(--line)] pb-4">
-        <Link
-          href="/"
-          className="group inline-flex shrink-0 items-center gap-2 text-sm text-[color:var(--muted)] transition-colors hover:text-[color:var(--accent)]"
-        >
-          <span aria-hidden className="transition-transform group-hover:-translate-x-0.5">
-            ←
-          </span>
-          all projects
-        </Link>
-        <span aria-hidden className="text-[color:var(--soft)] opacity-40">
-          /
-        </span>
-        <span className="min-w-0 flex-1 truncate text-sm font-medium text-[color:var(--ink)]">
-          {view.decisions.interpret_situation?.subject ?? view.title}
-        </span>
-        <span className="shrink-0 font-[family-name:var(--font-mono)] text-[0.6875rem] uppercase tracking-wider text-[color:var(--soft)]">
-          {approved ? "approved" : view.state.replace(/_/g, " ")}
-        </span>
-      </div>
+    <main className="mx-auto flex min-h-screen w-full max-w-4xl flex-col px-6 py-10">
+      <Docket
+        id={id}
+        title={view.decisions.interpret_situation?.subject ?? view.title}
+        state={view.state}
+        approved={approved}
+      />
 
       {(needsSubject || asking) && (
-        <header className="mt-6">
-          <p className="eyebrow eyebrow-accent">
-            {needsSubject ? "What are we studying?" : "Reading your request"}
-          </p>
-          <h1 className="mt-3 text-3xl font-semibold tracking-[-0.02em] text-[color:var(--ink)]">
-            {view.decisions.interpret_situation?.subject ?? view.title}
-          </h1>
-          <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
-            {needsSubject
-              ? "I couldn't tell what subject this is about, and there's nothing to plan without one."
-              : "These would change the plan a lot, so I'd rather ask than guess."}
-          </p>
-        </header>
+        <div className="margined mt-12">
+          <p className="rail">{needsSubject ? "Subject" : "Intake"}</p>
+          <header>
+            <h1 className="font-[family-name:var(--font-serif)] text-[1.75rem] font-normal leading-[1.2] tracking-[-0.01em] text-[color:var(--ink)]">
+              {view.decisions.interpret_situation?.subject ?? view.title}
+            </h1>
+            <p className="mt-2 max-w-[54ch] text-sm leading-6 text-[color:var(--muted)]">
+              {needsSubject
+                ? "I couldn't tell what subject this is about, and there's nothing to plan without one."
+                : "A few things would change the plan enough that guessing them would waste your time."}
+            </p>
+          </header>
+        </div>
       )}
 
       {approved ? (
         <>
-          <div className="mt-6 flex flex-wrap items-center gap-x-2.5 gap-y-1 rounded-xl border border-[color:var(--ok-line)] bg-[color:var(--ok-bg)] px-4 py-2.5">
-            <span
-              aria-hidden
-              className="grid h-4 w-4 shrink-0 place-items-center rounded-full bg-[color:var(--ok)] text-[0.6rem] font-bold text-[color:var(--canvas)]"
-            >
-              ✓
-            </span>
-            <span className="text-sm font-medium text-[color:var(--ok-ink)]">
-              Plan approved
-            </span>
-            <span className="text-sm text-[color:var(--ok-ink)] opacity-75">
-              — what gets written is what you approved.
-            </span>
-            {commitment && (
-              <span className="ml-auto font-[family-name:var(--font-mono)] text-[0.6875rem] tracking-wide text-[color:var(--ok-ink)] opacity-60">
-                {commitment.decision_ids.length} decisions
+          {/* The stamp. The app's one piece of overt visual personality, and
+              it is placed where something genuinely was signed off. */}
+          <div className="margined mt-12">
+            <p className="rail">Signed off</p>
+            <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2">
+              <span className="stamp">
+                Approved
+                {commitment && (
+                  <span className="opacity-60">
+                    · committed {commitment.decision_ids.length} decisions
+                  </span>
+                )}
               </span>
-            )}
+              <span className="text-sm text-[color:var(--muted)]">
+                What gets printed is what you approved.
+              </span>
+            </div>
           </div>
 
           <Modules projectId={id} />
@@ -221,7 +200,7 @@ export default function ProjectPage() {
       )}
 
       {needsSubject && (
-        <div className="panel panel-lift mt-8 p-6">
+        <div className="sheet mt-8 p-6">
           <p className="text-sm leading-6 text-[color:var(--muted)]">
             Tell me the subject and I&apos;ll take it from there. A topic is
             enough — I&apos;ll work out the rest and show you what I decided.
@@ -252,7 +231,7 @@ export default function ProjectPage() {
       )}
 
       {ready && (
-        <div className="panel panel-lift mt-8 p-6">
+        <div className="sheet mt-8 p-6">
           <h2 className="text-lg font-semibold tracking-[-0.01em] text-[color:var(--ink)]">
             Ready to plan
           </h2>
@@ -287,7 +266,7 @@ export default function ProjectPage() {
               {pending ? (
                 <>
                   <Spinner />
-                  Working out the plan…
+                  Planning…
                 </>
               ) : (
                 "Build the plan"
@@ -295,7 +274,7 @@ export default function ProjectPage() {
             </button>
             {pending && (
               <span className="text-sm text-[color:var(--muted)]">
-                A few minutes. Nothing is written yet.
+                deriving the curriculum · a few minutes · nothing is written yet
               </span>
             )}
           </div>
@@ -319,9 +298,18 @@ export default function ProjectPage() {
 
       {!asking && !needsSubject && !ready && !approved && (
         <div className="mt-2 flex-1">
-          <p className="eyebrow eyebrow-accent">The document we&apos;d make</p>
-          <p className="mb-6 mt-2 text-sm leading-6 text-[color:var(--muted)]">
-            Nothing is written yet. Read it and tell us what&apos;s wrong.
+          <p className="eyebrow eyebrow-accent">The proof</p>
+          <p className="mt-2 max-w-[54ch] text-sm leading-6 text-[color:var(--muted)]">
+            Nothing has been written yet. This is the part where you get to
+            disagree — say what&apos;s wrong below and I&apos;ll re-plan it.
+          </p>
+          {/* This screen's aside is about the thing that made this screen. The
+              planner is genuinely the weakest link — it is one pass from a free
+              model over a concept graph — and the correction box exists because
+              of that, so saying so is honest and points at the fix. */}
+          <p className="aside mb-6 mt-3 max-w-[54ch]">
+            the planner is the weak link right now — one pass, free model. if this
+            reads wrong, the box at the bottom is the actual fix. rewriting it.
           </p>
           <PlanDocument doc={plan} />
           <Provenance decisions={view.decisions} sufficiency={sufficiency} />

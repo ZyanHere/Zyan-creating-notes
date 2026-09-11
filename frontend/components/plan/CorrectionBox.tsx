@@ -42,10 +42,10 @@ export function CorrectionBox({
       className={
         embedded
           ? ""
-          : "sticky bottom-0 z-10 border-t border-[color:var(--line)] bg-[color:var(--canvas)]/85 pb-6 pt-5 backdrop-blur-xl"
+          : "sticky bottom-0 z-10 border-t border-[color:var(--line-strong)] bg-[color:var(--canvas)]/90 pb-6 pt-5 backdrop-blur-xl"
       }
     >
-      <label className="text-sm text-[color:var(--muted)]">{label}</label>
+      <label className="eyebrow">{label}</label>
       <textarea
         value={text}
         onChange={(e) => setText(e.target.value)}
@@ -55,7 +55,7 @@ export function CorrectionBox({
         rows={2}
         disabled={pending || disabled}
         placeholder="i only have four days · you've missed X entirely · go deeper on Y"
-        className="field mt-2 p-4 text-sm leading-6"
+        className="ruled mt-2 px-0 py-2 font-[family-name:var(--font-serif)] text-[0.9375rem] leading-7 placeholder:text-[color:var(--soft)] placeholder:italic"
       />
       <div className="mt-3 flex flex-wrap items-center gap-3">
         <button

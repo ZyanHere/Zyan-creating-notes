@@ -36,7 +36,7 @@ export function Provenance({
         >
           ▶
         </span>
-        How this was decided
+        Provenance
       </summary>
 
       <div className="mt-5 space-y-7">

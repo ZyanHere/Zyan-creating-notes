@@ -17,10 +17,14 @@ export function Assumptions({ assumptions }: { assumptions: Assumption[] }) {
   const withDetail = assumptions.filter((a) => a.detail);
 
   return (
-    <section className="note note-warn mt-10 p-5">
-      <h2 className="eyebrow" style={{ color: "var(--warn-ink)" }}>
-        We assumed — you didn&apos;t say, so we decided
-      </h2>
+    <section className="margined mt-14">
+      <p className="rail" style={{ color: "var(--warn-ink)" }}>
+        Assumed
+      </p>
+      <div className="note note-warn">
+      <p className="text-sm leading-6">
+        You didn&apos;t say, so I decided.
+      </p>
 
       <ul className="mt-3 space-y-1.5">
         {assumptions.map((a) => (
@@ -47,6 +51,7 @@ export function Assumptions({ assumptions }: { assumptions: Assumption[] }) {
             {open ? "Hide" : `Why these matter (${withDetail.length})`}
           </button>
         )}
+      </div>
       </div>
     </section>
   );

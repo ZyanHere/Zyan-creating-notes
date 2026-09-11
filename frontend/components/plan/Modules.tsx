@@ -68,17 +68,20 @@ export function Modules({ projectId }: { projectId: string }) {
   const done = modules.filter((m) => m.state === "done").length;
   const busy = modules.some((m) => m.state === "running");
   const next = modules.find((m) => m.state === "idle");
+  const allPrinted = done === modules.length;
 
   return (
-    <section className="mt-6">
+    <section className="margined mt-14">
+      <p className="rail">{modules.length === 1 ? "Document" : "Documents"}</p>
+      <div>
       <div className="flex flex-wrap items-baseline justify-between gap-x-4">
-        <h2 className="text-lg font-semibold tracking-[-0.01em] text-[color:var(--ink)]">
-          {modules.length === 1 ? "Your document" : "Your documents"}
+        <h2 className="font-[family-name:var(--font-serif)] text-[1.25rem] text-[color:var(--ink)]">
+          {allPrinted ? "Printed" : busy ? "On the press" : "Ready to print"}
         </h2>
         <div className="flex items-center gap-3">
           <p className="font-[family-name:var(--font-mono)] text-xs tracking-wide text-[color:var(--muted)]">
-            <span className="text-[color:var(--accent)]">{done}</span> / {modules.length}
-            {" "}written
+            <span className="text-[color:var(--accent)]">{done}</span>/{modules.length}
+            {" "}printed
           </p>
           {/* A curriculum is several PDFs; fetching 25 of them one at a time is
               not a download, it is a chore. Hidden rather than disabled at zero
@@ -86,7 +89,7 @@ export function Modules({ projectId }: { projectId: string }) {
               exist yet. A plain link, because the browser should handle the
               save; `download` lets the server's filename stand. */}
           {done > 0 && (
-            <a href={projectExportUrl(projectId)} download className="btn btn-ghost px-4 py-1.5 text-[0.8125rem]">
+            <a href={projectExportUrl(projectId)} download className="btn btn-ghost">
               Download all ({done})
             </a>
           )}
@@ -113,7 +116,22 @@ export function Modules({ projectId }: { projectId: string }) {
           : "Each is its own PDF. Write them one at a time, in any order."}
       </p>
 
-      <ol className="mt-5 space-y-3">
+      {/* Two asides, never both. Each is about what the press is doing right
+          now, so neither appears on a screen it would not be true of. */}
+      {busy && (
+        <p className="aside mt-3 max-w-[54ch]">
+          yes. it&apos;s slow. one inference call per section, run one at a time,
+          on a free tier. batching them is the obvious fix and it isn&apos;t built.
+        </p>
+      )}
+      {!busy && allPrinted && (
+        <p className="aside mt-3 max-w-[54ch]">
+          planned, written, rendered and checked against what you approved. the
+          whole pipeline held.
+        </p>
+      )}
+
+      <ol className="ledger mt-5 border-t border-[color:var(--line)]">
         {modules.map((m) => (
           <ModuleCard
             key={m.index}
@@ -136,6 +154,7 @@ export function Modules({ projectId }: { projectId: string }) {
       {error && (
         <p className="note note-bad mt-4 text-sm leading-6">{error}</p>
       )}
+      </div>
     </section>
   );
 }
