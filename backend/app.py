@@ -101,9 +101,14 @@ def main() -> int:
     # engine's internals is what tests/test_boundaries.py forbids the backend.
     import engine
 
-    if install := engine.render.browser_ready():
+    if install := engine.render.browser_missing():
         print("  renderer          NO BROWSER — PDFs cannot be written")
-        print(f"                    Install it once:  {install}")
+        # `browser_missing` returns several lines: what is wrong, the command,
+        # and the directory it searched. Indented under the label rather than
+        # interpolated into one line, because the path is the useful part and a
+        # wrapped path is a path nobody reads.
+        for line in install.splitlines():
+            print(f"                    {line.strip()}" if line.strip() else "")
     else:
         print("  renderer          chromium ready")
 

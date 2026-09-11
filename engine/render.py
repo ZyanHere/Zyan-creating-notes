@@ -238,33 +238,76 @@ class BrowserMissing(RuntimeError):
     Its own message for this is a 9-line ASCII box wrapped in a
     `BrowserType.launch:` prefix, which reads like a crash in our code and, at
     the end of a generation, arrives after the model has already been paid for.
-    Named so callers can check *before* spending anything -- `browser_ready()`
+    Named so callers can check *before* spending anything -- `browser_missing()`
     costs a filesystem stat.
     """
 
 
-def browser_ready() -> str | None:
-    """None when a browser can actually be launched, else the command to fix it.
+def browser_status() -> dict[str, object]:
+    """What this process can actually see of the Chromium install.
 
-    Launches and closes one, rather than stat-ing `chromium.executable_path`:
-    headless `launch()` runs the *headless shell*, a separate download from full
-    Chromium, so the obvious check passes on exactly the installation this is
-    meant to catch -- `chromium-1234` present, `chromium_headless_shell-1234`
-    missing, which is the shape the error actually arrives in.
+    EVIDENCE, NOT A VERDICT. Two earlier versions of this check asserted
+    "Chromium is not installed" from a failure they had not diagnosed -- first
+    from any exception during a trial launch, then from any exception while
+    asking Playwright where its browsers live. Both were wrong on a machine
+    where Chromium was fine, and because the caller refuses generation on a
+    non-None answer, the guard became the reason healthy runs did not happen.
 
-    Costs about a second. That is the point of comparison: the call it guards
-    takes minutes and is billed.
-
-    A string rather than a bool because there is exactly one useful thing to say
-    when it is missing, and every caller would otherwise reinvent it.
+    So this reports the paths it looked at and what it found there, and the
+    caller decides. When something goes wrong the message can then name the
+    directory it searched instead of a cause nobody established.
     """
+    status: dict[str, object] = {"ok": False, "registry": None, "chromium": None,
+                                 "headless_shell": None, "reason": None}
     try:
         with sync_playwright() as p:
-            browser = p.chromium.launch()
-            browser.close()
-    except Exception:  # noqa: BLE001 - any failure here means "not usable"
-        return "playwright install chromium"
-    return None
+            chromium = Path(p.chromium.executable_path)
+    except Exception as exc:  # noqa: BLE001 - reported, never interpreted
+        status["reason"] = f"could not ask Playwright where its browsers are: {exc}"
+        return status
+
+    status["chromium"] = str(chromium)
+    build = chromium.parent.parent          # .../ms-playwright/chromium-1234
+    status["registry"] = str(build.parent)
+    # Headless `launch()` runs the *headless shell*, a separate download from
+    # full Chromium, so checking only `executable_path` passes on exactly the
+    # broken install this exists to catch.
+    shell = build.parent / build.name.replace("chromium-", "chromium_headless_shell-", 1)
+    status["headless_shell"] = str(shell)
+
+    if not chromium.exists():
+        status["reason"] = "the Chromium build directory is not there"
+        return status
+    if not shell.is_dir() or not any(shell.rglob("*chrome-headless-shell*")):
+        status["reason"] = (
+            "full Chromium is installed but the headless shell -- a separate "
+            "download, and the one headless rendering actually runs -- is not"
+        )
+        return status
+
+    status["ok"] = True
+    return status
+
+
+def browser_missing() -> str | None:
+    """None unless Chromium is *positively* absent; else what to do about it.
+
+    FAILS OPEN. Anything this cannot determine returns None and lets the render
+    proceed, because `render_pdf` reports what actually happened and this does
+    not. A guard in front of a paid call may cost a wasted render when it is
+    wrong; it may never cost a run that would have worked.
+    """
+    status = browser_status()
+    if status["ok"]:
+        return None
+    if status["chromium"] is None:
+        # Playwright itself could not be questioned. That is not evidence of an
+        # absent browser, so it is not grounds to refuse -- let the render try.
+        return None
+    return (
+        f"{status['reason']}.\n\n    Fix it with:  playwright install chromium\n"
+        f"    Looked in:    {status['registry']}"
+    )
 
 
 def render_pdf(

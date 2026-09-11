@@ -275,8 +275,16 @@ def requirements(plan: dict) -> list[dict]:
     return orders
 
 
-def check_unit(order: dict, section) -> UnitReport:
-    """One work order against the section produced for it."""
+def check_unit(order: dict, section, *, reason: str | None = None) -> UnitReport:
+    """One work order against the section produced for it.
+
+    `reason` is why no section exists, when the caller knows. A unit can be
+    missing because the model answered badly or because the call never
+    succeeded at all -- a spent rate limit, a refused model -- and those need
+    different things from the reader. Without it the report could only say the
+    part was absent, which reads as "the model omitted this" even when the
+    truth is that nobody was ever asked.
+    """
     required = [c["concept"] for c in order["concepts"]]
     if section is None:
         return UnitReport(
@@ -284,7 +292,11 @@ def check_unit(order: dict, section) -> UnitReport:
             generated=False,
             concepts_required=tuple(required),
             concepts_missing=tuple(required),
-            notes=("no section was produced for this unit",),
+            notes=(
+                (f"no section was produced for this unit: {reason}",)
+                if reason
+                else ("no section was produced for this unit",)
+            ),
         )
 
     text = section_text(section)

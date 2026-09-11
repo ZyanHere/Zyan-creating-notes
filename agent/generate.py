@@ -154,6 +154,7 @@ def _from_plan(request: str, plan: dict, *, provider: Provider) -> Generated:
     for order in orders:
         section: Section | None = None
         report: UnitReport | None = None
+        failure: str | None = None
 
         for attempt in range(2):
             missing = report.concepts_missing if report is not None else ()
@@ -162,9 +163,16 @@ def _from_plan(request: str, plan: dict, *, provider: Provider) -> Generated:
                 completion = provider.complete(
                     system=system, user=user, schema=schema, max_tokens=MAX_TOKENS
                 )
-            except Exception:
+            except Exception as exc:
                 # One unit failing must not cost the other five. It is recorded
                 # as ungenerated, which the final check treats as a problem.
+                #
+                # The reason travels with it. Swallowing it produced a document
+                # reported only as "doesn't match what was approved", which
+                # reads as a model that omitted a part -- when the actual cause
+                # was a call that never succeeded, most often a spent rate
+                # limit on the free tier. Same symptom, opposite fix.
+                failure = f"{type(exc).__name__}: {exc}"
                 break
 
             calls += 1
@@ -191,7 +199,7 @@ def _from_plan(request: str, plan: dict, *, provider: Provider) -> Generated:
             sections.append(section)
             reports.append(report)
         else:
-            reports.append(check_unit(order, None))
+            reports.append(check_unit(order, None, reason=failure))
 
     if not sections:
         raise ValueError(

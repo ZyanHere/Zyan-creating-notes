@@ -138,11 +138,15 @@ def generate(
     # billed, and its output is not persisted until after the render succeeds.
     # Discovering a missing browser at the end therefore throws away the whole
     # generation. A filesystem stat before spending anything is the whole fix.
-    if install := engine.render.browser_ready():
+    #
+    # Deliberately narrow. This refuses only when Chromium is *absent*, which is
+    # permanent and certain. A guard that also refused on a failed trial launch
+    # blocked generation on a machine where the browser was fine -- the check
+    # must never be the reason a healthy run does not happen.
+    if install := engine.render.browser_missing():
         raise RuntimeError(
-            "Chromium is not installed for Playwright, so the PDF could not be "
-            "written -- refused now rather than after a generation that would be "
-            f"discarded. Install it once with:\n\n    {install}"
+            "The PDF could not be written, so this was refused before the model "
+            f"call rather than after one that would be discarded.\n\n{install}"
         )
 
     generated = agent.generate_document(request, plan=plan)

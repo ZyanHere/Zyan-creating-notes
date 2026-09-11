@@ -18,6 +18,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, Response
 from pydantic import BaseModel, Field
 
+import engine
 from agent import curriculum
 from agent.providers import (
     NoProviderConfigured,
@@ -453,8 +454,15 @@ def module_artifact(project_id: str, index: int, download: bool = False) -> File
 
 
 @app.get("/health")
-def health() -> dict[str, str]:
-    return {"status": "ok"}
+def health() -> dict:
+    """Liveness, plus what this process can see of the renderer.
+
+    The renderer half is here because the answer that matters is the one *this
+    process* computes: a check run in a terminal proves nothing about a server
+    started from somewhere else, and diagnosing a refused generation by asking
+    someone to read their own logs back is slower than asking the server.
+    """
+    return {"status": "ok", "renderer": engine.render.browser_status()}
 
 
 @app.post("/generate", response_model=GenerateResponse)
