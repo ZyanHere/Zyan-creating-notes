@@ -1,0 +1,893 @@
+{
+  "case_id": "heart-anatomy-visual",
+  "case_title": "Heart anatomy — spatial content",
+  "trial": 1,
+  "phase": "plan",
+  "stub": false,
+  "started_at": "2026-09-14T15:07:26+00:00",
+  "request": "human heart structure and blood flow for neet, i need to be able to label diagrams",
+  "baseline": {
+    "repo": "D:\\myNotes\\V1",
+    "commit": "1c8a1d780ba3a652fa2ee04a61617e43de96154a",
+    "subject": "Enhance error reporting in fulfilment and generation processes with detailed failure reasons",
+    "source_hash": "807c8ec99a60d320e745e8ac208b8c7f690ebd273b3930f6680688d159cda116",
+    "source_files": 38,
+    "matches_baseline": true
+  },
+  "provider": {
+    "name": "openrouter",
+    "model": "nvidia/nemotron-3-ultra-550b-a55b:free"
+  },
+  "stages": [
+    "create",
+    "intake",
+    "plan",
+    "approve"
+  ],
+  "failure": null,
+  "project_id": "b50cd2c4-d2fb-40b4-8517-51e2183c15b0",
+  "after_create": {
+    "state": "ready",
+    "verdict": "sufficient",
+    "budget": 4,
+    "asking": [],
+    "over_budget": [],
+    "questions_written": 0,
+    "questions": [],
+    "axes": [
+      {
+        "axis": "subject",
+        "value": "human heart structure and blood flow",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "purpose",
+        "value": "NEET exam preparation",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "entry_point",
+        "value": "high-school biology (NCERT Class 11/12 level)",
+        "strength": "inferred",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "inferred, supported by 'for neet'"
+      },
+      {
+        "axis": "target_capability",
+        "value": "accurately label heart anatomy diagrams and trace blood flow through chambers, valves, and major vessels",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "capacity",
+        "value": null,
+        "strength": "unknown",
+        "material": false,
+        "asked": false,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "never asked — Semantics §1 LOCKED — optional, and the corollary: deriving the plan and reporting its extent is what CAUSES a capacity to be stated. Asking upfront asks for a number the learner cannot honestly give."
+      },
+      {
+        "axis": "depth_register",
+        "value": "exam-oriented, diagram-centric, high-yield facts",
+        "strength": "inferred",
+        "material": false,
+        "asked": false,
+        "verified_spans": 2,
+        "discarded_spans": 0,
+        "reason": "never asked — Semantics §1 — biasing, not binding. A default is always defensible."
+      },
+      {
+        "axis": "artifact_type",
+        "value": "annotated diagram-focused study notes with labeling practice",
+        "strength": "inferred",
+        "material": true,
+        "asked": false,
+        "verified_spans": 2,
+        "discarded_spans": 0,
+        "reason": "inferred, supported by 'label diagrams' · 'for neet'"
+      },
+      {
+        "axis": "template",
+        "value": "NEET biology diagram notes",
+        "strength": "inferred",
+        "material": false,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "never asked — Presentation-Boundary rule 1 — internal. Users never select one."
+      }
+    ],
+    "weak_axes": [
+      "capacity"
+    ],
+    "guessed_but_material": []
+  },
+  "intake_turns": 0,
+  "intake_answers_unused": 0,
+  "intake": {
+    "state": "ready",
+    "verdict": "sufficient",
+    "budget": 4,
+    "asking": [],
+    "over_budget": [],
+    "questions_written": 0,
+    "questions": [],
+    "axes": [
+      {
+        "axis": "subject",
+        "value": "human heart structure and blood flow",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "purpose",
+        "value": "NEET exam preparation",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "entry_point",
+        "value": "high-school biology (NCERT Class 11/12 level)",
+        "strength": "inferred",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "inferred, supported by 'for neet'"
+      },
+      {
+        "axis": "target_capability",
+        "value": "accurately label heart anatomy diagrams and trace blood flow through chambers, valves, and major vessels",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "capacity",
+        "value": null,
+        "strength": "unknown",
+        "material": false,
+        "asked": false,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "never asked — Semantics §1 LOCKED — optional, and the corollary: deriving the plan and reporting its extent is what CAUSES a capacity to be stated. Asking upfront asks for a number the learner cannot honestly give."
+      },
+      {
+        "axis": "depth_register",
+        "value": "exam-oriented, diagram-centric, high-yield facts",
+        "strength": "inferred",
+        "material": false,
+        "asked": false,
+        "verified_spans": 2,
+        "discarded_spans": 0,
+        "reason": "never asked — Semantics §1 — biasing, not binding. A default is always defensible."
+      },
+      {
+        "axis": "artifact_type",
+        "value": "annotated diagram-focused study notes with labeling practice",
+        "strength": "inferred",
+        "material": true,
+        "asked": false,
+        "verified_spans": 2,
+        "discarded_spans": 0,
+        "reason": "inferred, supported by 'label diagrams' · 'for neet'"
+      },
+      {
+        "axis": "template",
+        "value": "NEET biology diagram notes",
+        "strength": "inferred",
+        "material": false,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "never asked — Presentation-Boundary rule 1 — internal. Users never select one."
+      }
+    ],
+    "weak_axes": [
+      "capacity"
+    ],
+    "guessed_but_material": []
+  },
+  "plan": {
+    "state": "planned",
+    "situation": {
+      "subject": "human heart structure and blood flow",
+      "job": "construct",
+      "purpose": "NEET exam preparation",
+      "entry_point": "high-school biology (NCERT Class 11/12 level)",
+      "target_capability": "accurately label heart anatomy diagrams and trace blood flow through chambers, valves, and major vessels",
+      "capacity": null,
+      "stated": [
+        "human heart structure and blood flow for neet",
+        "for neet",
+        "i need to be able to label diagrams"
+      ],
+      "stated_axes": [
+        "subject",
+        "purpose",
+        "target_capability"
+      ],
+      "inferred": [
+        "entry_point: high-school biology (NCERT Class 11/12 level)",
+        "artifact_type: annotated diagram-focused study notes with labeling practice",
+        "depth_register: exam-oriented, diagram-centric, high-yield facts",
+        "template: NEET biology diagram notes"
+      ]
+    },
+    "landscape": {
+      "concept_count": 25,
+      "concepts": [
+        {
+          "name": "Pericardium and heart position",
+          "built_from": [],
+          "family": "gross anatomy"
+        },
+        {
+          "name": "External heart features and sulci",
+          "built_from": [
+            "Pericardium and heart position"
+          ],
+          "family": "gross anatomy"
+        },
+        {
+          "name": "Right atrium internal anatomy",
+          "built_from": [
+            "External heart features and sulci"
+          ],
+          "family": "chamber anatomy"
+        },
+        {
+          "name": "Right ventricle internal anatomy",
+          "built_from": [
+            "External heart features and sulci"
+          ],
+          "family": "chamber anatomy"
+        },
+        {
+          "name": "Left atrium internal anatomy",
+          "built_from": [
+            "External heart features and sulci"
+          ],
+          "family": "chamber anatomy"
+        },
+        {
+          "name": "Left ventricle internal anatomy",
+          "built_from": [
+            "External heart features and sulci"
+          ],
+          "family": "chamber anatomy"
+        },
+        {
+          "name": "Tricuspid valve apparatus",
+          "built_from": [
+            "Right atrium internal anatomy",
+            "Right ventricle internal anatomy"
+          ],
+          "family": "valve anatomy"
+        },
+        {
+          "name": "Pulmonary valve",
+          "built_from": [
+            "Right ventricle internal anatomy"
+          ],
+          "family": "valve anatomy"
+        },
+        {
+          "name": "Mitral valve apparatus",
+          "built_from": [
+            "Left atrium internal anatomy",
+            "Left ventricle internal anatomy"
+          ],
+          "family": "valve anatomy"
+        },
+        {
+          "name": "Aortic valve",
+          "built_from": [
+            "Left ventricle internal anatomy"
+          ],
+          "family": "valve anatomy"
+        },
+        {
+          "name": "Fibrous skeleton of heart",
+          "built_from": [
+            "Tricuspid valve apparatus",
+            "Pulmonary valve",
+            "Mitral valve apparatus",
+            "Aortic valve"
+          ],
+          "family": "structural framework"
+        },
+        {
+          "name": "Systemic venous return vessels",
+          "built_from": [
+            "Right atrium internal anatomy"
+          ],
+          "family": "major vessels"
+        },
+        {
+          "name": "Pulmonary arterial trunk and branches",
+          "built_from": [
+            "Right ventricle internal anatomy",
+            "Pulmonary valve"
+          ],
+          "family": "major vessels"
+        },
+        {
+          "name": "Pulmonary veins",
+          "built_from": [
+            "Left atrium internal anatomy"
+          ],
+          "family": "major vessels"
+        },
+        {
+          "name": "Aorta and major branches",
+          "built_from": [
+            "Left ventricle internal anatomy",
+            "Aortic valve"
+          ],
+          "family": "major vessels"
+        },
+        {
+          "name": "Coronary arterial supply",
+          "built_from": [
+            "Aorta and major branches"
+          ],
+          "family": "coronary circulation"
+        },
+        {
+          "name": "Coronary venous drainage",
+          "built_from": [
+            "Right atrium internal anatomy"
+          ],
+          "family": "coronary circulation"
+        },
+        {
+          "name": "Systemic-to-pulmonary blood flow sequence",
+          "built_from": [
+            "Systemic venous return vessels",
+            "Right atrium internal anatomy",
+            "Tricuspid valve apparatus",
+            "Right ventricle internal anatomy",
+            "Pulmonary valve",
+            "Pulmonary arterial trunk and branches",
+            "Pulmonary veins",
+            "Left atrium internal anatomy",
+            "Mitral valve apparatus",
+            "Left ventricle internal anatomy",
+            "Aortic valve",
+            "Aorta and major branches"
+          ],
+          "family": "blood flow pathway"
+        },
+        {
+          "name": "Cardiac conducting system components",
+          "built_from": [
+            "Right atrium internal anatomy",
+            "Fibrous skeleton of heart"
+          ],
+          "family": "conduction system"
+        },
+        {
+          "name": "Cardiac cycle phases and pressure changes",
+          "built_from": [
+            "Tricuspid valve apparatus",
+            "Pulmonary valve",
+            "Mitral valve apparatus",
+            "Aortic valve",
+            "Systemic-to-pulmonary blood flow sequence"
+          ],
+          "family": "physiological cycle"
+        },
+        {
+          "name": "Heart sounds and valve events",
+          "built_from": [
+            "Cardiac cycle phases and pressure changes"
+          ],
+          "family": "auscultation correlates"
+        },
+        {
+          "name": "ECG waves and conduction events",
+          "built_from": [
+            "Cardiac conducting system components",
+            "Cardiac cycle phases and pressure changes"
+          ],
+          "family": "electrical correlates"
+        },
+        {
+          "name": "Cardiac output and hemodynamic parameters",
+          "built_from": [
+            "Cardiac cycle phases and pressure changes"
+          ],
+          "family": "hemodynamics"
+        },
+        {
+          "name": "Autonomic regulation of heart rate and contractility",
+          "built_from": [
+            "Cardiac conducting system components",
+            "Cardiac output and hemodynamic parameters"
+          ],
+          "family": "physiological regulation"
+        },
+        {
+          "name": "Common clinical correlates for NEET",
+          "built_from": [
+            "Cardiac conducting system components",
+            "Heart sounds and valve events",
+            "Coronary arterial supply",
+            "Cardiac cycle phases and pressure changes"
+          ],
+          "family": "clinical correlates"
+        }
+      ],
+      "families": [
+        "auscultation correlates",
+        "blood flow pathway",
+        "chamber anatomy",
+        "clinical correlates",
+        "conduction system",
+        "coronary circulation",
+        "electrical correlates",
+        "gross anatomy",
+        "hemodynamics",
+        "major vessels",
+        "physiological cycle",
+        "physiological regulation",
+        "structural framework",
+        "valve anatomy"
+      ],
+      "edges": 52,
+      "roots": [
+        "Pericardium and heart position"
+      ],
+      "parenthetical_lists": [],
+      "judged": 25,
+      "in_play": 25,
+      "out_of_play": [],
+      "unjudged": []
+    },
+    "scope": {
+      "covered_count": 25,
+      "covered": [
+        {
+          "concept": "Pericardium and heart position",
+          "depth": "work through",
+          "anticipates": "perceptual-referent",
+          "why": "Must label pericardial layers, sinuses, and heart position in mediastinum diagrams; tested in every NEET cycle."
+        },
+        {
+          "concept": "External heart features and sulci",
+          "depth": "work through",
+          "anticipates": "perceptual-referent",
+          "why": "Sulci (coronary, interventricular) and external landmarks (auricles, borders) are standard labeling items in anterior/posterior view diagrams."
+        },
+        {
+          "concept": "Right atrium internal anatomy",
+          "depth": "work through",
+          "anticipates": "perceptual-referent",
+          "why": "High-yield structures (fossa ovalis, SA node, IVC/SVC/coronary sinus openings, crista terminalis, pectinate muscles) appear in internal view labeling questions."
+        },
+        {
+          "concept": "Right ventricle internal anatomy",
+          "depth": "work through",
+          "anticipates": "perceptual-referent",
+          "why": "Trabeculae carneae, papillary muscles (anterior/posterior/septal), moderator band, and pulmonary valve are tested in cross-section and internal view diagrams."
+        },
+        {
+          "concept": "Left atrium internal anatomy",
+          "depth": "work through",
+          "anticipates": "perceptual-referent",
+          "why": "Four pulmonary vein openings, mitral valve orifice, and smooth vs. rough wall distinction are standard labeling targets."
+        },
+        {
+          "concept": "Left ventricle internal anatomy",
+          "depth": "work through",
+          "anticipates": "perceptual-referent",
+          "why": "Aortic vestibule, papillary muscles (anterolateral/posteromedial), thick wall, and trabeculae are tested in diagrams and wall-thickness comparison questions."
+        },
+        {
+          "concept": "Tricuspid valve apparatus",
+          "depth": "work through",
+          "anticipates": "perceptual-referent",
+          "why": "Three cusps (anterior/posterior/septal), chordae tendineae, and papillary muscle connections must be labeled in valve apparatus diagrams."
+        },
+        {
+          "concept": "Pulmonary valve",
+          "depth": "work through",
+          "anticipates": "perceptual-referent",
+          "why": "Semilunar valve structure (three cusps), location at pulmonary trunk origin, and absence of chordae are diagram staples."
+        },
+        {
+          "concept": "Mitral valve apparatus",
+          "depth": "work through",
+          "anticipates": "perceptual-referent",
+          "why": "Two cusps (anterior/posterior), chordae, and two papillary muscles are high-yield for labeling and distinguishing from tricuspid."
+        },
+        {
+          "concept": "Aortic valve",
+          "depth": "work through",
+          "anticipates": "perceptual-referent",
+          "why": "Three semilunar cusps (right/left/posterior), coronary ostia origins, and aortic sinuses are tested in diagrams and clinical correlate questions."
+        },
+        {
+          "concept": "Fibrous skeleton of heart",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Annuli fibrosi anchor valves and provide electrical insulation; theory MCQs test its role in separating atrial/ventricular conduction."
+        },
+        {
+          "concept": "Systemic venous return vessels",
+          "depth": "work through",
+          "anticipates": "perceptual-referent",
+          "why": "SVC, IVC, and coronary sinus openings into RA are fundamental for blood flow tracing and posterior heart labeling."
+        },
+        {
+          "concept": "Pulmonary arterial trunk and branches",
+          "depth": "work through",
+          "anticipates": "perceptual-referent",
+          "why": "Pulmonary trunk bifurcation into left/right pulmonary arteries is a key flow pathway step and labeling item in anterior views."
+        },
+        {
+          "concept": "Pulmonary veins",
+          "depth": "work through",
+          "anticipates": "perceptual-referent",
+          "why": "Four pulmonary veins entering LA (two left, two right) tested in labeling and flow sequence questions."
+        },
+        {
+          "concept": "Aorta and major branches",
+          "depth": "work through",
+          "anticipates": "perceptual-referent",
+          "why": "Ascending aorta, arch, and three major branches (brachiocephalic, left common carotid, left subclavian) appear in diagrams and flow tracing."
+        },
+        {
+          "concept": "Coronary arterial supply",
+          "depth": "work through",
+          "anticipates": "perceptual-referent",
+          "why": "RCA, LCA, LAD, LCX dominance patterns and supply areas are high-yield theory and occasional diagram items; clinical correlates depend on this."
+        },
+        {
+          "concept": "Coronary venous drainage",
+          "depth": "work through",
+          "anticipates": "perceptual-referent",
+          "why": "Coronary sinus drainage into RA is a specific labeling point in posterior/inferior heart views."
+        },
+        {
+          "concept": "Systemic-to-pulmonary blood flow sequence",
+          "depth": "work through",
+          "anticipates": "topology",
+          "why": "Core competency: tracing deoxygenated → oxygenated pathway through all chambers, valves, and vessels is the primary stated target capability."
+        },
+        {
+          "concept": "Cardiac conducting system components",
+          "depth": "explain",
+          "anticipates": "perceptual-referent",
+          "why": "SA node, AV node, Bundle of His, bundle branches, Purkinje fiber locations and functions are standard theory and occasional diagram items."
+        },
+        {
+          "concept": "Cardiac cycle phases and pressure changes",
+          "depth": "explain",
+          "anticipates": "parallel-state",
+          "why": "Pressure-volume loops, valve open/close timing, and phase definitions (isovolumetric contraction/relaxation, ejection, filling) are high-yield theory for NEET."
+        },
+        {
+          "concept": "Heart sounds and valve events",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "S1/S2 correlation with AV and semilunar valve closure tested in theory MCQs; links to cardiac cycle phases."
+        },
+        {
+          "concept": "ECG waves and conduction events",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "P wave, QRS complex, T wave correlation with atrial/ventricular depolarization/repolarization is standard theory."
+        },
+        {
+          "concept": "Cardiac output and hemodynamic parameters",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "CO = HR × SV, stroke volume, ejection fraction definitions appear in numerical and conceptual MCQs."
+        },
+        {
+          "concept": "Autonomic regulation of heart rate and contractility",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Sympathetic/parasympathetic effects on SA/AV nodes and contractility are theory staples; mechanism questions appear regularly."
+        },
+        {
+          "concept": "Common clinical correlates for NEET",
+          "depth": "mention",
+          "anticipates": "none",
+          "why": "Heart blocks, murmurs, coronary artery occlusion patterns tested as application MCQs; high-yield facts only, not deep pathophysiology."
+        }
+      ],
+      "depths": {
+        "work through": 17,
+        "explain": 7,
+        "mention": 1
+      },
+      "anticipates": {
+        "perceptual-referent": 17,
+        "none": 6,
+        "topology": 1,
+        "parallel-state": 1
+      },
+      "anticipates_any": 19,
+      "cut": []
+    },
+    "partition": {
+      "shape": "modules",
+      "module_count": 1,
+      "legacy_unit_count": 0,
+      "modules": [
+        {
+          "title": "Human Heart Anatomy, Blood Flow & Cardiac Physiology for NEET",
+          "covers": [
+            "Pericardium and heart position",
+            "External heart features and sulci",
+            "Right atrium internal anatomy",
+            "Right ventricle internal anatomy",
+            "Left atrium internal anatomy",
+            "Left ventricle internal anatomy",
+            "Tricuspid valve apparatus",
+            "Pulmonary valve",
+            "Mitral valve apparatus",
+            "Aortic valve",
+            "Fibrous skeleton of heart",
+            "Systemic venous return vessels",
+            "Pulmonary arterial trunk and branches",
+            "Pulmonary veins",
+            "Aorta and major branches",
+            "Coronary arterial supply",
+            "Coronary venous drainage",
+            "Systemic-to-pulmonary blood flow sequence",
+            "Cardiac conducting system components",
+            "Cardiac cycle phases and pressure changes",
+            "Heart sounds and valve events",
+            "ECG waves and conduction events",
+            "Cardiac output and hemodynamic parameters",
+            "Autonomic regulation of heart rate and contractility",
+            "Common clinical correlates for NEET"
+          ],
+          "concept_count": 25,
+          "capability": "Label all heart anatomy diagrams (external features, internal chambers, valve apparatus, major vessels, coronary circulation) in anterior/posterior/cross-sectional views; trace the complete systemic-to-pulmonary blood flow sequence through every chamber, valve, and vessel; solve NEET-level theory MCQs on cardiac conduction, cardiac cycle phases with pressure changes, heart sound-valve correlations, ECG wave-conduction mapping, cardiac output calculations, autonomic regulation effects, and high-yield clinical correlates (heart blocks, murmurs, coronary occlusion patterns).",
+          "why_here": "All 25 in-play concepts form a single integrated NEET heart chapter. Anatomy concepts (gross, chambers, valves, vessels, coronary) build the structural foundation; blood flow sequence integrates them into the core construct target; physiology concepts (conduction, cycle, sounds, ECG, hemodynamics, autonomic, clinical) complete the theory coverage. They are taught together in NCERT, tested together in NEET, and depend on each other (flow needs anatomy; physiology needs flow/valves). One module matches the single-exam, single-sitting preparation context."
+        }
+      ],
+      "concepts_per_module": [
+        25
+      ],
+      "orphans": [],
+      "phantoms": [],
+      "duplicate_coverage": [],
+      "slug_collisions": []
+    },
+    "promises": {
+      "capability_clauses": 3,
+      "capability_unbacked": 0,
+      "capability_unbacked_share": 0.0,
+      "capability_support": [
+        {
+          "module": "Human Heart Anatomy, Blood Flow & Cardiac Physiology for NEET",
+          "clauses": [
+            "Label all heart anatomy diagrams (external features, internal chambers, valve apparatus, major vessels, coronary circulation) in anterior/posterior/cross-sectional views",
+            "trace the complete systemic-to-pulmonary blood flow sequence through every chamber, valve, and vessel",
+            "solve NEET-level theory MCQs on cardiac conduction, cardiac cycle phases with pressure changes, heart sound-valve correlations, ECG wave-conduction mapping, cardiac output calculations, autonomic regulation effects, and high-yield clinical correlates (heart blocks, murmurs, coronary occlusion patterns)."
+          ],
+          "backed": [
+            {
+              "clause": "Label all heart anatomy diagrams (external features, internal chambers, valve apparatus, major vessels, coronary circulation) in anterior/posterior/cross-sectional views",
+              "concepts": [
+                "Pericardium and heart position",
+                "External heart features and sulci",
+                "Right atrium internal anatomy",
+                "Right ventricle internal anatomy",
+                "Left atrium internal anatomy",
+                "Left ventricle internal anatomy",
+                "Tricuspid valve apparatus",
+                "Pulmonary valve",
+                "Mitral valve apparatus",
+                "Aortic valve",
+                "Fibrous skeleton of heart",
+                "Systemic venous return vessels",
+                "Aorta and major branches",
+                "Coronary arterial supply",
+                "Coronary venous drainage",
+                "Heart sounds and valve events",
+                "Autonomic regulation of heart rate and contractility"
+              ]
+            },
+            {
+              "clause": "trace the complete systemic-to-pulmonary blood flow sequence through every chamber, valve, and vessel",
+              "concepts": [
+                "Tricuspid valve apparatus",
+                "Pulmonary valve",
+                "Mitral valve apparatus",
+                "Aortic valve",
+                "Systemic venous return vessels",
+                "Pulmonary arterial trunk and branches",
+                "Pulmonary veins",
+                "Systemic-to-pulmonary blood flow sequence",
+                "Heart sounds and valve events"
+              ]
+            },
+            {
+              "clause": "solve NEET-level theory MCQs on cardiac conduction, cardiac cycle phases with pressure changes, heart sound-valve correlations, ECG wave-conduction mapping, cardiac output calculations, autonomic regulation effects, and high-yield clinical correlates (heart blocks, murmurs, coronary occlusion patterns).",
+              "concepts": [
+                "Pericardium and heart position",
+                "External heart features and sulci",
+                "Tricuspid valve apparatus",
+                "Pulmonary valve",
+                "Mitral valve apparatus",
+                "Aortic valve",
+                "Fibrous skeleton of heart",
+                "Coronary arterial supply",
+                "Coronary venous drainage",
+                "Cardiac conducting system components",
+                "Cardiac cycle phases and pressure changes",
+                "Heart sounds and valve events",
+                "ECG waves and conduction events",
+                "Cardiac output and hemodynamic parameters",
+                "Autonomic regulation of heart rate and contractility",
+                "Common clinical correlates for NEET"
+              ]
+            }
+          ],
+          "unbacked": []
+        }
+      ],
+      "coherence": [
+        {
+          "module": "Human Heart Anatomy, Blood Flow & Cardiac Physiology for NEET",
+          "concepts": 25,
+          "internal": 52,
+          "external": 0,
+          "ratio": 1.0,
+          "depends_on_modules": [],
+          "links": []
+        }
+      ],
+      "modules_with_no_internal_dependency": [],
+      "external_dependency_total": 0
+    },
+    "extent": {
+      "total": "~41 pages · about 13 hours",
+      "pages": "~41 pages",
+      "study_time": "about 13 hours",
+      "parts": 1,
+      "modules": 1,
+      "per_unit": {
+        "Human Heart Anatomy, Blood Flow & Cardiac Physiology for NEET": "~41 pages"
+      }
+    },
+    "feasibility": {
+      "serves_everything": false,
+      "shortfalls": [
+        {
+          "failure": "parallel-state",
+          "concepts": [
+            "Cardiac cycle phases and pressure changes"
+          ],
+          "licenses": "sequence · swimlane · timeline",
+          "note": "No realization exists. Two actors evolving at once currently come out as prose, which is the substitution §13 forbids."
+        },
+        {
+          "failure": "perceptual-referent",
+          "concepts": [
+            "Pericardium and heart position",
+            "External heart features and sulci",
+            "Right atrium internal anatomy",
+            "Right ventricle internal anatomy",
+            "Left atrium internal anatomy",
+            "Left ventricle internal anatomy",
+            "Tricuspid valve apparatus",
+            "Pulmonary valve",
+            "Mitral valve apparatus",
+            "Aortic valve",
+            "Systemic venous return vessels",
+            "Pulmonary arterial trunk and branches",
+            "Pulmonary veins",
+            "Aorta and major branches",
+            "Coronary arterial supply",
+            "Coronary venous drainage",
+            "Cardiac conducting system components"
+          ],
+          "licenses": "image",
+          "note": "The system cannot draw the thing itself. Representation-Boundary calls this family E and it is the only one that cannot preserve assertions: a generated figure adds content the document never asserted."
+        }
+      ]
+    },
+    "decisions_present": [
+      "consequence",
+      "derive_structure",
+      "intake_strategy",
+      "interpret_situation",
+      "partition",
+      "relevance",
+      "scope",
+      "traversal"
+    ]
+  },
+  "approval": {
+    "approved": true,
+    "decision_count": 7,
+    "refused_because": null
+  },
+  "finished_at": "2026-09-14T15:36:52+00:00",
+  "seconds_total": 1765.99,
+  "seconds_by_stage": {
+    "create": 323.13,
+    "intake": 0.0,
+    "plan": 1442.06,
+    "approve": 0.02
+  },
+  "cost": {
+    "model_calls": 4,
+    "failed_calls": 0,
+    "input_tokens": 12285,
+    "output_tokens": 10251,
+    "seconds": 1765.13,
+    "calls": [
+      {
+        "ok": true,
+        "seconds": 323.12,
+        "input_tokens": 3161,
+        "output_tokens": 1221,
+        "schema": "Reading",
+        "error": null
+      },
+      {
+        "ok": true,
+        "seconds": 284.78,
+        "input_tokens": 1500,
+        "output_tokens": 1465,
+        "schema": "Landscape",
+        "error": null
+      },
+      {
+        "ok": true,
+        "seconds": 818.04,
+        "input_tokens": 1689,
+        "output_tokens": 3269,
+        "schema": "Landscape",
+        "error": null
+      },
+      {
+        "ok": true,
+        "seconds": 339.19,
+        "input_tokens": 5935,
+        "output_tokens": 4296,
+        "schema": "PlanBody",
+        "error": null
+      }
+    ]
+  }
+}

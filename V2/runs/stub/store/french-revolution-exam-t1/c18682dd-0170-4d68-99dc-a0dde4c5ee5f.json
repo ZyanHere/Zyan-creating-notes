@@ -1,0 +1,681 @@
+{
+  "project": {
+    "id": "c18682dd-0170-4d68-99dc-a0dde4c5ee5f",
+    "user_id": "local",
+    "title": "french revolution notes for my class 9 history exam next week",
+    "taxonomy_version": "plan-gate-1",
+    "created_at": "2026-09-14T10:34:50+00:00"
+  },
+  "utterance": [
+    {
+      "id": "8d800ee5-5d0c-4d8b-9140-0c94db970a34",
+      "project_id": "c18682dd-0170-4d68-99dc-a0dde4c5ee5f",
+      "ord": 0,
+      "role": "user",
+      "text": "french revolution notes for my class 9 history exam next week",
+      "created_at": "2026-09-14T10:34:50+00:00"
+    },
+    {
+      "id": "f5161c64-3c30-4316-b88b-d10df258682b",
+      "project_id": "c18682dd-0170-4d68-99dc-a0dde4c5ee5f",
+      "ord": 1,
+      "role": "user",
+      "text": "i don't need the economic theory stuff, the exam is mostly dates causes and people",
+      "created_at": "2026-09-14T10:34:50+00:00"
+    },
+    {
+      "id": "4bc349c7-6e46-457b-b9ca-baac8f9ea32b",
+      "project_id": "c18682dd-0170-4d68-99dc-a0dde4c5ee5f",
+      "ord": 2,
+      "role": "router",
+      "text": "{\"correction\": \"i don't need the economic theory stuff, the exam is mostly dates causes and people\", \"reading\": \"stubbed correction\", \"claimed\": [], \"actual\": [], \"unchanged\": [\"interpret_situation\", \"scope\", \"consequence\", \"traversal\", \"partition\", \"derive_structure\", \"relevance\", \"intake_strategy\"], \"unclaimed_drift\": [], \"claimed_but_unchanged\": [], \"out_of_scope\": null, \"not_understood\": true}",
+      "created_at": "2026-09-14T10:34:50+00:00"
+    }
+  ],
+  "decision": [
+    {
+      "id": "26518f8e5de74dc3b7ec8a6bb6650b41",
+      "project_id": "c18682dd-0170-4d68-99dc-a0dde4c5ee5f",
+      "kind": "interpret_situation",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "95efb82e62eb5794955239772e016b64",
+      "output": {
+        "subject": "French Revolution — school exam revision",
+        "job": "orient",
+        "entry_point": "Nothing assumed.",
+        "purpose": "Stub run.",
+        "target_capability": "Prove the harness works.",
+        "capacity": null,
+        "stated": [],
+        "inferred": []
+      },
+      "model": "stub-1",
+      "prompt_version": "interpret_v1",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:50+00:00"
+    },
+    {
+      "id": "9a6c816db04443379de0ec0ad7311567",
+      "project_id": "c18682dd-0170-4d68-99dc-a0dde4c5ee5f",
+      "kind": "intake_strategy",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "816ba52462c1f64eb2c31c18e93b6031",
+      "output": {
+        "questions": [],
+        "sufficiency": {
+          "verdict": "needs_subject",
+          "budget": 4,
+          "asking": [
+            "subject"
+          ],
+          "over_budget": [],
+          "axes": [
+            {
+              "axis": "subject",
+              "value": "French Revolution — school exam revision",
+              "strength": "guessed",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "nothing, this is a stub",
+              "askable": true,
+              "asked": true,
+              "reason": "weak (guessed) but a different answer would not change the plan materially"
+            },
+            {
+              "axis": "purpose",
+              "value": "stub",
+              "strength": "guessed",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "nothing, this is a stub",
+              "askable": true,
+              "asked": false,
+              "reason": "weak (guessed) but a different answer would not change the plan materially"
+            },
+            {
+              "axis": "entry_point",
+              "value": "stub",
+              "strength": "guessed",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "nothing, this is a stub",
+              "askable": true,
+              "asked": false,
+              "reason": "weak (guessed) but a different answer would not change the plan materially"
+            },
+            {
+              "axis": "target_capability",
+              "value": "stub",
+              "strength": "guessed",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "nothing, this is a stub",
+              "askable": true,
+              "asked": false,
+              "reason": "weak (guessed) but a different answer would not change the plan materially"
+            },
+            {
+              "axis": "capacity",
+              "value": "stub",
+              "strength": "guessed",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "nothing, this is a stub",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Semantics §1 LOCKED — optional, and the corollary: deriving the plan and reporting its extent is what CAUSES a capacity to be stated. Asking upfront asks for a number the learner cannot honestly give."
+            },
+            {
+              "axis": "depth_register",
+              "value": "stub",
+              "strength": "guessed",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "nothing, this is a stub",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Semantics §1 — biasing, not binding. A default is always defensible."
+            },
+            {
+              "axis": "artifact_type",
+              "value": "stub",
+              "strength": "guessed",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "nothing, this is a stub",
+              "askable": true,
+              "asked": false,
+              "reason": "weak (guessed) but a different answer would not change the plan materially"
+            },
+            {
+              "axis": "template",
+              "value": "stub",
+              "strength": "guessed",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "nothing, this is a stub",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Presentation-Boundary rule 1 — internal. Users never select one."
+            }
+          ]
+        }
+      },
+      "model": "stub-1",
+      "prompt_version": "ask_v1",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:50+00:00"
+    },
+    {
+      "id": "a1a0d088d9bb4b209704018550c389d9",
+      "project_id": "c18682dd-0170-4d68-99dc-a0dde4c5ee5f",
+      "kind": "derive_structure",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "928adcf7ad6f51d946fc4e869ccf3230",
+      "output": {
+        "concepts": [
+          {
+            "name": "Alpha",
+            "built_from": [],
+            "family": "stub"
+          },
+          {
+            "name": "Beta",
+            "built_from": [],
+            "family": "stub"
+          },
+          {
+            "name": "Gamma",
+            "built_from": [],
+            "family": "stub"
+          }
+        ]
+      },
+      "model": "stub-1",
+      "prompt_version": "derive_v1",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:50+00:00"
+    },
+    {
+      "id": "8733543bb7214de59abae15924748bed",
+      "project_id": "c18682dd-0170-4d68-99dc-a0dde4c5ee5f",
+      "kind": "relevance",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "33de6fef21c3ab2e2cc444481dba97b8",
+      "output": {
+        "judgements": [
+          {
+            "concept": "Alpha",
+            "in_play": true,
+            "why": "stub"
+          },
+          {
+            "concept": "Beta",
+            "in_play": true,
+            "why": "stub"
+          },
+          {
+            "concept": "Gamma",
+            "in_play": true,
+            "why": "stub"
+          }
+        ]
+      },
+      "model": "stub-1",
+      "prompt_version": "derive_v1",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:50+00:00"
+    },
+    {
+      "id": "2c169b82b53f4413859362c2934ea7a0",
+      "project_id": "c18682dd-0170-4d68-99dc-a0dde4c5ee5f",
+      "kind": "traversal",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "dab71cdfe17e50beb9b36216777d3da3",
+      "output": {
+        "sequence": [
+          "First",
+          "Second"
+        ],
+        "why": "stub"
+      },
+      "model": "stub-1",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:50+00:00"
+    },
+    {
+      "id": "866b62dcc87b4b17bbd1f510b4564e4c",
+      "project_id": "c18682dd-0170-4d68-99dc-a0dde4c5ee5f",
+      "kind": "consequence",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "bb90f250c13f262dd38f30debc1d93a4",
+      "output": {
+        "exclusions": []
+      },
+      "model": "stub-1",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:50+00:00"
+    },
+    {
+      "id": "2a3fac7338894a12aa6a9bfdca747664",
+      "project_id": "c18682dd-0170-4d68-99dc-a0dde4c5ee5f",
+      "kind": "scope",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "ed77a63965f47aa84036988a712c7aed",
+      "output": {
+        "covered": [
+          {
+            "concept": "Alpha",
+            "depth": "explain",
+            "why": "stub",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Beta",
+            "depth": "explain",
+            "why": "stub",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Gamma",
+            "depth": "explain",
+            "why": "stub",
+            "anticipates": "none"
+          }
+        ],
+        "cut": []
+      },
+      "model": "stub-1",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:50+00:00"
+    },
+    {
+      "id": "844b2802391f43cbba96a817db76d541",
+      "project_id": "c18682dd-0170-4d68-99dc-a0dde4c5ee5f",
+      "kind": "partition",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "9ae32540c0606eaa20faddb154e8bab6",
+      "output": {
+        "modules": [
+          {
+            "title": "First",
+            "covers": [
+              "Alpha"
+            ],
+            "why_here": "stub",
+            "capability": "Do the first stub thing."
+          },
+          {
+            "title": "Second",
+            "covers": [
+              "Beta",
+              "Gamma"
+            ],
+            "why_here": "stub",
+            "capability": "Do the second stub thing."
+          }
+        ]
+      },
+      "model": "stub-1",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:50+00:00"
+    },
+    {
+      "id": "26518f8e5de74dc3b7ec8a6bb6650b41",
+      "project_id": "c18682dd-0170-4d68-99dc-a0dde4c5ee5f",
+      "kind": "interpret_situation",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "95efb82e62eb5794955239772e016b64",
+      "output": {
+        "subject": "French Revolution — school exam revision",
+        "job": "orient",
+        "entry_point": "Nothing assumed.",
+        "purpose": "Stub run.",
+        "target_capability": "Prove the harness works.",
+        "capacity": null,
+        "stated": [],
+        "inferred": []
+      },
+      "model": "stub-1",
+      "prompt_version": "interpret_v1",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:50+00:00"
+    },
+    {
+      "id": "2a3fac7338894a12aa6a9bfdca747664",
+      "project_id": "c18682dd-0170-4d68-99dc-a0dde4c5ee5f",
+      "kind": "scope",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "ed77a63965f47aa84036988a712c7aed",
+      "output": {
+        "covered": [
+          {
+            "concept": "Alpha",
+            "depth": "explain",
+            "why": "stub",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Beta",
+            "depth": "explain",
+            "why": "stub",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Gamma",
+            "depth": "explain",
+            "why": "stub",
+            "anticipates": "none"
+          }
+        ],
+        "cut": []
+      },
+      "model": "stub-1",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:50+00:00"
+    },
+    {
+      "id": "866b62dcc87b4b17bbd1f510b4564e4c",
+      "project_id": "c18682dd-0170-4d68-99dc-a0dde4c5ee5f",
+      "kind": "consequence",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "bb90f250c13f262dd38f30debc1d93a4",
+      "output": {
+        "exclusions": []
+      },
+      "model": "stub-1",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:50+00:00"
+    },
+    {
+      "id": "2c169b82b53f4413859362c2934ea7a0",
+      "project_id": "c18682dd-0170-4d68-99dc-a0dde4c5ee5f",
+      "kind": "traversal",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "dab71cdfe17e50beb9b36216777d3da3",
+      "output": {
+        "sequence": [
+          "First",
+          "Second"
+        ],
+        "why": "stub"
+      },
+      "model": "stub-1",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:50+00:00"
+    },
+    {
+      "id": "844b2802391f43cbba96a817db76d541",
+      "project_id": "c18682dd-0170-4d68-99dc-a0dde4c5ee5f",
+      "kind": "partition",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "9ae32540c0606eaa20faddb154e8bab6",
+      "output": {
+        "modules": [
+          {
+            "title": "First",
+            "covers": [
+              "Alpha"
+            ],
+            "why_here": "stub",
+            "capability": "Do the first stub thing."
+          },
+          {
+            "title": "Second",
+            "covers": [
+              "Beta",
+              "Gamma"
+            ],
+            "why_here": "stub",
+            "capability": "Do the second stub thing."
+          }
+        ]
+      },
+      "model": "stub-1",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:50+00:00"
+    },
+    {
+      "id": "a1a0d088d9bb4b209704018550c389d9",
+      "project_id": "c18682dd-0170-4d68-99dc-a0dde4c5ee5f",
+      "kind": "derive_structure",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "928adcf7ad6f51d946fc4e869ccf3230",
+      "output": {
+        "concepts": [
+          {
+            "name": "Alpha",
+            "built_from": [],
+            "family": "stub"
+          },
+          {
+            "name": "Beta",
+            "built_from": [],
+            "family": "stub"
+          },
+          {
+            "name": "Gamma",
+            "built_from": [],
+            "family": "stub"
+          }
+        ]
+      },
+      "model": "stub-1",
+      "prompt_version": "derive_v1",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:50+00:00"
+    },
+    {
+      "id": "8733543bb7214de59abae15924748bed",
+      "project_id": "c18682dd-0170-4d68-99dc-a0dde4c5ee5f",
+      "kind": "relevance",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "33de6fef21c3ab2e2cc444481dba97b8",
+      "output": {
+        "judgements": [
+          {
+            "concept": "Alpha",
+            "in_play": true,
+            "why": "stub"
+          },
+          {
+            "concept": "Beta",
+            "in_play": true,
+            "why": "stub"
+          },
+          {
+            "concept": "Gamma",
+            "in_play": true,
+            "why": "stub"
+          }
+        ]
+      },
+      "model": "stub-1",
+      "prompt_version": "derive_v1",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:50+00:00"
+    }
+  ],
+  "commitment": [
+    {
+      "id": "e683c720edb049acaf3905a916b55fe8",
+      "project_id": "c18682dd-0170-4d68-99dc-a0dde4c5ee5f",
+      "kind": "plan",
+      "snapshot": {
+        "interpret_situation": {
+          "subject": "French Revolution — school exam revision",
+          "job": "orient",
+          "entry_point": "Nothing assumed.",
+          "purpose": "Stub run.",
+          "target_capability": "Prove the harness works.",
+          "capacity": null,
+          "stated": [],
+          "inferred": []
+        },
+        "scope": {
+          "covered": [
+            {
+              "concept": "Alpha",
+              "depth": "explain",
+              "why": "stub",
+              "anticipates": "none"
+            },
+            {
+              "concept": "Beta",
+              "depth": "explain",
+              "why": "stub",
+              "anticipates": "none"
+            },
+            {
+              "concept": "Gamma",
+              "depth": "explain",
+              "why": "stub",
+              "anticipates": "none"
+            }
+          ],
+          "cut": []
+        },
+        "consequence": {
+          "exclusions": []
+        },
+        "traversal": {
+          "sequence": [
+            "First",
+            "Second"
+          ],
+          "why": "stub"
+        },
+        "partition": {
+          "modules": [
+            {
+              "title": "First",
+              "covers": [
+                "Alpha"
+              ],
+              "why_here": "stub",
+              "capability": "Do the first stub thing."
+            },
+            {
+              "title": "Second",
+              "covers": [
+                "Beta",
+                "Gamma"
+              ],
+              "why_here": "stub",
+              "capability": "Do the second stub thing."
+            }
+          ]
+        },
+        "extent": {
+          "total": "~2 pages · 24 min",
+          "pages": "~2 pages",
+          "study_time": "24 min",
+          "parts": 2,
+          "modules": 2,
+          "per_unit": {
+            "First": "~1 page",
+            "Second": "~1 page"
+          }
+        }
+      },
+      "decision_ids": [
+        "26518f8e5de74dc3b7ec8a6bb6650b41",
+        "2a3fac7338894a12aa6a9bfdca747664",
+        "866b62dcc87b4b17bbd1f510b4564e4c",
+        "2c169b82b53f4413859362c2934ea7a0",
+        "844b2802391f43cbba96a817db76d541",
+        "a1a0d088d9bb4b209704018550c389d9",
+        "8733543bb7214de59abae15924748bed"
+      ],
+      "decision_ids_hash": "8180bd84af3693dee76999b85b623bbc",
+      "decision_environment": {
+        "prompt_versions": [
+          "derive_v1",
+          "interpret_v1",
+          "plan_v3"
+        ],
+        "models": [
+          "stub-1"
+        ]
+      },
+      "approved_by": "local",
+      "approved_at": "2026-09-14T10:34:50+00:00"
+    }
+  ]
+}

@@ -1,0 +1,2418 @@
+{
+  "project": {
+    "id": "15b697ac-670a-4e25-9502-29255efc2289",
+    "user_id": "local",
+    "title": "i need agentic ai notes for interview, from scratch",
+    "taxonomy_version": "plan-gate-1",
+    "created_at": "2026-09-14T11:56:44+00:00"
+  },
+  "utterance": [
+    {
+      "id": "96e81e1b-ebce-491a-a615-b7e0db77a549",
+      "project_id": "15b697ac-670a-4e25-9502-29255efc2289",
+      "ord": 0,
+      "role": "user",
+      "text": "i need agentic ai notes for interview, from scratch",
+      "created_at": "2026-09-14T11:56:44+00:00"
+    },
+    {
+      "id": "c5213b92-a9f7-4932-8e63-546f6552dc43",
+      "project_id": "15b697ac-670a-4e25-9502-29255efc2289",
+      "ord": 1,
+      "role": "user",
+      "text": "you've missed evaluation entirely - interviewers always ask how you'd know if the agent is working",
+      "created_at": "2026-09-14T12:12:03+00:00"
+    },
+    {
+      "id": "96dd748d-f444-4e32-8e77-8b3d0eb384b1",
+      "project_id": "15b697ac-670a-4e25-9502-29255efc2289",
+      "ord": 2,
+      "role": "router",
+      "text": "{\"correction\": \"you've missed evaluation entirely - interviewers always ask how you'd know if the agent is working\", \"reading\": \"The user believes evaluation is missing entirely, but the plan includes 'Agent Evaluation Methodologies' and 'Agent Benchmarks' in the structure, judged in-play, and covered at explain depth in the final module. They likely mean evaluation should be more prominent, deeper, or include practical production evaluation (online eval, monitoring, A/B testing) that interviewers ask about.\", \"claimed\": [\"relevance\", \"scope\"], \"actual\": [\"scope\", \"relevance\"], \"unchanged\": [\"interpret_situation\", \"consequence\", \"traversal\", \"partition\", \"derive_structure\", \"intake_strategy\"], \"unclaimed_drift\": [], \"claimed_but_unchanged\": [], \"out_of_scope\": null, \"not_understood\": false}",
+      "created_at": "2026-09-14T12:14:26+00:00"
+    }
+  ],
+  "decision": [
+    {
+      "id": "6c70812e2a454c9fb4de9b6f1a2d7d5b",
+      "project_id": "15b697ac-670a-4e25-9502-29255efc2289",
+      "kind": "interpret_situation",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "e83a73fc1cf5ef4daa5f72977736d239",
+      "output": {
+        "subject": "agentic AI",
+        "job": "retrieve",
+        "entry_point": "no prior knowledge of agentic AI",
+        "purpose": "interview preparation",
+        "target_capability": "answer interview questions on agentic AI concepts, patterns, and architectures",
+        "capacity": null,
+        "stated": [
+          {
+            "text": "agentic ai",
+            "axis": "subject"
+          },
+          {
+            "text": "for interview",
+            "axis": "purpose"
+          },
+          {
+            "text": "from scratch",
+            "axis": "entry_point"
+          },
+          {
+            "text": "notes",
+            "axis": "artifact_type"
+          }
+        ],
+        "inferred": [
+          "depth_register: interview-appropriate depth covering foundations, key patterns (ReAct, tool use, planning, multi-agent), and common architectures",
+          "template: structured interview notes with concept definitions, diagrams descriptions, and comparison tables"
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "interpret_v1",
+      "cost": {
+        "in": 3154,
+        "out": 1273
+      },
+      "created_at": "2026-09-14T12:01:45+00:00"
+    },
+    {
+      "id": "4b2c0b9c972b46e7949aedf585633cba",
+      "project_id": "15b697ac-670a-4e25-9502-29255efc2289",
+      "kind": "intake_strategy",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "cbc7eb6bb8f400be6d1e3a85785b81b8",
+      "output": {
+        "questions": [],
+        "sufficiency": {
+          "verdict": "sufficient",
+          "budget": 4,
+          "asking": [],
+          "over_budget": [],
+          "axes": [
+            {
+              "axis": "subject",
+              "value": "agentic AI",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "agentic ai"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "A different subject (e.g., 'LLM fine-tuning' or 'RAG systems') would produce an entirely different concept landscape and note structure.",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "purpose",
+              "value": "interview preparation",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "for interview"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If the purpose were 'build a production agentic system', the notes would emphasize implementation details, debugging, evaluation frameworks, and deployment concerns rather than conceptual clarity and common interview questions.",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "entry_point",
+              "value": "no prior knowledge of agentic AI",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "from scratch"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If the learner already knew ML/LLM fundamentals, the notes could skip 'what is an LLM', 'what is prompting', and 'basic tool use' — saving 3-4 foundational concepts and starting at agent architectures.",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "target_capability",
+              "value": "answer interview questions on agentic AI concepts, patterns, and architectures",
+              "strength": "inferred",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "for interview"
+                },
+                {
+                  "utterance_ord": 0,
+                  "quote": "from scratch"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If the target were 'implement a ReAct agent from scratch', the notes would include code skeletons, library choices, and error-handling patterns instead of conceptual comparisons and 'why this pattern' explanations.",
+              "askable": true,
+              "asked": false,
+              "reason": "inferred, supported by 'for interview' · 'from scratch'"
+            },
+            {
+              "axis": "capacity",
+              "value": null,
+              "strength": "unknown",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "If the learner said 'I have 2 hours to prep', the plan would prioritize highest-yield topics only (ReAct, tool calling, multi-agent patterns) and cut foundations. If 'I have a week', it would include deeper dives on evaluation, memory, and emerging patterns.",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Semantics §1 LOCKED — optional, and the corollary: deriving the plan and reporting its extent is what CAUSES a capacity to be stated. Asking upfront asks for a number the learner cannot honestly give."
+            },
+            {
+              "axis": "depth_register",
+              "value": "interview-appropriate: conceptual clarity over implementation detail, covers foundations through current patterns",
+              "strength": "inferred",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "for interview"
+                },
+                {
+                  "utterance_ord": 0,
+                  "quote": "from scratch"
+                }
+              ],
+              "unverified": [],
+              "material": false,
+              "would_differ": "A 'deep technical dive' register would include mathematical formulations of planning algorithms, token-level tool calling mechanics, and benchmark comparisons. A 'high-level overview' would skip multi-agent coordination patterns entirely.",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Semantics §1 — biasing, not binding. A default is always defensible."
+            },
+            {
+              "axis": "artifact_type",
+              "value": "structured interview notes",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "notes"
+                }
+              ],
+              "unverified": [],
+              "material": false,
+              "would_differ": "If 'cheatsheet', the output would be a 1-2 page dense reference with keywords and one-liners. If 'study guide', it would include practice questions, spaced-repetition prompts, and progressive depth. 'Notes' implies organized sections with explanations.",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "template",
+              "value": "interview notes template: concept → definition → why it matters → key variants → common follow-up questions",
+              "strength": "inferred",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "notes"
+                },
+                {
+                  "utterance_ord": 0,
+                  "quote": "for interview"
+                }
+              ],
+              "unverified": [],
+              "material": false,
+              "would_differ": "A 'cheatsheet template' would be table-only. A 'tutorial template' would be sequential with exercises. The interview template optimizes for retrieval under pressure.",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Presentation-Boundary rule 1 — internal. Users never select one."
+            }
+          ]
+        }
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "interpret_v1",
+      "cost": {
+        "in": 3154,
+        "out": 1273
+      },
+      "created_at": "2026-09-14T12:01:45+00:00"
+    },
+    {
+      "id": "0a3b11b8e60e4b548796ed4548b558fe",
+      "project_id": "15b697ac-670a-4e25-9502-29255efc2289",
+      "kind": "derive_structure",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "bcacb89d6855ff4d836af1916c7610b8",
+      "output": {
+        "concepts": [
+          {
+            "name": "Agent Definition & Core Properties",
+            "built_from": [],
+            "family": "foundation"
+          },
+          {
+            "name": "LLM as Reasoning Engine",
+            "built_from": [
+              "Agent Definition & Core Properties"
+            ],
+            "family": "foundation"
+          },
+          {
+            "name": "Agent vs. Non-Agentic Systems",
+            "built_from": [
+              "Agent Definition & Core Properties"
+            ],
+            "family": "foundation"
+          },
+          {
+            "name": "ReAct Pattern",
+            "built_from": [
+              "LLM as Reasoning Engine"
+            ],
+            "family": "core pattern"
+          },
+          {
+            "name": "Tool Use & Function Calling",
+            "built_from": [
+              "LLM as Reasoning Engine"
+            ],
+            "family": "core pattern"
+          },
+          {
+            "name": "Planning & Task Decomposition",
+            "built_from": [
+              "LLM as Reasoning Engine"
+            ],
+            "family": "core pattern"
+          },
+          {
+            "name": "Chain-of-Thought Reasoning",
+            "built_from": [
+              "Planning & Task Decomposition"
+            ],
+            "family": "core pattern"
+          },
+          {
+            "name": "Tree-of-Thought / Graph-of-Thought",
+            "built_from": [
+              "Planning & Task Decomposition"
+            ],
+            "family": "core pattern"
+          },
+          {
+            "name": "Reflection & Self-Critique",
+            "built_from": [
+              "LLM as Reasoning Engine"
+            ],
+            "family": "core pattern"
+          },
+          {
+            "name": "Memory Systems (Short-term, Long-term, Episodic, Semantic)",
+            "built_from": [
+              "Agent Definition & Core Properties"
+            ],
+            "family": "core pattern"
+          },
+          {
+            "name": "Retrieval-Augmented Generation for Agents",
+            "built_from": [
+              "Memory Systems (Short-term, Long-term, Episodic, Semantic)",
+              "Tool Use & Function Calling"
+            ],
+            "family": "core pattern"
+          },
+          {
+            "name": "Single-Agent Architectures",
+            "built_from": [
+              "ReAct Pattern",
+              "Tool Use & Function Calling",
+              "Planning & Task Decomposition",
+              "Memory Systems (Short-term, Long-term, Episodic, Semantic)"
+            ],
+            "family": "architecture"
+          },
+          {
+            "name": "Multi-Agent Systems",
+            "built_from": [
+              "Single-Agent Architectures"
+            ],
+            "family": "architecture"
+          },
+          {
+            "name": "Multi-Agent Collaboration Patterns (Debate, Hierarchy, Swarm, Sequential)",
+            "built_from": [
+              "Multi-Agent Systems"
+            ],
+            "family": "architecture"
+          },
+          {
+            "name": "LangGraph",
+            "built_from": [
+              "Single-Agent Architectures",
+              "Multi-Agent Systems"
+            ],
+            "family": "framework"
+          },
+          {
+            "name": "AutoGen",
+            "built_from": [
+              "Multi-Agent Systems"
+            ],
+            "family": "framework"
+          },
+          {
+            "name": "CrewAI",
+            "built_from": [
+              "Multi-Agent Systems"
+            ],
+            "family": "framework"
+          },
+          {
+            "name": "LangChain Agents (Legacy / AgentExecutor)",
+            "built_from": [
+              "Single-Agent Architectures"
+            ],
+            "family": "framework"
+          },
+          {
+            "name": "Semantic Kernel",
+            "built_from": [
+              "Single-Agent Architectures",
+              "Multi-Agent Systems"
+            ],
+            "family": "framework"
+          },
+          {
+            "name": "AutoGPT / BabyAGI (Historical / Autonomous Agents)",
+            "built_from": [
+              "Single-Agent Architectures"
+            ],
+            "family": "framework"
+          },
+          {
+            "name": "Agent Evaluation Methodologies",
+            "built_from": [
+              "Agent Definition & Core Properties"
+            ],
+            "family": "evaluation"
+          },
+          {
+            "name": "Agent Benchmarks (AgentBench, WebShop, ALFWorld, τ-bench, GAIA, SWE-bench)",
+            "built_from": [
+              "Agent Evaluation Methodologies"
+            ],
+            "family": "evaluation"
+          },
+          {
+            "name": "Failure Modes (Hallucination, Tool Errors, Planning Failures, Loops, Cost/Latency)",
+            "built_from": [
+              "ReAct Pattern",
+              "Tool Use & Function Calling",
+              "Planning & Task Decomposition"
+            ],
+            "family": "failure mode"
+          },
+          {
+            "name": "Guardrails & Safety for Agents",
+            "built_from": [
+              "Failure Modes (Hallucination, Tool Errors, Planning Failures, Loops, Cost/Latency)"
+            ],
+            "family": "failure mode"
+          },
+          {
+            "name": "Model Context Protocol (MCP)",
+            "built_from": [
+              "Tool Use & Function Calling"
+            ],
+            "family": "emerging standard"
+          },
+          {
+            "name": "Agent-to-Agent (A2A) Protocol",
+            "built_from": [
+              "Multi-Agent Systems"
+            ],
+            "family": "emerging standard"
+          },
+          {
+            "name": "Function Calling Standards (OpenAI, Anthropic, Google)",
+            "built_from": [
+              "Tool Use & Function Calling"
+            ],
+            "family": "emerging standard"
+          },
+          {
+            "name": "Human-in-the-Loop Patterns",
+            "built_from": [
+              "Single-Agent Architectures",
+              "Multi-Agent Systems"
+            ],
+            "family": "core pattern"
+          },
+          {
+            "name": "Agent Observability & Debugging",
+            "built_from": [
+              "Single-Agent Architectures",
+              "Multi-Agent Systems"
+            ],
+            "family": "tooling"
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "derive_v1",
+      "cost": {
+        "in": 1477,
+        "out": 3110
+      },
+      "created_at": "2026-09-14T12:05:32+00:00"
+    },
+    {
+      "id": "e2be9cd3c2774dbf8160f9e16a77ae8d",
+      "project_id": "15b697ac-670a-4e25-9502-29255efc2289",
+      "kind": "relevance",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "2f5e8ba682381d22d84ce84ed4337362",
+      "output": {
+        "judgements": [
+          {
+            "concept": "Agent Definition & Core Properties",
+            "in_play": true,
+            "why": "Foundational — every interview starts with 'what is an agent' and expects autonomy, goal-directedness, environment interaction distinguished from simple LLM calls."
+          },
+          {
+            "concept": "LLM as Reasoning Engine",
+            "in_play": true,
+            "why": "Core mental model — interviews probe why LLMs can reason, limitations (no native state, no tools), and how prompting unlocks agentic behavior."
+          },
+          {
+            "concept": "Agent vs. Non-Agentic Systems",
+            "in_play": true,
+            "why": "Standard interview discriminator — candidates must contrast agents with chains, RAG pipelines, and single-turn prompting."
+          },
+          {
+            "concept": "ReAct Pattern",
+            "in_play": true,
+            "why": "Canonical pattern — appears in nearly every agentic AI interview; must explain loop, prompt structure, and why it improves over zero-shot."
+          },
+          {
+            "concept": "Tool Use & Function Calling",
+            "in_play": true,
+            "why": "Universal requirement — interviews test schema design, parallel vs. sequential calls, error handling, and how tools extend LLM capabilities."
+          },
+          {
+            "concept": "Planning & Task Decomposition",
+            "in_play": true,
+            "why": "Key differentiator from simple tool use — interviews ask about hierarchical planning, replanning, and comparison to CoT."
+          },
+          {
+            "concept": "Chain-of-Thought Reasoning",
+            "in_play": true,
+            "why": "Foundational reasoning technique — expected knowledge for any agent interview; basis for planning and reflection."
+          },
+          {
+            "concept": "Tree-of-Thought / Graph-of-Thought",
+            "in_play": true,
+            "why": "Advanced planning variant — senior interviews ask when to use ToT vs. CoT, search strategies, and compute trade-offs."
+          },
+          {
+            "concept": "Reflection & Self-Critique",
+            "in_play": true,
+            "why": "Standard pattern for improving reliability — interviews cover Reflexion, Self-Refine, and how reflection integrates with ReAct."
+          },
+          {
+            "concept": "Memory Systems (Short-term, Long-term, Episodic, Semantic)",
+            "in_play": true,
+            "why": "Frequent interview topic — must distinguish memory types, retrieval strategies, and context window management."
+          },
+          {
+            "concept": "Retrieval-Augmented Generation for Agents",
+            "in_play": true,
+            "why": "Practical integration — interviews ask how agents use RAG differently from static pipelines, and hybrid search + tool patterns."
+          },
+          {
+            "concept": "Single-Agent Architectures",
+            "in_play": true,
+            "why": "Baseline architecture — interviews expect you to draw/describe a single-agent loop with memory, tools, planner, executor."
+          },
+          {
+            "concept": "Multi-Agent Systems",
+            "in_play": true,
+            "why": "Major interview area — why use multiple agents, communication protocols, coordination challenges, when not to use them."
+          },
+          {
+            "concept": "Multi-Agent Collaboration Patterns (Debate, Hierarchy, Swarm, Sequential)",
+            "in_play": true,
+            "why": "Specific patterns interviewed — candidate must compare debate vs. hierarchy, explain supervisor/worker, and name trade-offs."
+          },
+          {
+            "concept": "LangGraph",
+            "in_play": true,
+            "why": "Dominant production framework — interviews ask about state graphs, checkpointers, human-in-the-loop, and why it replaced AgentExecutor."
+          },
+          {
+            "concept": "AutoGen",
+            "in_play": true,
+            "why": "Major multi-agent framework — interviews compare its conversation-centric model to LangGraph's graph-centric model."
+          },
+          {
+            "concept": "CrewAI",
+            "in_play": true,
+            "why": "Popular role-based framework — interviews ask about role/goal/backstory design, process vs. hierarchical processes, and when to choose it."
+          },
+          {
+            "concept": "LangChain Agents (Legacy / AgentExecutor)",
+            "in_play": true,
+            "why": "Historical context — interviews may ask why it was deprecated, what limitations led to LangGraph, or expect recognition in legacy codebases."
+          },
+          {
+            "concept": "Semantic Kernel",
+            "in_play": true,
+            "why": "Microsoft ecosystem standard — relevant for enterprise interviews; planners, plugins, and kernel memory are distinctive."
+          },
+          {
+            "concept": "AutoGPT / BabyAGI (Historical / Autonomous Agents)",
+            "in_play": true,
+            "why": "Historical reference point — interviews ask what they proved, why they failed in production, and what modern frameworks learned."
+          },
+          {
+            "concept": "Agent Evaluation Methodologies",
+            "in_play": true,
+            "why": "Growing interview topic — how to evaluate non-deterministic agents, offline vs. online eval, LLM-as-judge, trajectory evaluation."
+          },
+          {
+            "concept": "Agent Benchmarks (AgentBench, WebShop, ALFWorld, τ-bench, GAIA, SWE-bench)",
+            "in_play": true,
+            "why": "Expected literacy — senior interviews ask which benchmark tests what (web nav, coding, reasoning), and limitations of each."
+          },
+          {
+            "concept": "Failure Modes (Hallucination, Tool Errors, Planning Failures, Loops, Cost/Latency)",
+            "in_play": true,
+            "why": "Practical reliability — interviews probe debugging stories, loop detection, cost control, and mitigation strategies."
+          },
+          {
+            "concept": "Guardrails & Safety for Agents",
+            "in_play": true,
+            "why": "Production requirement — input/output guards, tool confirmation, sandboxing, and policy enforcement are standard topics."
+          },
+          {
+            "concept": "Model Context Protocol (MCP)",
+            "in_play": true,
+            "why": "Rapidly adopted standard — interviews increasingly ask about MCP servers, resource vs. tool vs. prompt, and integration patterns."
+          },
+          {
+            "concept": "Agent-to-Agent (A2A) Protocol",
+            "in_play": true,
+            "why": "Emerging interoperability standard — Google-led; interviews test awareness of agent discovery, task negotiation, and cross-framework communication."
+          },
+          {
+            "concept": "Function Calling Standards (OpenAI, Anthropic, Google)",
+            "in_play": true,
+            "why": "Practical API knowledge — interviews expect familiarity with JSON schema differences, parallel calling, and structured output modes."
+          },
+          {
+            "concept": "Human-in-the-Loop Patterns",
+            "in_play": true,
+            "why": "Production pattern — approval gates, clarification asks, and interruptibility are common design questions."
+          },
+          {
+            "concept": "Agent Observability & Debugging",
+            "in_play": true,
+            "why": "Operational competence — traces, spans, token accounting, and replay debugging are expected for senior roles."
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "derive_v1",
+      "cost": {
+        "in": 1477,
+        "out": 3110
+      },
+      "created_at": "2026-09-14T12:05:32+00:00"
+    },
+    {
+      "id": "3f7d14ee28d54b6cae6ca0dd25a50d86",
+      "project_id": "15b697ac-670a-4e25-9502-29255efc2289",
+      "kind": "traversal",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "d4ddcf7eeea05cd6d4d0ea28789e0767",
+      "output": {
+        "sequence": [
+          "Foundations & Core Mental Models",
+          "Core Agentic Patterns",
+          "Agent Architectures",
+          "Frameworks & Implementation",
+          "Evaluation, Reliability & Emerging Standards"
+        ],
+        "why": "Foundations establish the mental model every interview assumes. Patterns build the single-agent repertoire interviews probe. Architectures compose patterns into systems. Frameworks map patterns to production tooling. Evaluation and standards cover the reliability and interoperability questions senior interviews increasingly ask."
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 6361,
+        "out": 5264
+      },
+      "created_at": "2026-09-14T12:12:03+00:00"
+    },
+    {
+      "id": "936e226abf604628907e70b021f7fbd8",
+      "project_id": "15b697ac-670a-4e25-9502-29255efc2289",
+      "kind": "consequence",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "bb90f250c13f262dd38f30debc1d93a4",
+      "output": {
+        "exclusions": []
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 6361,
+        "out": 5264
+      },
+      "created_at": "2026-09-14T12:12:03+00:00"
+    },
+    {
+      "id": "d4c3673c0c134c2aba479d3394302bc8",
+      "project_id": "15b697ac-670a-4e25-9502-29255efc2289",
+      "kind": "scope",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "3df2f3c7dc1abe4f897981b871ed9cc3",
+      "output": {
+        "covered": [
+          {
+            "concept": "Agent Definition & Core Properties",
+            "depth": "explain",
+            "why": "Every interview opens with 'what is an agent' — must define autonomy, goal-directedness, environment interaction, and contrast with LLMs.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "LLM as Reasoning Engine",
+            "depth": "explain",
+            "why": "Core mental model for why LLMs can plan, reflect, and use tools; interviews probe limitations (no native state, no tools) and how prompting unlocks agency.",
+            "anticipates": "abstraction-grounding"
+          },
+          {
+            "concept": "Agent vs. Non-Agentic Systems",
+            "depth": "explain",
+            "why": "Standard discriminator — must contrast agents with chains, RAG pipelines, and single-turn prompting on multiple dimensions.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Chain-of-Thought Reasoning",
+            "depth": "explain",
+            "why": "Foundational reasoning technique expected in any agent interview; basis for planning, reflection, and ToT/GoT.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "ReAct Pattern",
+            "depth": "work through",
+            "why": "Canonical pattern appearing in nearly every interview; must trace the thought-action-observation loop, prompt structure, and why it improves over zero-shot.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Tool Use & Function Calling",
+            "depth": "work through",
+            "why": "Universal requirement — interviews test schema design, parallel vs. sequential calls, error handling, and how tools extend LLM capabilities.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Planning & Task Decomposition",
+            "depth": "explain",
+            "why": "Key differentiator from simple tool use — interviews ask about hierarchical planning, replanning, and comparison to CoT.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Tree-of-Thought / Graph-of-Thought",
+            "depth": "explain",
+            "why": "Advanced planning variant — senior interviews ask when to use ToT vs. CoT, search strategies (BFS/DFS), and compute trade-offs.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Reflection & Self-Critique",
+            "depth": "explain",
+            "why": "Standard reliability pattern — interviews cover Reflexion, Self-Refine, and how reflection integrates with ReAct loops.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Memory Systems (Short-term, Long-term, Episodic, Semantic)",
+            "depth": "explain",
+            "why": "Frequent topic — must distinguish memory types, retrieval strategies (similarity, recency, importance), and context window management.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Retrieval-Augmented Generation for Agents",
+            "depth": "explain",
+            "why": "Practical integration — interviews ask how agents use RAG differently from static pipelines (active retrieval, tool-formulated queries, hybrid search).",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Human-in-the-Loop Patterns",
+            "depth": "explain",
+            "why": "Production pattern — approval gates, clarification asks, and interruptibility are common design questions.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Single-Agent Architectures",
+            "depth": "work through",
+            "why": "Baseline architecture — interviews expect you to describe/draw a single-agent loop with memory, tools, planner, executor, and state management.",
+            "anticipates": "perceptual-referent"
+          },
+          {
+            "concept": "Multi-Agent Systems",
+            "depth": "explain",
+            "why": "Major interview area — why use multiple agents, communication protocols, coordination challenges, and when not to use them.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Multi-Agent Collaboration Patterns (Debate, Hierarchy, Swarm, Sequential)",
+            "depth": "explain",
+            "why": "Specific patterns interviewed — must compare debate vs. hierarchy, explain supervisor/worker, and name trade-offs (latency, cost, quality).",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "LangGraph",
+            "depth": "explain",
+            "why": "Dominant production framework — interviews ask about state graphs, checkpointers, human-in-the-loop, and why it replaced AgentExecutor.",
+            "anticipates": "perceptual-referent"
+          },
+          {
+            "concept": "AutoGen",
+            "depth": "explain",
+            "why": "Major multi-agent framework — interviews compare its conversation-centric model to LangGraph's graph-centric model.",
+            "anticipates": "perceptual-referent"
+          },
+          {
+            "concept": "CrewAI",
+            "depth": "explain",
+            "why": "Popular role-based framework — interviews ask about role/goal/backstory design, process vs. hierarchical processes, and when to choose it.",
+            "anticipates": "perceptual-referent"
+          },
+          {
+            "concept": "LangChain Agents (Legacy / AgentExecutor)",
+            "depth": "mention",
+            "why": "Historical context — interviews may ask why it was deprecated, what limitations led to LangGraph, or expect recognition in legacy codebases.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Semantic Kernel",
+            "depth": "explain",
+            "why": "Microsoft ecosystem standard — relevant for enterprise interviews; planners, plugins, and kernel memory are distinctive.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "AutoGPT / BabyAGI (Historical / Autonomous Agents)",
+            "depth": "mention",
+            "why": "Historical reference — interviews ask what they proved, why they failed in production, and what modern frameworks learned.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Agent Evaluation Methodologies",
+            "depth": "explain",
+            "why": "Growing interview topic — how to evaluate non-deterministic agents, offline vs. online eval, LLM-as-judge, trajectory evaluation.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Agent Benchmarks (AgentBench, WebShop, ALFWorld, τ-bench, GAIA, SWE-bench)",
+            "depth": "explain",
+            "why": "Expected literacy — senior interviews ask which benchmark tests what (web nav, coding, reasoning), and limitations of each.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Failure Modes (Hallucination, Tool Errors, Planning Failures, Loops, Cost/Latency)",
+            "depth": "explain",
+            "why": "Practical reliability — interviews probe debugging stories, loop detection, cost control, and mitigation strategies.",
+            "anticipates": "false-comprehension"
+          },
+          {
+            "concept": "Guardrails & Safety for Agents",
+            "depth": "explain",
+            "why": "Production requirement — input/output guards, tool confirmation, sandboxing, and policy enforcement are standard topics.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Model Context Protocol (MCP)",
+            "depth": "explain",
+            "why": "Rapidly adopted standard — interviews increasingly ask about MCP servers, resource vs. tool vs. prompt, and integration patterns.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Agent-to-Agent (A2A) Protocol",
+            "depth": "explain",
+            "why": "Emerging interoperability standard — Google-led; interviews test awareness of agent discovery, task negotiation, and cross-framework communication.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Function Calling Standards (OpenAI, Anthropic, Google)",
+            "depth": "explain",
+            "why": "Practical API knowledge — interviews expect familiarity with JSON schema differences, parallel calling, and structured output modes.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Agent Observability & Debugging",
+            "depth": "explain",
+            "why": "Operational competence — traces, spans, token accounting, and replay debugging are expected for senior roles.",
+            "anticipates": "perceptual-referent"
+          }
+        ],
+        "cut": []
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 6361,
+        "out": 5264
+      },
+      "created_at": "2026-09-14T12:12:03+00:00"
+    },
+    {
+      "id": "183950e67c2d45f99b0094ddceae9217",
+      "project_id": "15b697ac-670a-4e25-9502-29255efc2289",
+      "kind": "partition",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "6250604b084db7516e4220ef45bb634f",
+      "output": {
+        "modules": [
+          {
+            "title": "Foundations & Core Mental Models",
+            "covers": [
+              "Agent Definition & Core Properties",
+              "LLM as Reasoning Engine",
+              "Agent vs. Non-Agentic Systems",
+              "Chain-of-Thought Reasoning"
+            ],
+            "why_here": "These four concepts form the shared mental model every agentic AI interview assumes. They define what an agent is, why LLMs can drive one, how to distinguish agentic from non-agentic systems, and the foundational reasoning technique (CoT) that all patterns build on.",
+            "capability": "Explain what an agent is (autonomy, goal-directedness, environment interaction), why LLMs serve as reasoning engines and their limitations, distinguish agentic systems from chains/RAG/single-turn prompting, and describe chain-of-thought reasoning and its role in agentic behavior — using the precise terminology interviewers expect."
+          },
+          {
+            "title": "Core Agentic Patterns",
+            "covers": [
+              "ReAct Pattern",
+              "Tool Use & Function Calling",
+              "Planning & Task Decomposition",
+              "Tree-of-Thought / Graph-of-Thought",
+              "Reflection & Self-Critique",
+              "Memory Systems (Short-term, Long-term, Episodic, Semantic)",
+              "Retrieval-Augmented Generation for Agents",
+              "Human-in-the-Loop Patterns"
+            ],
+            "why_here": "These eight patterns constitute the complete single-agent repertoire. Each extends the foundation with a distinct capability (acting, planning, searching, correcting, remembering, retrieving knowledge, involving humans). Interviews test them comparatively — when to use which, how they compose, and their failure modes.",
+            "capability": "Compare and contrast the major single-agent patterns (ReAct, tool use, planning, ToT/GoT, reflection, memory, RAG-for-agents, human-in-the-loop), explain the prompt structure and control flow of each, describe when each pattern applies and how they compose (e.g., ReAct with memory, planning with reflection), and identify the characteristic failure modes interviewers probe."
+          },
+          {
+            "title": "Agent Architectures",
+            "covers": [
+              "Single-Agent Architectures",
+              "Multi-Agent Systems",
+              "Multi-Agent Collaboration Patterns (Debate, Hierarchy, Swarm, Sequential)"
+            ],
+            "why_here": "Architectures compose patterns into runnable systems. Single-agent architecture is the baseline; multi-agent systems and their collaboration patterns (debate, hierarchy, swarm, sequential) are the other major interview axis. These three concepts are always discussed together — coordination, communication, and topology.",
+            "capability": "Diagram and explain a single-agent architecture (loop, memory, tools, planner, executor, state), describe why and when to introduce multiple agents, compare the four collaboration patterns (debate, hierarchy, swarm, sequential) on latency, cost, quality, and complexity, and justify an architectural choice for a given problem scenario."
+          },
+          {
+            "title": "Frameworks & Implementation",
+            "covers": [
+              "LangGraph",
+              "AutoGen",
+              "CrewAI",
+              "LangChain Agents (Legacy / AgentExecutor)",
+              "Semantic Kernel",
+              "AutoGPT / BabyAGI (Historical / Autonomous Agents)"
+            ],
+            "why_here": "Frameworks map patterns and architectures to production code. LangGraph (graph-centric), AutoGen (conversation-centric), CrewAI (role-centric), and Semantic Kernel (planner/plugin-centric) represent four distinct programming models. Legacy LangChain and AutoGPT/BabyAGI provide the historical contrast interviews expect.",
+            "capability": "Compare the major agentic frameworks (LangGraph, AutoGen, CrewAI, Semantic Kernel) on programming model (state graph vs. conversation vs. role-based vs. planner/plugin), explain why LangGraph replaced AgentExecutor, describe what AutoGPT/BabyAGI demonstrated and why they failed in production, and articulate the criteria for choosing a framework in a given context."
+          },
+          {
+            "title": "Evaluation, Reliability & Emerging Standards",
+            "covers": [
+              "Agent Evaluation Methodologies",
+              "Agent Benchmarks (AgentBench, WebShop, ALFWorld, τ-bench, GAIA, SWE-bench)",
+              "Failure Modes (Hallucination, Tool Errors, Planning Failures, Loops, Cost/Latency)",
+              "Guardrails & Safety for Agents",
+              "Model Context Protocol (MCP)",
+              "Agent-to-Agent (A2A) Protocol",
+              "Function Calling Standards (OpenAI, Anthropic, Google)",
+              "Agent Observability & Debugging"
+            ],
+            "why_here": "This module covers the 'how do you know it works' and 'how do you run it in production' questions that distinguish senior candidates. Evaluation methodologies and benchmarks measure quality; failure modes, guardrails, and observability ensure reliability; MCP, A2A, and function calling standards enable interoperability. They share a concern: moving from prototype to production.",
+            "capability": "Describe agent evaluation methodologies (offline vs. online, LLM-as-judge, trajectory evaluation), identify which benchmark tests which capability (web navigation, coding, reasoning, tool use), enumerate common failure modes with their detection and mitigation strategies, explain guardrail patterns (input/output validation, tool confirmation, sandboxing), summarize MCP (servers, resources, tools, prompts), A2A (discovery, negotiation, transport), and function calling standard differences, and describe observability primitives (traces, spans, token accounting, replay debugging)."
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 6361,
+        "out": 5264
+      },
+      "created_at": "2026-09-14T12:12:03+00:00"
+    },
+    {
+      "id": "55fee454d7f449bb8a2f967e87da4eb7",
+      "project_id": "15b697ac-670a-4e25-9502-29255efc2289",
+      "kind": "scope",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "689ed187d1dd2e65180b951809765664",
+      "output": {
+        "covered": [
+          {
+            "concept": "Agent Definition & Core Properties",
+            "depth": "explain",
+            "why": "Every interview opens with 'what is an agent' — must define autonomy, goal-directedness, environment interaction, and contrast with LLMs.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "LLM as Reasoning Engine",
+            "depth": "explain",
+            "why": "Core mental model for why LLMs can plan, reflect, and use tools; interviews probe limitations (no native state, no tools) and how prompting unlocks agency.",
+            "anticipates": "abstraction-grounding"
+          },
+          {
+            "concept": "Agent vs. Non-Agentic Systems",
+            "depth": "explain",
+            "why": "Standard discriminator — must contrast agents with chains, RAG pipelines, and single-turn prompting on multiple dimensions.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Chain-of-Thought Reasoning",
+            "depth": "explain",
+            "why": "Foundational reasoning technique expected in any agent interview; basis for planning, reflection, and ToT/GoT.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "ReAct Pattern",
+            "depth": "work through",
+            "why": "Canonical pattern appearing in nearly every interview; must trace the thought-action-observation loop, prompt structure, and why it improves over zero-shot.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Tool Use & Function Calling",
+            "depth": "work through",
+            "why": "Universal requirement — interviews test schema design, parallel vs. sequential calls, error handling, and how tools extend LLM capabilities.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Planning & Task Decomposition",
+            "depth": "explain",
+            "why": "Key differentiator from simple tool use — interviews ask about hierarchical planning, replanning, and comparison to CoT.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Tree-of-Thought / Graph-of-Thought",
+            "depth": "explain",
+            "why": "Advanced planning variant — senior interviews ask when to use ToT vs. CoT, search strategies (BFS/DFS), and compute trade-offs.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Reflection & Self-Critique",
+            "depth": "explain",
+            "why": "Standard reliability pattern — interviews cover Reflexion, Self-Refine, and how reflection integrates with ReAct loops.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Memory Systems (Short-term, Long-term, Episodic, Semantic)",
+            "depth": "explain",
+            "why": "Frequent topic — must distinguish memory types, retrieval strategies (similarity, recency, importance), and context window management.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Retrieval-Augmented Generation for Agents",
+            "depth": "explain",
+            "why": "Practical integration — interviews ask how agents use RAG differently from static pipelines (active retrieval, tool-formulated queries, hybrid search).",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Human-in-the-Loop Patterns",
+            "depth": "explain",
+            "why": "Production pattern — approval gates, clarification asks, and interruptibility are common design questions.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Single-Agent Architectures",
+            "depth": "work through",
+            "why": "Baseline architecture — interviews expect you to describe/draw a single-agent loop with memory, tools, planner, executor, and state management.",
+            "anticipates": "perceptual-referent"
+          },
+          {
+            "concept": "Multi-Agent Systems",
+            "depth": "explain",
+            "why": "Major interview area — why use multiple agents, communication protocols, coordination challenges, and when not to use them.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Multi-Agent Collaboration Patterns (Debate, Hierarchy, Swarm, Sequential)",
+            "depth": "explain",
+            "why": "Specific patterns interviewed — must compare debate vs. hierarchy, explain supervisor/worker, and name trade-offs (latency, cost, quality).",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "LangGraph",
+            "depth": "explain",
+            "why": "Dominant production framework — interviews ask about state graphs, checkpointers, human-in-the-loop, and why it replaced AgentExecutor.",
+            "anticipates": "perceptual-referent"
+          },
+          {
+            "concept": "AutoGen",
+            "depth": "explain",
+            "why": "Major multi-agent framework — interviews compare its conversation-centric model to LangGraph's graph-centric model.",
+            "anticipates": "perceptual-referent"
+          },
+          {
+            "concept": "CrewAI",
+            "depth": "explain",
+            "why": "Popular role-based framework — interviews ask about role/goal/backstory design, process vs. hierarchical processes, and when to choose it.",
+            "anticipates": "perceptual-referent"
+          },
+          {
+            "concept": "LangChain Agents (Legacy / AgentExecutor)",
+            "depth": "mention",
+            "why": "Historical context — interviews may ask why it was deprecated, what limitations led to LangGraph, or expect recognition in legacy codebases.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Semantic Kernel",
+            "depth": "explain",
+            "why": "Microsoft ecosystem standard — relevant for enterprise interviews; planners, plugins, and kernel memory are distinctive.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "AutoGPT / BabyAGI (Historical / Autonomous Agents)",
+            "depth": "mention",
+            "why": "Historical reference — interviews ask what they proved, why they failed in production, and what modern frameworks learned.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Agent Evaluation Methodologies",
+            "depth": "work through",
+            "why": "Interviewers consistently ask how you'd know an agent is working in practice — must cover offline eval (datasets, LLM-as-judge), online eval (production monitoring, A/B tests, user feedback), trajectory evaluation, and cost/latency trade-offs. This is a high-signal standalone question area.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Agent Benchmarks (AgentBench, WebShop, ALFWorld, τ-bench, GAIA, SWE-bench)",
+            "depth": "explain",
+            "why": "Expected literacy — senior interviews ask which benchmark tests what (web nav, coding, reasoning), and limitations of each.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Failure Modes (Hallucination, Tool Errors, Planning Failures, Loops, Cost/Latency)",
+            "depth": "explain",
+            "why": "Practical reliability — interviews probe debugging stories, loop detection, cost control, and mitigation strategies.",
+            "anticipates": "false-comprehension"
+          },
+          {
+            "concept": "Guardrails & Safety for Agents",
+            "depth": "explain",
+            "why": "Production requirement — input/output guards, tool confirmation, sandboxing, and policy enforcement are standard topics.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Model Context Protocol (MCP)",
+            "depth": "explain",
+            "why": "Rapidly adopted standard — interviews increasingly ask about MCP servers, resource vs. tool vs. prompt, and integration patterns.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Agent-to-Agent (A2A) Protocol",
+            "depth": "explain",
+            "why": "Emerging interoperability standard — Google-led; interviews test awareness of agent discovery, task negotiation, and cross-framework communication.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Function Calling Standards (OpenAI, Anthropic, Google)",
+            "depth": "explain",
+            "why": "Practical API knowledge — interviews expect familiarity with JSON schema differences, parallel calling, and structured output modes.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Agent Observability & Debugging",
+            "depth": "explain",
+            "why": "Operational competence — traces, spans, token accounting, and replay debugging are expected for senior roles.",
+            "anticipates": "perceptual-referent"
+          }
+        ],
+        "cut": []
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_revise_v2",
+      "cost": {
+        "in": 12537,
+        "out": 4743
+      },
+      "created_at": "2026-09-14T12:14:26+00:00"
+    },
+    {
+      "id": "3c9500887f03432faa45a3f6924e8b3d",
+      "project_id": "15b697ac-670a-4e25-9502-29255efc2289",
+      "kind": "relevance",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "e2d9b3f7f56f8e5089fc1b1e0993a2c9",
+      "output": {
+        "judgements": [
+          {
+            "concept": "Agent Definition & Core Properties",
+            "in_play": true,
+            "why": "Foundational — every interview starts with 'what is an agent' and expects autonomy, goal-directedness, environment interaction distinguished from simple LLM calls."
+          },
+          {
+            "concept": "LLM as Reasoning Engine",
+            "in_play": true,
+            "why": "Core mental model — interviews probe why LLMs can reason, limitations (no native state, no tools), and how prompting unlocks agentic behavior."
+          },
+          {
+            "concept": "Agent vs. Non-Agentic Systems",
+            "in_play": true,
+            "why": "Standard interview discriminator — candidates must contrast agents with chains, RAG pipelines, and single-turn prompting."
+          },
+          {
+            "concept": "ReAct Pattern",
+            "in_play": true,
+            "why": "Canonical pattern — appears in nearly every agentic AI interview; must explain loop, prompt structure, and why it improves over zero-shot."
+          },
+          {
+            "concept": "Tool Use & Function Calling",
+            "in_play": true,
+            "why": "Universal requirement — interviews test schema design, parallel vs. sequential calls, error handling, and how tools extend LLM capabilities."
+          },
+          {
+            "concept": "Planning & Task Decomposition",
+            "in_play": true,
+            "why": "Key differentiator from simple tool use — interviews ask about hierarchical planning, replanning, and comparison to CoT."
+          },
+          {
+            "concept": "Chain-of-Thought Reasoning",
+            "in_play": true,
+            "why": "Foundational reasoning technique — expected knowledge for any agent interview; basis for planning and reflection."
+          },
+          {
+            "concept": "Tree-of-Thought / Graph-of-Thought",
+            "in_play": true,
+            "why": "Advanced planning variant — senior interviews ask when to use ToT vs. CoT, search strategies, and compute trade-offs."
+          },
+          {
+            "concept": "Reflection & Self-Critique",
+            "in_play": true,
+            "why": "Standard pattern for improving reliability — interviews cover Reflexion, Self-Refine, and how reflection integrates with ReAct."
+          },
+          {
+            "concept": "Memory Systems (Short-term, Long-term, Episodic, Semantic)",
+            "in_play": true,
+            "why": "Frequent interview topic — must distinguish memory types, retrieval strategies, and context window management."
+          },
+          {
+            "concept": "Retrieval-Augmented Generation for Agents",
+            "in_play": true,
+            "why": "Practical integration — interviews ask how agents use RAG differently from static pipelines, and hybrid search + tool patterns."
+          },
+          {
+            "concept": "Single-Agent Architectures",
+            "in_play": true,
+            "why": "Baseline architecture — interviews expect you to draw/describe a single-agent loop with memory, tools, planner, executor."
+          },
+          {
+            "concept": "Multi-Agent Systems",
+            "in_play": true,
+            "why": "Major interview area — why use multiple agents, communication protocols, coordination challenges, when not to use them."
+          },
+          {
+            "concept": "Multi-Agent Collaboration Patterns (Debate, Hierarchy, Swarm, Sequential)",
+            "in_play": true,
+            "why": "Specific patterns interviewed — candidate must compare debate vs. hierarchy, explain supervisor/worker, and name trade-offs."
+          },
+          {
+            "concept": "LangGraph",
+            "in_play": true,
+            "why": "Dominant production framework — interviews ask about state graphs, checkpointers, human-in-the-loop, and why it replaced AgentExecutor."
+          },
+          {
+            "concept": "AutoGen",
+            "in_play": true,
+            "why": "Major multi-agent framework — interviews compare its conversation-centric model to LangGraph's graph-centric model."
+          },
+          {
+            "concept": "CrewAI",
+            "in_play": true,
+            "why": "Popular role-based framework — interviews ask about role/goal/backstory design, process vs. hierarchical processes, and when to choose it."
+          },
+          {
+            "concept": "LangChain Agents (Legacy / AgentExecutor)",
+            "in_play": true,
+            "why": "Historical context — interviews may ask why it was deprecated, what limitations led to LangGraph, or expect recognition in legacy codebases."
+          },
+          {
+            "concept": "Semantic Kernel",
+            "in_play": true,
+            "why": "Microsoft ecosystem standard — relevant for enterprise interviews; planners, plugins, and kernel memory are distinctive."
+          },
+          {
+            "concept": "AutoGPT / BabyAGI (Historical / Autonomous Agents)",
+            "in_play": true,
+            "why": "Historical reference point — interviews ask what they proved, why they failed in production, and what modern frameworks learned."
+          },
+          {
+            "concept": "Agent Evaluation Methodologies",
+            "in_play": true,
+            "why": "Critical interview topic — interviewers consistently ask how you evaluate non-deterministic agents in practice: offline vs. online eval, LLM-as-judge, trajectory evaluation, production monitoring, A/B testing, and user feedback loops. This is often a standalone question area."
+          },
+          {
+            "concept": "Agent Benchmarks (AgentBench, WebShop, ALFWorld, τ-bench, GAIA, SWE-bench)",
+            "in_play": true,
+            "why": "Expected literacy — senior interviews ask which benchmark tests what (web nav, coding, reasoning), and limitations of each."
+          },
+          {
+            "concept": "Failure Modes (Hallucination, Tool Errors, Planning Failures, Loops, Cost/Latency)",
+            "in_play": true,
+            "why": "Practical reliability — interviews probe debugging stories, loop detection, cost control, and mitigation strategies."
+          },
+          {
+            "concept": "Guardrails & Safety for Agents",
+            "in_play": true,
+            "why": "Production requirement — input/output guards, tool confirmation, sandboxing, and policy enforcement are standard topics."
+          },
+          {
+            "concept": "Model Context Protocol (MCP)",
+            "in_play": true,
+            "why": "Rapidly adopted standard — interviews increasingly ask about MCP servers, resource vs. tool vs. prompt, and integration patterns."
+          },
+          {
+            "concept": "Agent-to-Agent (A2A) Protocol",
+            "in_play": true,
+            "why": "Emerging interoperability standard — Google-led; interviews test awareness of agent discovery, task negotiation, and cross-framework communication."
+          },
+          {
+            "concept": "Function Calling Standards (OpenAI, Anthropic, Google)",
+            "in_play": true,
+            "why": "Practical API knowledge — interviews expect familiarity with JSON schema differences, parallel calling, and structured output modes."
+          },
+          {
+            "concept": "Human-in-the-Loop Patterns",
+            "in_play": true,
+            "why": "Production pattern — approval gates, clarification asks, and interruptibility are common design questions."
+          },
+          {
+            "concept": "Agent Observability & Debugging",
+            "in_play": true,
+            "why": "Operational competence — traces, spans, token accounting, and replay debugging are expected for senior roles."
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_revise_v2",
+      "cost": {
+        "in": 12537,
+        "out": 4743
+      },
+      "created_at": "2026-09-14T12:14:26+00:00"
+    },
+    {
+      "id": "6c70812e2a454c9fb4de9b6f1a2d7d5b",
+      "project_id": "15b697ac-670a-4e25-9502-29255efc2289",
+      "kind": "interpret_situation",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "e83a73fc1cf5ef4daa5f72977736d239",
+      "output": {
+        "subject": "agentic AI",
+        "job": "retrieve",
+        "entry_point": "no prior knowledge of agentic AI",
+        "purpose": "interview preparation",
+        "target_capability": "answer interview questions on agentic AI concepts, patterns, and architectures",
+        "capacity": null,
+        "stated": [
+          {
+            "text": "agentic ai",
+            "axis": "subject"
+          },
+          {
+            "text": "for interview",
+            "axis": "purpose"
+          },
+          {
+            "text": "from scratch",
+            "axis": "entry_point"
+          },
+          {
+            "text": "notes",
+            "axis": "artifact_type"
+          }
+        ],
+        "inferred": [
+          "depth_register: interview-appropriate depth covering foundations, key patterns (ReAct, tool use, planning, multi-agent), and common architectures",
+          "template: structured interview notes with concept definitions, diagrams descriptions, and comparison tables"
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "interpret_v1",
+      "cost": {
+        "in": 3154,
+        "out": 1273
+      },
+      "created_at": "2026-09-14T12:01:45+00:00"
+    },
+    {
+      "id": "55fee454d7f449bb8a2f967e87da4eb7",
+      "project_id": "15b697ac-670a-4e25-9502-29255efc2289",
+      "kind": "scope",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "689ed187d1dd2e65180b951809765664",
+      "output": {
+        "covered": [
+          {
+            "concept": "Agent Definition & Core Properties",
+            "depth": "explain",
+            "why": "Every interview opens with 'what is an agent' — must define autonomy, goal-directedness, environment interaction, and contrast with LLMs.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "LLM as Reasoning Engine",
+            "depth": "explain",
+            "why": "Core mental model for why LLMs can plan, reflect, and use tools; interviews probe limitations (no native state, no tools) and how prompting unlocks agency.",
+            "anticipates": "abstraction-grounding"
+          },
+          {
+            "concept": "Agent vs. Non-Agentic Systems",
+            "depth": "explain",
+            "why": "Standard discriminator — must contrast agents with chains, RAG pipelines, and single-turn prompting on multiple dimensions.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Chain-of-Thought Reasoning",
+            "depth": "explain",
+            "why": "Foundational reasoning technique expected in any agent interview; basis for planning, reflection, and ToT/GoT.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "ReAct Pattern",
+            "depth": "work through",
+            "why": "Canonical pattern appearing in nearly every interview; must trace the thought-action-observation loop, prompt structure, and why it improves over zero-shot.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Tool Use & Function Calling",
+            "depth": "work through",
+            "why": "Universal requirement — interviews test schema design, parallel vs. sequential calls, error handling, and how tools extend LLM capabilities.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Planning & Task Decomposition",
+            "depth": "explain",
+            "why": "Key differentiator from simple tool use — interviews ask about hierarchical planning, replanning, and comparison to CoT.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Tree-of-Thought / Graph-of-Thought",
+            "depth": "explain",
+            "why": "Advanced planning variant — senior interviews ask when to use ToT vs. CoT, search strategies (BFS/DFS), and compute trade-offs.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Reflection & Self-Critique",
+            "depth": "explain",
+            "why": "Standard reliability pattern — interviews cover Reflexion, Self-Refine, and how reflection integrates with ReAct loops.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Memory Systems (Short-term, Long-term, Episodic, Semantic)",
+            "depth": "explain",
+            "why": "Frequent topic — must distinguish memory types, retrieval strategies (similarity, recency, importance), and context window management.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Retrieval-Augmented Generation for Agents",
+            "depth": "explain",
+            "why": "Practical integration — interviews ask how agents use RAG differently from static pipelines (active retrieval, tool-formulated queries, hybrid search).",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Human-in-the-Loop Patterns",
+            "depth": "explain",
+            "why": "Production pattern — approval gates, clarification asks, and interruptibility are common design questions.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Single-Agent Architectures",
+            "depth": "work through",
+            "why": "Baseline architecture — interviews expect you to describe/draw a single-agent loop with memory, tools, planner, executor, and state management.",
+            "anticipates": "perceptual-referent"
+          },
+          {
+            "concept": "Multi-Agent Systems",
+            "depth": "explain",
+            "why": "Major interview area — why use multiple agents, communication protocols, coordination challenges, and when not to use them.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Multi-Agent Collaboration Patterns (Debate, Hierarchy, Swarm, Sequential)",
+            "depth": "explain",
+            "why": "Specific patterns interviewed — must compare debate vs. hierarchy, explain supervisor/worker, and name trade-offs (latency, cost, quality).",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "LangGraph",
+            "depth": "explain",
+            "why": "Dominant production framework — interviews ask about state graphs, checkpointers, human-in-the-loop, and why it replaced AgentExecutor.",
+            "anticipates": "perceptual-referent"
+          },
+          {
+            "concept": "AutoGen",
+            "depth": "explain",
+            "why": "Major multi-agent framework — interviews compare its conversation-centric model to LangGraph's graph-centric model.",
+            "anticipates": "perceptual-referent"
+          },
+          {
+            "concept": "CrewAI",
+            "depth": "explain",
+            "why": "Popular role-based framework — interviews ask about role/goal/backstory design, process vs. hierarchical processes, and when to choose it.",
+            "anticipates": "perceptual-referent"
+          },
+          {
+            "concept": "LangChain Agents (Legacy / AgentExecutor)",
+            "depth": "mention",
+            "why": "Historical context — interviews may ask why it was deprecated, what limitations led to LangGraph, or expect recognition in legacy codebases.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Semantic Kernel",
+            "depth": "explain",
+            "why": "Microsoft ecosystem standard — relevant for enterprise interviews; planners, plugins, and kernel memory are distinctive.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "AutoGPT / BabyAGI (Historical / Autonomous Agents)",
+            "depth": "mention",
+            "why": "Historical reference — interviews ask what they proved, why they failed in production, and what modern frameworks learned.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Agent Evaluation Methodologies",
+            "depth": "work through",
+            "why": "Interviewers consistently ask how you'd know an agent is working in practice — must cover offline eval (datasets, LLM-as-judge), online eval (production monitoring, A/B tests, user feedback), trajectory evaluation, and cost/latency trade-offs. This is a high-signal standalone question area.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Agent Benchmarks (AgentBench, WebShop, ALFWorld, τ-bench, GAIA, SWE-bench)",
+            "depth": "explain",
+            "why": "Expected literacy — senior interviews ask which benchmark tests what (web nav, coding, reasoning), and limitations of each.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Failure Modes (Hallucination, Tool Errors, Planning Failures, Loops, Cost/Latency)",
+            "depth": "explain",
+            "why": "Practical reliability — interviews probe debugging stories, loop detection, cost control, and mitigation strategies.",
+            "anticipates": "false-comprehension"
+          },
+          {
+            "concept": "Guardrails & Safety for Agents",
+            "depth": "explain",
+            "why": "Production requirement — input/output guards, tool confirmation, sandboxing, and policy enforcement are standard topics.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Model Context Protocol (MCP)",
+            "depth": "explain",
+            "why": "Rapidly adopted standard — interviews increasingly ask about MCP servers, resource vs. tool vs. prompt, and integration patterns.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Agent-to-Agent (A2A) Protocol",
+            "depth": "explain",
+            "why": "Emerging interoperability standard — Google-led; interviews test awareness of agent discovery, task negotiation, and cross-framework communication.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Function Calling Standards (OpenAI, Anthropic, Google)",
+            "depth": "explain",
+            "why": "Practical API knowledge — interviews expect familiarity with JSON schema differences, parallel calling, and structured output modes.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Agent Observability & Debugging",
+            "depth": "explain",
+            "why": "Operational competence — traces, spans, token accounting, and replay debugging are expected for senior roles.",
+            "anticipates": "perceptual-referent"
+          }
+        ],
+        "cut": []
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_revise_v2",
+      "cost": {
+        "in": 12537,
+        "out": 4743
+      },
+      "created_at": "2026-09-14T12:14:26+00:00"
+    },
+    {
+      "id": "936e226abf604628907e70b021f7fbd8",
+      "project_id": "15b697ac-670a-4e25-9502-29255efc2289",
+      "kind": "consequence",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "bb90f250c13f262dd38f30debc1d93a4",
+      "output": {
+        "exclusions": []
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 6361,
+        "out": 5264
+      },
+      "created_at": "2026-09-14T12:12:03+00:00"
+    },
+    {
+      "id": "3f7d14ee28d54b6cae6ca0dd25a50d86",
+      "project_id": "15b697ac-670a-4e25-9502-29255efc2289",
+      "kind": "traversal",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "d4ddcf7eeea05cd6d4d0ea28789e0767",
+      "output": {
+        "sequence": [
+          "Foundations & Core Mental Models",
+          "Core Agentic Patterns",
+          "Agent Architectures",
+          "Frameworks & Implementation",
+          "Evaluation, Reliability & Emerging Standards"
+        ],
+        "why": "Foundations establish the mental model every interview assumes. Patterns build the single-agent repertoire interviews probe. Architectures compose patterns into systems. Frameworks map patterns to production tooling. Evaluation and standards cover the reliability and interoperability questions senior interviews increasingly ask."
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 6361,
+        "out": 5264
+      },
+      "created_at": "2026-09-14T12:12:03+00:00"
+    },
+    {
+      "id": "183950e67c2d45f99b0094ddceae9217",
+      "project_id": "15b697ac-670a-4e25-9502-29255efc2289",
+      "kind": "partition",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "6250604b084db7516e4220ef45bb634f",
+      "output": {
+        "modules": [
+          {
+            "title": "Foundations & Core Mental Models",
+            "covers": [
+              "Agent Definition & Core Properties",
+              "LLM as Reasoning Engine",
+              "Agent vs. Non-Agentic Systems",
+              "Chain-of-Thought Reasoning"
+            ],
+            "why_here": "These four concepts form the shared mental model every agentic AI interview assumes. They define what an agent is, why LLMs can drive one, how to distinguish agentic from non-agentic systems, and the foundational reasoning technique (CoT) that all patterns build on.",
+            "capability": "Explain what an agent is (autonomy, goal-directedness, environment interaction), why LLMs serve as reasoning engines and their limitations, distinguish agentic systems from chains/RAG/single-turn prompting, and describe chain-of-thought reasoning and its role in agentic behavior — using the precise terminology interviewers expect."
+          },
+          {
+            "title": "Core Agentic Patterns",
+            "covers": [
+              "ReAct Pattern",
+              "Tool Use & Function Calling",
+              "Planning & Task Decomposition",
+              "Tree-of-Thought / Graph-of-Thought",
+              "Reflection & Self-Critique",
+              "Memory Systems (Short-term, Long-term, Episodic, Semantic)",
+              "Retrieval-Augmented Generation for Agents",
+              "Human-in-the-Loop Patterns"
+            ],
+            "why_here": "These eight patterns constitute the complete single-agent repertoire. Each extends the foundation with a distinct capability (acting, planning, searching, correcting, remembering, retrieving knowledge, involving humans). Interviews test them comparatively — when to use which, how they compose, and their failure modes.",
+            "capability": "Compare and contrast the major single-agent patterns (ReAct, tool use, planning, ToT/GoT, reflection, memory, RAG-for-agents, human-in-the-loop), explain the prompt structure and control flow of each, describe when each pattern applies and how they compose (e.g., ReAct with memory, planning with reflection), and identify the characteristic failure modes interviewers probe."
+          },
+          {
+            "title": "Agent Architectures",
+            "covers": [
+              "Single-Agent Architectures",
+              "Multi-Agent Systems",
+              "Multi-Agent Collaboration Patterns (Debate, Hierarchy, Swarm, Sequential)"
+            ],
+            "why_here": "Architectures compose patterns into runnable systems. Single-agent architecture is the baseline; multi-agent systems and their collaboration patterns (debate, hierarchy, swarm, sequential) are the other major interview axis. These three concepts are always discussed together — coordination, communication, and topology.",
+            "capability": "Diagram and explain a single-agent architecture (loop, memory, tools, planner, executor, state), describe why and when to introduce multiple agents, compare the four collaboration patterns (debate, hierarchy, swarm, sequential) on latency, cost, quality, and complexity, and justify an architectural choice for a given problem scenario."
+          },
+          {
+            "title": "Frameworks & Implementation",
+            "covers": [
+              "LangGraph",
+              "AutoGen",
+              "CrewAI",
+              "LangChain Agents (Legacy / AgentExecutor)",
+              "Semantic Kernel",
+              "AutoGPT / BabyAGI (Historical / Autonomous Agents)"
+            ],
+            "why_here": "Frameworks map patterns and architectures to production code. LangGraph (graph-centric), AutoGen (conversation-centric), CrewAI (role-centric), and Semantic Kernel (planner/plugin-centric) represent four distinct programming models. Legacy LangChain and AutoGPT/BabyAGI provide the historical contrast interviews expect.",
+            "capability": "Compare the major agentic frameworks (LangGraph, AutoGen, CrewAI, Semantic Kernel) on programming model (state graph vs. conversation vs. role-based vs. planner/plugin), explain why LangGraph replaced AgentExecutor, describe what AutoGPT/BabyAGI demonstrated and why they failed in production, and articulate the criteria for choosing a framework in a given context."
+          },
+          {
+            "title": "Evaluation, Reliability & Emerging Standards",
+            "covers": [
+              "Agent Evaluation Methodologies",
+              "Agent Benchmarks (AgentBench, WebShop, ALFWorld, τ-bench, GAIA, SWE-bench)",
+              "Failure Modes (Hallucination, Tool Errors, Planning Failures, Loops, Cost/Latency)",
+              "Guardrails & Safety for Agents",
+              "Model Context Protocol (MCP)",
+              "Agent-to-Agent (A2A) Protocol",
+              "Function Calling Standards (OpenAI, Anthropic, Google)",
+              "Agent Observability & Debugging"
+            ],
+            "why_here": "This module covers the 'how do you know it works' and 'how do you run it in production' questions that distinguish senior candidates. Evaluation methodologies and benchmarks measure quality; failure modes, guardrails, and observability ensure reliability; MCP, A2A, and function calling standards enable interoperability. They share a concern: moving from prototype to production.",
+            "capability": "Describe agent evaluation methodologies (offline vs. online, LLM-as-judge, trajectory evaluation), identify which benchmark tests which capability (web navigation, coding, reasoning, tool use), enumerate common failure modes with their detection and mitigation strategies, explain guardrail patterns (input/output validation, tool confirmation, sandboxing), summarize MCP (servers, resources, tools, prompts), A2A (discovery, negotiation, transport), and function calling standard differences, and describe observability primitives (traces, spans, token accounting, replay debugging)."
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 6361,
+        "out": 5264
+      },
+      "created_at": "2026-09-14T12:12:03+00:00"
+    },
+    {
+      "id": "0a3b11b8e60e4b548796ed4548b558fe",
+      "project_id": "15b697ac-670a-4e25-9502-29255efc2289",
+      "kind": "derive_structure",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "bcacb89d6855ff4d836af1916c7610b8",
+      "output": {
+        "concepts": [
+          {
+            "name": "Agent Definition & Core Properties",
+            "built_from": [],
+            "family": "foundation"
+          },
+          {
+            "name": "LLM as Reasoning Engine",
+            "built_from": [
+              "Agent Definition & Core Properties"
+            ],
+            "family": "foundation"
+          },
+          {
+            "name": "Agent vs. Non-Agentic Systems",
+            "built_from": [
+              "Agent Definition & Core Properties"
+            ],
+            "family": "foundation"
+          },
+          {
+            "name": "ReAct Pattern",
+            "built_from": [
+              "LLM as Reasoning Engine"
+            ],
+            "family": "core pattern"
+          },
+          {
+            "name": "Tool Use & Function Calling",
+            "built_from": [
+              "LLM as Reasoning Engine"
+            ],
+            "family": "core pattern"
+          },
+          {
+            "name": "Planning & Task Decomposition",
+            "built_from": [
+              "LLM as Reasoning Engine"
+            ],
+            "family": "core pattern"
+          },
+          {
+            "name": "Chain-of-Thought Reasoning",
+            "built_from": [
+              "Planning & Task Decomposition"
+            ],
+            "family": "core pattern"
+          },
+          {
+            "name": "Tree-of-Thought / Graph-of-Thought",
+            "built_from": [
+              "Planning & Task Decomposition"
+            ],
+            "family": "core pattern"
+          },
+          {
+            "name": "Reflection & Self-Critique",
+            "built_from": [
+              "LLM as Reasoning Engine"
+            ],
+            "family": "core pattern"
+          },
+          {
+            "name": "Memory Systems (Short-term, Long-term, Episodic, Semantic)",
+            "built_from": [
+              "Agent Definition & Core Properties"
+            ],
+            "family": "core pattern"
+          },
+          {
+            "name": "Retrieval-Augmented Generation for Agents",
+            "built_from": [
+              "Memory Systems (Short-term, Long-term, Episodic, Semantic)",
+              "Tool Use & Function Calling"
+            ],
+            "family": "core pattern"
+          },
+          {
+            "name": "Single-Agent Architectures",
+            "built_from": [
+              "ReAct Pattern",
+              "Tool Use & Function Calling",
+              "Planning & Task Decomposition",
+              "Memory Systems (Short-term, Long-term, Episodic, Semantic)"
+            ],
+            "family": "architecture"
+          },
+          {
+            "name": "Multi-Agent Systems",
+            "built_from": [
+              "Single-Agent Architectures"
+            ],
+            "family": "architecture"
+          },
+          {
+            "name": "Multi-Agent Collaboration Patterns (Debate, Hierarchy, Swarm, Sequential)",
+            "built_from": [
+              "Multi-Agent Systems"
+            ],
+            "family": "architecture"
+          },
+          {
+            "name": "LangGraph",
+            "built_from": [
+              "Single-Agent Architectures",
+              "Multi-Agent Systems"
+            ],
+            "family": "framework"
+          },
+          {
+            "name": "AutoGen",
+            "built_from": [
+              "Multi-Agent Systems"
+            ],
+            "family": "framework"
+          },
+          {
+            "name": "CrewAI",
+            "built_from": [
+              "Multi-Agent Systems"
+            ],
+            "family": "framework"
+          },
+          {
+            "name": "LangChain Agents (Legacy / AgentExecutor)",
+            "built_from": [
+              "Single-Agent Architectures"
+            ],
+            "family": "framework"
+          },
+          {
+            "name": "Semantic Kernel",
+            "built_from": [
+              "Single-Agent Architectures",
+              "Multi-Agent Systems"
+            ],
+            "family": "framework"
+          },
+          {
+            "name": "AutoGPT / BabyAGI (Historical / Autonomous Agents)",
+            "built_from": [
+              "Single-Agent Architectures"
+            ],
+            "family": "framework"
+          },
+          {
+            "name": "Agent Evaluation Methodologies",
+            "built_from": [
+              "Agent Definition & Core Properties"
+            ],
+            "family": "evaluation"
+          },
+          {
+            "name": "Agent Benchmarks (AgentBench, WebShop, ALFWorld, τ-bench, GAIA, SWE-bench)",
+            "built_from": [
+              "Agent Evaluation Methodologies"
+            ],
+            "family": "evaluation"
+          },
+          {
+            "name": "Failure Modes (Hallucination, Tool Errors, Planning Failures, Loops, Cost/Latency)",
+            "built_from": [
+              "ReAct Pattern",
+              "Tool Use & Function Calling",
+              "Planning & Task Decomposition"
+            ],
+            "family": "failure mode"
+          },
+          {
+            "name": "Guardrails & Safety for Agents",
+            "built_from": [
+              "Failure Modes (Hallucination, Tool Errors, Planning Failures, Loops, Cost/Latency)"
+            ],
+            "family": "failure mode"
+          },
+          {
+            "name": "Model Context Protocol (MCP)",
+            "built_from": [
+              "Tool Use & Function Calling"
+            ],
+            "family": "emerging standard"
+          },
+          {
+            "name": "Agent-to-Agent (A2A) Protocol",
+            "built_from": [
+              "Multi-Agent Systems"
+            ],
+            "family": "emerging standard"
+          },
+          {
+            "name": "Function Calling Standards (OpenAI, Anthropic, Google)",
+            "built_from": [
+              "Tool Use & Function Calling"
+            ],
+            "family": "emerging standard"
+          },
+          {
+            "name": "Human-in-the-Loop Patterns",
+            "built_from": [
+              "Single-Agent Architectures",
+              "Multi-Agent Systems"
+            ],
+            "family": "core pattern"
+          },
+          {
+            "name": "Agent Observability & Debugging",
+            "built_from": [
+              "Single-Agent Architectures",
+              "Multi-Agent Systems"
+            ],
+            "family": "tooling"
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "derive_v1",
+      "cost": {
+        "in": 1477,
+        "out": 3110
+      },
+      "created_at": "2026-09-14T12:05:32+00:00"
+    },
+    {
+      "id": "3c9500887f03432faa45a3f6924e8b3d",
+      "project_id": "15b697ac-670a-4e25-9502-29255efc2289",
+      "kind": "relevance",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "e2d9b3f7f56f8e5089fc1b1e0993a2c9",
+      "output": {
+        "judgements": [
+          {
+            "concept": "Agent Definition & Core Properties",
+            "in_play": true,
+            "why": "Foundational — every interview starts with 'what is an agent' and expects autonomy, goal-directedness, environment interaction distinguished from simple LLM calls."
+          },
+          {
+            "concept": "LLM as Reasoning Engine",
+            "in_play": true,
+            "why": "Core mental model — interviews probe why LLMs can reason, limitations (no native state, no tools), and how prompting unlocks agentic behavior."
+          },
+          {
+            "concept": "Agent vs. Non-Agentic Systems",
+            "in_play": true,
+            "why": "Standard interview discriminator — candidates must contrast agents with chains, RAG pipelines, and single-turn prompting."
+          },
+          {
+            "concept": "ReAct Pattern",
+            "in_play": true,
+            "why": "Canonical pattern — appears in nearly every agentic AI interview; must explain loop, prompt structure, and why it improves over zero-shot."
+          },
+          {
+            "concept": "Tool Use & Function Calling",
+            "in_play": true,
+            "why": "Universal requirement — interviews test schema design, parallel vs. sequential calls, error handling, and how tools extend LLM capabilities."
+          },
+          {
+            "concept": "Planning & Task Decomposition",
+            "in_play": true,
+            "why": "Key differentiator from simple tool use — interviews ask about hierarchical planning, replanning, and comparison to CoT."
+          },
+          {
+            "concept": "Chain-of-Thought Reasoning",
+            "in_play": true,
+            "why": "Foundational reasoning technique — expected knowledge for any agent interview; basis for planning and reflection."
+          },
+          {
+            "concept": "Tree-of-Thought / Graph-of-Thought",
+            "in_play": true,
+            "why": "Advanced planning variant — senior interviews ask when to use ToT vs. CoT, search strategies, and compute trade-offs."
+          },
+          {
+            "concept": "Reflection & Self-Critique",
+            "in_play": true,
+            "why": "Standard pattern for improving reliability — interviews cover Reflexion, Self-Refine, and how reflection integrates with ReAct."
+          },
+          {
+            "concept": "Memory Systems (Short-term, Long-term, Episodic, Semantic)",
+            "in_play": true,
+            "why": "Frequent interview topic — must distinguish memory types, retrieval strategies, and context window management."
+          },
+          {
+            "concept": "Retrieval-Augmented Generation for Agents",
+            "in_play": true,
+            "why": "Practical integration — interviews ask how agents use RAG differently from static pipelines, and hybrid search + tool patterns."
+          },
+          {
+            "concept": "Single-Agent Architectures",
+            "in_play": true,
+            "why": "Baseline architecture — interviews expect you to draw/describe a single-agent loop with memory, tools, planner, executor."
+          },
+          {
+            "concept": "Multi-Agent Systems",
+            "in_play": true,
+            "why": "Major interview area — why use multiple agents, communication protocols, coordination challenges, when not to use them."
+          },
+          {
+            "concept": "Multi-Agent Collaboration Patterns (Debate, Hierarchy, Swarm, Sequential)",
+            "in_play": true,
+            "why": "Specific patterns interviewed — candidate must compare debate vs. hierarchy, explain supervisor/worker, and name trade-offs."
+          },
+          {
+            "concept": "LangGraph",
+            "in_play": true,
+            "why": "Dominant production framework — interviews ask about state graphs, checkpointers, human-in-the-loop, and why it replaced AgentExecutor."
+          },
+          {
+            "concept": "AutoGen",
+            "in_play": true,
+            "why": "Major multi-agent framework — interviews compare its conversation-centric model to LangGraph's graph-centric model."
+          },
+          {
+            "concept": "CrewAI",
+            "in_play": true,
+            "why": "Popular role-based framework — interviews ask about role/goal/backstory design, process vs. hierarchical processes, and when to choose it."
+          },
+          {
+            "concept": "LangChain Agents (Legacy / AgentExecutor)",
+            "in_play": true,
+            "why": "Historical context — interviews may ask why it was deprecated, what limitations led to LangGraph, or expect recognition in legacy codebases."
+          },
+          {
+            "concept": "Semantic Kernel",
+            "in_play": true,
+            "why": "Microsoft ecosystem standard — relevant for enterprise interviews; planners, plugins, and kernel memory are distinctive."
+          },
+          {
+            "concept": "AutoGPT / BabyAGI (Historical / Autonomous Agents)",
+            "in_play": true,
+            "why": "Historical reference point — interviews ask what they proved, why they failed in production, and what modern frameworks learned."
+          },
+          {
+            "concept": "Agent Evaluation Methodologies",
+            "in_play": true,
+            "why": "Critical interview topic — interviewers consistently ask how you evaluate non-deterministic agents in practice: offline vs. online eval, LLM-as-judge, trajectory evaluation, production monitoring, A/B testing, and user feedback loops. This is often a standalone question area."
+          },
+          {
+            "concept": "Agent Benchmarks (AgentBench, WebShop, ALFWorld, τ-bench, GAIA, SWE-bench)",
+            "in_play": true,
+            "why": "Expected literacy — senior interviews ask which benchmark tests what (web nav, coding, reasoning), and limitations of each."
+          },
+          {
+            "concept": "Failure Modes (Hallucination, Tool Errors, Planning Failures, Loops, Cost/Latency)",
+            "in_play": true,
+            "why": "Practical reliability — interviews probe debugging stories, loop detection, cost control, and mitigation strategies."
+          },
+          {
+            "concept": "Guardrails & Safety for Agents",
+            "in_play": true,
+            "why": "Production requirement — input/output guards, tool confirmation, sandboxing, and policy enforcement are standard topics."
+          },
+          {
+            "concept": "Model Context Protocol (MCP)",
+            "in_play": true,
+            "why": "Rapidly adopted standard — interviews increasingly ask about MCP servers, resource vs. tool vs. prompt, and integration patterns."
+          },
+          {
+            "concept": "Agent-to-Agent (A2A) Protocol",
+            "in_play": true,
+            "why": "Emerging interoperability standard — Google-led; interviews test awareness of agent discovery, task negotiation, and cross-framework communication."
+          },
+          {
+            "concept": "Function Calling Standards (OpenAI, Anthropic, Google)",
+            "in_play": true,
+            "why": "Practical API knowledge — interviews expect familiarity with JSON schema differences, parallel calling, and structured output modes."
+          },
+          {
+            "concept": "Human-in-the-Loop Patterns",
+            "in_play": true,
+            "why": "Production pattern — approval gates, clarification asks, and interruptibility are common design questions."
+          },
+          {
+            "concept": "Agent Observability & Debugging",
+            "in_play": true,
+            "why": "Operational competence — traces, spans, token accounting, and replay debugging are expected for senior roles."
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_revise_v2",
+      "cost": {
+        "in": 12537,
+        "out": 4743
+      },
+      "created_at": "2026-09-14T12:14:26+00:00"
+    }
+  ],
+  "commitment": [
+    {
+      "id": "8b0518395c874ef8a3a107dc45c5e61b",
+      "project_id": "15b697ac-670a-4e25-9502-29255efc2289",
+      "kind": "plan",
+      "snapshot": {
+        "interpret_situation": {
+          "subject": "agentic AI",
+          "job": "retrieve",
+          "entry_point": "no prior knowledge of agentic AI",
+          "purpose": "interview preparation",
+          "target_capability": "answer interview questions on agentic AI concepts, patterns, and architectures",
+          "capacity": null,
+          "stated": [
+            {
+              "text": "agentic ai",
+              "axis": "subject"
+            },
+            {
+              "text": "for interview",
+              "axis": "purpose"
+            },
+            {
+              "text": "from scratch",
+              "axis": "entry_point"
+            },
+            {
+              "text": "notes",
+              "axis": "artifact_type"
+            }
+          ],
+          "inferred": [
+            "depth_register: interview-appropriate depth covering foundations, key patterns (ReAct, tool use, planning, multi-agent), and common architectures",
+            "template: structured interview notes with concept definitions, diagrams descriptions, and comparison tables"
+          ]
+        },
+        "scope": {
+          "covered": [
+            {
+              "concept": "Agent Definition & Core Properties",
+              "depth": "explain",
+              "why": "Every interview opens with 'what is an agent' — must define autonomy, goal-directedness, environment interaction, and contrast with LLMs.",
+              "anticipates": "none"
+            },
+            {
+              "concept": "LLM as Reasoning Engine",
+              "depth": "explain",
+              "why": "Core mental model for why LLMs can plan, reflect, and use tools; interviews probe limitations (no native state, no tools) and how prompting unlocks agency.",
+              "anticipates": "abstraction-grounding"
+            },
+            {
+              "concept": "Agent vs. Non-Agentic Systems",
+              "depth": "explain",
+              "why": "Standard discriminator — must contrast agents with chains, RAG pipelines, and single-turn prompting on multiple dimensions.",
+              "anticipates": "cross-reference"
+            },
+            {
+              "concept": "Chain-of-Thought Reasoning",
+              "depth": "explain",
+              "why": "Foundational reasoning technique expected in any agent interview; basis for planning, reflection, and ToT/GoT.",
+              "anticipates": "none"
+            },
+            {
+              "concept": "ReAct Pattern",
+              "depth": "work through",
+              "why": "Canonical pattern appearing in nearly every interview; must trace the thought-action-observation loop, prompt structure, and why it improves over zero-shot.",
+              "anticipates": "procedure-execution"
+            },
+            {
+              "concept": "Tool Use & Function Calling",
+              "depth": "work through",
+              "why": "Universal requirement — interviews test schema design, parallel vs. sequential calls, error handling, and how tools extend LLM capabilities.",
+              "anticipates": "procedure-execution"
+            },
+            {
+              "concept": "Planning & Task Decomposition",
+              "depth": "explain",
+              "why": "Key differentiator from simple tool use — interviews ask about hierarchical planning, replanning, and comparison to CoT.",
+              "anticipates": "topology"
+            },
+            {
+              "concept": "Tree-of-Thought / Graph-of-Thought",
+              "depth": "explain",
+              "why": "Advanced planning variant — senior interviews ask when to use ToT vs. CoT, search strategies (BFS/DFS), and compute trade-offs.",
+              "anticipates": "topology"
+            },
+            {
+              "concept": "Reflection & Self-Critique",
+              "depth": "explain",
+              "why": "Standard reliability pattern — interviews cover Reflexion, Self-Refine, and how reflection integrates with ReAct loops.",
+              "anticipates": "procedure-execution"
+            },
+            {
+              "concept": "Memory Systems (Short-term, Long-term, Episodic, Semantic)",
+              "depth": "explain",
+              "why": "Frequent topic — must distinguish memory types, retrieval strategies (similarity, recency, importance), and context window management.",
+              "anticipates": "cross-reference"
+            },
+            {
+              "concept": "Retrieval-Augmented Generation for Agents",
+              "depth": "explain",
+              "why": "Practical integration — interviews ask how agents use RAG differently from static pipelines (active retrieval, tool-formulated queries, hybrid search).",
+              "anticipates": "topology"
+            },
+            {
+              "concept": "Human-in-the-Loop Patterns",
+              "depth": "explain",
+              "why": "Production pattern — approval gates, clarification asks, and interruptibility are common design questions.",
+              "anticipates": "topology"
+            },
+            {
+              "concept": "Single-Agent Architectures",
+              "depth": "work through",
+              "why": "Baseline architecture — interviews expect you to describe/draw a single-agent loop with memory, tools, planner, executor, and state management.",
+              "anticipates": "perceptual-referent"
+            },
+            {
+              "concept": "Multi-Agent Systems",
+              "depth": "explain",
+              "why": "Major interview area — why use multiple agents, communication protocols, coordination challenges, and when not to use them.",
+              "anticipates": "topology"
+            },
+            {
+              "concept": "Multi-Agent Collaboration Patterns (Debate, Hierarchy, Swarm, Sequential)",
+              "depth": "explain",
+              "why": "Specific patterns interviewed — must compare debate vs. hierarchy, explain supervisor/worker, and name trade-offs (latency, cost, quality).",
+              "anticipates": "cross-reference"
+            },
+            {
+              "concept": "LangGraph",
+              "depth": "explain",
+              "why": "Dominant production framework — interviews ask about state graphs, checkpointers, human-in-the-loop, and why it replaced AgentExecutor.",
+              "anticipates": "perceptual-referent"
+            },
+            {
+              "concept": "AutoGen",
+              "depth": "explain",
+              "why": "Major multi-agent framework — interviews compare its conversation-centric model to LangGraph's graph-centric model.",
+              "anticipates": "perceptual-referent"
+            },
+            {
+              "concept": "CrewAI",
+              "depth": "explain",
+              "why": "Popular role-based framework — interviews ask about role/goal/backstory design, process vs. hierarchical processes, and when to choose it.",
+              "anticipates": "perceptual-referent"
+            },
+            {
+              "concept": "LangChain Agents (Legacy / AgentExecutor)",
+              "depth": "mention",
+              "why": "Historical context — interviews may ask why it was deprecated, what limitations led to LangGraph, or expect recognition in legacy codebases.",
+              "anticipates": "none"
+            },
+            {
+              "concept": "Semantic Kernel",
+              "depth": "explain",
+              "why": "Microsoft ecosystem standard — relevant for enterprise interviews; planners, plugins, and kernel memory are distinctive.",
+              "anticipates": "none"
+            },
+            {
+              "concept": "AutoGPT / BabyAGI (Historical / Autonomous Agents)",
+              "depth": "mention",
+              "why": "Historical reference — interviews ask what they proved, why they failed in production, and what modern frameworks learned.",
+              "anticipates": "none"
+            },
+            {
+              "concept": "Agent Evaluation Methodologies",
+              "depth": "work through",
+              "why": "Interviewers consistently ask how you'd know an agent is working in practice — must cover offline eval (datasets, LLM-as-judge), online eval (production monitoring, A/B tests, user feedback), trajectory evaluation, and cost/latency trade-offs. This is a high-signal standalone question area.",
+              "anticipates": "cross-reference"
+            },
+            {
+              "concept": "Agent Benchmarks (AgentBench, WebShop, ALFWorld, τ-bench, GAIA, SWE-bench)",
+              "depth": "explain",
+              "why": "Expected literacy — senior interviews ask which benchmark tests what (web nav, coding, reasoning), and limitations of each.",
+              "anticipates": "cross-reference"
+            },
+            {
+              "concept": "Failure Modes (Hallucination, Tool Errors, Planning Failures, Loops, Cost/Latency)",
+              "depth": "explain",
+              "why": "Practical reliability — interviews probe debugging stories, loop detection, cost control, and mitigation strategies.",
+              "anticipates": "false-comprehension"
+            },
+            {
+              "concept": "Guardrails & Safety for Agents",
+              "depth": "explain",
+              "why": "Production requirement — input/output guards, tool confirmation, sandboxing, and policy enforcement are standard topics.",
+              "anticipates": "procedure-execution"
+            },
+            {
+              "concept": "Model Context Protocol (MCP)",
+              "depth": "explain",
+              "why": "Rapidly adopted standard — interviews increasingly ask about MCP servers, resource vs. tool vs. prompt, and integration patterns.",
+              "anticipates": "topology"
+            },
+            {
+              "concept": "Agent-to-Agent (A2A) Protocol",
+              "depth": "explain",
+              "why": "Emerging interoperability standard — Google-led; interviews test awareness of agent discovery, task negotiation, and cross-framework communication.",
+              "anticipates": "topology"
+            },
+            {
+              "concept": "Function Calling Standards (OpenAI, Anthropic, Google)",
+              "depth": "explain",
+              "why": "Practical API knowledge — interviews expect familiarity with JSON schema differences, parallel calling, and structured output modes.",
+              "anticipates": "cross-reference"
+            },
+            {
+              "concept": "Agent Observability & Debugging",
+              "depth": "explain",
+              "why": "Operational competence — traces, spans, token accounting, and replay debugging are expected for senior roles.",
+              "anticipates": "perceptual-referent"
+            }
+          ],
+          "cut": []
+        },
+        "consequence": {
+          "exclusions": []
+        },
+        "traversal": {
+          "sequence": [
+            "Foundations & Core Mental Models",
+            "Core Agentic Patterns",
+            "Agent Architectures",
+            "Frameworks & Implementation",
+            "Evaluation, Reliability & Emerging Standards"
+          ],
+          "why": "Foundations establish the mental model every interview assumes. Patterns build the single-agent repertoire interviews probe. Architectures compose patterns into systems. Frameworks map patterns to production tooling. Evaluation and standards cover the reliability and interoperability questions senior interviews increasingly ask."
+        },
+        "partition": {
+          "modules": [
+            {
+              "title": "Foundations & Core Mental Models",
+              "covers": [
+                "Agent Definition & Core Properties",
+                "LLM as Reasoning Engine",
+                "Agent vs. Non-Agentic Systems",
+                "Chain-of-Thought Reasoning"
+              ],
+              "why_here": "These four concepts form the shared mental model every agentic AI interview assumes. They define what an agent is, why LLMs can drive one, how to distinguish agentic from non-agentic systems, and the foundational reasoning technique (CoT) that all patterns build on.",
+              "capability": "Explain what an agent is (autonomy, goal-directedness, environment interaction), why LLMs serve as reasoning engines and their limitations, distinguish agentic systems from chains/RAG/single-turn prompting, and describe chain-of-thought reasoning and its role in agentic behavior — using the precise terminology interviewers expect."
+            },
+            {
+              "title": "Core Agentic Patterns",
+              "covers": [
+                "ReAct Pattern",
+                "Tool Use & Function Calling",
+                "Planning & Task Decomposition",
+                "Tree-of-Thought / Graph-of-Thought",
+                "Reflection & Self-Critique",
+                "Memory Systems (Short-term, Long-term, Episodic, Semantic)",
+                "Retrieval-Augmented Generation for Agents",
+                "Human-in-the-Loop Patterns"
+              ],
+              "why_here": "These eight patterns constitute the complete single-agent repertoire. Each extends the foundation with a distinct capability (acting, planning, searching, correcting, remembering, retrieving knowledge, involving humans). Interviews test them comparatively — when to use which, how they compose, and their failure modes.",
+              "capability": "Compare and contrast the major single-agent patterns (ReAct, tool use, planning, ToT/GoT, reflection, memory, RAG-for-agents, human-in-the-loop), explain the prompt structure and control flow of each, describe when each pattern applies and how they compose (e.g., ReAct with memory, planning with reflection), and identify the characteristic failure modes interviewers probe."
+            },
+            {
+              "title": "Agent Architectures",
+              "covers": [
+                "Single-Agent Architectures",
+                "Multi-Agent Systems",
+                "Multi-Agent Collaboration Patterns (Debate, Hierarchy, Swarm, Sequential)"
+              ],
+              "why_here": "Architectures compose patterns into runnable systems. Single-agent architecture is the baseline; multi-agent systems and their collaboration patterns (debate, hierarchy, swarm, sequential) are the other major interview axis. These three concepts are always discussed together — coordination, communication, and topology.",
+              "capability": "Diagram and explain a single-agent architecture (loop, memory, tools, planner, executor, state), describe why and when to introduce multiple agents, compare the four collaboration patterns (debate, hierarchy, swarm, sequential) on latency, cost, quality, and complexity, and justify an architectural choice for a given problem scenario."
+            },
+            {
+              "title": "Frameworks & Implementation",
+              "covers": [
+                "LangGraph",
+                "AutoGen",
+                "CrewAI",
+                "LangChain Agents (Legacy / AgentExecutor)",
+                "Semantic Kernel",
+                "AutoGPT / BabyAGI (Historical / Autonomous Agents)"
+              ],
+              "why_here": "Frameworks map patterns and architectures to production code. LangGraph (graph-centric), AutoGen (conversation-centric), CrewAI (role-centric), and Semantic Kernel (planner/plugin-centric) represent four distinct programming models. Legacy LangChain and AutoGPT/BabyAGI provide the historical contrast interviews expect.",
+              "capability": "Compare the major agentic frameworks (LangGraph, AutoGen, CrewAI, Semantic Kernel) on programming model (state graph vs. conversation vs. role-based vs. planner/plugin), explain why LangGraph replaced AgentExecutor, describe what AutoGPT/BabyAGI demonstrated and why they failed in production, and articulate the criteria for choosing a framework in a given context."
+            },
+            {
+              "title": "Evaluation, Reliability & Emerging Standards",
+              "covers": [
+                "Agent Evaluation Methodologies",
+                "Agent Benchmarks (AgentBench, WebShop, ALFWorld, τ-bench, GAIA, SWE-bench)",
+                "Failure Modes (Hallucination, Tool Errors, Planning Failures, Loops, Cost/Latency)",
+                "Guardrails & Safety for Agents",
+                "Model Context Protocol (MCP)",
+                "Agent-to-Agent (A2A) Protocol",
+                "Function Calling Standards (OpenAI, Anthropic, Google)",
+                "Agent Observability & Debugging"
+              ],
+              "why_here": "This module covers the 'how do you know it works' and 'how do you run it in production' questions that distinguish senior candidates. Evaluation methodologies and benchmarks measure quality; failure modes, guardrails, and observability ensure reliability; MCP, A2A, and function calling standards enable interoperability. They share a concern: moving from prototype to production.",
+              "capability": "Describe agent evaluation methodologies (offline vs. online, LLM-as-judge, trajectory evaluation), identify which benchmark tests which capability (web navigation, coding, reasoning, tool use), enumerate common failure modes with their detection and mitigation strategies, explain guardrail patterns (input/output validation, tool confirmation, sandboxing), summarize MCP (servers, resources, tools, prompts), A2A (discovery, negotiation, transport), and function calling standard differences, and describe observability primitives (traces, spans, token accounting, replay debugging)."
+            }
+          ]
+        },
+        "extent": {
+          "total": "~24 pages · about 7 hours",
+          "pages": "~24 pages",
+          "study_time": "about 7 hours",
+          "parts": 5,
+          "modules": 5,
+          "per_unit": {
+            "Foundations & Core Mental Models": "~2 pages",
+            "Core Agentic Patterns": "~8 pages",
+            "Agent Architectures": "~4 pages",
+            "Frameworks & Implementation": "~4 pages",
+            "Evaluation, Reliability & Emerging Standards": "~7 pages"
+          }
+        }
+      },
+      "decision_ids": [
+        "6c70812e2a454c9fb4de9b6f1a2d7d5b",
+        "55fee454d7f449bb8a2f967e87da4eb7",
+        "936e226abf604628907e70b021f7fbd8",
+        "3f7d14ee28d54b6cae6ca0dd25a50d86",
+        "183950e67c2d45f99b0094ddceae9217",
+        "0a3b11b8e60e4b548796ed4548b558fe",
+        "3c9500887f03432faa45a3f6924e8b3d"
+      ],
+      "decision_ids_hash": "e632f719acec2afa86343048f44ed6a2",
+      "decision_environment": {
+        "prompt_versions": [
+          "derive_v1",
+          "interpret_v1",
+          "plan_revise_v2",
+          "plan_v3"
+        ],
+        "models": [
+          "nvidia/nemotron-3-ultra-550b-a55b:free"
+        ]
+      },
+      "approved_by": "local",
+      "approved_at": "2026-09-14T12:14:26+00:00"
+    }
+  ]
+}

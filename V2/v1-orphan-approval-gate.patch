@@ -1,0 +1,386 @@
+# PARKED — NOT APPLIED TO V1. V1 is frozen as the measurement baseline.
+#
+# Refuses approval of a plan holding a concept that belongs to no module
+# (and the mirror: a module naming a concept absent from scope). Written
+# against the pre-restructure layout, so paths are agent/... not V1/agent/...
+# Apply with:  git apply --directory=V1 v1-orphan-approval-gate.patch
+#
+# The harness MEASURES this defect instead (observe.partition -> orphans,
+# phantoms). Applying this changes V1's behaviour and invalidates the
+# baseline hash in harness/baseline.py.
+#
+diff --git a/agent/curriculum.py b/agent/curriculum.py
+index 07763a7..6852ebb 100644
+--- a/agent/curriculum.py
++++ b/agent/curriculum.py
+@@ -155,6 +155,66 @@ def modules(plan: dict | None) -> list[ModuleRef]:
+     ]
+ 
+ 
++@dataclass(frozen=True, slots=True)
++class Unassigned:
++    """Concepts the plan promises that no module will write, and the reverse."""
++
++    orphans: tuple[str, ...] = ()
++    """In `scope.covered`, in no module's `covers`. Approved and never written."""
++
++    phantoms: tuple[str, ...] = ()
++    """Named by a module, absent from `scope.covered`. Listed and never written."""
++
++    def __bool__(self) -> bool:
++        return bool(self.orphans or self.phantoms)
++
++    def to_json(self) -> dict:
++        return {"orphans": list(self.orphans), "phantoms": list(self.phantoms)}
++
++
++def unassigned(plan: dict | None) -> Unassigned:
++    """Whether every approved concept has a module answerable for it.
++
++    The failure this exists for is silent and survived every check the system
++    had. A correction adds a concept to `scope` without placing it in a module.
++    The plan page shows it -- `compose.ts` surfaces it under "Also covered" --
++    and the user approves it. `derive_extent` counts its pages into the size
++    they agreed to. Then `modules()` reads `partition.modules` and nothing else,
++    so the concept is in no module, no module is answerable for it, and
++    `check_document` -- which runs per module against that module's narrowed
++    plan -- never sees it to report it missing. Every surface reports satisfied
++    and the concept is simply not in the artifact.
++
++    `phantoms` is the same fault mirrored: a module names a concept that `scope`
++    does not carry, so `plan_for` drops it while the module still lists it to
++    the reader as something it covers.
++
++    Reported, never repaired. Placing a stranded concept would be a partition
++    decision, and this layer must not make one.
++    """
++    partition = (plan or {}).get("partition") or {}
++    approved = partition.get("modules") or []
++    if not approved:
++        # Legacy `units` plans and plans with no partition resolve to a single
++        # module covering the whole scope (see `modules`), so nothing can be
++        # stranded. Refusing them would refuse every project written before the
++        # curriculum layer, which is the one thing the legacy path exists for.
++        return Unassigned()
++
++    covered = [
++        c["concept"]
++        for c in ((plan or {}).get("scope") or {}).get("covered", [])
++        if isinstance(c, dict) and c.get("concept")
++    ]
++    placed = {c for m in approved for c in (m.get("covers") or [])}
++
++    return Unassigned(
++        # Scope order, because that is the model's own priority ordering.
++        orphans=tuple(c for c in covered if c not in placed),
++        phantoms=tuple(sorted(placed - set(covered))),
++    )
++
++
+ def plan_for(plan: dict, index: int) -> dict:
+     """A plan that writes exactly module `index` of the approved curriculum.
+ 
+diff --git a/backend/api.py b/backend/api.py
+index 5de7e73..45c2eea 100644
+--- a/backend/api.py
++++ b/backend/api.py
+@@ -28,7 +28,7 @@ from agent.providers import (
+ )
+ from backend import config, service  # noqa: F401  (config loads .env)
+ from backend.jobs import JOBS
+-from backend.planning import PlanService
++from backend.planning import PlanNotApprovable, PlanService
+ 
+ app = FastAPI(title="Notes Engine", version="0.1.0")
+ 
+@@ -202,6 +202,10 @@ def approve_plan(project_id: str, body: ApproveRequest) -> dict:
+         commitment = _plans.approve(project_id)
+     except KeyError:
+         raise HTTPException(status_code=404, detail="no such project")
++    except PlanNotApprovable as exc:
++        # 409, not 502: nothing failed. The plan is in a state that cannot be
++        # kept, and the fix is a correction the user makes.
++        raise HTTPException(status_code=409, detail=str(exc))
+     return {
+         "id": commitment.id,
+         "kind": commitment.kind,
+diff --git a/backend/planning.py b/backend/planning.py
+index 8953077..dcbbd9a 100644
+--- a/backend/planning.py
++++ b/backend/planning.py
+@@ -18,6 +18,7 @@ from typing import Any
+ 
+ import agent.plan as planning
+ from agent.coherence import analyse, capability_support
++from agent.curriculum import Unassigned, unassigned
+ from agent.coherence import support_to_json
+ from agent.coherence import to_json as coherence_json
+ from agent.sufficiency import DEFAULT_BUDGET, AxisReading, decide, from_json, improved
+@@ -44,6 +45,40 @@ from backend.store import (
+ USER = "local"  # single user until accounts exist; one column to change
+ 
+ 
++class PlanNotApprovable(Exception):
++    """The gate refuses: this plan does not hold together.
++
++    Approval is the point where the system takes on the promise that what gets
++    written is what was read. A plan with a stranded concept cannot keep that
++    promise -- and worse, fails it silently, because nothing downstream is
++    answerable for a concept in no module. See `agent.curriculum.unassigned`.
++
++    Refused rather than repaired. Placing the concept is a partition decision,
++    and a gate that quietly edits the plan it was asked to approve is the
++    failure this whole stage exists to prevent.
++    """
++
++    def __init__(self, stranded: Unassigned) -> None:
++        self.unassigned = stranded
++        parts: list[str] = []
++        if stranded.orphans:
++            parts.append(
++                f"{len(stranded.orphans)} approved concept(s) belong to no module, "
++                "so nothing would write them: " + ", ".join(stranded.orphans)
++            )
++        if stranded.phantoms:
++            parts.append(
++                f"{len(stranded.phantoms)} concept(s) are named by a module but are "
++                "not in scope, so they would be listed and never written: "
++                + ", ".join(stranded.phantoms)
++            )
++        super().__init__(
++            ". ".join(parts)
++            + ". Correct the plan -- say where they belong, or that they should be "
++            "cut -- and approve again."
++        )
++
++
+ @dataclass(frozen=True, slots=True)
+ class Routed:
+     """One correction and what it did.
+@@ -347,8 +382,19 @@ class PlanService:
+         return self.view(project_id)
+ 
+     def approve(self, project_id: str) -> Commitment:
+-        """The gate. Idempotent by the set of decisions committed."""
++        """The gate. Idempotent by the set of decisions committed.
++
++        Refuses a plan that strands a concept. Checked before idempotency so a
++        plan that cannot be kept cannot be approved by any route, including a
++        second press of the button.
++        """
+         current = self.store.current_decisions(project_id)
++        snapshot = self._snapshot(current)
++
++        stranded = unassigned(snapshot)
++        if stranded:
++            raise PlanNotApprovable(stranded)
++
+         # Every decision the plan rests on, including the upstream two: the user
+         # approved a meaning that depends on them, and if one drifts later the
+         # approval rested on a derivation they never saw. `intake_strategy` is
+@@ -370,7 +416,7 @@ class PlanService:
+                 id=__import__("uuid").uuid4().hex,
+                 project_id=project_id,
+                 kind="plan",
+-                snapshot=self._snapshot(current),
++                snapshot=snapshot,
+                 decision_ids=ids,
+                 decision_ids_hash=hash_,
+                 decision_environment={
+@@ -608,6 +654,7 @@ def _extent(decisions: dict[str, dict]) -> dict:
+ 
+ __all__ = [
+     "PlanService",
++    "PlanNotApprovable",
+     "PlanView",
+     "Routed",
+     "ALL_DECISIONS",
+diff --git a/tests/test_curriculum.py b/tests/test_curriculum.py
+index 96bace6..4d27872 100644
+--- a/tests/test_curriculum.py
++++ b/tests/test_curriculum.py
+@@ -12,7 +12,7 @@ import copy
+ 
+ import pytest
+ 
+-from agent.curriculum import modules, plan_for
++from agent.curriculum import modules, plan_for, unassigned
+ 
+ CURRICULUM = {
+     "interpret_situation": {
+@@ -217,3 +217,62 @@ def test_a_concept_missing_from_scope_is_absent_rather_than_guessed() -> None:
+     assert "Never scoped" not in [c.concept for c in module.coverage]
+     assert len(module.coverage) == len(module.concepts) - 1
+ 
++
++
++# --- the plan holds together, or it is not approvable ------------------------
++
++
++def test_a_whole_plan_strands_nothing() -> None:
++    assert not unassigned(CURRICULUM)
++
++
++def test_a_concept_in_no_module_is_an_orphan() -> None:
++    """The silent failure: approved, counted in the extent, shown on the plan
++    page, and then written by nobody."""
++    plan = copy.deepcopy(CURRICULUM)
++    plan["scope"]["covered"].append(
++        {"concept": "Memory", "depth": "explain", "why": "State across turns",
++         "anticipates": "none"}
++    )
++
++    stranded = unassigned(plan)
++
++    assert stranded.orphans == ("Memory",)
++    assert stranded.phantoms == ()
++    assert stranded, "a stranded concept must make the plan unapprovable"
++
++
++def test_a_module_naming_an_unscoped_concept_is_a_phantom() -> None:
++    """The same fault mirrored: listed to the reader, dropped by `plan_for`."""
++    plan = copy.deepcopy(CURRICULUM)
++    plan["partition"]["modules"][0]["covers"].append("Never scoped")
++
++    stranded = unassigned(plan)
++
++    assert stranded.phantoms == ("Never scoped",)
++    assert stranded.orphans == ()
++
++
++def test_orphans_keep_the_plans_own_ordering() -> None:
++    plan = copy.deepcopy(CURRICULUM)
++    plan["partition"]["modules"] = [plan["partition"]["modules"][0]]
++
++    assert unassigned(plan).orphans == ("LangGraph", "CrewAI")
++
++
++def test_a_legacy_units_plan_is_never_refused() -> None:
++    """`modules()` resolves a unit-shaped plan to one module covering the whole
++    scope, so nothing can be stranded -- and refusing these would refuse every
++    project written before the curriculum layer."""
++    legacy = copy.deepcopy(CURRICULUM)
++    legacy["partition"] = {
++        "units": [{"heading": "All of it", "covers": ["Tool Use"], "why_here": "x"}]
++    }
++
++    assert not unassigned(legacy)
++    assert len(modules(legacy)) == 1
++
++
++def test_an_empty_plan_is_not_refused() -> None:
++    assert not unassigned({})
++    assert not unassigned(None)
+diff --git a/tests/test_planning.py b/tests/test_planning.py
+index 1092672..4b28dd7 100644
+--- a/tests/test_planning.py
++++ b/tests/test_planning.py
+@@ -9,10 +9,12 @@ slow, paid, and cannot be made to produce the exact divergence a regression need
+ 
+ from __future__ import annotations
+ 
++import copy
+ import json
+ 
+ import pytest
+ 
++from agent import curriculum
+ from agent.plan import (
+     ALL_DECISIONS,
+     INTERACTION_DECISIONS,
+@@ -23,7 +25,7 @@ from agent.plan import (
+     derive_extent,
+ )
+ from agent.providers import Completion
+-from backend.planning import PlanService
++from backend.planning import PlanNotApprovable, PlanService
+ from backend.store import FileStore, commit_hash
+ 
+ 
+@@ -409,6 +411,86 @@ def test_the_snapshot_stands_alone(service: PlanService) -> None:
+     assert "id" not in json.dumps(snapshot)
+ 
+ 
++def test_every_approved_concept_has_a_module_answerable_for_it(
++    service: PlanService,
++) -> None:
++    """The promise, stated as an invariant over the approved snapshot.
++
++    What the plan says is covered must be exactly what the modules will write.
++    Anything in `scope` that no module claims is approved, counted into the
++    extent, shown on the plan page, and then written by nobody -- and because
++    fulfilment runs per module against that module's narrowed plan, nothing
++    reports it missing. Every surface says satisfied and the concept is absent.
++    """
++    view = opened(service)
++    snapshot = service.approve(view.project_id).snapshot
++
++    approved = {c["concept"] for c in snapshot["scope"]["covered"]}
++    will_be_written = {
++        c["concept"]
++        for module in curriculum.modules(snapshot)
++        for c in curriculum.plan_for(snapshot, module.index)["scope"]["covered"]
++    }
++    assert will_be_written == approved
++
++
++def test_approval_refuses_a_plan_that_strands_a_concept(tmp_path) -> None:
++    """The regression. A concept in `scope` and in no module is unwritable, so
++    the gate refuses rather than committing a promise it cannot keep."""
++    stranding = copy.deepcopy(PLAN)
++    stranding["scope"]["covered"].append(
++        {
++            "concept": "Molecular clocks",
++            "depth": "explain",
++            "why": "Dating the splits.",
++            "anticipates": "none",
++        }
++    )
++    service = PlanService(
++        FileStore(tmp_path),
++        provider=StubProvider(READING_SUFFICIENT, LANDSCAPE, stranding),
++    )
++    view = opened(service)
++
++    with pytest.raises(PlanNotApprovable) as refused:
++        service.approve(view.project_id)
++
++    assert refused.value.unassigned.orphans == ("Molecular clocks",)
++    assert "Molecular clocks" in str(refused.value)
++    assert not service.store.commitments(view.project_id), (
++        "a refused approval must not leave a commitment behind"
++    )
++
++
++def test_a_refused_plan_can_be_corrected_and_then_approved(tmp_path) -> None:
++    """Refusal is not a dead end: the correction router owns the fix, and the
++    gate is checked again on the next attempt."""
++    stranding = copy.deepcopy(PLAN)
++    stranding["scope"]["covered"].append(
++        {"concept": "Molecular clocks", "depth": "explain", "why": "Dating.",
++         "anticipates": "none"}
++    )
++    service = PlanService(
++        FileStore(tmp_path),
++        provider=StubProvider(READING_SUFFICIENT, LANDSCAPE, stranding),
++    )
++    view = opened(service)
++    with pytest.raises(PlanNotApprovable):
++        service.approve(view.project_id)
++
++    placed = copy.deepcopy(stranding["partition"])
++    placed["modules"][1]["covers"].append("Molecular clocks")
++    service.provider = StubProvider(routing(["partition"], partition=placed))
++    service.correct(view.project_id, "put molecular clocks with the hominins")
++
++    commitment = service.approve(view.project_id)
++    assert commitment.snapshot["partition"]["modules"][1]["covers"] == [
++        "Australopithecus",
++        "Homo erectus",
++        "Molecular clocks",
++    ]
++
++
+ def test_the_transcript_is_append_only_testimony(service: PlanService) -> None:
+     view = opened(service)
+     service.provider = StubProvider(routing([], reading="x", out_of_scope="later stage"))

@@ -1,0 +1,1175 @@
+{
+  "project": {
+    "id": "f392a301-f9a9-4fc5-a543-5d14dbf58606",
+    "user_id": "local",
+    "title": "cheat sheet for graph dsa questions for my interview next month",
+    "taxonomy_version": "plan-gate-1",
+    "created_at": "2026-09-14T13:27:44+00:00"
+  },
+  "utterance": [
+    {
+      "id": "7ccabe62-c4ff-42cb-96ce-9485206f2dbd",
+      "project_id": "f392a301-f9a9-4fc5-a543-5d14dbf58606",
+      "ord": 0,
+      "role": "user",
+      "text": "cheat sheet for graph dsa questions for my interview next month",
+      "created_at": "2026-09-14T13:27:44+00:00"
+    },
+    {
+      "id": "1b788b1c-8d81-49c1-ac1d-b2eb1ee8a2b7",
+      "project_id": "f392a301-f9a9-4fc5-a543-5d14dbf58606",
+      "ord": 1,
+      "role": "user",
+      "text": "union-find isn't relevant for me, the companies i'm targeting don't ask it",
+      "created_at": "2026-09-14T13:38:22+00:00"
+    }
+  ],
+  "decision": [
+    {
+      "id": "f5022b7f61184c2bb1351bdae5825b7b",
+      "project_id": "f392a301-f9a9-4fc5-a543-5d14dbf58606",
+      "kind": "interpret_situation",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "6d88c44614d78aa2dd568f0603323af4",
+      "output": {
+        "subject": "Graph Data Structures and Algorithms",
+        "job": "retrieve",
+        "entry_point": "Unknown — no prior knowledge stated",
+        "purpose": "Interview preparation for a technical interview next month",
+        "target_capability": "Recall and apply core graph algorithms (traversal, shortest path, MST, topological sort, cycle detection, etc.) and common patterns (BFS/DFS templates, union-find, Dijkstra, etc.) under interview time pressure",
+        "capacity": "One month",
+        "stated": [
+          {
+            "text": "cheat sheet",
+            "axis": "artifact_type"
+          },
+          {
+            "text": "graph dsa",
+            "axis": "subject"
+          },
+          {
+            "text": "for my interview",
+            "axis": "purpose"
+          },
+          {
+            "text": "next month",
+            "axis": "capacity"
+          }
+        ],
+        "inferred": [
+          "entry_point: no prior graph knowledge assumed; the cheat sheet must be self-contained",
+          "depth_register: concise reference format — definitions, complexities, template code snippets, and when-to-use cues; no proofs or extended derivations",
+          "template: none specified; a compact multi-page reference grouped by algorithm family"
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "interpret_v1",
+      "cost": {
+        "in": 3156,
+        "out": 1716
+      },
+      "created_at": "2026-09-14T13:30:31+00:00"
+    },
+    {
+      "id": "5461883a819e41b383b8662a3d8dc087",
+      "project_id": "f392a301-f9a9-4fc5-a543-5d14dbf58606",
+      "kind": "intake_strategy",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "e247e10e36b3b9f601b5296f2af83a12",
+      "output": {
+        "questions": [],
+        "sufficiency": {
+          "verdict": "ask",
+          "budget": 4,
+          "asking": [
+            "entry_point"
+          ],
+          "over_budget": [],
+          "axes": [
+            {
+              "axis": "subject",
+              "value": "Graph Data Structures and Algorithms",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "graph dsa"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If the subject were 'tree DSA' or 'general DSA', the concept list would shift entirely — no graph-specific algorithms (Dijkstra, Bellman-Ford, topological sort, SCC, flow) and different template code.",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "purpose",
+              "value": "Interview preparation",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "for my interview"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If the purpose were 'course exam' or 'competitive programming', the cheat sheet would include more theorems, proof sketches, and edge-case handling; for interviews it prioritizes recognising the pattern, writing clean code fast, and explaining time/space trade-offs.",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "entry_point",
+              "value": null,
+              "strength": "unknown",
+              "verified": [],
+              "unverified": [],
+              "material": true,
+              "would_differ": "A first-time learner needs definitions of graph representations, BFS/DFS intuition, and step-by-step trace examples; an experienced engineer needs only the templates, complexities, and common pitfalls. The concept set and depth per concept change drastically.",
+              "askable": true,
+              "asked": true,
+              "reason": "weak (unknown) and a different answer would change the plan"
+            },
+            {
+              "axis": "target_capability",
+              "value": "Recall and apply core graph algorithms (traversal, shortest path, MST, topological sort, cycle detection, etc.) and common patterns (BFS/DFS templates, union-find, Dijkstra, etc.) under interview time pressure",
+              "strength": "inferred",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "for my interview"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If the target were 'explain graph theory concepts' or 'design graph systems', the artifact would shift from code templates + complexity tables to conceptual diagrams and architectural patterns.",
+              "askable": true,
+              "asked": false,
+              "reason": "inferred, supported by 'for my interview'"
+            },
+            {
+              "axis": "capacity",
+              "value": "One month",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "next month"
+                }
+              ],
+              "unverified": [],
+              "material": false,
+              "would_differ": "If the capacity were 'one week', the cheat sheet would be ultra-condensed (top 10 patterns only); if 'three months', it could include practice problem maps and spaced-repetition cues.",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Semantics §1 LOCKED — optional, and the corollary: deriving the plan and reporting its extent is what CAUSES a capacity to be stated. Asking upfront asks for a number the learner cannot honestly give."
+            },
+            {
+              "axis": "depth_register",
+              "value": null,
+              "strength": "unknown",
+              "verified": [],
+              "unverified": [],
+              "material": true,
+              "would_differ": "A 'deep' register would include correctness invariants, proof sketches, and variant analyses; a 'shallow' register would be only one-liner signatures and complexities. The page count and cognitive load differ by 3–5×.",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Semantics §1 — biasing, not binding. A default is always defensible."
+            },
+            {
+              "axis": "artifact_type",
+              "value": "Cheat sheet",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "cheat sheet"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If the artifact were 'detailed notes', each algorithm would get a full section with intuition, walkthrough, variants, and 2–3 solved examples; a 'flashcard deck' would be atomic Q/A pairs. The structure and information density are fundamentally different.",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "template",
+              "value": null,
+              "strength": "unknown",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "A 'language-specific' template (e.g., Python-only with collections.deque) would omit C++/Java equivalents; a 'pattern-first' template would group by BFS/DFS/DP-on-graphs rather than by algorithm name. The partitioning of the cheat sheet changes.",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Presentation-Boundary rule 1 — internal. Users never select one."
+            }
+          ]
+        }
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "ask_v1",
+      "cost": {
+        "in": 1311,
+        "out": 552
+      },
+      "created_at": "2026-09-14T13:31:26+00:00"
+    },
+    {
+      "id": "9c27180b20a941a2ab0e75ec7f201293",
+      "project_id": "f392a301-f9a9-4fc5-a543-5d14dbf58606",
+      "kind": "derive_structure",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "5ee4006906d3fbfed8f1e80f53bbff39",
+      "output": {
+        "concepts": [
+          {
+            "name": "Graph Representation (Adjacency List)",
+            "built_from": [],
+            "family": "core representation"
+          },
+          {
+            "name": "Graph Representation (Adjacency Matrix)",
+            "built_from": [],
+            "family": "core representation"
+          },
+          {
+            "name": "Graph Representation (Edge List)",
+            "built_from": [],
+            "family": "core representation"
+          },
+          {
+            "name": "BFS Traversal",
+            "built_from": [
+              "Graph Representation (Adjacency List)"
+            ],
+            "family": "core traversal"
+          },
+          {
+            "name": "DFS Traversal (Recursive)",
+            "built_from": [
+              "Graph Representation (Adjacency List)"
+            ],
+            "family": "core traversal"
+          },
+          {
+            "name": "DFS Traversal (Iterative)",
+            "built_from": [
+              "Graph Representation (Adjacency List)"
+            ],
+            "family": "core traversal"
+          },
+          {
+            "name": "Connected Components (Undirected)",
+            "built_from": [
+              "BFS Traversal",
+              "DFS Traversal (Recursive)"
+            ],
+            "family": "component analysis"
+          },
+          {
+            "name": "Cycle Detection (Undirected Graph)",
+            "built_from": [
+              "DFS Traversal (Recursive)",
+              "Union-Find / Disjoint Set Union"
+            ],
+            "family": "cycle detection"
+          },
+          {
+            "name": "Cycle Detection (Directed Graph)",
+            "built_from": [
+              "DFS Traversal (Recursive)"
+            ],
+            "family": "cycle detection"
+          },
+          {
+            "name": "Bipartite Graph Check",
+            "built_from": [
+              "BFS Traversal",
+              "DFS Traversal (Recursive)"
+            ],
+            "family": "property testing"
+          },
+          {
+            "name": "Topological Sort (Kahn's Algorithm / BFS)",
+            "built_from": [
+              "Graph Representation (Adjacency List)",
+              "BFS Traversal"
+            ],
+            "family": "ordering"
+          },
+          {
+            "name": "Topological Sort (DFS-based)",
+            "built_from": [
+              "Graph Representation (Adjacency List)",
+              "DFS Traversal (Recursive)"
+            ],
+            "family": "ordering"
+          },
+          {
+            "name": "Shortest Path: Unweighted (BFS)",
+            "built_from": [
+              "BFS Traversal"
+            ],
+            "family": "shortest path"
+          },
+          {
+            "name": "Dijkstra's Algorithm",
+            "built_from": [
+              "Graph Representation (Adjacency List)",
+              "Shortest Path: Unweighted (BFS)"
+            ],
+            "family": "shortest path"
+          },
+          {
+            "name": "Bellman-Ford Algorithm",
+            "built_from": [
+              "Graph Representation (Edge List)"
+            ],
+            "family": "shortest path"
+          },
+          {
+            "name": "Floyd-Warshall Algorithm",
+            "built_from": [
+              "Graph Representation (Adjacency Matrix)"
+            ],
+            "family": "shortest path"
+          },
+          {
+            "name": "A* Search",
+            "built_from": [
+              "Dijkstra's Algorithm"
+            ],
+            "family": "shortest path"
+          },
+          {
+            "name": "Minimum Spanning Tree: Prim's Algorithm",
+            "built_from": [
+              "Graph Representation (Adjacency List)",
+              "Dijkstra's Algorithm"
+            ],
+            "family": "minimum spanning tree"
+          },
+          {
+            "name": "Minimum Spanning Tree: Kruskal's Algorithm",
+            "built_from": [
+              "Graph Representation (Edge List)",
+              "Union-Find / Disjoint Set Union"
+            ],
+            "family": "minimum spanning tree"
+          },
+          {
+            "name": "Union-Find / Disjoint Set Union",
+            "built_from": [],
+            "family": "data structure"
+          },
+          {
+            "name": "Strongly Connected Components: Kosaraju's Algorithm",
+            "built_from": [
+              "DFS Traversal (Recursive)",
+              "Graph Representation (Adjacency List)"
+            ],
+            "family": "component analysis"
+          },
+          {
+            "name": "Strongly Connected Components: Tarjan's Algorithm",
+            "built_from": [
+              "DFS Traversal (Recursive)",
+              "Graph Representation (Adjacency List)"
+            ],
+            "family": "component analysis"
+          },
+          {
+            "name": "BFS Template Pattern",
+            "built_from": [
+              "BFS Traversal"
+            ],
+            "family": "interview template"
+          },
+          {
+            "name": "DFS Template Pattern (Recursive)",
+            "built_from": [
+              "DFS Traversal (Recursive)"
+            ],
+            "family": "interview template"
+          },
+          {
+            "name": "DFS Template Pattern (Iterative)",
+            "built_from": [
+              "DFS Traversal (Iterative)"
+            ],
+            "family": "interview template"
+          },
+          {
+            "name": "Dijkstra Template Pattern",
+            "built_from": [
+              "Dijkstra's Algorithm"
+            ],
+            "family": "interview template"
+          },
+          {
+            "name": "Union-Find Template Pattern",
+            "built_from": [
+              "Union-Find / Disjoint Set Union"
+            ],
+            "family": "interview template"
+          },
+          {
+            "name": "Topological Sort Template Pattern",
+            "built_from": [
+              "Topological Sort (Kahn's Algorithm / BFS)",
+              "Topological Sort (DFS-based)"
+            ],
+            "family": "interview template"
+          },
+          {
+            "name": "Grid / Implicit Graph Traversal",
+            "built_from": [
+              "BFS Traversal",
+              "DFS Traversal (Recursive)"
+            ],
+            "family": "applied pattern"
+          },
+          {
+            "name": "Multi-source BFS",
+            "built_from": [
+              "BFS Traversal"
+            ],
+            "family": "applied pattern"
+          },
+          {
+            "name": "0-1 BFS / Deque BFS",
+            "built_from": [
+              "BFS Traversal",
+              "Dijkstra's Algorithm"
+            ],
+            "family": "applied pattern"
+          },
+          {
+            "name": "Graph Cloning / Copy",
+            "built_from": [
+              "BFS Traversal",
+              "DFS Traversal (Recursive)"
+            ],
+            "family": "applied pattern"
+          },
+          {
+            "name": "Course Schedule / Prerequisite Problems",
+            "built_from": [
+              "Topological Sort (Kahn's Algorithm / BFS)",
+              "Cycle Detection (Directed Graph)"
+            ],
+            "family": "canonical interview problem"
+          },
+          {
+            "name": "Number of Islands / Connected Components in Grid",
+            "built_from": [
+              "Connected Components (Undirected)",
+              "Grid / Implicit Graph Traversal"
+            ],
+            "family": "canonical interview problem"
+          },
+          {
+            "name": "Shortest Path in Grid / Maze",
+            "built_from": [
+              "Shortest Path: Unweighted (BFS)",
+              "Grid / Implicit Graph Traversal"
+            ],
+            "family": "canonical interview problem"
+          },
+          {
+            "name": "Network Delay Time / Dijkstra Application",
+            "built_from": [
+              "Dijkstra's Algorithm"
+            ],
+            "family": "canonical interview problem"
+          },
+          {
+            "name": "Cheapest Flights Within K Stops / Bellman-Ford Application",
+            "built_from": [
+              "Bellman-Ford Algorithm"
+            ],
+            "family": "canonical interview problem"
+          },
+          {
+            "name": "Redundant Connection / Union-Find Application",
+            "built_from": [
+              "Union-Find / Disjoint Set Union",
+              "Cycle Detection (Undirected Graph)"
+            ],
+            "family": "canonical interview problem"
+          },
+          {
+            "name": "Accounts Merge / Union-Find Application",
+            "built_from": [
+              "Union-Find / Disjoint Set Union"
+            ],
+            "family": "canonical interview problem"
+          },
+          {
+            "name": "Alien Dictionary / Topological Sort Application",
+            "built_from": [
+              "Topological Sort (Kahn's Algorithm / BFS)"
+            ],
+            "family": "canonical interview problem"
+          },
+          {
+            "name": "Reconstruct Itinerary / Eulerian Path",
+            "built_from": [
+              "DFS Traversal (Recursive)",
+              "Graph Representation (Adjacency List)"
+            ],
+            "family": "advanced pattern"
+          },
+          {
+            "name": "Max Flow / Min Cut (Edmonds-Karp)",
+            "built_from": [
+              "BFS Traversal",
+              "Graph Representation (Adjacency List)"
+            ],
+            "family": "advanced algorithm"
+          },
+          {
+            "name": "Bipartite Matching (Hopcroft-Karp)",
+            "built_from": [
+              "BFS Traversal",
+              "Graph Representation (Adjacency List)"
+            ],
+            "family": "advanced algorithm"
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "derive_v1",
+      "cost": {
+        "in": 1546,
+        "out": 4512
+      },
+      "created_at": "2026-09-14T13:35:50+00:00"
+    },
+    {
+      "id": "842bb628ddc44e8eaf5558f70323d914",
+      "project_id": "f392a301-f9a9-4fc5-a543-5d14dbf58606",
+      "kind": "relevance",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "a71c84ac405de7e5cd1f69312719c440",
+      "output": {
+        "judgements": [
+          {
+            "concept": "Graph Representation (Adjacency List)",
+            "in_play": true,
+            "why": "Fundamental; every graph problem starts with choosing a representation. Adjacency list is the default for sparse graphs in interviews."
+          },
+          {
+            "concept": "Graph Representation (Adjacency Matrix)",
+            "in_play": true,
+            "why": "Needed for dense graphs, Floyd-Warshall, and problems where O(1) edge lookup matters. Interviewers expect candidates to discuss tradeoffs."
+          },
+          {
+            "concept": "Graph Representation (Edge List)",
+            "in_play": true,
+            "why": "Required for Kruskal's and Bellman-Ford; also appears in union-find problems. Compact and worth a one-line note."
+          },
+          {
+            "concept": "BFS Traversal",
+            "in_play": true,
+            "why": "Core traversal; basis for shortest path in unweighted graphs, topological sort (Kahn's), multi-source BFS, and grid problems. Must have template."
+          },
+          {
+            "concept": "DFS Traversal (Recursive)",
+            "in_play": true,
+            "why": "Core traversal; basis for cycle detection (directed), topological sort (DFS), SCC, and backtracking. Recursive template is standard."
+          },
+          {
+            "concept": "DFS Traversal (Iterative)",
+            "in_play": true,
+            "why": "Avoids recursion depth limits; explicit stack control. Interviewers sometimes ask for iterative version. Distinct template."
+          },
+          {
+            "concept": "Connected Components (Undirected)",
+            "in_play": true,
+            "why": "Directly tested (Number of Islands, provinces); also underpins union-find use cases. Template applies to grids and explicit graphs."
+          },
+          {
+            "concept": "Cycle Detection (Undirected Graph)",
+            "in_play": true,
+            "why": "Common interview question (redundant connection, valid tree). Two standard approaches: DFS with parent tracking, and Union-Find."
+          },
+          {
+            "concept": "Cycle Detection (Directed Graph)",
+            "in_play": true,
+            "why": "Course schedule, alien dictionary, deadlock detection. Uses three-color DFS or Kahn's indegree check. Distinct from undirected."
+          },
+          {
+            "concept": "Bipartite Graph Check",
+            "in_play": true,
+            "why": "Appears as standalone question (is graph bipartite?) and as subroutine in matching. BFS/DFS coloring template is short and high-yield."
+          },
+          {
+            "concept": "Topological Sort (Kahn's Algorithm / BFS)",
+            "in_play": true,
+            "why": "Most common topological sort in interviews (Course Schedule I/II). Intuitive, handles cycle detection naturally. Must have template."
+          },
+          {
+            "concept": "Topological Sort (DFS-based)",
+            "in_play": true,
+            "why": "Alternative approach; useful when post-order logic is needed (e.g., Alien Dictionary with lexicographic order). Good to know both."
+          },
+          {
+            "concept": "Shortest Path: Unweighted (BFS)",
+            "in_play": true,
+            "why": "Foundation for grid/maze shortest path, multi-source BFS, and 0-1 BFS. Simpler than Dijkstra; often sufficient."
+          },
+          {
+            "concept": "Dijkstra's Algorithm",
+            "in_play": true,
+            "why": "Single-source shortest path with non-negative weights. High-frequency interview topic (Network Delay Time, Cheapest Flights variants). Template essential."
+          },
+          {
+            "concept": "Bellman-Ford Algorithm",
+            "in_play": true,
+            "why": "Handles negative weights and detects negative cycles. Cheapest Flights Within K Stops is a classic constrained variant. Template worth including."
+          },
+          {
+            "concept": "Floyd-Warshall Algorithm",
+            "in_play": true,
+            "why": "All-pairs shortest path; O(V^3). Appears in 'minimum score of path between two cities' type problems. Small template, high signal."
+          },
+          {
+            "concept": "A* Search",
+            "in_play": false,
+            "why": "Heuristic search; rare in general SWE interviews. More relevant for game dev or robotics roles. Cut for capacity."
+          },
+          {
+            "concept": "Minimum Spanning Tree: Prim's Algorithm",
+            "in_play": true,
+            "why": "MST with dense graphs or when starting from a node. Similar structure to Dijkstra; good to contrast. Connecting cities, min cost to connect all points."
+          },
+          {
+            "concept": "Minimum Spanning Tree: Kruskal's Algorithm",
+            "in_play": true,
+            "why": "MST with sparse graphs; relies on Union-Find. Classic interview problem (connect all points, optimizing edges). Must know Union-Find first."
+          },
+          {
+            "concept": "Union-Find / Disjoint Set Union",
+            "in_play": true,
+            "why": "Standalone data structure; powers Kruskal, cycle detection (undirected), dynamic connectivity (Accounts Merge, Redundant Connection). Path compression + union by rank template is mandatory."
+          },
+          {
+            "concept": "Strongly Connected Components: Kosaraju's Algorithm",
+            "in_play": false,
+            "why": "SCC is advanced; Kosaraju/Tarjan rarely appear in general interviews. Only for hard graph-specific roles. Cut for capacity."
+          },
+          {
+            "concept": "Strongly Connected Components: Tarjan's Algorithm",
+            "in_play": false,
+            "why": "Same as Kosaraju; single-pass but more complex. Not expected in standard interview loop."
+          },
+          {
+            "concept": "BFS Template Pattern",
+            "in_play": true,
+            "why": "Cheat sheet must have copy-pasteable template: queue, visited, level-order loop. Highest ROI for interview recall."
+          },
+          {
+            "concept": "DFS Template Pattern (Recursive)",
+            "in_play": true,
+            "why": "Standard recursive pattern with visited set. Used for components, cycle detection, topological sort, backtracking."
+          },
+          {
+            "concept": "DFS Template Pattern (Iterative)",
+            "in_play": true,
+            "why": "Explicit stack version; avoids recursion limit. Some interviewers prefer it. Compact enough to include both."
+          },
+          {
+            "concept": "Dijkstra Template Pattern",
+            "in_play": true,
+            "why": "Priority queue + distance map + relaxation. Variations: early exit, path reconstruction. Must-have template."
+          },
+          {
+            "concept": "Union-Find Template Pattern",
+            "in_play": true,
+            "why": "Find with path compression, union by rank/size. Used in 5+ common problems. One of the highest-value templates."
+          },
+          {
+            "concept": "Topological Sort Template Pattern",
+            "in_play": true,
+            "why": "Both Kahn's (queue + indegree) and DFS (post-order reverse). Cheat sheet should show both side-by-side with when-to-use."
+          },
+          {
+            "concept": "Grid / Implicit Graph Traversal",
+            "in_play": true,
+            "why": "Most graph problems in interviews are on grids (islands, walls, rotting oranges). Directions array + bounds check pattern is distinct and essential."
+          },
+          {
+            "concept": "Multi-source BFS",
+            "in_play": true,
+            "why": "Rotting Oranges, Walls and Gates, 01 Matrix. Initialize queue with all sources. High-frequency pattern, one-line modification of BFS template."
+          },
+          {
+            "concept": "0-1 BFS / Deque BFS",
+            "in_play": true,
+            "why": "Shortest path with 0/1 edge weights (e.g., minimum obstacles removal). Deque instead of priority queue. Niche but appears in top-tier interviews; small template."
+          },
+          {
+            "concept": "Graph Cloning / Copy",
+            "in_play": true,
+            "why": "Clone Graph (LeetCode 133) is a classic. Uses BFS/DFS + hash map. Demonstrates handling cycles in graph copying. Worth a snippet."
+          },
+          {
+            "concept": "Course Schedule / Prerequisite Problems",
+            "in_play": true,
+            "why": "Canonical topological sort + cycle detection problem. Course Schedule I (bool), II (ordering), IV (queries). Must-recognize pattern."
+          },
+          {
+            "concept": "Number of Islands / Connected Components in Grid",
+            "in_play": true,
+            "why": "Most common grid graph problem. Tests BFS/DFS on implicit graph, visited marking, directions. Template directly reusable."
+          },
+          {
+            "concept": "Shortest Path in Grid / Maze",
+            "in_play": true,
+            "why": "BFS on grid with distance tracking. Nearest Exit, Shortest Path in Binary Matrix. Direct application of unweighted shortest path."
+          },
+          {
+            "concept": "Network Delay Time / Dijkstra Application",
+            "in_play": true,
+            "why": "Standard Dijkstra problem: single-source, weighted, find max distance. Also tests priority queue usage and unreachable nodes."
+          },
+          {
+            "concept": "Cheapest Flights Within K Stops / Bellman-Ford Application",
+            "in_play": true,
+            "why": "Constrained shortest path (exactly K edges / at most K stops). Bellman-Ford or modified Dijkstra. High-signal variant."
+          },
+          {
+            "concept": "Redundant Connection / Union-Find Application",
+            "in_play": true,
+            "why": "Find edge that creates cycle in undirected graph. Direct Union-Find application. Also solvable with DFS. Classic."
+          },
+          {
+            "concept": "Accounts Merge / Union-Find Application",
+            "in_play": true,
+            "why": "Union-Find on strings (emails) with mapping to indices. Merges components, then collects. Tests DSU + hash map composition."
+          },
+          {
+            "concept": "Alien Dictionary / Topological Sort Application",
+            "in_play": true,
+            "why": "Build graph from word list, then topological sort. Tests graph construction + ordering. Hard but famous; good to have cue."
+          },
+          {
+            "concept": "Reconstruct Itinerary / Eulerian Path",
+            "in_play": true,
+            "why": "Hierholzer's algorithm / post-order DFS. Lexicographic order constraint. Appears in top-tier interviews (Google, Meta). Compact template."
+          },
+          {
+            "concept": "Max Flow / Min Cut (Edmonds-Karp)",
+            "in_play": false,
+            "why": "Advanced; only for specialized roles (quant, infra, hard graph teams). Not in general SWE interview bar. Cut."
+          },
+          {
+            "concept": "Bipartite Matching (Hopcroft-Karp)",
+            "in_play": false,
+            "why": "Advanced matching algorithm. Rarely asked directly; maximum bipartite matching sometimes appears but usually reduced to flow. Cut."
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "derive_v1",
+      "cost": {
+        "in": 1546,
+        "out": 4512
+      },
+      "created_at": "2026-09-14T13:35:50+00:00"
+    },
+    {
+      "id": "b9c2e423947d4e4596fdf3c4fd0f1e89",
+      "project_id": "f392a301-f9a9-4fc5-a543-5d14dbf58606",
+      "kind": "traversal",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "9ad2920728cd1913d35b32489f9cbb37",
+      "output": {
+        "sequence": [
+          "Graph DSA Cheat Sheet for Interviews"
+        ],
+        "why": "Single coherent subject — a cheat sheet is one document the learner studies in one sitting. All concepts are reference material for the same job (retrieve under interview pressure); splitting would fragment the lookup surface."
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 8106,
+        "out": 5119
+      },
+      "created_at": "2026-09-14T13:38:22+00:00"
+    },
+    {
+      "id": "83311df1066f4aad99c1ecff2b2b9b72",
+      "project_id": "f392a301-f9a9-4fc5-a543-5d14dbf58606",
+      "kind": "consequence",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "bb7f1cd689febca39ec146ea99644afb",
+      "output": {
+        "exclusions": [
+          {
+            "topic": "A* Search",
+            "consequence": "Cannot solve heuristic-guided pathfinding problems (e.g., game AI, robotics motion planning) if they appear; will default to Dijkstra and lose efficiency.",
+            "when_to_learn": "When targeting game dev, robotics, or specialized pathfinding roles — after mastering Dijkstra."
+          },
+          {
+            "topic": "Strongly Connected Components: Kosaraju's Algorithm",
+            "consequence": "Cannot decompose directed graphs into SCCs in linear time; will miss problems requiring condensation DAG (e.g., 2-SAT, capital city problems).",
+            "when_to_learn": "If a hard graph-specific interview asks for SCC explicitly, or when studying advanced algorithms (competitive programming, distributed systems)."
+          },
+          {
+            "topic": "Strongly Connected Components: Tarjan's Algorithm",
+            "consequence": "Same as Kosaraju — cannot produce SCCs in one DFS pass; loses the low-link optimization that some interviewers probe for.",
+            "when_to_learn": "Same as Kosaraju; Tarjan is the single-pass alternative sometimes requested in follow-up."
+          },
+          {
+            "topic": "Max Flow / Min Cut (Edmonds-Karp)",
+            "consequence": "Cannot solve max-flow / min-cut problems (bipartite matching via flow, network reliability, image segmentation); will not recognize the reduction pattern.",
+            "when_to_learn": "Quant, infrastructure, or hard graph-team interviews; after mastering BFS and residual graphs."
+          },
+          {
+            "topic": "Bipartite Matching (Hopcroft-Karp)",
+            "consequence": "Cannot solve maximum bipartite matching in O(E√V); will fall back to slower DFS augmenting paths or max-flow reduction and risk TLE.",
+            "when_to_learn": "Competitive programming or when matching appears as a standalone hard problem; after understanding bipartite check and max-flow."
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 8106,
+        "out": 5119
+      },
+      "created_at": "2026-09-14T13:38:22+00:00"
+    },
+    {
+      "id": "700436d9923344cfad92b5a0ff238f5a",
+      "project_id": "f392a301-f9a9-4fc5-a543-5d14dbf58606",
+      "kind": "scope",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "6d9152251b6c978c9161c6235eb88e24",
+      "output": {
+        "covered": [
+          {
+            "concept": "Graph Representation (Adjacency List)",
+            "depth": "explain",
+            "why": "Default sparse representation; must know structure, space O(V+E), iteration pattern, and when to prefer over matrix.",
+            "anticipates": "perceptual-referent"
+          },
+          {
+            "concept": "Graph Representation (Adjacency Matrix)",
+            "depth": "explain",
+            "why": "Dense graphs and O(1) edge lookup; must know space O(V²), Floyd-Warshall dependency, and tradeoff vs list.",
+            "anticipates": "perceptual-referent"
+          },
+          {
+            "concept": "Graph Representation (Edge List)",
+            "depth": "mention",
+            "why": "Compact O(E) form needed for Kruskal and Bellman-Ford; one-line note with use cases suffices.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "BFS Traversal",
+            "depth": "explain",
+            "why": "Foundation for unweighted shortest path, topological sort (Kahn's), multi-source, grid problems. Needs queue pattern, visited handling, level-order loop, complexity.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "DFS Traversal (Recursive)",
+            "depth": "explain",
+            "why": "Foundation for cycle detection (directed), topological sort (DFS), SCC, backtracking. Needs recursion pattern, visited states, call stack awareness, complexity.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "DFS Traversal (Iterative)",
+            "depth": "explain",
+            "why": "Avoids recursion depth limits; explicit stack control. Distinct template some interviewers request. Same complexity, different mechanics.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Connected Components (Undirected)",
+            "depth": "explain",
+            "why": "Directly tested (Number of Islands, provinces); template applies to grids and explicit graphs. Must show BFS/DFS driver loop.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Cycle Detection (Undirected Graph)",
+            "depth": "explain",
+            "why": "Two standard approaches: DFS with parent tracking, and Union-Find. Must distinguish from directed case. High-frequency (redundant connection, valid tree).",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Cycle Detection (Directed Graph)",
+            "depth": "explain",
+            "why": "Three-color DFS (white/gray/black) or Kahn's indegree check. Course schedule, deadlock detection. Distinct from undirected — cannot reuse parent-tracking.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Bipartite Graph Check",
+            "depth": "explain",
+            "why": "BFS/DFS coloring template (two-color). Standalone question and matching subroutine. Short, high-yield, must-recognize pattern.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Topological Sort (Kahn's Algorithm / BFS)",
+            "depth": "explain",
+            "why": "Most common interview topological sort (Course Schedule I/II). Queue + indegree, natural cycle detection. Template essential.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Topological Sort (DFS-based)",
+            "depth": "explain",
+            "why": "Post-order DFS + reverse. Useful when lexicographic order needed (Alien Dictionary). Good to contrast with Kahn's.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Shortest Path: Unweighted (BFS)",
+            "depth": "explain",
+            "why": "Foundation for grid/maze shortest path, multi-source, 0-1 BFS. Simpler than Dijkstra; often sufficient. Distance array + parent for reconstruction.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Dijkstra's Algorithm",
+            "depth": "explain",
+            "why": "Single-source, non-negative weights. Priority queue + relaxation. High-frequency (Network Delay Time). Early exit and path reconstruction variants.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Bellman-Ford Algorithm",
+            "depth": "explain",
+            "why": "Handles negative weights, detects negative cycles. O(VE). Cheapest Flights Within K Stops is constrained variant. Template worth including for comparison.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Floyd-Warshall Algorithm",
+            "depth": "explain",
+            "why": "All-pairs shortest path, O(V³). Adjacency matrix based. Small template, appears in 'minimum score of path between two cities' problems.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Minimum Spanning Tree: Prim's Algorithm",
+            "depth": "explain",
+            "why": "MST for dense graphs or node-start. Priority queue similar to Dijkstra. Connecting cities, min cost to connect all points. Contrast with Kruskal.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Minimum Spanning Tree: Kruskal's Algorithm",
+            "depth": "explain",
+            "why": "MST for sparse graphs; relies on Union-Find. Sort edges + union. Classic interview problem. Must know Union-Find first.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Union-Find / Disjoint Set Union",
+            "depth": "explain",
+            "why": "Standalone data structure powering Kruskal, cycle detection (undirected), dynamic connectivity. Path compression + union by rank template is mandatory.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "BFS Template Pattern",
+            "depth": "work through",
+            "why": "Copy-pasteable template: queue, visited, level-order loop. Highest ROI for interview recall. Must show generic structure + grid adaptation.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "DFS Template Pattern (Recursive)",
+            "depth": "work through",
+            "why": "Standard recursive pattern with visited set. Used for components, cycle detection, topological sort, backtracking. Generic + grid variants.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "DFS Template Pattern (Iterative)",
+            "depth": "work through",
+            "why": "Explicit stack version; avoids recursion limit. Some interviewers prefer it. Compact enough to include both.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Dijkstra Template Pattern",
+            "depth": "work through",
+            "why": "Priority queue + distance map + relaxation. Variations: early exit, path reconstruction. Must-have template for weighted graphs.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Union-Find Template Pattern",
+            "depth": "work through",
+            "why": "Find with path compression, union by rank/size. Used in 5+ common problems. One of the highest-value templates.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Topological Sort Template Pattern",
+            "depth": "work through",
+            "why": "Both Kahn's (queue + indegree) and DFS (post-order reverse) side-by-side with when-to-use cues. Directly copy-pasteable.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Grid / Implicit Graph Traversal",
+            "depth": "explain",
+            "why": "Most interview graph problems are on grids. Directions array + bounds check + visited marking pattern is distinct and essential.",
+            "anticipates": "perceptual-referent"
+          },
+          {
+            "concept": "Multi-source BFS",
+            "depth": "explain",
+            "why": "Rotting Oranges, Walls and Gates, 01 Matrix. Initialize queue with all sources. One-line modification of BFS template. High-frequency.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "0-1 BFS / Deque BFS",
+            "depth": "explain",
+            "why": "Shortest path with 0/1 edge weights (min obstacles removal). Deque instead of PQ. Niche but appears in top-tier interviews; small template.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Graph Cloning / Copy",
+            "depth": "explain",
+            "why": "Clone Graph (LeetCode 133) classic. BFS/DFS + hash map (old→new). Demonstrates handling cycles in copying. Worth a snippet.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Course Schedule / Prerequisite Problems",
+            "depth": "mention",
+            "why": "Canonical topological sort + cycle detection. Course Schedule I (bool), II (ordering), IV (queries). Map problem → algorithm.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Number of Islands / Connected Components in Grid",
+            "depth": "mention",
+            "why": "Most common grid graph problem. Tests BFS/DFS on implicit graph, visited marking, directions. Template directly reusable.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Shortest Path in Grid / Maze",
+            "depth": "mention",
+            "why": "BFS on grid with distance tracking. Nearest Exit, Shortest Path in Binary Matrix. Direct application of unweighted shortest path.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Network Delay Time / Dijkstra Application",
+            "depth": "mention",
+            "why": "Standard Dijkstra: single-source, weighted, find max distance. Tests PQ usage and unreachable nodes. Map problem → template.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Cheapest Flights Within K Stops / Bellman-Ford Application",
+            "depth": "mention",
+            "why": "Constrained shortest path (at most K stops). Bellman-Ford or modified Dijkstra. High-signal variant. Map problem → algorithm.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Redundant Connection / Union-Find Application",
+            "depth": "mention",
+            "why": "Find edge creating cycle in undirected graph. Direct Union-Find application. Also solvable with DFS. Classic problem cue.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Accounts Merge / Union-Find Application",
+            "depth": "mention",
+            "why": "Union-Find on strings (emails) with mapping to indices. Merges components, then collects. Tests DSU + hash map composition.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Alien Dictionary / Topological Sort Application",
+            "depth": "mention",
+            "why": "Build graph from word list, then topological sort. Tests graph construction + ordering. Hard but famous; good to have cue.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Reconstruct Itinerary / Eulerian Path",
+            "depth": "explain",
+            "why": "Hierholzer's algorithm / post-order DFS with lexicographic order. Appears in top-tier interviews (Google, Meta). Compact template worth showing.",
+            "anticipates": "topology"
+          }
+        ],
+        "cut": [
+          "A* Search",
+          "Strongly Connected Components: Kosaraju's Algorithm",
+          "Strongly Connected Components: Tarjan's Algorithm",
+          "Max Flow / Min Cut (Edmonds-Karp)",
+          "Bipartite Matching (Hopcroft-Karp)"
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 8106,
+        "out": 5119
+      },
+      "created_at": "2026-09-14T13:38:22+00:00"
+    },
+    {
+      "id": "c73f9d9fdc064db0a9c88eadfaec45d5",
+      "project_id": "f392a301-f9a9-4fc5-a543-5d14dbf58606",
+      "kind": "partition",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "c8192e631b8e58aa1965882568f325a4",
+      "output": {
+        "modules": [
+          {
+            "title": "Graph DSA Cheat Sheet for Interviews",
+            "covers": [
+              "Graph Representation (Adjacency List)",
+              "Graph Representation (Adjacency Matrix)",
+              "Graph Representation (Edge List)",
+              "BFS Traversal",
+              "DFS Traversal (Recursive)",
+              "DFS Traversal (Iterative)",
+              "Connected Components (Undirected)",
+              "Cycle Detection (Undirected Graph)",
+              "Cycle Detection (Directed Graph)",
+              "Bipartite Graph Check",
+              "Topological Sort (Kahn's Algorithm / BFS)",
+              "Topological Sort (DFS-based)",
+              "Shortest Path: Unweighted (BFS)",
+              "Dijkstra's Algorithm",
+              "Bellman-Ford Algorithm",
+              "Floyd-Warshall Algorithm",
+              "Minimum Spanning Tree: Prim's Algorithm",
+              "Minimum Spanning Tree: Kruskal's Algorithm",
+              "Union-Find / Disjoint Set Union",
+              "BFS Template Pattern",
+              "DFS Template Pattern (Recursive)",
+              "DFS Template Pattern (Iterative)",
+              "Dijkstra Template Pattern",
+              "Union-Find Template Pattern",
+              "Topological Sort Template Pattern",
+              "Grid / Implicit Graph Traversal",
+              "Multi-source BFS",
+              "0-1 BFS / Deque BFS",
+              "Graph Cloning / Copy",
+              "Course Schedule / Prerequisite Problems",
+              "Number of Islands / Connected Components in Grid",
+              "Shortest Path in Grid / Maze",
+              "Network Delay Time / Dijkstra Application",
+              "Cheapest Flights Within K Stops / Bellman-Ford Application",
+              "Redundant Connection / Union-Find Application",
+              "Accounts Merge / Union-Find Application",
+              "Alien Dictionary / Topological Sort Application",
+              "Reconstruct Itinerary / Eulerian Path"
+            ],
+            "why_here": "All concepts serve the single job: a compact reference the learner keeps open during interview prep and recalls under time pressure. Every item is a lookup target (definition, complexity, template, or problem→algorithm mapping) for the same domain. Splitting would force the learner to switch PDFs mid-lookup.",
+            "capability": "Look up and apply any core graph algorithm, traversal template, or canonical problem pattern needed in a technical interview — including choosing the right representation, writing BFS/DFS/Dijkstra/Union-Find/Topological Sort from memory, and recognizing which template fits a new problem."
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 8106,
+        "out": 5119
+      },
+      "created_at": "2026-09-14T13:38:22+00:00"
+    }
+  ],
+  "commitment": []
+}

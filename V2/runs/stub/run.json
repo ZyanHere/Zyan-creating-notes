@@ -1,0 +1,27 @@
+{
+  "started_at": "2026-09-14T10:34:48+00:00",
+  "baseline": {
+    "repo": "D:\\myNotes\\V1",
+    "commit": "1c8a1d780ba3a652fa2ee04a61617e43de96154a",
+    "subject": "Enhance error reporting in fulfilment and generation processes with detailed failure reasons",
+    "source_hash": "807c8ec99a60d320e745e8ac208b8c7f690ebd273b3930f6680688d159cda116",
+    "source_files": 38,
+    "matches_baseline": true
+  },
+  "provider": null,
+  "phase": "plan",
+  "trials": 1,
+  "stub": true,
+  "cases": [
+    "agentic-ai-interview",
+    "transformers-deep",
+    "french-revolution-exam",
+    "vlsi-underspecified",
+    "dsa-graphs-interview",
+    "contract-act-authority",
+    "git-commits-narrow",
+    "heart-anatomy-visual",
+    "consensus-analogies",
+    "ml-weekend-conflict"
+  ]
+}

@@ -1,0 +1,1634 @@
+{
+  "project": {
+    "id": "a9a2081a-52d0-4642-b899-b96d3211aa5e",
+    "user_id": "local",
+    "title": "explain distributed consensus to me, raft and paxos. use lots of analogies and w",
+    "taxonomy_version": "plan-gate-1",
+    "created_at": "2026-09-14T15:36:52+00:00"
+  },
+  "utterance": [
+    {
+      "id": "1ac08dba-e7f6-42b3-a0ba-41a0616dc89b",
+      "project_id": "a9a2081a-52d0-4642-b899-b96d3211aa5e",
+      "ord": 0,
+      "role": "user",
+      "text": "explain distributed consensus to me, raft and paxos. use lots of analogies and worked examples, i learn badly from formal definitions",
+      "created_at": "2026-09-14T15:36:52+00:00"
+    }
+  ],
+  "decision": [
+    {
+      "id": "59f253282fb54f8e94324cda2d225d42",
+      "project_id": "a9a2081a-52d0-4642-b899-b96d3211aa5e",
+      "kind": "interpret_situation",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "32f4ee85212c73d906f7b585d783e466",
+      "output": {
+        "subject": "Distributed consensus algorithms: Raft and Paxos",
+        "job": "construct",
+        "entry_point": "Learner struggles with formal definitions; prefers analogies and worked examples. Likely has some systems background but needs intuitive grounding.",
+        "purpose": "Build conceptual understanding of how distributed consensus works, specifically Raft and Paxos, through intuitive explanations rather than formal proofs.",
+        "target_capability": "Can explain the core ideas of Paxos and Raft, trace through example scenarios (leader election, log replication, failure recovery), and articulate the trade-offs between them.",
+        "capacity": null,
+        "stated": [
+          {
+            "text": "use lots of analogies and worked examples",
+            "axis": "artifact_type"
+          },
+          {
+            "text": "i learn badly from formal definitions",
+            "axis": "depth_register"
+          }
+        ],
+        "inferred": [
+          "Artifact type is an explanatory tutorial with analogies and worked examples, not a reference card or cheatsheet.",
+          "Depth register is intuitive/conceptual with concrete traces; formal notation and correctness proofs are minimized.",
+          "No specific template requested; a concept-by-concept walkthrough with interleaved analogies and step-by-step examples is appropriate.",
+          "Subject scope covers both Paxos (Multi-Paxos) and Raft, with comparison.",
+          "Entry point assumes familiarity with basic distributed systems concepts (nodes, messages, failures) but not consensus specifics."
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "interpret_v1",
+      "cost": {
+        "in": 3171,
+        "out": 1733
+      },
+      "created_at": "2026-09-14T15:40:36+00:00"
+    },
+    {
+      "id": "3f5680b80d254b0a8d47f7f7dc370e7c",
+      "project_id": "a9a2081a-52d0-4642-b899-b96d3211aa5e",
+      "kind": "intake_strategy",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "834d0139d32fabd0b45bfe7419ce5e8a",
+      "output": {
+        "questions": [],
+        "sufficiency": {
+          "verdict": "sufficient",
+          "budget": 4,
+          "asking": [],
+          "over_budget": [],
+          "axes": [
+            {
+              "axis": "subject",
+              "value": "Distributed consensus algorithms: Raft and Paxos",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "distributed consensus"
+                },
+                {
+                  "utterance_ord": 0,
+                  "quote": "raft and paxos"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If subject were only Raft or only Paxos, the comparison section would be dropped and the other algorithm's mechanics would not be covered.",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "purpose",
+              "value": "Build conceptual understanding through analogies and worked examples",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "explain distributed consensus to me"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If purpose were exam prep, the artifact would be a condensed revision sheet with key invariants and common pitfalls. If purpose were implementation, it would include pseudo-code and edge-case checklists.",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "entry_point",
+              "value": "Knows basic distributed systems concepts (nodes, messages, crashes, network partitions); struggles with formal definitions and mathematical notation",
+              "strength": "inferred",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "i learn badly from formal definitions"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If entry point were 'first-time learner', the plan would add prerequisite concepts (state machines, quorums, failure models) before consensus. If entry point were 'experienced engineer', analogies would be sparse and the focus would be on invariants and optimizations.",
+              "askable": true,
+              "asked": false,
+              "reason": "inferred, supported by 'i learn badly from formal definitions'"
+            },
+            {
+              "axis": "target_capability",
+              "value": "Can explain core ideas of Paxos and Raft, trace through leader election/log replication/failure recovery scenarios, and articulate trade-offs",
+              "strength": "inferred",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "explain distributed consensus to me"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If target were 'implement Raft', the plan would include persistent state machines, snapshotting, membership changes, and testing strategies. If target were 'pass a systems interview', it would focus on common interview questions and comparative talking points.",
+              "askable": true,
+              "asked": false,
+              "reason": "inferred, supported by 'explain distributed consensus to me'"
+            },
+            {
+              "axis": "capacity",
+              "value": null,
+              "strength": "unknown",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "If capacity were '30 minutes', the plan would be a 3-concept mini-lesson with one worked example each. If '3 hours', it would include multiple failure scenarios, a Paxos-to-Raft mapping exercise, and a mini-comparison project.",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Semantics §1 LOCKED — optional, and the corollary: deriving the plan and reporting its extent is what CAUSES a capacity to be stated. Asking upfront asks for a number the learner cannot honestly give."
+            },
+            {
+              "axis": "depth_register",
+              "value": "Intuitive/conceptual with concrete step-by-step traces; formal notation and correctness proofs minimized",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "i learn badly from formal definitions"
+                },
+                {
+                  "utterance_ord": 0,
+                  "quote": "use lots of analogies and worked examples"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If depth register were 'formal', each concept would open with invariants and safety/liveness proofs. If 'survey', it would be a high-level comparison table with one-paragraph summaries.",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Semantics §1 — biasing, not binding. A default is always defensible."
+            },
+            {
+              "axis": "artifact_type",
+              "value": "Explanatory tutorial with interleaved analogies and step-by-step worked examples for each core concept",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "use lots of analogies and worked examples"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If artifact type were 'cheatsheet', it would be a 1-2 page reference of invariants, message flows, and leader duties. If 'interactive notebook', it would include executable simulations. If 'lecture notes', it would be structured for linear reading with exercises.",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "template",
+              "value": "Concept-by-concept walkthrough: each core idea introduced via analogy, then formalized in plain language, then traced through a worked example; Paxos and Raft treated in parallel with a dedicated comparison section",
+              "strength": "inferred",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "explain distributed consensus to me, raft and paxos"
+                },
+                {
+                  "utterance_ord": 0,
+                  "quote": "use lots of analogies and worked examples"
+                }
+              ],
+              "unverified": [],
+              "material": false,
+              "would_differ": "If template were 'algorithm-first', each algorithm would be covered fully before comparison. If 'problem-first', it would start from the consensus problem statement and derive both as solutions.",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Presentation-Boundary rule 1 — internal. Users never select one."
+            }
+          ]
+        }
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "interpret_v1",
+      "cost": {
+        "in": 3171,
+        "out": 1733
+      },
+      "created_at": "2026-09-14T15:40:36+00:00"
+    },
+    {
+      "id": "bc46d85d84a54601b35849ee2a092b2e",
+      "project_id": "a9a2081a-52d0-4642-b899-b96d3211aa5e",
+      "kind": "derive_structure",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "ca3aaae695bd5f2ee30d80678ae78247",
+      "output": {
+        "concepts": [
+          {
+            "name": "Consensus problem statement",
+            "built_from": [],
+            "family": "foundational framing"
+          },
+          {
+            "name": "Safety and liveness properties",
+            "built_from": [
+              "Consensus problem statement"
+            ],
+            "family": "foundational framing"
+          },
+          {
+            "name": "Quorums and majorities",
+            "built_from": [
+              "Consensus problem statement"
+            ],
+            "family": "core mechanism"
+          },
+          {
+            "name": "State machine replication",
+            "built_from": [
+              "Consensus problem statement"
+            ],
+            "family": "applied case"
+          },
+          {
+            "name": "Basic Paxos (single-decree) roles",
+            "built_from": [
+              "Quorums and majorities"
+            ],
+            "family": "core mechanism"
+          },
+          {
+            "name": "Paxos Phase 1: Prepare/Promise",
+            "built_from": [
+              "Basic Paxos (single-decree) roles"
+            ],
+            "family": "core mechanism"
+          },
+          {
+            "name": "Paxos Phase 2: Accept/Accepted",
+            "built_from": [
+              "Paxos Phase 1: Prepare/Promise"
+            ],
+            "family": "core mechanism"
+          },
+          {
+            "name": "Paxos learning a value",
+            "built_from": [
+              "Paxos Phase 2: Accept/Accepted"
+            ],
+            "family": "core mechanism"
+          },
+          {
+            "name": "Multi-Paxos leader optimization",
+            "built_from": [
+              "Paxos learning a value"
+            ],
+            "family": "core mechanism"
+          },
+          {
+            "name": "Multi-Paxos log replication",
+            "built_from": [
+              "Multi-Paxos leader optimization"
+            ],
+            "family": "core mechanism"
+          },
+          {
+            "name": "Raft design philosophy",
+            "built_from": [
+              "Consensus problem statement"
+            ],
+            "family": "foundational framing"
+          },
+          {
+            "name": "Raft terms and term-based leadership",
+            "built_from": [
+              "Raft design philosophy"
+            ],
+            "family": "core mechanism"
+          },
+          {
+            "name": "Raft leader election",
+            "built_from": [
+              "Raft terms and term-based leadership"
+            ],
+            "family": "core mechanism"
+          },
+          {
+            "name": "Raft log replication",
+            "built_from": [
+              "Raft leader election"
+            ],
+            "family": "core mechanism"
+          },
+          {
+            "name": "Raft log matching and consistency check",
+            "built_from": [
+              "Raft log replication"
+            ],
+            "family": "core mechanism"
+          },
+          {
+            "name": "Raft cluster membership changes",
+            "built_from": [
+              "Raft log replication"
+            ],
+            "family": "applied case"
+          },
+          {
+            "name": "Raft log compaction and snapshots",
+            "built_from": [
+              "Raft log replication"
+            ],
+            "family": "applied case"
+          },
+          {
+            "name": "Failure scenarios and recovery patterns",
+            "built_from": [
+              "Raft log replication",
+              "Multi-Paxos log replication"
+            ],
+            "family": "applied case"
+          },
+          {
+            "name": "Paxos vs Raft comparison: understandability",
+            "built_from": [
+              "Raft design philosophy",
+              "Multi-Paxos leader optimization"
+            ],
+            "family": "comparison"
+          },
+          {
+            "name": "Paxos vs Raft comparison: leader stability",
+            "built_from": [
+              "Raft leader election",
+              "Multi-Paxos leader optimization"
+            ],
+            "family": "comparison"
+          },
+          {
+            "name": "Paxos vs Raft comparison: log structure",
+            "built_from": [
+              "Raft log matching and consistency check",
+              "Multi-Paxos log replication"
+            ],
+            "family": "comparison"
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "derive_v1",
+      "cost": {
+        "in": 1580,
+        "out": 2016
+      },
+      "created_at": "2026-09-14T15:44:03+00:00"
+    },
+    {
+      "id": "81054303bc364366a1306deb636e111e",
+      "project_id": "a9a2081a-52d0-4642-b899-b96d3211aa5e",
+      "kind": "relevance",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "201744c06da24f90abd3363ddc807b8c",
+      "output": {
+        "judgements": [
+          {
+            "concept": "Consensus problem statement",
+            "in_play": true,
+            "why": "Entry point for the learner; establishes what problem these algorithms solve before diving into mechanisms."
+          },
+          {
+            "concept": "Safety and liveness properties",
+            "in_play": true,
+            "why": "Needed to articulate what 'correctness' means intuitively (nothing bad happens vs something good eventually happens) without formal proofs."
+          },
+          {
+            "concept": "Quorums and majorities",
+            "in_play": true,
+            "why": "Core mechanism both algorithms rely on; learner must grasp why majorities work for intersection guarantees."
+          },
+          {
+            "concept": "State machine replication",
+            "in_play": true,
+            "why": "The applied context that makes consensus concrete; helps learner see why log replication matters."
+          },
+          {
+            "concept": "Basic Paxos (single-decree) roles",
+            "in_play": true,
+            "why": "Learner needs to distinguish proposer/acceptor/learner to trace Paxos examples; foundational for Phase 1/2."
+          },
+          {
+            "concept": "Paxos Phase 1: Prepare/Promise",
+            "in_play": true,
+            "why": "Explicitly requested worked example material; learner traces through prepare/promise to understand leader establishment."
+          },
+          {
+            "concept": "Paxos Phase 2: Accept/Accepted",
+            "in_play": true,
+            "why": "Explicitly requested worked example material; learner traces through accept/accepted to see value chosen."
+          },
+          {
+            "concept": "Paxos learning a value",
+            "in_play": true,
+            "why": "Completes the single-decree trace; learner needs to see how learners find out the chosen value."
+          },
+          {
+            "concept": "Multi-Paxos leader optimization",
+            "in_play": true,
+            "why": "Bridge from single-decree to practical Paxos; explains why stable leader avoids repeated Phase 1."
+          },
+          {
+            "concept": "Multi-Paxos log replication",
+            "in_play": true,
+            "why": "Core worked example territory; learner traces how a sequence of commands gets replicated."
+          },
+          {
+            "concept": "Raft design philosophy",
+            "in_play": true,
+            "why": "Frames why Raft exists; learner's purpose includes articulating trade-offs, starting with understandability goal."
+          },
+          {
+            "concept": "Raft terms and term-based leadership",
+            "in_play": true,
+            "why": "Fundamental Raft concept; learner must understand terms as logical clocks for leader validity."
+          },
+          {
+            "concept": "Raft leader election",
+            "in_play": true,
+            "why": "Explicitly requested worked example; learner traces election timeout, RequestVote, vote granting."
+          },
+          {
+            "concept": "Raft log replication",
+            "in_play": true,
+            "why": "Explicitly requested worked example; learner traces AppendEntries, matching, commit index advancement."
+          },
+          {
+            "concept": "Raft log matching and consistency check",
+            "in_play": true,
+            "why": "Key differentiator from Paxos; learner needs to trace prevLogIndex/prevLogTerm checks in examples."
+          },
+          {
+            "concept": "Raft cluster membership changes",
+            "in_play": true,
+            "why": "Part of target capability (failure recovery scenarios); joint consensus is a concrete worked example."
+          },
+          {
+            "concept": "Raft log compaction and snapshots",
+            "in_play": true,
+            "why": "Part of target capability (failure recovery); snapshotting is a concrete recovery scenario to trace."
+          },
+          {
+            "concept": "Failure scenarios and recovery patterns",
+            "in_play": true,
+            "why": "Explicitly in target capability; learner traces leader crash, follower lag, network partition for both algorithms."
+          },
+          {
+            "concept": "Paxos vs Raft comparison: understandability",
+            "in_play": true,
+            "why": "Directly serves target capability of articulating trade-offs; learner contrasts design philosophies."
+          },
+          {
+            "concept": "Paxos vs Raft comparison: leader stability",
+            "in_play": true,
+            "why": "Directly serves target capability; learner contrasts Raft's strong leadership vs Paxos's flexible leadership."
+          },
+          {
+            "concept": "Paxos vs Raft comparison: log structure",
+            "in_play": true,
+            "why": "Directly serves target capability; learner contrasts Raft's strict log matching vs Paxos's flexible instance ordering."
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "derive_v1",
+      "cost": {
+        "in": 1580,
+        "out": 2016
+      },
+      "created_at": "2026-09-14T15:44:03+00:00"
+    },
+    {
+      "id": "abb5327ce1fd45848b6d8cb0fb8787b6",
+      "project_id": "a9a2081a-52d0-4642-b899-b96d3211aa5e",
+      "kind": "traversal",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "153e943b1d84179cd9a775dbc3c79eca",
+      "output": {
+        "sequence": [
+          "Distributed Consensus: Raft and Paxos — Intuitive Guide with Worked Examples"
+        ],
+        "why": "Single module covers the complete target capability; all concepts (Paxos, Raft, comparison, failure scenarios) are needed together to explain both algorithms, trace worked examples, and articulate trade-offs."
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 5536,
+        "out": 4480
+      },
+      "created_at": "2026-09-14T15:49:50+00:00"
+    },
+    {
+      "id": "ef4c8508cbf54b37b230b464f0c512ac",
+      "project_id": "a9a2081a-52d0-4642-b899-b96d3211aa5e",
+      "kind": "consequence",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "1077058c5f8c2ec98789a790c0b90ca8",
+      "output": {
+        "exclusions": [
+          {
+            "topic": "Formal correctness proofs (safety/liveness proofs for Paxos and Raft)",
+            "consequence": "Learner cannot verify why the algorithms are correct or construct proof sketches; they must accept guarantees on authority.",
+            "when_to_learn": "When implementing a consensus library, debugging subtle correctness bugs, or doing graduate-level distributed systems coursework."
+          },
+          {
+            "topic": "Other consensus algorithms (Zab, Viewstamped Replication, Chain Replication, etc.)",
+            "consequence": "Learner cannot evaluate alternatives for specific deployment constraints or recognize algorithm lineage in systems like ZooKeeper, etcd, or Kafka.",
+            "when_to_learn": "When choosing a consensus protocol for a new system, or studying the evolution of consensus in production systems."
+          },
+          {
+            "topic": "Implementation-level details (RPC framing, persistence, byte-level protocol, batching, pipelining)",
+            "consequence": "Learner cannot build a production-ready implementation or debug protocol-level issues in existing implementations.",
+            "when_to_learn": "When implementing Raft/Paxos from scratch, contributing to etcd/Consul/TiKV, or troubleshooting performance anomalies."
+          },
+          {
+            "topic": "Advanced membership change protocols (single-server changes, learner promotion, pre-vote)",
+            "consequence": "Learner cannot safely operate cluster membership changes in production or understand all edge cases in the Raft dissertation.",
+            "when_to_learn": "When operating a Raft cluster in production, or implementing membership changes in a custom Raft library."
+          },
+          {
+            "topic": "Lease reads, read-index, and follower reads optimization",
+            "consequence": "Learner cannot design low-latency read paths or understand how production systems scale read throughput.",
+            "when_to_learn": "When optimizing read latency in a Raft-based system, or designing a system that serves reads from followers."
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 5536,
+        "out": 4480
+      },
+      "created_at": "2026-09-14T15:49:50+00:00"
+    },
+    {
+      "id": "1cfba8e770fc4dbc856bcecbf2ffd550",
+      "project_id": "a9a2081a-52d0-4642-b899-b96d3211aa5e",
+      "kind": "scope",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "8b230d78bbf85ae794126b87b0eb6f4f",
+      "output": {
+        "covered": [
+          {
+            "concept": "Consensus problem statement",
+            "depth": "explain",
+            "why": "Establishes the problem space intuitively; anchors all subsequent mechanisms.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Safety and liveness properties",
+            "depth": "explain",
+            "why": "Gives learner vocabulary to articulate what 'correct' means without formal proofs.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Quorums and majorities",
+            "depth": "explain",
+            "why": "Core mechanism both algorithms rely on; learner must grasp intersection guarantees for any trace.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "State machine replication",
+            "depth": "explain",
+            "why": "Makes consensus concrete; shows why log replication is the goal.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Basic Paxos (single-decree) roles",
+            "depth": "explain",
+            "why": "Distinguishes proposer/acceptor/learner so learner can follow message flows in traces.",
+            "anticipates": "parallel-state"
+          },
+          {
+            "concept": "Paxos Phase 1: Prepare/Promise",
+            "depth": "work through",
+            "why": "Primary worked example; learner traces prepare/promise to see leader establishment.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Paxos Phase 2: Accept/Accepted",
+            "depth": "work through",
+            "why": "Primary worked example; learner traces accept/accepted to see value chosen.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Paxos learning a value",
+            "depth": "explain",
+            "why": "Completes single-decree trace; shows how learners discover chosen value.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Multi-Paxos leader optimization",
+            "depth": "explain",
+            "why": "Bridge from single-decree to practical Paxos; explains stable leader avoiding repeated Phase 1.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Multi-Paxos log replication",
+            "depth": "work through",
+            "why": "Core worked example; learner traces sequence of commands replicated across instances.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Raft design philosophy",
+            "depth": "explain",
+            "why": "Frames why Raft exists; grounds trade-off articulation in understandability goal.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Raft terms and term-based leadership",
+            "depth": "explain",
+            "why": "Fundamental concept; terms as logical clocks for leader validity.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Raft leader election",
+            "depth": "work through",
+            "why": "Explicitly requested worked example; traces election timeout, RequestVote, vote granting.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Raft log replication",
+            "depth": "work through",
+            "why": "Explicitly requested worked example; traces AppendEntries, match index, commit index advancement.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Raft log matching and consistency check",
+            "depth": "work through",
+            "why": "Key differentiator from Paxos; learner traces prevLogIndex/prevLogTerm checks in examples.",
+            "anticipates": "perceptual-referent"
+          },
+          {
+            "concept": "Raft cluster membership changes",
+            "depth": "explain",
+            "why": "Part of target capability (failure recovery); joint consensus as concrete worked example.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Raft log compaction and snapshots",
+            "depth": "explain",
+            "why": "Part of target capability (failure recovery); snapshotting as concrete recovery scenario.",
+            "anticipates": "perceptual-referent"
+          },
+          {
+            "concept": "Failure scenarios and recovery patterns",
+            "depth": "work through",
+            "why": "Explicitly in target capability; traces leader crash, follower lag, partition for both algorithms.",
+            "anticipates": "parallel-state"
+          },
+          {
+            "concept": "Paxos vs Raft comparison: understandability",
+            "depth": "explain",
+            "why": "Directly serves trade-off articulation; contrasts design philosophies.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Paxos vs Raft comparison: leader stability",
+            "depth": "explain",
+            "why": "Directly serves trade-off articulation; contrasts strong vs flexible leadership.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Paxos vs Raft comparison: log structure",
+            "depth": "explain",
+            "why": "Directly serves trade-off articulation; contrasts strict log matching vs flexible instances.",
+            "anticipates": "perceptual-referent"
+          }
+        ],
+        "cut": []
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 5536,
+        "out": 4480
+      },
+      "created_at": "2026-09-14T15:49:50+00:00"
+    },
+    {
+      "id": "4627ebd07d1e4c6384bca2c9a227ba70",
+      "project_id": "a9a2081a-52d0-4642-b899-b96d3211aa5e",
+      "kind": "partition",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "b3c4b2728cbefd9f307107c446320d21",
+      "output": {
+        "modules": [
+          {
+            "title": "Distributed Consensus: Raft and Paxos — Intuitive Guide with Worked Examples",
+            "covers": [
+              "Consensus problem statement",
+              "Safety and liveness properties",
+              "Quorums and majorities",
+              "State machine replication",
+              "Basic Paxos (single-decree) roles",
+              "Paxos Phase 1: Prepare/Promise",
+              "Paxos Phase 2: Accept/Accepted",
+              "Paxos learning a value",
+              "Multi-Paxos leader optimization",
+              "Multi-Paxos log replication",
+              "Raft design philosophy",
+              "Raft terms and term-based leadership",
+              "Raft leader election",
+              "Raft log replication",
+              "Raft log matching and consistency check",
+              "Raft cluster membership changes",
+              "Raft log compaction and snapshots",
+              "Failure scenarios and recovery patterns",
+              "Paxos vs Raft comparison: understandability",
+              "Paxos vs Raft comparison: leader stability",
+              "Paxos vs Raft comparison: log structure"
+            ],
+            "why_here": "All concepts serve the single target capability of explaining both algorithms, tracing worked examples for leader election/log replication/failure recovery, and articulating trade-offs. The algorithms are taught together because comparison requires both, and failure scenarios reference both. Splitting would prevent the learner from exercising the full target capability until all parts are complete.",
+            "capability": "Can explain the core ideas of Paxos and Raft, trace through example scenarios (leader election, log replication, failure recovery), and articulate the trade-offs between them."
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 5536,
+        "out": 4480
+      },
+      "created_at": "2026-09-14T15:49:50+00:00"
+    },
+    {
+      "id": "59f253282fb54f8e94324cda2d225d42",
+      "project_id": "a9a2081a-52d0-4642-b899-b96d3211aa5e",
+      "kind": "interpret_situation",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "32f4ee85212c73d906f7b585d783e466",
+      "output": {
+        "subject": "Distributed consensus algorithms: Raft and Paxos",
+        "job": "construct",
+        "entry_point": "Learner struggles with formal definitions; prefers analogies and worked examples. Likely has some systems background but needs intuitive grounding.",
+        "purpose": "Build conceptual understanding of how distributed consensus works, specifically Raft and Paxos, through intuitive explanations rather than formal proofs.",
+        "target_capability": "Can explain the core ideas of Paxos and Raft, trace through example scenarios (leader election, log replication, failure recovery), and articulate the trade-offs between them.",
+        "capacity": null,
+        "stated": [
+          {
+            "text": "use lots of analogies and worked examples",
+            "axis": "artifact_type"
+          },
+          {
+            "text": "i learn badly from formal definitions",
+            "axis": "depth_register"
+          }
+        ],
+        "inferred": [
+          "Artifact type is an explanatory tutorial with analogies and worked examples, not a reference card or cheatsheet.",
+          "Depth register is intuitive/conceptual with concrete traces; formal notation and correctness proofs are minimized.",
+          "No specific template requested; a concept-by-concept walkthrough with interleaved analogies and step-by-step examples is appropriate.",
+          "Subject scope covers both Paxos (Multi-Paxos) and Raft, with comparison.",
+          "Entry point assumes familiarity with basic distributed systems concepts (nodes, messages, failures) but not consensus specifics."
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "interpret_v1",
+      "cost": {
+        "in": 3171,
+        "out": 1733
+      },
+      "created_at": "2026-09-14T15:40:36+00:00"
+    },
+    {
+      "id": "1cfba8e770fc4dbc856bcecbf2ffd550",
+      "project_id": "a9a2081a-52d0-4642-b899-b96d3211aa5e",
+      "kind": "scope",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "8b230d78bbf85ae794126b87b0eb6f4f",
+      "output": {
+        "covered": [
+          {
+            "concept": "Consensus problem statement",
+            "depth": "explain",
+            "why": "Establishes the problem space intuitively; anchors all subsequent mechanisms.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Safety and liveness properties",
+            "depth": "explain",
+            "why": "Gives learner vocabulary to articulate what 'correct' means without formal proofs.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Quorums and majorities",
+            "depth": "explain",
+            "why": "Core mechanism both algorithms rely on; learner must grasp intersection guarantees for any trace.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "State machine replication",
+            "depth": "explain",
+            "why": "Makes consensus concrete; shows why log replication is the goal.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Basic Paxos (single-decree) roles",
+            "depth": "explain",
+            "why": "Distinguishes proposer/acceptor/learner so learner can follow message flows in traces.",
+            "anticipates": "parallel-state"
+          },
+          {
+            "concept": "Paxos Phase 1: Prepare/Promise",
+            "depth": "work through",
+            "why": "Primary worked example; learner traces prepare/promise to see leader establishment.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Paxos Phase 2: Accept/Accepted",
+            "depth": "work through",
+            "why": "Primary worked example; learner traces accept/accepted to see value chosen.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Paxos learning a value",
+            "depth": "explain",
+            "why": "Completes single-decree trace; shows how learners discover chosen value.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Multi-Paxos leader optimization",
+            "depth": "explain",
+            "why": "Bridge from single-decree to practical Paxos; explains stable leader avoiding repeated Phase 1.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Multi-Paxos log replication",
+            "depth": "work through",
+            "why": "Core worked example; learner traces sequence of commands replicated across instances.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Raft design philosophy",
+            "depth": "explain",
+            "why": "Frames why Raft exists; grounds trade-off articulation in understandability goal.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Raft terms and term-based leadership",
+            "depth": "explain",
+            "why": "Fundamental concept; terms as logical clocks for leader validity.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Raft leader election",
+            "depth": "work through",
+            "why": "Explicitly requested worked example; traces election timeout, RequestVote, vote granting.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Raft log replication",
+            "depth": "work through",
+            "why": "Explicitly requested worked example; traces AppendEntries, match index, commit index advancement.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Raft log matching and consistency check",
+            "depth": "work through",
+            "why": "Key differentiator from Paxos; learner traces prevLogIndex/prevLogTerm checks in examples.",
+            "anticipates": "perceptual-referent"
+          },
+          {
+            "concept": "Raft cluster membership changes",
+            "depth": "explain",
+            "why": "Part of target capability (failure recovery); joint consensus as concrete worked example.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Raft log compaction and snapshots",
+            "depth": "explain",
+            "why": "Part of target capability (failure recovery); snapshotting as concrete recovery scenario.",
+            "anticipates": "perceptual-referent"
+          },
+          {
+            "concept": "Failure scenarios and recovery patterns",
+            "depth": "work through",
+            "why": "Explicitly in target capability; traces leader crash, follower lag, partition for both algorithms.",
+            "anticipates": "parallel-state"
+          },
+          {
+            "concept": "Paxos vs Raft comparison: understandability",
+            "depth": "explain",
+            "why": "Directly serves trade-off articulation; contrasts design philosophies.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Paxos vs Raft comparison: leader stability",
+            "depth": "explain",
+            "why": "Directly serves trade-off articulation; contrasts strong vs flexible leadership.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Paxos vs Raft comparison: log structure",
+            "depth": "explain",
+            "why": "Directly serves trade-off articulation; contrasts strict log matching vs flexible instances.",
+            "anticipates": "perceptual-referent"
+          }
+        ],
+        "cut": []
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 5536,
+        "out": 4480
+      },
+      "created_at": "2026-09-14T15:49:50+00:00"
+    },
+    {
+      "id": "ef4c8508cbf54b37b230b464f0c512ac",
+      "project_id": "a9a2081a-52d0-4642-b899-b96d3211aa5e",
+      "kind": "consequence",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "1077058c5f8c2ec98789a790c0b90ca8",
+      "output": {
+        "exclusions": [
+          {
+            "topic": "Formal correctness proofs (safety/liveness proofs for Paxos and Raft)",
+            "consequence": "Learner cannot verify why the algorithms are correct or construct proof sketches; they must accept guarantees on authority.",
+            "when_to_learn": "When implementing a consensus library, debugging subtle correctness bugs, or doing graduate-level distributed systems coursework."
+          },
+          {
+            "topic": "Other consensus algorithms (Zab, Viewstamped Replication, Chain Replication, etc.)",
+            "consequence": "Learner cannot evaluate alternatives for specific deployment constraints or recognize algorithm lineage in systems like ZooKeeper, etcd, or Kafka.",
+            "when_to_learn": "When choosing a consensus protocol for a new system, or studying the evolution of consensus in production systems."
+          },
+          {
+            "topic": "Implementation-level details (RPC framing, persistence, byte-level protocol, batching, pipelining)",
+            "consequence": "Learner cannot build a production-ready implementation or debug protocol-level issues in existing implementations.",
+            "when_to_learn": "When implementing Raft/Paxos from scratch, contributing to etcd/Consul/TiKV, or troubleshooting performance anomalies."
+          },
+          {
+            "topic": "Advanced membership change protocols (single-server changes, learner promotion, pre-vote)",
+            "consequence": "Learner cannot safely operate cluster membership changes in production or understand all edge cases in the Raft dissertation.",
+            "when_to_learn": "When operating a Raft cluster in production, or implementing membership changes in a custom Raft library."
+          },
+          {
+            "topic": "Lease reads, read-index, and follower reads optimization",
+            "consequence": "Learner cannot design low-latency read paths or understand how production systems scale read throughput.",
+            "when_to_learn": "When optimizing read latency in a Raft-based system, or designing a system that serves reads from followers."
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 5536,
+        "out": 4480
+      },
+      "created_at": "2026-09-14T15:49:50+00:00"
+    },
+    {
+      "id": "abb5327ce1fd45848b6d8cb0fb8787b6",
+      "project_id": "a9a2081a-52d0-4642-b899-b96d3211aa5e",
+      "kind": "traversal",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "153e943b1d84179cd9a775dbc3c79eca",
+      "output": {
+        "sequence": [
+          "Distributed Consensus: Raft and Paxos — Intuitive Guide with Worked Examples"
+        ],
+        "why": "Single module covers the complete target capability; all concepts (Paxos, Raft, comparison, failure scenarios) are needed together to explain both algorithms, trace worked examples, and articulate trade-offs."
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 5536,
+        "out": 4480
+      },
+      "created_at": "2026-09-14T15:49:50+00:00"
+    },
+    {
+      "id": "4627ebd07d1e4c6384bca2c9a227ba70",
+      "project_id": "a9a2081a-52d0-4642-b899-b96d3211aa5e",
+      "kind": "partition",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "b3c4b2728cbefd9f307107c446320d21",
+      "output": {
+        "modules": [
+          {
+            "title": "Distributed Consensus: Raft and Paxos — Intuitive Guide with Worked Examples",
+            "covers": [
+              "Consensus problem statement",
+              "Safety and liveness properties",
+              "Quorums and majorities",
+              "State machine replication",
+              "Basic Paxos (single-decree) roles",
+              "Paxos Phase 1: Prepare/Promise",
+              "Paxos Phase 2: Accept/Accepted",
+              "Paxos learning a value",
+              "Multi-Paxos leader optimization",
+              "Multi-Paxos log replication",
+              "Raft design philosophy",
+              "Raft terms and term-based leadership",
+              "Raft leader election",
+              "Raft log replication",
+              "Raft log matching and consistency check",
+              "Raft cluster membership changes",
+              "Raft log compaction and snapshots",
+              "Failure scenarios and recovery patterns",
+              "Paxos vs Raft comparison: understandability",
+              "Paxos vs Raft comparison: leader stability",
+              "Paxos vs Raft comparison: log structure"
+            ],
+            "why_here": "All concepts serve the single target capability of explaining both algorithms, tracing worked examples for leader election/log replication/failure recovery, and articulating trade-offs. The algorithms are taught together because comparison requires both, and failure scenarios reference both. Splitting would prevent the learner from exercising the full target capability until all parts are complete.",
+            "capability": "Can explain the core ideas of Paxos and Raft, trace through example scenarios (leader election, log replication, failure recovery), and articulate the trade-offs between them."
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 5536,
+        "out": 4480
+      },
+      "created_at": "2026-09-14T15:49:50+00:00"
+    },
+    {
+      "id": "bc46d85d84a54601b35849ee2a092b2e",
+      "project_id": "a9a2081a-52d0-4642-b899-b96d3211aa5e",
+      "kind": "derive_structure",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "ca3aaae695bd5f2ee30d80678ae78247",
+      "output": {
+        "concepts": [
+          {
+            "name": "Consensus problem statement",
+            "built_from": [],
+            "family": "foundational framing"
+          },
+          {
+            "name": "Safety and liveness properties",
+            "built_from": [
+              "Consensus problem statement"
+            ],
+            "family": "foundational framing"
+          },
+          {
+            "name": "Quorums and majorities",
+            "built_from": [
+              "Consensus problem statement"
+            ],
+            "family": "core mechanism"
+          },
+          {
+            "name": "State machine replication",
+            "built_from": [
+              "Consensus problem statement"
+            ],
+            "family": "applied case"
+          },
+          {
+            "name": "Basic Paxos (single-decree) roles",
+            "built_from": [
+              "Quorums and majorities"
+            ],
+            "family": "core mechanism"
+          },
+          {
+            "name": "Paxos Phase 1: Prepare/Promise",
+            "built_from": [
+              "Basic Paxos (single-decree) roles"
+            ],
+            "family": "core mechanism"
+          },
+          {
+            "name": "Paxos Phase 2: Accept/Accepted",
+            "built_from": [
+              "Paxos Phase 1: Prepare/Promise"
+            ],
+            "family": "core mechanism"
+          },
+          {
+            "name": "Paxos learning a value",
+            "built_from": [
+              "Paxos Phase 2: Accept/Accepted"
+            ],
+            "family": "core mechanism"
+          },
+          {
+            "name": "Multi-Paxos leader optimization",
+            "built_from": [
+              "Paxos learning a value"
+            ],
+            "family": "core mechanism"
+          },
+          {
+            "name": "Multi-Paxos log replication",
+            "built_from": [
+              "Multi-Paxos leader optimization"
+            ],
+            "family": "core mechanism"
+          },
+          {
+            "name": "Raft design philosophy",
+            "built_from": [
+              "Consensus problem statement"
+            ],
+            "family": "foundational framing"
+          },
+          {
+            "name": "Raft terms and term-based leadership",
+            "built_from": [
+              "Raft design philosophy"
+            ],
+            "family": "core mechanism"
+          },
+          {
+            "name": "Raft leader election",
+            "built_from": [
+              "Raft terms and term-based leadership"
+            ],
+            "family": "core mechanism"
+          },
+          {
+            "name": "Raft log replication",
+            "built_from": [
+              "Raft leader election"
+            ],
+            "family": "core mechanism"
+          },
+          {
+            "name": "Raft log matching and consistency check",
+            "built_from": [
+              "Raft log replication"
+            ],
+            "family": "core mechanism"
+          },
+          {
+            "name": "Raft cluster membership changes",
+            "built_from": [
+              "Raft log replication"
+            ],
+            "family": "applied case"
+          },
+          {
+            "name": "Raft log compaction and snapshots",
+            "built_from": [
+              "Raft log replication"
+            ],
+            "family": "applied case"
+          },
+          {
+            "name": "Failure scenarios and recovery patterns",
+            "built_from": [
+              "Raft log replication",
+              "Multi-Paxos log replication"
+            ],
+            "family": "applied case"
+          },
+          {
+            "name": "Paxos vs Raft comparison: understandability",
+            "built_from": [
+              "Raft design philosophy",
+              "Multi-Paxos leader optimization"
+            ],
+            "family": "comparison"
+          },
+          {
+            "name": "Paxos vs Raft comparison: leader stability",
+            "built_from": [
+              "Raft leader election",
+              "Multi-Paxos leader optimization"
+            ],
+            "family": "comparison"
+          },
+          {
+            "name": "Paxos vs Raft comparison: log structure",
+            "built_from": [
+              "Raft log matching and consistency check",
+              "Multi-Paxos log replication"
+            ],
+            "family": "comparison"
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "derive_v1",
+      "cost": {
+        "in": 1580,
+        "out": 2016
+      },
+      "created_at": "2026-09-14T15:44:03+00:00"
+    },
+    {
+      "id": "81054303bc364366a1306deb636e111e",
+      "project_id": "a9a2081a-52d0-4642-b899-b96d3211aa5e",
+      "kind": "relevance",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "201744c06da24f90abd3363ddc807b8c",
+      "output": {
+        "judgements": [
+          {
+            "concept": "Consensus problem statement",
+            "in_play": true,
+            "why": "Entry point for the learner; establishes what problem these algorithms solve before diving into mechanisms."
+          },
+          {
+            "concept": "Safety and liveness properties",
+            "in_play": true,
+            "why": "Needed to articulate what 'correctness' means intuitively (nothing bad happens vs something good eventually happens) without formal proofs."
+          },
+          {
+            "concept": "Quorums and majorities",
+            "in_play": true,
+            "why": "Core mechanism both algorithms rely on; learner must grasp why majorities work for intersection guarantees."
+          },
+          {
+            "concept": "State machine replication",
+            "in_play": true,
+            "why": "The applied context that makes consensus concrete; helps learner see why log replication matters."
+          },
+          {
+            "concept": "Basic Paxos (single-decree) roles",
+            "in_play": true,
+            "why": "Learner needs to distinguish proposer/acceptor/learner to trace Paxos examples; foundational for Phase 1/2."
+          },
+          {
+            "concept": "Paxos Phase 1: Prepare/Promise",
+            "in_play": true,
+            "why": "Explicitly requested worked example material; learner traces through prepare/promise to understand leader establishment."
+          },
+          {
+            "concept": "Paxos Phase 2: Accept/Accepted",
+            "in_play": true,
+            "why": "Explicitly requested worked example material; learner traces through accept/accepted to see value chosen."
+          },
+          {
+            "concept": "Paxos learning a value",
+            "in_play": true,
+            "why": "Completes the single-decree trace; learner needs to see how learners find out the chosen value."
+          },
+          {
+            "concept": "Multi-Paxos leader optimization",
+            "in_play": true,
+            "why": "Bridge from single-decree to practical Paxos; explains why stable leader avoids repeated Phase 1."
+          },
+          {
+            "concept": "Multi-Paxos log replication",
+            "in_play": true,
+            "why": "Core worked example territory; learner traces how a sequence of commands gets replicated."
+          },
+          {
+            "concept": "Raft design philosophy",
+            "in_play": true,
+            "why": "Frames why Raft exists; learner's purpose includes articulating trade-offs, starting with understandability goal."
+          },
+          {
+            "concept": "Raft terms and term-based leadership",
+            "in_play": true,
+            "why": "Fundamental Raft concept; learner must understand terms as logical clocks for leader validity."
+          },
+          {
+            "concept": "Raft leader election",
+            "in_play": true,
+            "why": "Explicitly requested worked example; learner traces election timeout, RequestVote, vote granting."
+          },
+          {
+            "concept": "Raft log replication",
+            "in_play": true,
+            "why": "Explicitly requested worked example; learner traces AppendEntries, matching, commit index advancement."
+          },
+          {
+            "concept": "Raft log matching and consistency check",
+            "in_play": true,
+            "why": "Key differentiator from Paxos; learner needs to trace prevLogIndex/prevLogTerm checks in examples."
+          },
+          {
+            "concept": "Raft cluster membership changes",
+            "in_play": true,
+            "why": "Part of target capability (failure recovery scenarios); joint consensus is a concrete worked example."
+          },
+          {
+            "concept": "Raft log compaction and snapshots",
+            "in_play": true,
+            "why": "Part of target capability (failure recovery); snapshotting is a concrete recovery scenario to trace."
+          },
+          {
+            "concept": "Failure scenarios and recovery patterns",
+            "in_play": true,
+            "why": "Explicitly in target capability; learner traces leader crash, follower lag, network partition for both algorithms."
+          },
+          {
+            "concept": "Paxos vs Raft comparison: understandability",
+            "in_play": true,
+            "why": "Directly serves target capability of articulating trade-offs; learner contrasts design philosophies."
+          },
+          {
+            "concept": "Paxos vs Raft comparison: leader stability",
+            "in_play": true,
+            "why": "Directly serves target capability; learner contrasts Raft's strong leadership vs Paxos's flexible leadership."
+          },
+          {
+            "concept": "Paxos vs Raft comparison: log structure",
+            "in_play": true,
+            "why": "Directly serves target capability; learner contrasts Raft's strict log matching vs Paxos's flexible instance ordering."
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "derive_v1",
+      "cost": {
+        "in": 1580,
+        "out": 2016
+      },
+      "created_at": "2026-09-14T15:44:03+00:00"
+    }
+  ],
+  "commitment": [
+    {
+      "id": "a8d8b42d72974871a64798b35d8c05bf",
+      "project_id": "a9a2081a-52d0-4642-b899-b96d3211aa5e",
+      "kind": "plan",
+      "snapshot": {
+        "interpret_situation": {
+          "subject": "Distributed consensus algorithms: Raft and Paxos",
+          "job": "construct",
+          "entry_point": "Learner struggles with formal definitions; prefers analogies and worked examples. Likely has some systems background but needs intuitive grounding.",
+          "purpose": "Build conceptual understanding of how distributed consensus works, specifically Raft and Paxos, through intuitive explanations rather than formal proofs.",
+          "target_capability": "Can explain the core ideas of Paxos and Raft, trace through example scenarios (leader election, log replication, failure recovery), and articulate the trade-offs between them.",
+          "capacity": null,
+          "stated": [
+            {
+              "text": "use lots of analogies and worked examples",
+              "axis": "artifact_type"
+            },
+            {
+              "text": "i learn badly from formal definitions",
+              "axis": "depth_register"
+            }
+          ],
+          "inferred": [
+            "Artifact type is an explanatory tutorial with analogies and worked examples, not a reference card or cheatsheet.",
+            "Depth register is intuitive/conceptual with concrete traces; formal notation and correctness proofs are minimized.",
+            "No specific template requested; a concept-by-concept walkthrough with interleaved analogies and step-by-step examples is appropriate.",
+            "Subject scope covers both Paxos (Multi-Paxos) and Raft, with comparison.",
+            "Entry point assumes familiarity with basic distributed systems concepts (nodes, messages, failures) but not consensus specifics."
+          ]
+        },
+        "scope": {
+          "covered": [
+            {
+              "concept": "Consensus problem statement",
+              "depth": "explain",
+              "why": "Establishes the problem space intuitively; anchors all subsequent mechanisms.",
+              "anticipates": "none"
+            },
+            {
+              "concept": "Safety and liveness properties",
+              "depth": "explain",
+              "why": "Gives learner vocabulary to articulate what 'correct' means without formal proofs.",
+              "anticipates": "none"
+            },
+            {
+              "concept": "Quorums and majorities",
+              "depth": "explain",
+              "why": "Core mechanism both algorithms rely on; learner must grasp intersection guarantees for any trace.",
+              "anticipates": "topology"
+            },
+            {
+              "concept": "State machine replication",
+              "depth": "explain",
+              "why": "Makes consensus concrete; shows why log replication is the goal.",
+              "anticipates": "none"
+            },
+            {
+              "concept": "Basic Paxos (single-decree) roles",
+              "depth": "explain",
+              "why": "Distinguishes proposer/acceptor/learner so learner can follow message flows in traces.",
+              "anticipates": "parallel-state"
+            },
+            {
+              "concept": "Paxos Phase 1: Prepare/Promise",
+              "depth": "work through",
+              "why": "Primary worked example; learner traces prepare/promise to see leader establishment.",
+              "anticipates": "procedure-execution"
+            },
+            {
+              "concept": "Paxos Phase 2: Accept/Accepted",
+              "depth": "work through",
+              "why": "Primary worked example; learner traces accept/accepted to see value chosen.",
+              "anticipates": "procedure-execution"
+            },
+            {
+              "concept": "Paxos learning a value",
+              "depth": "explain",
+              "why": "Completes single-decree trace; shows how learners discover chosen value.",
+              "anticipates": "procedure-execution"
+            },
+            {
+              "concept": "Multi-Paxos leader optimization",
+              "depth": "explain",
+              "why": "Bridge from single-decree to practical Paxos; explains stable leader avoiding repeated Phase 1.",
+              "anticipates": "topology"
+            },
+            {
+              "concept": "Multi-Paxos log replication",
+              "depth": "work through",
+              "why": "Core worked example; learner traces sequence of commands replicated across instances.",
+              "anticipates": "procedure-execution"
+            },
+            {
+              "concept": "Raft design philosophy",
+              "depth": "explain",
+              "why": "Frames why Raft exists; grounds trade-off articulation in understandability goal.",
+              "anticipates": "none"
+            },
+            {
+              "concept": "Raft terms and term-based leadership",
+              "depth": "explain",
+              "why": "Fundamental concept; terms as logical clocks for leader validity.",
+              "anticipates": "topology"
+            },
+            {
+              "concept": "Raft leader election",
+              "depth": "work through",
+              "why": "Explicitly requested worked example; traces election timeout, RequestVote, vote granting.",
+              "anticipates": "procedure-execution"
+            },
+            {
+              "concept": "Raft log replication",
+              "depth": "work through",
+              "why": "Explicitly requested worked example; traces AppendEntries, match index, commit index advancement.",
+              "anticipates": "procedure-execution"
+            },
+            {
+              "concept": "Raft log matching and consistency check",
+              "depth": "work through",
+              "why": "Key differentiator from Paxos; learner traces prevLogIndex/prevLogTerm checks in examples.",
+              "anticipates": "perceptual-referent"
+            },
+            {
+              "concept": "Raft cluster membership changes",
+              "depth": "explain",
+              "why": "Part of target capability (failure recovery); joint consensus as concrete worked example.",
+              "anticipates": "topology"
+            },
+            {
+              "concept": "Raft log compaction and snapshots",
+              "depth": "explain",
+              "why": "Part of target capability (failure recovery); snapshotting as concrete recovery scenario.",
+              "anticipates": "perceptual-referent"
+            },
+            {
+              "concept": "Failure scenarios and recovery patterns",
+              "depth": "work through",
+              "why": "Explicitly in target capability; traces leader crash, follower lag, partition for both algorithms.",
+              "anticipates": "parallel-state"
+            },
+            {
+              "concept": "Paxos vs Raft comparison: understandability",
+              "depth": "explain",
+              "why": "Directly serves trade-off articulation; contrasts design philosophies.",
+              "anticipates": "none"
+            },
+            {
+              "concept": "Paxos vs Raft comparison: leader stability",
+              "depth": "explain",
+              "why": "Directly serves trade-off articulation; contrasts strong vs flexible leadership.",
+              "anticipates": "topology"
+            },
+            {
+              "concept": "Paxos vs Raft comparison: log structure",
+              "depth": "explain",
+              "why": "Directly serves trade-off articulation; contrasts strict log matching vs flexible instances.",
+              "anticipates": "perceptual-referent"
+            }
+          ],
+          "cut": []
+        },
+        "consequence": {
+          "exclusions": [
+            {
+              "topic": "Formal correctness proofs (safety/liveness proofs for Paxos and Raft)",
+              "consequence": "Learner cannot verify why the algorithms are correct or construct proof sketches; they must accept guarantees on authority.",
+              "when_to_learn": "When implementing a consensus library, debugging subtle correctness bugs, or doing graduate-level distributed systems coursework."
+            },
+            {
+              "topic": "Other consensus algorithms (Zab, Viewstamped Replication, Chain Replication, etc.)",
+              "consequence": "Learner cannot evaluate alternatives for specific deployment constraints or recognize algorithm lineage in systems like ZooKeeper, etcd, or Kafka.",
+              "when_to_learn": "When choosing a consensus protocol for a new system, or studying the evolution of consensus in production systems."
+            },
+            {
+              "topic": "Implementation-level details (RPC framing, persistence, byte-level protocol, batching, pipelining)",
+              "consequence": "Learner cannot build a production-ready implementation or debug protocol-level issues in existing implementations.",
+              "when_to_learn": "When implementing Raft/Paxos from scratch, contributing to etcd/Consul/TiKV, or troubleshooting performance anomalies."
+            },
+            {
+              "topic": "Advanced membership change protocols (single-server changes, learner promotion, pre-vote)",
+              "consequence": "Learner cannot safely operate cluster membership changes in production or understand all edge cases in the Raft dissertation.",
+              "when_to_learn": "When operating a Raft cluster in production, or implementing membership changes in a custom Raft library."
+            },
+            {
+              "topic": "Lease reads, read-index, and follower reads optimization",
+              "consequence": "Learner cannot design low-latency read paths or understand how production systems scale read throughput.",
+              "when_to_learn": "When optimizing read latency in a Raft-based system, or designing a system that serves reads from followers."
+            }
+          ]
+        },
+        "traversal": {
+          "sequence": [
+            "Distributed Consensus: Raft and Paxos — Intuitive Guide with Worked Examples"
+          ],
+          "why": "Single module covers the complete target capability; all concepts (Paxos, Raft, comparison, failure scenarios) are needed together to explain both algorithms, trace worked examples, and articulate trade-offs."
+        },
+        "partition": {
+          "modules": [
+            {
+              "title": "Distributed Consensus: Raft and Paxos — Intuitive Guide with Worked Examples",
+              "covers": [
+                "Consensus problem statement",
+                "Safety and liveness properties",
+                "Quorums and majorities",
+                "State machine replication",
+                "Basic Paxos (single-decree) roles",
+                "Paxos Phase 1: Prepare/Promise",
+                "Paxos Phase 2: Accept/Accepted",
+                "Paxos learning a value",
+                "Multi-Paxos leader optimization",
+                "Multi-Paxos log replication",
+                "Raft design philosophy",
+                "Raft terms and term-based leadership",
+                "Raft leader election",
+                "Raft log replication",
+                "Raft log matching and consistency check",
+                "Raft cluster membership changes",
+                "Raft log compaction and snapshots",
+                "Failure scenarios and recovery patterns",
+                "Paxos vs Raft comparison: understandability",
+                "Paxos vs Raft comparison: leader stability",
+                "Paxos vs Raft comparison: log structure"
+              ],
+              "why_here": "All concepts serve the single target capability of explaining both algorithms, tracing worked examples for leader election/log replication/failure recovery, and articulating trade-offs. The algorithms are taught together because comparison requires both, and failure scenarios reference both. Splitting would prevent the learner from exercising the full target capability until all parts are complete.",
+              "capability": "Can explain the core ideas of Paxos and Raft, trace through example scenarios (leader election, log replication, failure recovery), and articulate the trade-offs between them."
+            }
+          ]
+        },
+        "extent": {
+          "total": "~22 pages · about 6 hours",
+          "pages": "~22 pages",
+          "study_time": "about 6 hours",
+          "parts": 1,
+          "modules": 1,
+          "per_unit": {
+            "Distributed Consensus: Raft and Paxos — Intuitive Guide with Worked Examples": "~22 pages"
+          }
+        }
+      },
+      "decision_ids": [
+        "59f253282fb54f8e94324cda2d225d42",
+        "1cfba8e770fc4dbc856bcecbf2ffd550",
+        "ef4c8508cbf54b37b230b464f0c512ac",
+        "abb5327ce1fd45848b6d8cb0fb8787b6",
+        "4627ebd07d1e4c6384bca2c9a227ba70",
+        "bc46d85d84a54601b35849ee2a092b2e",
+        "81054303bc364366a1306deb636e111e"
+      ],
+      "decision_ids_hash": "ecd3757058b30f74e9716d9a261d37b5",
+      "decision_environment": {
+        "prompt_versions": [
+          "derive_v1",
+          "interpret_v1",
+          "plan_v3"
+        ],
+        "models": [
+          "nvidia/nemotron-3-ultra-550b-a55b:free"
+        ]
+      },
+      "approved_by": "local",
+      "approved_at": "2026-09-14T15:49:50+00:00"
+    }
+  ]
+}

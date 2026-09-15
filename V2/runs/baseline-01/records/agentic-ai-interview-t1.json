@@ -1,0 +1,2222 @@
+{
+  "case_id": "agentic-ai-interview",
+  "case_title": "Agentic AI — interview preparation",
+  "trial": 1,
+  "phase": "plan",
+  "stub": false,
+  "started_at": "2026-09-14T11:56:43+00:00",
+  "request": "i need agentic ai notes for interview, from scratch",
+  "baseline": {
+    "repo": "D:\\myNotes\\V1",
+    "commit": "1c8a1d780ba3a652fa2ee04a61617e43de96154a",
+    "subject": "Enhance error reporting in fulfilment and generation processes with detailed failure reasons",
+    "source_hash": "807c8ec99a60d320e745e8ac208b8c7f690ebd273b3930f6680688d159cda116",
+    "source_files": 38,
+    "matches_baseline": true
+  },
+  "provider": {
+    "name": "openrouter",
+    "model": "nvidia/nemotron-3-ultra-550b-a55b:free"
+  },
+  "stages": [
+    "create",
+    "intake",
+    "plan",
+    "correct",
+    "approve"
+  ],
+  "failure": null,
+  "project_id": "15b697ac-670a-4e25-9502-29255efc2289",
+  "after_create": {
+    "state": "ready",
+    "verdict": "sufficient",
+    "budget": 4,
+    "asking": [],
+    "over_budget": [],
+    "questions_written": 0,
+    "questions": [],
+    "axes": [
+      {
+        "axis": "subject",
+        "value": "agentic AI",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "purpose",
+        "value": "interview preparation",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "entry_point",
+        "value": "no prior knowledge of agentic AI",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "target_capability",
+        "value": "answer interview questions on agentic AI concepts, patterns, and architectures",
+        "strength": "inferred",
+        "material": true,
+        "asked": false,
+        "verified_spans": 2,
+        "discarded_spans": 0,
+        "reason": "inferred, supported by 'for interview' · 'from scratch'"
+      },
+      {
+        "axis": "capacity",
+        "value": null,
+        "strength": "unknown",
+        "material": false,
+        "asked": false,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "never asked — Semantics §1 LOCKED — optional, and the corollary: deriving the plan and reporting its extent is what CAUSES a capacity to be stated. Asking upfront asks for a number the learner cannot honestly give."
+      },
+      {
+        "axis": "depth_register",
+        "value": "interview-appropriate: conceptual clarity over implementation detail, covers foundations through current patterns",
+        "strength": "inferred",
+        "material": false,
+        "asked": false,
+        "verified_spans": 2,
+        "discarded_spans": 0,
+        "reason": "never asked — Semantics §1 — biasing, not binding. A default is always defensible."
+      },
+      {
+        "axis": "artifact_type",
+        "value": "structured interview notes",
+        "strength": "stated",
+        "material": false,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "template",
+        "value": "interview notes template: concept → definition → why it matters → key variants → common follow-up questions",
+        "strength": "inferred",
+        "material": false,
+        "asked": false,
+        "verified_spans": 2,
+        "discarded_spans": 0,
+        "reason": "never asked — Presentation-Boundary rule 1 — internal. Users never select one."
+      }
+    ],
+    "weak_axes": [
+      "capacity"
+    ],
+    "guessed_but_material": []
+  },
+  "intake_turns": 0,
+  "intake_answers_unused": 1,
+  "intake": {
+    "state": "ready",
+    "verdict": "sufficient",
+    "budget": 4,
+    "asking": [],
+    "over_budget": [],
+    "questions_written": 0,
+    "questions": [],
+    "axes": [
+      {
+        "axis": "subject",
+        "value": "agentic AI",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "purpose",
+        "value": "interview preparation",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "entry_point",
+        "value": "no prior knowledge of agentic AI",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "target_capability",
+        "value": "answer interview questions on agentic AI concepts, patterns, and architectures",
+        "strength": "inferred",
+        "material": true,
+        "asked": false,
+        "verified_spans": 2,
+        "discarded_spans": 0,
+        "reason": "inferred, supported by 'for interview' · 'from scratch'"
+      },
+      {
+        "axis": "capacity",
+        "value": null,
+        "strength": "unknown",
+        "material": false,
+        "asked": false,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "never asked — Semantics §1 LOCKED — optional, and the corollary: deriving the plan and reporting its extent is what CAUSES a capacity to be stated. Asking upfront asks for a number the learner cannot honestly give."
+      },
+      {
+        "axis": "depth_register",
+        "value": "interview-appropriate: conceptual clarity over implementation detail, covers foundations through current patterns",
+        "strength": "inferred",
+        "material": false,
+        "asked": false,
+        "verified_spans": 2,
+        "discarded_spans": 0,
+        "reason": "never asked — Semantics §1 — biasing, not binding. A default is always defensible."
+      },
+      {
+        "axis": "artifact_type",
+        "value": "structured interview notes",
+        "strength": "stated",
+        "material": false,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "template",
+        "value": "interview notes template: concept → definition → why it matters → key variants → common follow-up questions",
+        "strength": "inferred",
+        "material": false,
+        "asked": false,
+        "verified_spans": 2,
+        "discarded_spans": 0,
+        "reason": "never asked — Presentation-Boundary rule 1 — internal. Users never select one."
+      }
+    ],
+    "weak_axes": [
+      "capacity"
+    ],
+    "guessed_but_material": []
+  },
+  "plan": {
+    "state": "planned",
+    "situation": {
+      "subject": "agentic AI",
+      "job": "retrieve",
+      "purpose": "interview preparation",
+      "entry_point": "no prior knowledge of agentic AI",
+      "target_capability": "answer interview questions on agentic AI concepts, patterns, and architectures",
+      "capacity": null,
+      "stated": [
+        "agentic ai",
+        "for interview",
+        "from scratch",
+        "notes"
+      ],
+      "stated_axes": [
+        "subject",
+        "purpose",
+        "entry_point",
+        "artifact_type"
+      ],
+      "inferred": [
+        "depth_register: interview-appropriate depth covering foundations, key patterns (ReAct, tool use, planning, multi-agent), and common architectures",
+        "template: structured interview notes with concept definitions, diagrams descriptions, and comparison tables"
+      ]
+    },
+    "landscape": {
+      "concept_count": 29,
+      "concepts": [
+        {
+          "name": "Agent Definition & Core Properties",
+          "built_from": [],
+          "family": "foundation"
+        },
+        {
+          "name": "LLM as Reasoning Engine",
+          "built_from": [
+            "Agent Definition & Core Properties"
+          ],
+          "family": "foundation"
+        },
+        {
+          "name": "Agent vs. Non-Agentic Systems",
+          "built_from": [
+            "Agent Definition & Core Properties"
+          ],
+          "family": "foundation"
+        },
+        {
+          "name": "ReAct Pattern",
+          "built_from": [
+            "LLM as Reasoning Engine"
+          ],
+          "family": "core pattern"
+        },
+        {
+          "name": "Tool Use & Function Calling",
+          "built_from": [
+            "LLM as Reasoning Engine"
+          ],
+          "family": "core pattern"
+        },
+        {
+          "name": "Planning & Task Decomposition",
+          "built_from": [
+            "LLM as Reasoning Engine"
+          ],
+          "family": "core pattern"
+        },
+        {
+          "name": "Chain-of-Thought Reasoning",
+          "built_from": [
+            "Planning & Task Decomposition"
+          ],
+          "family": "core pattern"
+        },
+        {
+          "name": "Tree-of-Thought / Graph-of-Thought",
+          "built_from": [
+            "Planning & Task Decomposition"
+          ],
+          "family": "core pattern"
+        },
+        {
+          "name": "Reflection & Self-Critique",
+          "built_from": [
+            "LLM as Reasoning Engine"
+          ],
+          "family": "core pattern"
+        },
+        {
+          "name": "Memory Systems (Short-term, Long-term, Episodic, Semantic)",
+          "built_from": [
+            "Agent Definition & Core Properties"
+          ],
+          "family": "core pattern"
+        },
+        {
+          "name": "Retrieval-Augmented Generation for Agents",
+          "built_from": [
+            "Memory Systems (Short-term, Long-term, Episodic, Semantic)",
+            "Tool Use & Function Calling"
+          ],
+          "family": "core pattern"
+        },
+        {
+          "name": "Single-Agent Architectures",
+          "built_from": [
+            "ReAct Pattern",
+            "Tool Use & Function Calling",
+            "Planning & Task Decomposition",
+            "Memory Systems (Short-term, Long-term, Episodic, Semantic)"
+          ],
+          "family": "architecture"
+        },
+        {
+          "name": "Multi-Agent Systems",
+          "built_from": [
+            "Single-Agent Architectures"
+          ],
+          "family": "architecture"
+        },
+        {
+          "name": "Multi-Agent Collaboration Patterns (Debate, Hierarchy, Swarm, Sequential)",
+          "built_from": [
+            "Multi-Agent Systems"
+          ],
+          "family": "architecture"
+        },
+        {
+          "name": "LangGraph",
+          "built_from": [
+            "Single-Agent Architectures",
+            "Multi-Agent Systems"
+          ],
+          "family": "framework"
+        },
+        {
+          "name": "AutoGen",
+          "built_from": [
+            "Multi-Agent Systems"
+          ],
+          "family": "framework"
+        },
+        {
+          "name": "CrewAI",
+          "built_from": [
+            "Multi-Agent Systems"
+          ],
+          "family": "framework"
+        },
+        {
+          "name": "LangChain Agents (Legacy / AgentExecutor)",
+          "built_from": [
+            "Single-Agent Architectures"
+          ],
+          "family": "framework"
+        },
+        {
+          "name": "Semantic Kernel",
+          "built_from": [
+            "Single-Agent Architectures",
+            "Multi-Agent Systems"
+          ],
+          "family": "framework"
+        },
+        {
+          "name": "AutoGPT / BabyAGI (Historical / Autonomous Agents)",
+          "built_from": [
+            "Single-Agent Architectures"
+          ],
+          "family": "framework"
+        },
+        {
+          "name": "Agent Evaluation Methodologies",
+          "built_from": [
+            "Agent Definition & Core Properties"
+          ],
+          "family": "evaluation"
+        },
+        {
+          "name": "Agent Benchmarks (AgentBench, WebShop, ALFWorld, τ-bench, GAIA, SWE-bench)",
+          "built_from": [
+            "Agent Evaluation Methodologies"
+          ],
+          "family": "evaluation"
+        },
+        {
+          "name": "Failure Modes (Hallucination, Tool Errors, Planning Failures, Loops, Cost/Latency)",
+          "built_from": [
+            "ReAct Pattern",
+            "Tool Use & Function Calling",
+            "Planning & Task Decomposition"
+          ],
+          "family": "failure mode"
+        },
+        {
+          "name": "Guardrails & Safety for Agents",
+          "built_from": [
+            "Failure Modes (Hallucination, Tool Errors, Planning Failures, Loops, Cost/Latency)"
+          ],
+          "family": "failure mode"
+        },
+        {
+          "name": "Model Context Protocol (MCP)",
+          "built_from": [
+            "Tool Use & Function Calling"
+          ],
+          "family": "emerging standard"
+        },
+        {
+          "name": "Agent-to-Agent (A2A) Protocol",
+          "built_from": [
+            "Multi-Agent Systems"
+          ],
+          "family": "emerging standard"
+        },
+        {
+          "name": "Function Calling Standards (OpenAI, Anthropic, Google)",
+          "built_from": [
+            "Tool Use & Function Calling"
+          ],
+          "family": "emerging standard"
+        },
+        {
+          "name": "Human-in-the-Loop Patterns",
+          "built_from": [
+            "Single-Agent Architectures",
+            "Multi-Agent Systems"
+          ],
+          "family": "core pattern"
+        },
+        {
+          "name": "Agent Observability & Debugging",
+          "built_from": [
+            "Single-Agent Architectures",
+            "Multi-Agent Systems"
+          ],
+          "family": "tooling"
+        }
+      ],
+      "families": [
+        "architecture",
+        "core pattern",
+        "emerging standard",
+        "evaluation",
+        "failure mode",
+        "foundation",
+        "framework",
+        "tooling"
+      ],
+      "edges": 38,
+      "roots": [
+        "Agent Definition & Core Properties"
+      ],
+      "parenthetical_lists": [
+        "Memory Systems (Short-term, Long-term, Episodic, Semantic)",
+        "Multi-Agent Collaboration Patterns (Debate, Hierarchy, Swarm, Sequential)",
+        "Agent Benchmarks (AgentBench, WebShop, ALFWorld, τ-bench, GAIA, SWE-bench)",
+        "Failure Modes (Hallucination, Tool Errors, Planning Failures, Loops, Cost/Latency)",
+        "Function Calling Standards (OpenAI, Anthropic, Google)"
+      ],
+      "judged": 29,
+      "in_play": 29,
+      "out_of_play": [],
+      "unjudged": []
+    },
+    "scope": {
+      "covered_count": 29,
+      "covered": [
+        {
+          "concept": "Agent Definition & Core Properties",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Every interview opens with 'what is an agent' — must define autonomy, goal-directedness, environment interaction, and contrast with LLMs."
+        },
+        {
+          "concept": "LLM as Reasoning Engine",
+          "depth": "explain",
+          "anticipates": "abstraction-grounding",
+          "why": "Core mental model for why LLMs can plan, reflect, and use tools; interviews probe limitations (no native state, no tools) and how prompting unlocks agency."
+        },
+        {
+          "concept": "Agent vs. Non-Agentic Systems",
+          "depth": "explain",
+          "anticipates": "cross-reference",
+          "why": "Standard discriminator — must contrast agents with chains, RAG pipelines, and single-turn prompting on multiple dimensions."
+        },
+        {
+          "concept": "Chain-of-Thought Reasoning",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Foundational reasoning technique expected in any agent interview; basis for planning, reflection, and ToT/GoT."
+        },
+        {
+          "concept": "ReAct Pattern",
+          "depth": "work through",
+          "anticipates": "procedure-execution",
+          "why": "Canonical pattern appearing in nearly every interview; must trace the thought-action-observation loop, prompt structure, and why it improves over zero-shot."
+        },
+        {
+          "concept": "Tool Use & Function Calling",
+          "depth": "work through",
+          "anticipates": "procedure-execution",
+          "why": "Universal requirement — interviews test schema design, parallel vs. sequential calls, error handling, and how tools extend LLM capabilities."
+        },
+        {
+          "concept": "Planning & Task Decomposition",
+          "depth": "explain",
+          "anticipates": "topology",
+          "why": "Key differentiator from simple tool use — interviews ask about hierarchical planning, replanning, and comparison to CoT."
+        },
+        {
+          "concept": "Tree-of-Thought / Graph-of-Thought",
+          "depth": "explain",
+          "anticipates": "topology",
+          "why": "Advanced planning variant — senior interviews ask when to use ToT vs. CoT, search strategies (BFS/DFS), and compute trade-offs."
+        },
+        {
+          "concept": "Reflection & Self-Critique",
+          "depth": "explain",
+          "anticipates": "procedure-execution",
+          "why": "Standard reliability pattern — interviews cover Reflexion, Self-Refine, and how reflection integrates with ReAct loops."
+        },
+        {
+          "concept": "Memory Systems (Short-term, Long-term, Episodic, Semantic)",
+          "depth": "explain",
+          "anticipates": "cross-reference",
+          "why": "Frequent topic — must distinguish memory types, retrieval strategies (similarity, recency, importance), and context window management."
+        },
+        {
+          "concept": "Retrieval-Augmented Generation for Agents",
+          "depth": "explain",
+          "anticipates": "topology",
+          "why": "Practical integration — interviews ask how agents use RAG differently from static pipelines (active retrieval, tool-formulated queries, hybrid search)."
+        },
+        {
+          "concept": "Human-in-the-Loop Patterns",
+          "depth": "explain",
+          "anticipates": "topology",
+          "why": "Production pattern — approval gates, clarification asks, and interruptibility are common design questions."
+        },
+        {
+          "concept": "Single-Agent Architectures",
+          "depth": "work through",
+          "anticipates": "perceptual-referent",
+          "why": "Baseline architecture — interviews expect you to describe/draw a single-agent loop with memory, tools, planner, executor, and state management."
+        },
+        {
+          "concept": "Multi-Agent Systems",
+          "depth": "explain",
+          "anticipates": "topology",
+          "why": "Major interview area — why use multiple agents, communication protocols, coordination challenges, and when not to use them."
+        },
+        {
+          "concept": "Multi-Agent Collaboration Patterns (Debate, Hierarchy, Swarm, Sequential)",
+          "depth": "explain",
+          "anticipates": "cross-reference",
+          "why": "Specific patterns interviewed — must compare debate vs. hierarchy, explain supervisor/worker, and name trade-offs (latency, cost, quality)."
+        },
+        {
+          "concept": "LangGraph",
+          "depth": "explain",
+          "anticipates": "perceptual-referent",
+          "why": "Dominant production framework — interviews ask about state graphs, checkpointers, human-in-the-loop, and why it replaced AgentExecutor."
+        },
+        {
+          "concept": "AutoGen",
+          "depth": "explain",
+          "anticipates": "perceptual-referent",
+          "why": "Major multi-agent framework — interviews compare its conversation-centric model to LangGraph's graph-centric model."
+        },
+        {
+          "concept": "CrewAI",
+          "depth": "explain",
+          "anticipates": "perceptual-referent",
+          "why": "Popular role-based framework — interviews ask about role/goal/backstory design, process vs. hierarchical processes, and when to choose it."
+        },
+        {
+          "concept": "LangChain Agents (Legacy / AgentExecutor)",
+          "depth": "mention",
+          "anticipates": "none",
+          "why": "Historical context — interviews may ask why it was deprecated, what limitations led to LangGraph, or expect recognition in legacy codebases."
+        },
+        {
+          "concept": "Semantic Kernel",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Microsoft ecosystem standard — relevant for enterprise interviews; planners, plugins, and kernel memory are distinctive."
+        },
+        {
+          "concept": "AutoGPT / BabyAGI (Historical / Autonomous Agents)",
+          "depth": "mention",
+          "anticipates": "none",
+          "why": "Historical reference — interviews ask what they proved, why they failed in production, and what modern frameworks learned."
+        },
+        {
+          "concept": "Agent Evaluation Methodologies",
+          "depth": "explain",
+          "anticipates": "cross-reference",
+          "why": "Growing interview topic — how to evaluate non-deterministic agents, offline vs. online eval, LLM-as-judge, trajectory evaluation."
+        },
+        {
+          "concept": "Agent Benchmarks (AgentBench, WebShop, ALFWorld, τ-bench, GAIA, SWE-bench)",
+          "depth": "explain",
+          "anticipates": "cross-reference",
+          "why": "Expected literacy — senior interviews ask which benchmark tests what (web nav, coding, reasoning), and limitations of each."
+        },
+        {
+          "concept": "Failure Modes (Hallucination, Tool Errors, Planning Failures, Loops, Cost/Latency)",
+          "depth": "explain",
+          "anticipates": "false-comprehension",
+          "why": "Practical reliability — interviews probe debugging stories, loop detection, cost control, and mitigation strategies."
+        },
+        {
+          "concept": "Guardrails & Safety for Agents",
+          "depth": "explain",
+          "anticipates": "procedure-execution",
+          "why": "Production requirement — input/output guards, tool confirmation, sandboxing, and policy enforcement are standard topics."
+        },
+        {
+          "concept": "Model Context Protocol (MCP)",
+          "depth": "explain",
+          "anticipates": "topology",
+          "why": "Rapidly adopted standard — interviews increasingly ask about MCP servers, resource vs. tool vs. prompt, and integration patterns."
+        },
+        {
+          "concept": "Agent-to-Agent (A2A) Protocol",
+          "depth": "explain",
+          "anticipates": "topology",
+          "why": "Emerging interoperability standard — Google-led; interviews test awareness of agent discovery, task negotiation, and cross-framework communication."
+        },
+        {
+          "concept": "Function Calling Standards (OpenAI, Anthropic, Google)",
+          "depth": "explain",
+          "anticipates": "cross-reference",
+          "why": "Practical API knowledge — interviews expect familiarity with JSON schema differences, parallel calling, and structured output modes."
+        },
+        {
+          "concept": "Agent Observability & Debugging",
+          "depth": "explain",
+          "anticipates": "perceptual-referent",
+          "why": "Operational competence — traces, spans, token accounting, and replay debugging are expected for senior roles."
+        }
+      ],
+      "depths": {
+        "explain": 24,
+        "work through": 3,
+        "mention": 2
+      },
+      "anticipates": {
+        "none": 5,
+        "abstraction-grounding": 1,
+        "cross-reference": 6,
+        "procedure-execution": 4,
+        "topology": 7,
+        "perceptual-referent": 5,
+        "false-comprehension": 1
+      },
+      "anticipates_any": 24,
+      "cut": []
+    },
+    "partition": {
+      "shape": "modules",
+      "module_count": 5,
+      "legacy_unit_count": 0,
+      "modules": [
+        {
+          "title": "Foundations & Core Mental Models",
+          "covers": [
+            "Agent Definition & Core Properties",
+            "LLM as Reasoning Engine",
+            "Agent vs. Non-Agentic Systems",
+            "Chain-of-Thought Reasoning"
+          ],
+          "concept_count": 4,
+          "capability": "Explain what an agent is (autonomy, goal-directedness, environment interaction), why LLMs serve as reasoning engines and their limitations, distinguish agentic systems from chains/RAG/single-turn prompting, and describe chain-of-thought reasoning and its role in agentic behavior — using the precise terminology interviewers expect.",
+          "why_here": "These four concepts form the shared mental model every agentic AI interview assumes. They define what an agent is, why LLMs can drive one, how to distinguish agentic from non-agentic systems, and the foundational reasoning technique (CoT) that all patterns build on."
+        },
+        {
+          "title": "Core Agentic Patterns",
+          "covers": [
+            "ReAct Pattern",
+            "Tool Use & Function Calling",
+            "Planning & Task Decomposition",
+            "Tree-of-Thought / Graph-of-Thought",
+            "Reflection & Self-Critique",
+            "Memory Systems (Short-term, Long-term, Episodic, Semantic)",
+            "Retrieval-Augmented Generation for Agents",
+            "Human-in-the-Loop Patterns"
+          ],
+          "concept_count": 8,
+          "capability": "Compare and contrast the major single-agent patterns (ReAct, tool use, planning, ToT/GoT, reflection, memory, RAG-for-agents, human-in-the-loop), explain the prompt structure and control flow of each, describe when each pattern applies and how they compose (e.g., ReAct with memory, planning with reflection), and identify the characteristic failure modes interviewers probe.",
+          "why_here": "These eight patterns constitute the complete single-agent repertoire. Each extends the foundation with a distinct capability (acting, planning, searching, correcting, remembering, retrieving knowledge, involving humans). Interviews test them comparatively — when to use which, how they compose, and their failure modes."
+        },
+        {
+          "title": "Agent Architectures",
+          "covers": [
+            "Single-Agent Architectures",
+            "Multi-Agent Systems",
+            "Multi-Agent Collaboration Patterns (Debate, Hierarchy, Swarm, Sequential)"
+          ],
+          "concept_count": 3,
+          "capability": "Diagram and explain a single-agent architecture (loop, memory, tools, planner, executor, state), describe why and when to introduce multiple agents, compare the four collaboration patterns (debate, hierarchy, swarm, sequential) on latency, cost, quality, and complexity, and justify an architectural choice for a given problem scenario.",
+          "why_here": "Architectures compose patterns into runnable systems. Single-agent architecture is the baseline; multi-agent systems and their collaboration patterns (debate, hierarchy, swarm, sequential) are the other major interview axis. These three concepts are always discussed together — coordination, communication, and topology."
+        },
+        {
+          "title": "Frameworks & Implementation",
+          "covers": [
+            "LangGraph",
+            "AutoGen",
+            "CrewAI",
+            "LangChain Agents (Legacy / AgentExecutor)",
+            "Semantic Kernel",
+            "AutoGPT / BabyAGI (Historical / Autonomous Agents)"
+          ],
+          "concept_count": 6,
+          "capability": "Compare the major agentic frameworks (LangGraph, AutoGen, CrewAI, Semantic Kernel) on programming model (state graph vs. conversation vs. role-based vs. planner/plugin), explain why LangGraph replaced AgentExecutor, describe what AutoGPT/BabyAGI demonstrated and why they failed in production, and articulate the criteria for choosing a framework in a given context.",
+          "why_here": "Frameworks map patterns and architectures to production code. LangGraph (graph-centric), AutoGen (conversation-centric), CrewAI (role-centric), and Semantic Kernel (planner/plugin-centric) represent four distinct programming models. Legacy LangChain and AutoGPT/BabyAGI provide the historical contrast interviews expect."
+        },
+        {
+          "title": "Evaluation, Reliability & Emerging Standards",
+          "covers": [
+            "Agent Evaluation Methodologies",
+            "Agent Benchmarks (AgentBench, WebShop, ALFWorld, τ-bench, GAIA, SWE-bench)",
+            "Failure Modes (Hallucination, Tool Errors, Planning Failures, Loops, Cost/Latency)",
+            "Guardrails & Safety for Agents",
+            "Model Context Protocol (MCP)",
+            "Agent-to-Agent (A2A) Protocol",
+            "Function Calling Standards (OpenAI, Anthropic, Google)",
+            "Agent Observability & Debugging"
+          ],
+          "concept_count": 8,
+          "capability": "Describe agent evaluation methodologies (offline vs. online, LLM-as-judge, trajectory evaluation), identify which benchmark tests which capability (web navigation, coding, reasoning, tool use), enumerate common failure modes with their detection and mitigation strategies, explain guardrail patterns (input/output validation, tool confirmation, sandboxing), summarize MCP (servers, resources, tools, prompts), A2A (discovery, negotiation, transport), and function calling standard differences, and describe observability primitives (traces, spans, token accounting, replay debugging).",
+          "why_here": "This module covers the 'how do you know it works' and 'how do you run it in production' questions that distinguish senior candidates. Evaluation methodologies and benchmarks measure quality; failure modes, guardrails, and observability ensure reliability; MCP, A2A, and function calling standards enable interoperability. They share a concern: moving from prototype to production."
+        }
+      ],
+      "concepts_per_module": [
+        4,
+        8,
+        3,
+        6,
+        8
+      ],
+      "orphans": [],
+      "phantoms": [],
+      "duplicate_coverage": [],
+      "slug_collisions": []
+    },
+    "promises": {
+      "capability_clauses": 5,
+      "capability_unbacked": 0,
+      "capability_unbacked_share": 0.0,
+      "capability_support": [
+        {
+          "module": "Foundations & Core Mental Models",
+          "clauses": [
+            "Explain what an agent is (autonomy, goal-directedness, environment interaction), why LLMs serve as reasoning engines and their limitations, distinguish agentic systems from chains/RAG/single-turn prompting, and describe chain-of-thought reasoning and its role in agentic behavior — using the precise terminology interviewers expect."
+          ],
+          "backed": [
+            {
+              "clause": "Explain what an agent is (autonomy, goal-directedness, environment interaction), why LLMs serve as reasoning engines and their limitations, distinguish agentic systems from chains/RAG/single-turn prompting, and describe chain-of-thought reasoning and its role in agentic behavior — using the precise terminology interviewers expect.",
+              "concepts": [
+                "Agent Definition & Core Properties",
+                "LLM as Reasoning Engine",
+                "Agent vs. Non-Agentic Systems",
+                "Chain-of-Thought Reasoning"
+              ]
+            }
+          ],
+          "unbacked": []
+        },
+        {
+          "module": "Core Agentic Patterns",
+          "clauses": [
+            "Compare and contrast the major single-agent patterns (ReAct, tool use, planning, ToT/GoT, reflection, memory, RAG-for-agents, human-in-the-loop), explain the prompt structure and control flow of each, describe when each pattern applies and how they compose (e.g., ReAct with memory, planning with reflection), and identify the characteristic failure modes interviewers probe."
+          ],
+          "backed": [
+            {
+              "clause": "Compare and contrast the major single-agent patterns (ReAct, tool use, planning, ToT/GoT, reflection, memory, RAG-for-agents, human-in-the-loop), explain the prompt structure and control flow of each, describe when each pattern applies and how they compose (e.g., ReAct with memory, planning with reflection), and identify the characteristic failure modes interviewers probe.",
+              "concepts": [
+                "ReAct Pattern",
+                "Tool Use & Function Calling",
+                "Planning & Task Decomposition",
+                "Reflection & Self-Critique",
+                "Memory Systems (Short-term, Long-term, Episodic, Semantic)",
+                "Retrieval-Augmented Generation for Agents",
+                "Human-in-the-Loop Patterns"
+              ]
+            }
+          ],
+          "unbacked": []
+        },
+        {
+          "module": "Agent Architectures",
+          "clauses": [
+            "Diagram and explain a single-agent architecture (loop, memory, tools, planner, executor, state), describe why and when to introduce multiple agents, compare the four collaboration patterns (debate, hierarchy, swarm, sequential) on latency, cost, quality, and complexity, and justify an architectural choice for a given problem scenario."
+          ],
+          "backed": [
+            {
+              "clause": "Diagram and explain a single-agent architecture (loop, memory, tools, planner, executor, state), describe why and when to introduce multiple agents, compare the four collaboration patterns (debate, hierarchy, swarm, sequential) on latency, cost, quality, and complexity, and justify an architectural choice for a given problem scenario.",
+              "concepts": [
+                "Single-Agent Architectures",
+                "Multi-Agent Systems",
+                "Multi-Agent Collaboration Patterns (Debate, Hierarchy, Swarm, Sequential)"
+              ]
+            }
+          ],
+          "unbacked": []
+        },
+        {
+          "module": "Frameworks & Implementation",
+          "clauses": [
+            "Compare the major agentic frameworks (LangGraph, AutoGen, CrewAI, Semantic Kernel) on programming model (state graph vs. conversation vs. role-based vs. planner/plugin), explain why LangGraph replaced AgentExecutor, describe what AutoGPT/BabyAGI demonstrated and why they failed in production, and articulate the criteria for choosing a framework in a given context."
+          ],
+          "backed": [
+            {
+              "clause": "Compare the major agentic frameworks (LangGraph, AutoGen, CrewAI, Semantic Kernel) on programming model (state graph vs. conversation vs. role-based vs. planner/plugin), explain why LangGraph replaced AgentExecutor, describe what AutoGPT/BabyAGI demonstrated and why they failed in production, and articulate the criteria for choosing a framework in a given context.",
+              "concepts": [
+                "LangGraph",
+                "AutoGen",
+                "CrewAI",
+                "LangChain Agents (Legacy / AgentExecutor)",
+                "Semantic Kernel",
+                "AutoGPT / BabyAGI (Historical / Autonomous Agents)"
+              ]
+            }
+          ],
+          "unbacked": []
+        },
+        {
+          "module": "Evaluation, Reliability & Emerging Standards",
+          "clauses": [
+            "Describe agent evaluation methodologies (offline vs. online, LLM-as-judge, trajectory evaluation), identify which benchmark tests which capability (web navigation, coding, reasoning, tool use), enumerate common failure modes with their detection and mitigation strategies, explain guardrail patterns (input/output validation, tool confirmation, sandboxing), summarize MCP (servers, resources, tools, prompts), A2A (discovery, negotiation, transport), and function calling standard differences, and describe observability primitives (traces, spans, token accounting, replay debugging)."
+          ],
+          "backed": [
+            {
+              "clause": "Describe agent evaluation methodologies (offline vs. online, LLM-as-judge, trajectory evaluation), identify which benchmark tests which capability (web navigation, coding, reasoning, tool use), enumerate common failure modes with their detection and mitigation strategies, explain guardrail patterns (input/output validation, tool confirmation, sandboxing), summarize MCP (servers, resources, tools, prompts), A2A (discovery, negotiation, transport), and function calling standard differences, and describe observability primitives (traces, spans, token accounting, replay debugging).",
+              "concepts": [
+                "Agent Evaluation Methodologies",
+                "Agent Benchmarks (AgentBench, WebShop, ALFWorld, τ-bench, GAIA, SWE-bench)",
+                "Failure Modes (Hallucination, Tool Errors, Planning Failures, Loops, Cost/Latency)",
+                "Guardrails & Safety for Agents",
+                "Model Context Protocol (MCP)",
+                "Agent-to-Agent (A2A) Protocol",
+                "Function Calling Standards (OpenAI, Anthropic, Google)",
+                "Agent Observability & Debugging"
+              ]
+            }
+          ],
+          "unbacked": []
+        }
+      ],
+      "coherence": [
+        {
+          "module": "Foundations & Core Mental Models",
+          "concepts": 4,
+          "internal": 2,
+          "external": 1,
+          "ratio": 0.667,
+          "depends_on_modules": [
+            {
+              "module": "Core Agentic Patterns",
+              "count": 1
+            }
+          ],
+          "links": [
+            {
+              "concept": "Chain-of-Thought Reasoning",
+              "depends_on": "Planning & Task Decomposition",
+              "lives_in": "Core Agentic Patterns",
+              "external": true
+            }
+          ]
+        },
+        {
+          "module": "Core Agentic Patterns",
+          "concepts": 8,
+          "internal": 3,
+          "external": 7,
+          "ratio": 0.3,
+          "depends_on_modules": [
+            {
+              "module": "Foundations & Core Mental Models",
+              "count": 5
+            },
+            {
+              "module": "Agent Architectures",
+              "count": 2
+            }
+          ],
+          "links": [
+            {
+              "concept": "ReAct Pattern",
+              "depends_on": "LLM as Reasoning Engine",
+              "lives_in": "Foundations & Core Mental Models",
+              "external": true
+            },
+            {
+              "concept": "Tool Use & Function Calling",
+              "depends_on": "LLM as Reasoning Engine",
+              "lives_in": "Foundations & Core Mental Models",
+              "external": true
+            },
+            {
+              "concept": "Planning & Task Decomposition",
+              "depends_on": "LLM as Reasoning Engine",
+              "lives_in": "Foundations & Core Mental Models",
+              "external": true
+            },
+            {
+              "concept": "Reflection & Self-Critique",
+              "depends_on": "LLM as Reasoning Engine",
+              "lives_in": "Foundations & Core Mental Models",
+              "external": true
+            },
+            {
+              "concept": "Memory Systems (Short-term, Long-term, Episodic, Semantic)",
+              "depends_on": "Agent Definition & Core Properties",
+              "lives_in": "Foundations & Core Mental Models",
+              "external": true
+            },
+            {
+              "concept": "Human-in-the-Loop Patterns",
+              "depends_on": "Single-Agent Architectures",
+              "lives_in": "Agent Architectures",
+              "external": true
+            },
+            {
+              "concept": "Human-in-the-Loop Patterns",
+              "depends_on": "Multi-Agent Systems",
+              "lives_in": "Agent Architectures",
+              "external": true
+            }
+          ]
+        },
+        {
+          "module": "Agent Architectures",
+          "concepts": 3,
+          "internal": 2,
+          "external": 4,
+          "ratio": 0.333,
+          "depends_on_modules": [
+            {
+              "module": "Core Agentic Patterns",
+              "count": 4
+            }
+          ],
+          "links": [
+            {
+              "concept": "Single-Agent Architectures",
+              "depends_on": "ReAct Pattern",
+              "lives_in": "Core Agentic Patterns",
+              "external": true
+            },
+            {
+              "concept": "Single-Agent Architectures",
+              "depends_on": "Tool Use & Function Calling",
+              "lives_in": "Core Agentic Patterns",
+              "external": true
+            },
+            {
+              "concept": "Single-Agent Architectures",
+              "depends_on": "Planning & Task Decomposition",
+              "lives_in": "Core Agentic Patterns",
+              "external": true
+            },
+            {
+              "concept": "Single-Agent Architectures",
+              "depends_on": "Memory Systems (Short-term, Long-term, Episodic, Semantic)",
+              "lives_in": "Core Agentic Patterns",
+              "external": true
+            }
+          ]
+        },
+        {
+          "module": "Frameworks & Implementation",
+          "concepts": 6,
+          "internal": 0,
+          "external": 8,
+          "ratio": 0.0,
+          "depends_on_modules": [
+            {
+              "module": "Agent Architectures",
+              "count": 8
+            }
+          ],
+          "links": [
+            {
+              "concept": "LangGraph",
+              "depends_on": "Single-Agent Architectures",
+              "lives_in": "Agent Architectures",
+              "external": true
+            },
+            {
+              "concept": "LangGraph",
+              "depends_on": "Multi-Agent Systems",
+              "lives_in": "Agent Architectures",
+              "external": true
+            },
+            {
+              "concept": "AutoGen",
+              "depends_on": "Multi-Agent Systems",
+              "lives_in": "Agent Architectures",
+              "external": true
+            },
+            {
+              "concept": "CrewAI",
+              "depends_on": "Multi-Agent Systems",
+              "lives_in": "Agent Architectures",
+              "external": true
+            },
+            {
+              "concept": "LangChain Agents (Legacy / AgentExecutor)",
+              "depends_on": "Single-Agent Architectures",
+              "lives_in": "Agent Architectures",
+              "external": true
+            },
+            {
+              "concept": "Semantic Kernel",
+              "depends_on": "Single-Agent Architectures",
+              "lives_in": "Agent Architectures",
+              "external": true
+            },
+            {
+              "concept": "Semantic Kernel",
+              "depends_on": "Multi-Agent Systems",
+              "lives_in": "Agent Architectures",
+              "external": true
+            },
+            {
+              "concept": "AutoGPT / BabyAGI (Historical / Autonomous Agents)",
+              "depends_on": "Single-Agent Architectures",
+              "lives_in": "Agent Architectures",
+              "external": true
+            }
+          ]
+        },
+        {
+          "module": "Evaluation, Reliability & Emerging Standards",
+          "concepts": 8,
+          "internal": 2,
+          "external": 9,
+          "ratio": 0.182,
+          "depends_on_modules": [
+            {
+              "module": "Core Agentic Patterns",
+              "count": 5
+            },
+            {
+              "module": "Agent Architectures",
+              "count": 3
+            },
+            {
+              "module": "Foundations & Core Mental Models",
+              "count": 1
+            }
+          ],
+          "links": [
+            {
+              "concept": "Agent Evaluation Methodologies",
+              "depends_on": "Agent Definition & Core Properties",
+              "lives_in": "Foundations & Core Mental Models",
+              "external": true
+            },
+            {
+              "concept": "Failure Modes (Hallucination, Tool Errors, Planning Failures, Loops, Cost/Latency)",
+              "depends_on": "ReAct Pattern",
+              "lives_in": "Core Agentic Patterns",
+              "external": true
+            },
+            {
+              "concept": "Failure Modes (Hallucination, Tool Errors, Planning Failures, Loops, Cost/Latency)",
+              "depends_on": "Tool Use & Function Calling",
+              "lives_in": "Core Agentic Patterns",
+              "external": true
+            },
+            {
+              "concept": "Failure Modes (Hallucination, Tool Errors, Planning Failures, Loops, Cost/Latency)",
+              "depends_on": "Planning & Task Decomposition",
+              "lives_in": "Core Agentic Patterns",
+              "external": true
+            },
+            {
+              "concept": "Model Context Protocol (MCP)",
+              "depends_on": "Tool Use & Function Calling",
+              "lives_in": "Core Agentic Patterns",
+              "external": true
+            },
+            {
+              "concept": "Agent-to-Agent (A2A) Protocol",
+              "depends_on": "Multi-Agent Systems",
+              "lives_in": "Agent Architectures",
+              "external": true
+            },
+            {
+              "concept": "Function Calling Standards (OpenAI, Anthropic, Google)",
+              "depends_on": "Tool Use & Function Calling",
+              "lives_in": "Core Agentic Patterns",
+              "external": true
+            },
+            {
+              "concept": "Agent Observability & Debugging",
+              "depends_on": "Single-Agent Architectures",
+              "lives_in": "Agent Architectures",
+              "external": true
+            },
+            {
+              "concept": "Agent Observability & Debugging",
+              "depends_on": "Multi-Agent Systems",
+              "lives_in": "Agent Architectures",
+              "external": true
+            }
+          ]
+        }
+      ],
+      "modules_with_no_internal_dependency": [
+        "Frameworks & Implementation"
+      ],
+      "external_dependency_total": 29
+    },
+    "extent": {
+      "total": "~24 pages · about 7 hours",
+      "pages": "~24 pages",
+      "study_time": "about 7 hours",
+      "parts": 5,
+      "modules": 5,
+      "per_unit": {
+        "Foundations & Core Mental Models": "~2 pages",
+        "Core Agentic Patterns": "~8 pages",
+        "Agent Architectures": "~4 pages",
+        "Frameworks & Implementation": "~4 pages",
+        "Evaluation, Reliability & Emerging Standards": "~6 pages"
+      }
+    },
+    "feasibility": {
+      "serves_everything": false,
+      "shortfalls": [
+        {
+          "failure": "perceptual-referent",
+          "concepts": [
+            "Single-Agent Architectures",
+            "LangGraph",
+            "AutoGen",
+            "CrewAI",
+            "Agent Observability & Debugging"
+          ],
+          "licenses": "image",
+          "note": "The system cannot draw the thing itself. Representation-Boundary calls this family E and it is the only one that cannot preserve assertions: a generated figure adds content the document never asserted."
+        }
+      ]
+    },
+    "decisions_present": [
+      "consequence",
+      "derive_structure",
+      "intake_strategy",
+      "interpret_situation",
+      "partition",
+      "relevance",
+      "scope",
+      "traversal"
+    ]
+  },
+  "corrections": [
+    {
+      "said": "you've missed evaluation entirely - interviewers always ask how you'd know if the agent is working",
+      "reading": "The user believes evaluation is missing entirely, but the plan includes 'Agent Evaluation Methodologies' and 'Agent Benchmarks' in the structure, judged in-play, and covered at explain depth in the final module. They likely mean evaluation should be more prominent, deeper, or include practical production evaluation (online eval, monitoring, A/B testing) that interviewers ask about.",
+      "claimed": [
+        "relevance",
+        "scope"
+      ],
+      "actual": [
+        "scope",
+        "relevance"
+      ],
+      "unclaimed_drift": [],
+      "claimed_but_unchanged": [],
+      "out_of_scope": null,
+      "not_understood": false,
+      "landed": true
+    }
+  ],
+  "plan_after_corrections": {
+    "state": "planned",
+    "situation": {
+      "subject": "agentic AI",
+      "job": "retrieve",
+      "purpose": "interview preparation",
+      "entry_point": "no prior knowledge of agentic AI",
+      "target_capability": "answer interview questions on agentic AI concepts, patterns, and architectures",
+      "capacity": null,
+      "stated": [
+        "agentic ai",
+        "for interview",
+        "from scratch",
+        "notes"
+      ],
+      "stated_axes": [
+        "subject",
+        "purpose",
+        "entry_point",
+        "artifact_type"
+      ],
+      "inferred": [
+        "depth_register: interview-appropriate depth covering foundations, key patterns (ReAct, tool use, planning, multi-agent), and common architectures",
+        "template: structured interview notes with concept definitions, diagrams descriptions, and comparison tables"
+      ]
+    },
+    "landscape": {
+      "concept_count": 29,
+      "concepts": [
+        {
+          "name": "Agent Definition & Core Properties",
+          "built_from": [],
+          "family": "foundation"
+        },
+        {
+          "name": "LLM as Reasoning Engine",
+          "built_from": [
+            "Agent Definition & Core Properties"
+          ],
+          "family": "foundation"
+        },
+        {
+          "name": "Agent vs. Non-Agentic Systems",
+          "built_from": [
+            "Agent Definition & Core Properties"
+          ],
+          "family": "foundation"
+        },
+        {
+          "name": "ReAct Pattern",
+          "built_from": [
+            "LLM as Reasoning Engine"
+          ],
+          "family": "core pattern"
+        },
+        {
+          "name": "Tool Use & Function Calling",
+          "built_from": [
+            "LLM as Reasoning Engine"
+          ],
+          "family": "core pattern"
+        },
+        {
+          "name": "Planning & Task Decomposition",
+          "built_from": [
+            "LLM as Reasoning Engine"
+          ],
+          "family": "core pattern"
+        },
+        {
+          "name": "Chain-of-Thought Reasoning",
+          "built_from": [
+            "Planning & Task Decomposition"
+          ],
+          "family": "core pattern"
+        },
+        {
+          "name": "Tree-of-Thought / Graph-of-Thought",
+          "built_from": [
+            "Planning & Task Decomposition"
+          ],
+          "family": "core pattern"
+        },
+        {
+          "name": "Reflection & Self-Critique",
+          "built_from": [
+            "LLM as Reasoning Engine"
+          ],
+          "family": "core pattern"
+        },
+        {
+          "name": "Memory Systems (Short-term, Long-term, Episodic, Semantic)",
+          "built_from": [
+            "Agent Definition & Core Properties"
+          ],
+          "family": "core pattern"
+        },
+        {
+          "name": "Retrieval-Augmented Generation for Agents",
+          "built_from": [
+            "Memory Systems (Short-term, Long-term, Episodic, Semantic)",
+            "Tool Use & Function Calling"
+          ],
+          "family": "core pattern"
+        },
+        {
+          "name": "Single-Agent Architectures",
+          "built_from": [
+            "ReAct Pattern",
+            "Tool Use & Function Calling",
+            "Planning & Task Decomposition",
+            "Memory Systems (Short-term, Long-term, Episodic, Semantic)"
+          ],
+          "family": "architecture"
+        },
+        {
+          "name": "Multi-Agent Systems",
+          "built_from": [
+            "Single-Agent Architectures"
+          ],
+          "family": "architecture"
+        },
+        {
+          "name": "Multi-Agent Collaboration Patterns (Debate, Hierarchy, Swarm, Sequential)",
+          "built_from": [
+            "Multi-Agent Systems"
+          ],
+          "family": "architecture"
+        },
+        {
+          "name": "LangGraph",
+          "built_from": [
+            "Single-Agent Architectures",
+            "Multi-Agent Systems"
+          ],
+          "family": "framework"
+        },
+        {
+          "name": "AutoGen",
+          "built_from": [
+            "Multi-Agent Systems"
+          ],
+          "family": "framework"
+        },
+        {
+          "name": "CrewAI",
+          "built_from": [
+            "Multi-Agent Systems"
+          ],
+          "family": "framework"
+        },
+        {
+          "name": "LangChain Agents (Legacy / AgentExecutor)",
+          "built_from": [
+            "Single-Agent Architectures"
+          ],
+          "family": "framework"
+        },
+        {
+          "name": "Semantic Kernel",
+          "built_from": [
+            "Single-Agent Architectures",
+            "Multi-Agent Systems"
+          ],
+          "family": "framework"
+        },
+        {
+          "name": "AutoGPT / BabyAGI (Historical / Autonomous Agents)",
+          "built_from": [
+            "Single-Agent Architectures"
+          ],
+          "family": "framework"
+        },
+        {
+          "name": "Agent Evaluation Methodologies",
+          "built_from": [
+            "Agent Definition & Core Properties"
+          ],
+          "family": "evaluation"
+        },
+        {
+          "name": "Agent Benchmarks (AgentBench, WebShop, ALFWorld, τ-bench, GAIA, SWE-bench)",
+          "built_from": [
+            "Agent Evaluation Methodologies"
+          ],
+          "family": "evaluation"
+        },
+        {
+          "name": "Failure Modes (Hallucination, Tool Errors, Planning Failures, Loops, Cost/Latency)",
+          "built_from": [
+            "ReAct Pattern",
+            "Tool Use & Function Calling",
+            "Planning & Task Decomposition"
+          ],
+          "family": "failure mode"
+        },
+        {
+          "name": "Guardrails & Safety for Agents",
+          "built_from": [
+            "Failure Modes (Hallucination, Tool Errors, Planning Failures, Loops, Cost/Latency)"
+          ],
+          "family": "failure mode"
+        },
+        {
+          "name": "Model Context Protocol (MCP)",
+          "built_from": [
+            "Tool Use & Function Calling"
+          ],
+          "family": "emerging standard"
+        },
+        {
+          "name": "Agent-to-Agent (A2A) Protocol",
+          "built_from": [
+            "Multi-Agent Systems"
+          ],
+          "family": "emerging standard"
+        },
+        {
+          "name": "Function Calling Standards (OpenAI, Anthropic, Google)",
+          "built_from": [
+            "Tool Use & Function Calling"
+          ],
+          "family": "emerging standard"
+        },
+        {
+          "name": "Human-in-the-Loop Patterns",
+          "built_from": [
+            "Single-Agent Architectures",
+            "Multi-Agent Systems"
+          ],
+          "family": "core pattern"
+        },
+        {
+          "name": "Agent Observability & Debugging",
+          "built_from": [
+            "Single-Agent Architectures",
+            "Multi-Agent Systems"
+          ],
+          "family": "tooling"
+        }
+      ],
+      "families": [
+        "architecture",
+        "core pattern",
+        "emerging standard",
+        "evaluation",
+        "failure mode",
+        "foundation",
+        "framework",
+        "tooling"
+      ],
+      "edges": 38,
+      "roots": [
+        "Agent Definition & Core Properties"
+      ],
+      "parenthetical_lists": [
+        "Memory Systems (Short-term, Long-term, Episodic, Semantic)",
+        "Multi-Agent Collaboration Patterns (Debate, Hierarchy, Swarm, Sequential)",
+        "Agent Benchmarks (AgentBench, WebShop, ALFWorld, τ-bench, GAIA, SWE-bench)",
+        "Failure Modes (Hallucination, Tool Errors, Planning Failures, Loops, Cost/Latency)",
+        "Function Calling Standards (OpenAI, Anthropic, Google)"
+      ],
+      "judged": 29,
+      "in_play": 29,
+      "out_of_play": [],
+      "unjudged": []
+    },
+    "scope": {
+      "covered_count": 29,
+      "covered": [
+        {
+          "concept": "Agent Definition & Core Properties",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Every interview opens with 'what is an agent' — must define autonomy, goal-directedness, environment interaction, and contrast with LLMs."
+        },
+        {
+          "concept": "LLM as Reasoning Engine",
+          "depth": "explain",
+          "anticipates": "abstraction-grounding",
+          "why": "Core mental model for why LLMs can plan, reflect, and use tools; interviews probe limitations (no native state, no tools) and how prompting unlocks agency."
+        },
+        {
+          "concept": "Agent vs. Non-Agentic Systems",
+          "depth": "explain",
+          "anticipates": "cross-reference",
+          "why": "Standard discriminator — must contrast agents with chains, RAG pipelines, and single-turn prompting on multiple dimensions."
+        },
+        {
+          "concept": "Chain-of-Thought Reasoning",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Foundational reasoning technique expected in any agent interview; basis for planning, reflection, and ToT/GoT."
+        },
+        {
+          "concept": "ReAct Pattern",
+          "depth": "work through",
+          "anticipates": "procedure-execution",
+          "why": "Canonical pattern appearing in nearly every interview; must trace the thought-action-observation loop, prompt structure, and why it improves over zero-shot."
+        },
+        {
+          "concept": "Tool Use & Function Calling",
+          "depth": "work through",
+          "anticipates": "procedure-execution",
+          "why": "Universal requirement — interviews test schema design, parallel vs. sequential calls, error handling, and how tools extend LLM capabilities."
+        },
+        {
+          "concept": "Planning & Task Decomposition",
+          "depth": "explain",
+          "anticipates": "topology",
+          "why": "Key differentiator from simple tool use — interviews ask about hierarchical planning, replanning, and comparison to CoT."
+        },
+        {
+          "concept": "Tree-of-Thought / Graph-of-Thought",
+          "depth": "explain",
+          "anticipates": "topology",
+          "why": "Advanced planning variant — senior interviews ask when to use ToT vs. CoT, search strategies (BFS/DFS), and compute trade-offs."
+        },
+        {
+          "concept": "Reflection & Self-Critique",
+          "depth": "explain",
+          "anticipates": "procedure-execution",
+          "why": "Standard reliability pattern — interviews cover Reflexion, Self-Refine, and how reflection integrates with ReAct loops."
+        },
+        {
+          "concept": "Memory Systems (Short-term, Long-term, Episodic, Semantic)",
+          "depth": "explain",
+          "anticipates": "cross-reference",
+          "why": "Frequent topic — must distinguish memory types, retrieval strategies (similarity, recency, importance), and context window management."
+        },
+        {
+          "concept": "Retrieval-Augmented Generation for Agents",
+          "depth": "explain",
+          "anticipates": "topology",
+          "why": "Practical integration — interviews ask how agents use RAG differently from static pipelines (active retrieval, tool-formulated queries, hybrid search)."
+        },
+        {
+          "concept": "Human-in-the-Loop Patterns",
+          "depth": "explain",
+          "anticipates": "topology",
+          "why": "Production pattern — approval gates, clarification asks, and interruptibility are common design questions."
+        },
+        {
+          "concept": "Single-Agent Architectures",
+          "depth": "work through",
+          "anticipates": "perceptual-referent",
+          "why": "Baseline architecture — interviews expect you to describe/draw a single-agent loop with memory, tools, planner, executor, and state management."
+        },
+        {
+          "concept": "Multi-Agent Systems",
+          "depth": "explain",
+          "anticipates": "topology",
+          "why": "Major interview area — why use multiple agents, communication protocols, coordination challenges, and when not to use them."
+        },
+        {
+          "concept": "Multi-Agent Collaboration Patterns (Debate, Hierarchy, Swarm, Sequential)",
+          "depth": "explain",
+          "anticipates": "cross-reference",
+          "why": "Specific patterns interviewed — must compare debate vs. hierarchy, explain supervisor/worker, and name trade-offs (latency, cost, quality)."
+        },
+        {
+          "concept": "LangGraph",
+          "depth": "explain",
+          "anticipates": "perceptual-referent",
+          "why": "Dominant production framework — interviews ask about state graphs, checkpointers, human-in-the-loop, and why it replaced AgentExecutor."
+        },
+        {
+          "concept": "AutoGen",
+          "depth": "explain",
+          "anticipates": "perceptual-referent",
+          "why": "Major multi-agent framework — interviews compare its conversation-centric model to LangGraph's graph-centric model."
+        },
+        {
+          "concept": "CrewAI",
+          "depth": "explain",
+          "anticipates": "perceptual-referent",
+          "why": "Popular role-based framework — interviews ask about role/goal/backstory design, process vs. hierarchical processes, and when to choose it."
+        },
+        {
+          "concept": "LangChain Agents (Legacy / AgentExecutor)",
+          "depth": "mention",
+          "anticipates": "none",
+          "why": "Historical context — interviews may ask why it was deprecated, what limitations led to LangGraph, or expect recognition in legacy codebases."
+        },
+        {
+          "concept": "Semantic Kernel",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Microsoft ecosystem standard — relevant for enterprise interviews; planners, plugins, and kernel memory are distinctive."
+        },
+        {
+          "concept": "AutoGPT / BabyAGI (Historical / Autonomous Agents)",
+          "depth": "mention",
+          "anticipates": "none",
+          "why": "Historical reference — interviews ask what they proved, why they failed in production, and what modern frameworks learned."
+        },
+        {
+          "concept": "Agent Evaluation Methodologies",
+          "depth": "work through",
+          "anticipates": "cross-reference",
+          "why": "Interviewers consistently ask how you'd know an agent is working in practice — must cover offline eval (datasets, LLM-as-judge), online eval (production monitoring, A/B tests, user feedback), trajectory evaluation, and cost/latency trade-offs. This is a high-signal standalone question area."
+        },
+        {
+          "concept": "Agent Benchmarks (AgentBench, WebShop, ALFWorld, τ-bench, GAIA, SWE-bench)",
+          "depth": "explain",
+          "anticipates": "cross-reference",
+          "why": "Expected literacy — senior interviews ask which benchmark tests what (web nav, coding, reasoning), and limitations of each."
+        },
+        {
+          "concept": "Failure Modes (Hallucination, Tool Errors, Planning Failures, Loops, Cost/Latency)",
+          "depth": "explain",
+          "anticipates": "false-comprehension",
+          "why": "Practical reliability — interviews probe debugging stories, loop detection, cost control, and mitigation strategies."
+        },
+        {
+          "concept": "Guardrails & Safety for Agents",
+          "depth": "explain",
+          "anticipates": "procedure-execution",
+          "why": "Production requirement — input/output guards, tool confirmation, sandboxing, and policy enforcement are standard topics."
+        },
+        {
+          "concept": "Model Context Protocol (MCP)",
+          "depth": "explain",
+          "anticipates": "topology",
+          "why": "Rapidly adopted standard — interviews increasingly ask about MCP servers, resource vs. tool vs. prompt, and integration patterns."
+        },
+        {
+          "concept": "Agent-to-Agent (A2A) Protocol",
+          "depth": "explain",
+          "anticipates": "topology",
+          "why": "Emerging interoperability standard — Google-led; interviews test awareness of agent discovery, task negotiation, and cross-framework communication."
+        },
+        {
+          "concept": "Function Calling Standards (OpenAI, Anthropic, Google)",
+          "depth": "explain",
+          "anticipates": "cross-reference",
+          "why": "Practical API knowledge — interviews expect familiarity with JSON schema differences, parallel calling, and structured output modes."
+        },
+        {
+          "concept": "Agent Observability & Debugging",
+          "depth": "explain",
+          "anticipates": "perceptual-referent",
+          "why": "Operational competence — traces, spans, token accounting, and replay debugging are expected for senior roles."
+        }
+      ],
+      "depths": {
+        "explain": 23,
+        "work through": 4,
+        "mention": 2
+      },
+      "anticipates": {
+        "none": 5,
+        "abstraction-grounding": 1,
+        "cross-reference": 6,
+        "procedure-execution": 4,
+        "topology": 7,
+        "perceptual-referent": 5,
+        "false-comprehension": 1
+      },
+      "anticipates_any": 24,
+      "cut": []
+    },
+    "partition": {
+      "shape": "modules",
+      "module_count": 5,
+      "legacy_unit_count": 0,
+      "modules": [
+        {
+          "title": "Foundations & Core Mental Models",
+          "covers": [
+            "Agent Definition & Core Properties",
+            "LLM as Reasoning Engine",
+            "Agent vs. Non-Agentic Systems",
+            "Chain-of-Thought Reasoning"
+          ],
+          "concept_count": 4,
+          "capability": "Explain what an agent is (autonomy, goal-directedness, environment interaction), why LLMs serve as reasoning engines and their limitations, distinguish agentic systems from chains/RAG/single-turn prompting, and describe chain-of-thought reasoning and its role in agentic behavior — using the precise terminology interviewers expect.",
+          "why_here": "These four concepts form the shared mental model every agentic AI interview assumes. They define what an agent is, why LLMs can drive one, how to distinguish agentic from non-agentic systems, and the foundational reasoning technique (CoT) that all patterns build on."
+        },
+        {
+          "title": "Core Agentic Patterns",
+          "covers": [
+            "ReAct Pattern",
+            "Tool Use & Function Calling",
+            "Planning & Task Decomposition",
+            "Tree-of-Thought / Graph-of-Thought",
+            "Reflection & Self-Critique",
+            "Memory Systems (Short-term, Long-term, Episodic, Semantic)",
+            "Retrieval-Augmented Generation for Agents",
+            "Human-in-the-Loop Patterns"
+          ],
+          "concept_count": 8,
+          "capability": "Compare and contrast the major single-agent patterns (ReAct, tool use, planning, ToT/GoT, reflection, memory, RAG-for-agents, human-in-the-loop), explain the prompt structure and control flow of each, describe when each pattern applies and how they compose (e.g., ReAct with memory, planning with reflection), and identify the characteristic failure modes interviewers probe.",
+          "why_here": "These eight patterns constitute the complete single-agent repertoire. Each extends the foundation with a distinct capability (acting, planning, searching, correcting, remembering, retrieving knowledge, involving humans). Interviews test them comparatively — when to use which, how they compose, and their failure modes."
+        },
+        {
+          "title": "Agent Architectures",
+          "covers": [
+            "Single-Agent Architectures",
+            "Multi-Agent Systems",
+            "Multi-Agent Collaboration Patterns (Debate, Hierarchy, Swarm, Sequential)"
+          ],
+          "concept_count": 3,
+          "capability": "Diagram and explain a single-agent architecture (loop, memory, tools, planner, executor, state), describe why and when to introduce multiple agents, compare the four collaboration patterns (debate, hierarchy, swarm, sequential) on latency, cost, quality, and complexity, and justify an architectural choice for a given problem scenario.",
+          "why_here": "Architectures compose patterns into runnable systems. Single-agent architecture is the baseline; multi-agent systems and their collaboration patterns (debate, hierarchy, swarm, sequential) are the other major interview axis. These three concepts are always discussed together — coordination, communication, and topology."
+        },
+        {
+          "title": "Frameworks & Implementation",
+          "covers": [
+            "LangGraph",
+            "AutoGen",
+            "CrewAI",
+            "LangChain Agents (Legacy / AgentExecutor)",
+            "Semantic Kernel",
+            "AutoGPT / BabyAGI (Historical / Autonomous Agents)"
+          ],
+          "concept_count": 6,
+          "capability": "Compare the major agentic frameworks (LangGraph, AutoGen, CrewAI, Semantic Kernel) on programming model (state graph vs. conversation vs. role-based vs. planner/plugin), explain why LangGraph replaced AgentExecutor, describe what AutoGPT/BabyAGI demonstrated and why they failed in production, and articulate the criteria for choosing a framework in a given context.",
+          "why_here": "Frameworks map patterns and architectures to production code. LangGraph (graph-centric), AutoGen (conversation-centric), CrewAI (role-centric), and Semantic Kernel (planner/plugin-centric) represent four distinct programming models. Legacy LangChain and AutoGPT/BabyAGI provide the historical contrast interviews expect."
+        },
+        {
+          "title": "Evaluation, Reliability & Emerging Standards",
+          "covers": [
+            "Agent Evaluation Methodologies",
+            "Agent Benchmarks (AgentBench, WebShop, ALFWorld, τ-bench, GAIA, SWE-bench)",
+            "Failure Modes (Hallucination, Tool Errors, Planning Failures, Loops, Cost/Latency)",
+            "Guardrails & Safety for Agents",
+            "Model Context Protocol (MCP)",
+            "Agent-to-Agent (A2A) Protocol",
+            "Function Calling Standards (OpenAI, Anthropic, Google)",
+            "Agent Observability & Debugging"
+          ],
+          "concept_count": 8,
+          "capability": "Describe agent evaluation methodologies (offline vs. online, LLM-as-judge, trajectory evaluation), identify which benchmark tests which capability (web navigation, coding, reasoning, tool use), enumerate common failure modes with their detection and mitigation strategies, explain guardrail patterns (input/output validation, tool confirmation, sandboxing), summarize MCP (servers, resources, tools, prompts), A2A (discovery, negotiation, transport), and function calling standard differences, and describe observability primitives (traces, spans, token accounting, replay debugging).",
+          "why_here": "This module covers the 'how do you know it works' and 'how do you run it in production' questions that distinguish senior candidates. Evaluation methodologies and benchmarks measure quality; failure modes, guardrails, and observability ensure reliability; MCP, A2A, and function calling standards enable interoperability. They share a concern: moving from prototype to production."
+        }
+      ],
+      "concepts_per_module": [
+        4,
+        8,
+        3,
+        6,
+        8
+      ],
+      "orphans": [],
+      "phantoms": [],
+      "duplicate_coverage": [],
+      "slug_collisions": []
+    },
+    "promises": {
+      "capability_clauses": 5,
+      "capability_unbacked": 0,
+      "capability_unbacked_share": 0.0,
+      "capability_support": [
+        {
+          "module": "Foundations & Core Mental Models",
+          "clauses": [
+            "Explain what an agent is (autonomy, goal-directedness, environment interaction), why LLMs serve as reasoning engines and their limitations, distinguish agentic systems from chains/RAG/single-turn prompting, and describe chain-of-thought reasoning and its role in agentic behavior — using the precise terminology interviewers expect."
+          ],
+          "backed": [
+            {
+              "clause": "Explain what an agent is (autonomy, goal-directedness, environment interaction), why LLMs serve as reasoning engines and their limitations, distinguish agentic systems from chains/RAG/single-turn prompting, and describe chain-of-thought reasoning and its role in agentic behavior — using the precise terminology interviewers expect.",
+              "concepts": [
+                "Agent Definition & Core Properties",
+                "LLM as Reasoning Engine",
+                "Agent vs. Non-Agentic Systems",
+                "Chain-of-Thought Reasoning"
+              ]
+            }
+          ],
+          "unbacked": []
+        },
+        {
+          "module": "Core Agentic Patterns",
+          "clauses": [
+            "Compare and contrast the major single-agent patterns (ReAct, tool use, planning, ToT/GoT, reflection, memory, RAG-for-agents, human-in-the-loop), explain the prompt structure and control flow of each, describe when each pattern applies and how they compose (e.g., ReAct with memory, planning with reflection), and identify the characteristic failure modes interviewers probe."
+          ],
+          "backed": [
+            {
+              "clause": "Compare and contrast the major single-agent patterns (ReAct, tool use, planning, ToT/GoT, reflection, memory, RAG-for-agents, human-in-the-loop), explain the prompt structure and control flow of each, describe when each pattern applies and how they compose (e.g., ReAct with memory, planning with reflection), and identify the characteristic failure modes interviewers probe.",
+              "concepts": [
+                "ReAct Pattern",
+                "Tool Use & Function Calling",
+                "Planning & Task Decomposition",
+                "Reflection & Self-Critique",
+                "Memory Systems (Short-term, Long-term, Episodic, Semantic)",
+                "Retrieval-Augmented Generation for Agents",
+                "Human-in-the-Loop Patterns"
+              ]
+            }
+          ],
+          "unbacked": []
+        },
+        {
+          "module": "Agent Architectures",
+          "clauses": [
+            "Diagram and explain a single-agent architecture (loop, memory, tools, planner, executor, state), describe why and when to introduce multiple agents, compare the four collaboration patterns (debate, hierarchy, swarm, sequential) on latency, cost, quality, and complexity, and justify an architectural choice for a given problem scenario."
+          ],
+          "backed": [
+            {
+              "clause": "Diagram and explain a single-agent architecture (loop, memory, tools, planner, executor, state), describe why and when to introduce multiple agents, compare the four collaboration patterns (debate, hierarchy, swarm, sequential) on latency, cost, quality, and complexity, and justify an architectural choice for a given problem scenario.",
+              "concepts": [
+                "Single-Agent Architectures",
+                "Multi-Agent Systems",
+                "Multi-Agent Collaboration Patterns (Debate, Hierarchy, Swarm, Sequential)"
+              ]
+            }
+          ],
+          "unbacked": []
+        },
+        {
+          "module": "Frameworks & Implementation",
+          "clauses": [
+            "Compare the major agentic frameworks (LangGraph, AutoGen, CrewAI, Semantic Kernel) on programming model (state graph vs. conversation vs. role-based vs. planner/plugin), explain why LangGraph replaced AgentExecutor, describe what AutoGPT/BabyAGI demonstrated and why they failed in production, and articulate the criteria for choosing a framework in a given context."
+          ],
+          "backed": [
+            {
+              "clause": "Compare the major agentic frameworks (LangGraph, AutoGen, CrewAI, Semantic Kernel) on programming model (state graph vs. conversation vs. role-based vs. planner/plugin), explain why LangGraph replaced AgentExecutor, describe what AutoGPT/BabyAGI demonstrated and why they failed in production, and articulate the criteria for choosing a framework in a given context.",
+              "concepts": [
+                "LangGraph",
+                "AutoGen",
+                "CrewAI",
+                "LangChain Agents (Legacy / AgentExecutor)",
+                "Semantic Kernel",
+                "AutoGPT / BabyAGI (Historical / Autonomous Agents)"
+              ]
+            }
+          ],
+          "unbacked": []
+        },
+        {
+          "module": "Evaluation, Reliability & Emerging Standards",
+          "clauses": [
+            "Describe agent evaluation methodologies (offline vs. online, LLM-as-judge, trajectory evaluation), identify which benchmark tests which capability (web navigation, coding, reasoning, tool use), enumerate common failure modes with their detection and mitigation strategies, explain guardrail patterns (input/output validation, tool confirmation, sandboxing), summarize MCP (servers, resources, tools, prompts), A2A (discovery, negotiation, transport), and function calling standard differences, and describe observability primitives (traces, spans, token accounting, replay debugging)."
+          ],
+          "backed": [
+            {
+              "clause": "Describe agent evaluation methodologies (offline vs. online, LLM-as-judge, trajectory evaluation), identify which benchmark tests which capability (web navigation, coding, reasoning, tool use), enumerate common failure modes with their detection and mitigation strategies, explain guardrail patterns (input/output validation, tool confirmation, sandboxing), summarize MCP (servers, resources, tools, prompts), A2A (discovery, negotiation, transport), and function calling standard differences, and describe observability primitives (traces, spans, token accounting, replay debugging).",
+              "concepts": [
+                "Agent Evaluation Methodologies",
+                "Agent Benchmarks (AgentBench, WebShop, ALFWorld, τ-bench, GAIA, SWE-bench)",
+                "Failure Modes (Hallucination, Tool Errors, Planning Failures, Loops, Cost/Latency)",
+                "Guardrails & Safety for Agents",
+                "Model Context Protocol (MCP)",
+                "Agent-to-Agent (A2A) Protocol",
+                "Function Calling Standards (OpenAI, Anthropic, Google)",
+                "Agent Observability & Debugging"
+              ]
+            }
+          ],
+          "unbacked": []
+        }
+      ],
+      "coherence": [
+        {
+          "module": "Foundations & Core Mental Models",
+          "concepts": 4,
+          "internal": 2,
+          "external": 1,
+          "ratio": 0.667,
+          "depends_on_modules": [
+            {
+              "module": "Core Agentic Patterns",
+              "count": 1
+            }
+          ],
+          "links": [
+            {
+              "concept": "Chain-of-Thought Reasoning",
+              "depends_on": "Planning & Task Decomposition",
+              "lives_in": "Core Agentic Patterns",
+              "external": true
+            }
+          ]
+        },
+        {
+          "module": "Core Agentic Patterns",
+          "concepts": 8,
+          "internal": 3,
+          "external": 7,
+          "ratio": 0.3,
+          "depends_on_modules": [
+            {
+              "module": "Foundations & Core Mental Models",
+              "count": 5
+            },
+            {
+              "module": "Agent Architectures",
+              "count": 2
+            }
+          ],
+          "links": [
+            {
+              "concept": "ReAct Pattern",
+              "depends_on": "LLM as Reasoning Engine",
+              "lives_in": "Foundations & Core Mental Models",
+              "external": true
+            },
+            {
+              "concept": "Tool Use & Function Calling",
+              "depends_on": "LLM as Reasoning Engine",
+              "lives_in": "Foundations & Core Mental Models",
+              "external": true
+            },
+            {
+              "concept": "Planning & Task Decomposition",
+              "depends_on": "LLM as Reasoning Engine",
+              "lives_in": "Foundations & Core Mental Models",
+              "external": true
+            },
+            {
+              "concept": "Reflection & Self-Critique",
+              "depends_on": "LLM as Reasoning Engine",
+              "lives_in": "Foundations & Core Mental Models",
+              "external": true
+            },
+            {
+              "concept": "Memory Systems (Short-term, Long-term, Episodic, Semantic)",
+              "depends_on": "Agent Definition & Core Properties",
+              "lives_in": "Foundations & Core Mental Models",
+              "external": true
+            },
+            {
+              "concept": "Human-in-the-Loop Patterns",
+              "depends_on": "Single-Agent Architectures",
+              "lives_in": "Agent Architectures",
+              "external": true
+            },
+            {
+              "concept": "Human-in-the-Loop Patterns",
+              "depends_on": "Multi-Agent Systems",
+              "lives_in": "Agent Architectures",
+              "external": true
+            }
+          ]
+        },
+        {
+          "module": "Agent Architectures",
+          "concepts": 3,
+          "internal": 2,
+          "external": 4,
+          "ratio": 0.333,
+          "depends_on_modules": [
+            {
+              "module": "Core Agentic Patterns",
+              "count": 4
+            }
+          ],
+          "links": [
+            {
+              "concept": "Single-Agent Architectures",
+              "depends_on": "ReAct Pattern",
+              "lives_in": "Core Agentic Patterns",
+              "external": true
+            },
+            {
+              "concept": "Single-Agent Architectures",
+              "depends_on": "Tool Use & Function Calling",
+              "lives_in": "Core Agentic Patterns",
+              "external": true
+            },
+            {
+              "concept": "Single-Agent Architectures",
+              "depends_on": "Planning & Task Decomposition",
+              "lives_in": "Core Agentic Patterns",
+              "external": true
+            },
+            {
+              "concept": "Single-Agent Architectures",
+              "depends_on": "Memory Systems (Short-term, Long-term, Episodic, Semantic)",
+              "lives_in": "Core Agentic Patterns",
+              "external": true
+            }
+          ]
+        },
+        {
+          "module": "Frameworks & Implementation",
+          "concepts": 6,
+          "internal": 0,
+          "external": 8,
+          "ratio": 0.0,
+          "depends_on_modules": [
+            {
+              "module": "Agent Architectures",
+              "count": 8
+            }
+          ],
+          "links": [
+            {
+              "concept": "LangGraph",
+              "depends_on": "Single-Agent Architectures",
+              "lives_in": "Agent Architectures",
+              "external": true
+            },
+            {
+              "concept": "LangGraph",
+              "depends_on": "Multi-Agent Systems",
+              "lives_in": "Agent Architectures",
+              "external": true
+            },
+            {
+              "concept": "AutoGen",
+              "depends_on": "Multi-Agent Systems",
+              "lives_in": "Agent Architectures",
+              "external": true
+            },
+            {
+              "concept": "CrewAI",
+              "depends_on": "Multi-Agent Systems",
+              "lives_in": "Agent Architectures",
+              "external": true
+            },
+            {
+              "concept": "LangChain Agents (Legacy / AgentExecutor)",
+              "depends_on": "Single-Agent Architectures",
+              "lives_in": "Agent Architectures",
+              "external": true
+            },
+            {
+              "concept": "Semantic Kernel",
+              "depends_on": "Single-Agent Architectures",
+              "lives_in": "Agent Architectures",
+              "external": true
+            },
+            {
+              "concept": "Semantic Kernel",
+              "depends_on": "Multi-Agent Systems",
+              "lives_in": "Agent Architectures",
+              "external": true
+            },
+            {
+              "concept": "AutoGPT / BabyAGI (Historical / Autonomous Agents)",
+              "depends_on": "Single-Agent Architectures",
+              "lives_in": "Agent Architectures",
+              "external": true
+            }
+          ]
+        },
+        {
+          "module": "Evaluation, Reliability & Emerging Standards",
+          "concepts": 8,
+          "internal": 2,
+          "external": 9,
+          "ratio": 0.182,
+          "depends_on_modules": [
+            {
+              "module": "Core Agentic Patterns",
+              "count": 5
+            },
+            {
+              "module": "Agent Architectures",
+              "count": 3
+            },
+            {
+              "module": "Foundations & Core Mental Models",
+              "count": 1
+            }
+          ],
+          "links": [
+            {
+              "concept": "Agent Evaluation Methodologies",
+              "depends_on": "Agent Definition & Core Properties",
+              "lives_in": "Foundations & Core Mental Models",
+              "external": true
+            },
+            {
+              "concept": "Failure Modes (Hallucination, Tool Errors, Planning Failures, Loops, Cost/Latency)",
+              "depends_on": "ReAct Pattern",
+              "lives_in": "Core Agentic Patterns",
+              "external": true
+            },
+            {
+              "concept": "Failure Modes (Hallucination, Tool Errors, Planning Failures, Loops, Cost/Latency)",
+              "depends_on": "Tool Use & Function Calling",
+              "lives_in": "Core Agentic Patterns",
+              "external": true
+            },
+            {
+              "concept": "Failure Modes (Hallucination, Tool Errors, Planning Failures, Loops, Cost/Latency)",
+              "depends_on": "Planning & Task Decomposition",
+              "lives_in": "Core Agentic Patterns",
+              "external": true
+            },
+            {
+              "concept": "Model Context Protocol (MCP)",
+              "depends_on": "Tool Use & Function Calling",
+              "lives_in": "Core Agentic Patterns",
+              "external": true
+            },
+            {
+              "concept": "Agent-to-Agent (A2A) Protocol",
+              "depends_on": "Multi-Agent Systems",
+              "lives_in": "Agent Architectures",
+              "external": true
+            },
+            {
+              "concept": "Function Calling Standards (OpenAI, Anthropic, Google)",
+              "depends_on": "Tool Use & Function Calling",
+              "lives_in": "Core Agentic Patterns",
+              "external": true
+            },
+            {
+              "concept": "Agent Observability & Debugging",
+              "depends_on": "Single-Agent Architectures",
+              "lives_in": "Agent Architectures",
+              "external": true
+            },
+            {
+              "concept": "Agent Observability & Debugging",
+              "depends_on": "Multi-Agent Systems",
+              "lives_in": "Agent Architectures",
+              "external": true
+            }
+          ]
+        }
+      ],
+      "modules_with_no_internal_dependency": [
+        "Frameworks & Implementation"
+      ],
+      "external_dependency_total": 29
+    },
+    "extent": {
+      "total": "~24 pages · about 7 hours",
+      "pages": "~24 pages",
+      "study_time": "about 7 hours",
+      "parts": 5,
+      "modules": 5,
+      "per_unit": {
+        "Foundations & Core Mental Models": "~2 pages",
+        "Core Agentic Patterns": "~8 pages",
+        "Agent Architectures": "~4 pages",
+        "Frameworks & Implementation": "~4 pages",
+        "Evaluation, Reliability & Emerging Standards": "~7 pages"
+      }
+    },
+    "feasibility": {
+      "serves_everything": false,
+      "shortfalls": [
+        {
+          "failure": "perceptual-referent",
+          "concepts": [
+            "Single-Agent Architectures",
+            "LangGraph",
+            "AutoGen",
+            "CrewAI",
+            "Agent Observability & Debugging"
+          ],
+          "licenses": "image",
+          "note": "The system cannot draw the thing itself. Representation-Boundary calls this family E and it is the only one that cannot preserve assertions: a generated figure adds content the document never asserted."
+        }
+      ]
+    },
+    "decisions_present": [
+      "consequence",
+      "derive_structure",
+      "intake_strategy",
+      "interpret_situation",
+      "partition",
+      "relevance",
+      "scope",
+      "traversal"
+    ]
+  },
+  "approval": {
+    "approved": true,
+    "decision_count": 7,
+    "refused_because": null
+  },
+  "finished_at": "2026-09-14T12:14:26+00:00",
+  "seconds_total": 1062.45,
+  "seconds_by_stage": {
+    "create": 301.69,
+    "intake": 0.0,
+    "plan": 617.68,
+    "correct": 142.93,
+    "approve": 0.02
+  },
+  "cost": {
+    "model_calls": 4,
+    "failed_calls": 0,
+    "input_tokens": 23529,
+    "output_tokens": 14390,
+    "seconds": 1062.21,
+    "calls": [
+      {
+        "ok": true,
+        "seconds": 301.67,
+        "input_tokens": 3154,
+        "output_tokens": 1273,
+        "schema": "Reading",
+        "error": null
+      },
+      {
+        "ok": true,
+        "seconds": 226.79,
+        "input_tokens": 1477,
+        "output_tokens": 3110,
+        "schema": "Landscape",
+        "error": null
+      },
+      {
+        "ok": true,
+        "seconds": 390.85,
+        "input_tokens": 6361,
+        "output_tokens": 5264,
+        "schema": "PlanBody",
+        "error": null
+      },
+      {
+        "ok": true,
+        "seconds": 142.89,
+        "input_tokens": 12537,
+        "output_tokens": 4743,
+        "schema": "Routing",
+        "error": null
+      }
+    ]
+  }
+}

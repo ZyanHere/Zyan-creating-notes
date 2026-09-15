@@ -1,0 +1,681 @@
+{
+  "project": {
+    "id": "7378be97-a4e4-4979-b61b-241ad1b427f3",
+    "user_id": "local",
+    "title": "i want to properly understand transformers, not just the high level stuff. i've ",
+    "taxonomy_version": "plan-gate-1",
+    "created_at": "2026-09-14T10:34:49+00:00"
+  },
+  "utterance": [
+    {
+      "id": "2ef9c23b-7ad8-4eef-b916-6e95dbe39895",
+      "project_id": "7378be97-a4e4-4979-b61b-241ad1b427f3",
+      "ord": 0,
+      "role": "user",
+      "text": "i want to properly understand transformers, not just the high level stuff. i've done linear algebra and i can read pytorch",
+      "created_at": "2026-09-14T10:34:49+00:00"
+    },
+    {
+      "id": "ffeb3d98-eda9-4eba-91b3-1f21e3b61c1a",
+      "project_id": "7378be97-a4e4-4979-b61b-241ad1b427f3",
+      "ord": 1,
+      "role": "user",
+      "text": "go deeper on attention - that's the part i actually want to understand",
+      "created_at": "2026-09-14T10:34:49+00:00"
+    },
+    {
+      "id": "172b4bea-2bff-4b84-aefa-4e5bbd4a471f",
+      "project_id": "7378be97-a4e4-4979-b61b-241ad1b427f3",
+      "ord": 2,
+      "role": "router",
+      "text": "{\"correction\": \"go deeper on attention - that's the part i actually want to understand\", \"reading\": \"stubbed correction\", \"claimed\": [], \"actual\": [], \"unchanged\": [\"interpret_situation\", \"scope\", \"consequence\", \"traversal\", \"partition\", \"derive_structure\", \"relevance\", \"intake_strategy\"], \"unclaimed_drift\": [], \"claimed_but_unchanged\": [], \"out_of_scope\": null, \"not_understood\": true}",
+      "created_at": "2026-09-14T10:34:49+00:00"
+    }
+  ],
+  "decision": [
+    {
+      "id": "39aeb55751074989b60b2db936a2806b",
+      "project_id": "7378be97-a4e4-4979-b61b-241ad1b427f3",
+      "kind": "interpret_situation",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "2df49038c82f5eb15e0dc4eca3a457a6",
+      "output": {
+        "subject": "Transformers — deep understanding",
+        "job": "orient",
+        "entry_point": "Nothing assumed.",
+        "purpose": "Stub run.",
+        "target_capability": "Prove the harness works.",
+        "capacity": null,
+        "stated": [],
+        "inferred": []
+      },
+      "model": "stub-1",
+      "prompt_version": "interpret_v1",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:49+00:00"
+    },
+    {
+      "id": "18af7cd39b0441e0ab55ab1c4b7b1bd2",
+      "project_id": "7378be97-a4e4-4979-b61b-241ad1b427f3",
+      "kind": "intake_strategy",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "38fe44a6fbf673e08c886943782ab46f",
+      "output": {
+        "questions": [],
+        "sufficiency": {
+          "verdict": "needs_subject",
+          "budget": 4,
+          "asking": [
+            "subject"
+          ],
+          "over_budget": [],
+          "axes": [
+            {
+              "axis": "subject",
+              "value": "Transformers — deep understanding",
+              "strength": "guessed",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "nothing, this is a stub",
+              "askable": true,
+              "asked": true,
+              "reason": "weak (guessed) but a different answer would not change the plan materially"
+            },
+            {
+              "axis": "purpose",
+              "value": "stub",
+              "strength": "guessed",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "nothing, this is a stub",
+              "askable": true,
+              "asked": false,
+              "reason": "weak (guessed) but a different answer would not change the plan materially"
+            },
+            {
+              "axis": "entry_point",
+              "value": "stub",
+              "strength": "guessed",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "nothing, this is a stub",
+              "askable": true,
+              "asked": false,
+              "reason": "weak (guessed) but a different answer would not change the plan materially"
+            },
+            {
+              "axis": "target_capability",
+              "value": "stub",
+              "strength": "guessed",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "nothing, this is a stub",
+              "askable": true,
+              "asked": false,
+              "reason": "weak (guessed) but a different answer would not change the plan materially"
+            },
+            {
+              "axis": "capacity",
+              "value": "stub",
+              "strength": "guessed",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "nothing, this is a stub",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Semantics §1 LOCKED — optional, and the corollary: deriving the plan and reporting its extent is what CAUSES a capacity to be stated. Asking upfront asks for a number the learner cannot honestly give."
+            },
+            {
+              "axis": "depth_register",
+              "value": "stub",
+              "strength": "guessed",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "nothing, this is a stub",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Semantics §1 — biasing, not binding. A default is always defensible."
+            },
+            {
+              "axis": "artifact_type",
+              "value": "stub",
+              "strength": "guessed",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "nothing, this is a stub",
+              "askable": true,
+              "asked": false,
+              "reason": "weak (guessed) but a different answer would not change the plan materially"
+            },
+            {
+              "axis": "template",
+              "value": "stub",
+              "strength": "guessed",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "nothing, this is a stub",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Presentation-Boundary rule 1 — internal. Users never select one."
+            }
+          ]
+        }
+      },
+      "model": "stub-1",
+      "prompt_version": "ask_v1",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:49+00:00"
+    },
+    {
+      "id": "34953130ee794a36a55fa6860b1ec9f1",
+      "project_id": "7378be97-a4e4-4979-b61b-241ad1b427f3",
+      "kind": "derive_structure",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "928adcf7ad6f51d946fc4e869ccf3230",
+      "output": {
+        "concepts": [
+          {
+            "name": "Alpha",
+            "built_from": [],
+            "family": "stub"
+          },
+          {
+            "name": "Beta",
+            "built_from": [],
+            "family": "stub"
+          },
+          {
+            "name": "Gamma",
+            "built_from": [],
+            "family": "stub"
+          }
+        ]
+      },
+      "model": "stub-1",
+      "prompt_version": "derive_v1",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:49+00:00"
+    },
+    {
+      "id": "e7ac0521419944d9a01e6027f7a94e0f",
+      "project_id": "7378be97-a4e4-4979-b61b-241ad1b427f3",
+      "kind": "relevance",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "33de6fef21c3ab2e2cc444481dba97b8",
+      "output": {
+        "judgements": [
+          {
+            "concept": "Alpha",
+            "in_play": true,
+            "why": "stub"
+          },
+          {
+            "concept": "Beta",
+            "in_play": true,
+            "why": "stub"
+          },
+          {
+            "concept": "Gamma",
+            "in_play": true,
+            "why": "stub"
+          }
+        ]
+      },
+      "model": "stub-1",
+      "prompt_version": "derive_v1",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:49+00:00"
+    },
+    {
+      "id": "9678e7068527498698c825f5ca3d226b",
+      "project_id": "7378be97-a4e4-4979-b61b-241ad1b427f3",
+      "kind": "traversal",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "dab71cdfe17e50beb9b36216777d3da3",
+      "output": {
+        "sequence": [
+          "First",
+          "Second"
+        ],
+        "why": "stub"
+      },
+      "model": "stub-1",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:49+00:00"
+    },
+    {
+      "id": "da0fb771ed9945bd9a37014500afec4b",
+      "project_id": "7378be97-a4e4-4979-b61b-241ad1b427f3",
+      "kind": "consequence",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "bb90f250c13f262dd38f30debc1d93a4",
+      "output": {
+        "exclusions": []
+      },
+      "model": "stub-1",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:49+00:00"
+    },
+    {
+      "id": "cb6c4a90e27f4d7c854dccf07ff8b811",
+      "project_id": "7378be97-a4e4-4979-b61b-241ad1b427f3",
+      "kind": "scope",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "ed77a63965f47aa84036988a712c7aed",
+      "output": {
+        "covered": [
+          {
+            "concept": "Alpha",
+            "depth": "explain",
+            "why": "stub",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Beta",
+            "depth": "explain",
+            "why": "stub",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Gamma",
+            "depth": "explain",
+            "why": "stub",
+            "anticipates": "none"
+          }
+        ],
+        "cut": []
+      },
+      "model": "stub-1",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:49+00:00"
+    },
+    {
+      "id": "131f9e94741846a49fee411acf2102d8",
+      "project_id": "7378be97-a4e4-4979-b61b-241ad1b427f3",
+      "kind": "partition",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "9ae32540c0606eaa20faddb154e8bab6",
+      "output": {
+        "modules": [
+          {
+            "title": "First",
+            "covers": [
+              "Alpha"
+            ],
+            "why_here": "stub",
+            "capability": "Do the first stub thing."
+          },
+          {
+            "title": "Second",
+            "covers": [
+              "Beta",
+              "Gamma"
+            ],
+            "why_here": "stub",
+            "capability": "Do the second stub thing."
+          }
+        ]
+      },
+      "model": "stub-1",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:49+00:00"
+    },
+    {
+      "id": "39aeb55751074989b60b2db936a2806b",
+      "project_id": "7378be97-a4e4-4979-b61b-241ad1b427f3",
+      "kind": "interpret_situation",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "2df49038c82f5eb15e0dc4eca3a457a6",
+      "output": {
+        "subject": "Transformers — deep understanding",
+        "job": "orient",
+        "entry_point": "Nothing assumed.",
+        "purpose": "Stub run.",
+        "target_capability": "Prove the harness works.",
+        "capacity": null,
+        "stated": [],
+        "inferred": []
+      },
+      "model": "stub-1",
+      "prompt_version": "interpret_v1",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:49+00:00"
+    },
+    {
+      "id": "cb6c4a90e27f4d7c854dccf07ff8b811",
+      "project_id": "7378be97-a4e4-4979-b61b-241ad1b427f3",
+      "kind": "scope",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "ed77a63965f47aa84036988a712c7aed",
+      "output": {
+        "covered": [
+          {
+            "concept": "Alpha",
+            "depth": "explain",
+            "why": "stub",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Beta",
+            "depth": "explain",
+            "why": "stub",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Gamma",
+            "depth": "explain",
+            "why": "stub",
+            "anticipates": "none"
+          }
+        ],
+        "cut": []
+      },
+      "model": "stub-1",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:49+00:00"
+    },
+    {
+      "id": "da0fb771ed9945bd9a37014500afec4b",
+      "project_id": "7378be97-a4e4-4979-b61b-241ad1b427f3",
+      "kind": "consequence",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "bb90f250c13f262dd38f30debc1d93a4",
+      "output": {
+        "exclusions": []
+      },
+      "model": "stub-1",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:49+00:00"
+    },
+    {
+      "id": "9678e7068527498698c825f5ca3d226b",
+      "project_id": "7378be97-a4e4-4979-b61b-241ad1b427f3",
+      "kind": "traversal",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "dab71cdfe17e50beb9b36216777d3da3",
+      "output": {
+        "sequence": [
+          "First",
+          "Second"
+        ],
+        "why": "stub"
+      },
+      "model": "stub-1",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:49+00:00"
+    },
+    {
+      "id": "131f9e94741846a49fee411acf2102d8",
+      "project_id": "7378be97-a4e4-4979-b61b-241ad1b427f3",
+      "kind": "partition",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "9ae32540c0606eaa20faddb154e8bab6",
+      "output": {
+        "modules": [
+          {
+            "title": "First",
+            "covers": [
+              "Alpha"
+            ],
+            "why_here": "stub",
+            "capability": "Do the first stub thing."
+          },
+          {
+            "title": "Second",
+            "covers": [
+              "Beta",
+              "Gamma"
+            ],
+            "why_here": "stub",
+            "capability": "Do the second stub thing."
+          }
+        ]
+      },
+      "model": "stub-1",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:49+00:00"
+    },
+    {
+      "id": "34953130ee794a36a55fa6860b1ec9f1",
+      "project_id": "7378be97-a4e4-4979-b61b-241ad1b427f3",
+      "kind": "derive_structure",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "928adcf7ad6f51d946fc4e869ccf3230",
+      "output": {
+        "concepts": [
+          {
+            "name": "Alpha",
+            "built_from": [],
+            "family": "stub"
+          },
+          {
+            "name": "Beta",
+            "built_from": [],
+            "family": "stub"
+          },
+          {
+            "name": "Gamma",
+            "built_from": [],
+            "family": "stub"
+          }
+        ]
+      },
+      "model": "stub-1",
+      "prompt_version": "derive_v1",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:49+00:00"
+    },
+    {
+      "id": "e7ac0521419944d9a01e6027f7a94e0f",
+      "project_id": "7378be97-a4e4-4979-b61b-241ad1b427f3",
+      "kind": "relevance",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "33de6fef21c3ab2e2cc444481dba97b8",
+      "output": {
+        "judgements": [
+          {
+            "concept": "Alpha",
+            "in_play": true,
+            "why": "stub"
+          },
+          {
+            "concept": "Beta",
+            "in_play": true,
+            "why": "stub"
+          },
+          {
+            "concept": "Gamma",
+            "in_play": true,
+            "why": "stub"
+          }
+        ]
+      },
+      "model": "stub-1",
+      "prompt_version": "derive_v1",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:49+00:00"
+    }
+  ],
+  "commitment": [
+    {
+      "id": "c025eeb3b83a4b828b06cdb1355635d1",
+      "project_id": "7378be97-a4e4-4979-b61b-241ad1b427f3",
+      "kind": "plan",
+      "snapshot": {
+        "interpret_situation": {
+          "subject": "Transformers — deep understanding",
+          "job": "orient",
+          "entry_point": "Nothing assumed.",
+          "purpose": "Stub run.",
+          "target_capability": "Prove the harness works.",
+          "capacity": null,
+          "stated": [],
+          "inferred": []
+        },
+        "scope": {
+          "covered": [
+            {
+              "concept": "Alpha",
+              "depth": "explain",
+              "why": "stub",
+              "anticipates": "none"
+            },
+            {
+              "concept": "Beta",
+              "depth": "explain",
+              "why": "stub",
+              "anticipates": "none"
+            },
+            {
+              "concept": "Gamma",
+              "depth": "explain",
+              "why": "stub",
+              "anticipates": "none"
+            }
+          ],
+          "cut": []
+        },
+        "consequence": {
+          "exclusions": []
+        },
+        "traversal": {
+          "sequence": [
+            "First",
+            "Second"
+          ],
+          "why": "stub"
+        },
+        "partition": {
+          "modules": [
+            {
+              "title": "First",
+              "covers": [
+                "Alpha"
+              ],
+              "why_here": "stub",
+              "capability": "Do the first stub thing."
+            },
+            {
+              "title": "Second",
+              "covers": [
+                "Beta",
+                "Gamma"
+              ],
+              "why_here": "stub",
+              "capability": "Do the second stub thing."
+            }
+          ]
+        },
+        "extent": {
+          "total": "~2 pages · 24 min",
+          "pages": "~2 pages",
+          "study_time": "24 min",
+          "parts": 2,
+          "modules": 2,
+          "per_unit": {
+            "First": "~1 page",
+            "Second": "~1 page"
+          }
+        }
+      },
+      "decision_ids": [
+        "39aeb55751074989b60b2db936a2806b",
+        "cb6c4a90e27f4d7c854dccf07ff8b811",
+        "da0fb771ed9945bd9a37014500afec4b",
+        "9678e7068527498698c825f5ca3d226b",
+        "131f9e94741846a49fee411acf2102d8",
+        "34953130ee794a36a55fa6860b1ec9f1",
+        "e7ac0521419944d9a01e6027f7a94e0f"
+      ],
+      "decision_ids_hash": "350fe6b6826c14e92e226886c28c0187",
+      "decision_environment": {
+        "prompt_versions": [
+          "derive_v1",
+          "interpret_v1",
+          "plan_v3"
+        ],
+        "models": [
+          "stub-1"
+        ]
+      },
+      "approved_by": "local",
+      "approved_at": "2026-09-14T10:34:49+00:00"
+    }
+  ]
+}

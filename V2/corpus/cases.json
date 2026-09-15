@@ -1,0 +1,277 @@
+{
+  "version": 1,
+  "note": "The V1 baseline corpus. Requests are written the way real ones arrive -- lowercase, partial, sometimes self-contradictory -- because V1's intake is what is being measured and a tidied request measures a learner who does not exist. `corrections` exist because the correction path was exercised twice in 37 projects: without them the baseline measures a system nobody ever corrects.",
+  "cases": [
+    {
+      "id": "agentic-ai-interview",
+      "title": "Agentic AI — interview preparation",
+      "request": "i need agentic ai notes for interview, from scratch",
+      "why_this_case": "The known failure. V1 produced an underfunded capability ('design iterative retrieval loops with query reformulation' over a scope holding one retrieval concept) and a cross-cutting 'advanced' bucket. Also the case where 'from scratch' was read as assuming ML literacy -- the provenance bug the register calls solved, re-tested here.",
+      "situation": {
+        "purpose": "Answer interview questions about agentic AI",
+        "entry_point": "Writes code; has not built an agent; 'from scratch' binds this",
+        "target_capability": "Explain, compare and justify choices under questioning",
+        "constraints": ["'from scratch' is a stated constraint on entry point", "job is orient, not construct"]
+      },
+      "intake_answers": ["i can code but i've never built an agent or used any of these frameworks"],
+      "corrections": ["you've missed evaluation entirely - interviewers always ask how you'd know if the agent is working"],
+      "good_curriculum": {
+        "shape": "several-modules",
+        "module_range": [4, 8],
+        "must_cover": ["LLM/API foundations", "tool use", "the agent loop (ReAct or equivalent)", "memory/state", "retrieval for agents", "evaluation", "failure modes and guardrails"],
+        "must_not_become": [
+          "a single 'Frameworks' node listing LangGraph, AutoGen and CrewAI together — the learner must tell them apart to answer 'why did you pick one'",
+          "an 'advanced topics' module holding safety, observability, cost, deployment and standards because they are all late",
+          "a capability promising design or architecture work when the job is orient"
+        ],
+        "capability_test": "every clause must be answerable in an interview, and backed by a concept the module actually covers"
+      },
+      "watch_for": ["entry_point asserting prior literacy against 'from scratch'", "parenthetical framework lists", "unbacked capability clauses", "cross-cutting leftovers module"],
+      "reference": "references/agentic-ai-interview.md",
+      "generate_modules": [1]
+    },
+    {
+      "id": "transformers-deep",
+      "title": "Transformers — deep understanding",
+      "request": "i want to properly understand transformers, not just the high level stuff. i've done linear algebra and i can read pytorch",
+      "why_this_case": "A rich, well-specified request: intake should ask almost nothing. Tests whether stated competence is honoured rather than re-asked, and whether 'properly understand' produces depth rather than breadth.",
+      "situation": {
+        "purpose": "Genuine understanding, not exam or interview",
+        "entry_point": "Linear algebra; reads PyTorch",
+        "target_capability": "Explain why each component exists and what breaks without it",
+        "constraints": ["stated: linear algebra", "stated: reads pytorch", "stated: not high level"]
+      },
+      "intake_answers": [],
+      "corrections": ["go deeper on attention - that's the part i actually want to understand"],
+      "good_curriculum": {
+        "shape": "several-modules",
+        "module_range": [3, 6],
+        "must_cover": ["attention", "multi-head attention", "positional encoding", "residuals and layer norm", "the full block", "training objective"],
+        "must_not_become": [
+          "a survey that spends a module on 'history of NLP' before reaching attention",
+          "depth allocated evenly when the learner named attention as the target"
+        ],
+        "capability_test": "capability should be in explain/justify register, and should not promise implementing a trained model unless training is actually covered"
+      },
+      "watch_for": ["questions asked about things the request already stated", "breadth substituting for depth", "maths depth inconsistent with stated linear algebra"],
+      "reference": null,
+      "generate_modules": [1]
+    },
+    {
+      "id": "french-revolution-exam",
+      "title": "French Revolution — school exam revision",
+      "request": "french revolution notes for my class 9 history exam next week",
+      "why_this_case": "Non-technical, exam-shaped, with a real time constraint stated. Tests whether purpose=exam actually changes the curriculum (retrieve/rehearse, not construct) and whether a stated deadline reaches scope as depth pressure.",
+      "situation": {
+        "purpose": "Pass a school exam in a week",
+        "entry_point": "Class 9; has been taught the chapter once",
+        "target_capability": "Answer exam questions: causes, sequence, key figures, consequences",
+        "constraints": ["stated: class 9", "stated: exam", "stated: next week"]
+      },
+      "intake_answers": [],
+      "corrections": ["i don't need the economic theory stuff, the exam is mostly dates causes and people"],
+      "good_curriculum": {
+        "shape": "one-module",
+        "module_range": [1, 3],
+        "must_cover": ["causes", "1789 and the sequence of events", "key figures", "the Terror", "consequences"],
+        "must_not_become": [
+          "a university-level treatment of revolutionary political philosophy",
+          "modules split by decade when the exam wants causes/events/consequences"
+        ],
+        "capability_test": "capability must be in recall/answer register, not 'analyse the historiography'"
+      },
+      "watch_for": ["depth ignoring the one-week capacity", "job read as 'construct' rather than retrieve/rehearse", "non-technical subject producing a technical-shaped plan"],
+      "reference": null,
+      "generate_modules": [1]
+    },
+    {
+      "id": "vlsi-underspecified",
+      "title": "VLSI — deliberately underspecified",
+      "request": "i need notes on vlsi",
+      "why_this_case": "The bare request. Six words, no purpose, no entry point, no target. This is the case the interpret/decide/ask split was built for (102s to 18s), and the one where V1 must ask rather than guess. Measures how many questions the budget actually spends and whether the options are materially different plans.",
+      "situation": {
+        "purpose": "Unknown — this is the point",
+        "entry_point": "Unknown",
+        "target_capability": "Unknown",
+        "constraints": ["nothing is stated; every axis is the system's decision"]
+      },
+      "intake_answers": ["it's for my university semester exam, i've done basic digital electronics"],
+      "corrections": [],
+      "good_curriculum": {
+        "shape": "several-modules",
+        "module_range": [2, 6],
+        "must_cover": ["depends entirely on the answer given at intake"],
+        "must_not_become": [
+          "a full plan derived with no question asked at all",
+          "questions whose options imply the same plan ('detailed' vs 'comprehensive')"
+        ],
+        "capability_test": "after the intake answer, the plan must visibly reflect exam-purpose and the stated digital-electronics entry point"
+      },
+      "watch_for": ["verdict sufficient on a six-word request", "questions written for axes the decider did not choose", "options that are one option wearing two labels", "any axis read as 'inferred' with a span covering the whole request"],
+      "reference": null,
+      "generate_modules": []
+    },
+    {
+      "id": "dsa-graphs-interview",
+      "title": "Graph DSA — interview cheat sheet",
+      "request": "cheat sheet for graph dsa questions for my interview next month",
+      "why_this_case": "Artifact type is stated outright ('cheat sheet'), so it must be inferred and never asked. A cheat sheet is a look-up artifact, which is a different document job from orienting notes -- tests whether the job taxonomy actually changes treatment.",
+      "situation": {
+        "purpose": "Interview preparation",
+        "entry_point": "Knows basic data structures; has solved some problems",
+        "target_capability": "Recognise the pattern under time pressure and recall the approach",
+        "constraints": ["stated: cheat sheet", "stated: interview", "stated: next month"]
+      },
+      "intake_answers": [],
+      "corrections": ["union-find isn't relevant for me, the companies i'm targeting don't ask it"],
+      "good_curriculum": {
+        "shape": "one-module",
+        "module_range": [1, 2],
+        "must_cover": ["representations", "BFS/DFS", "topological sort", "shortest path", "when each applies"],
+        "must_not_become": [
+          "a multi-module course — one subject, one sitting, one thing to walk in able to do",
+          "long prose explanations, when the artifact type stated is a cheat sheet"
+        ],
+        "capability_test": "capability in look-up/recognise register, not 'implement from scratch'"
+      },
+      "watch_for": ["artifact_type asked despite being stated", "partition splitting a cheat sheet into modules", "depth 'work through' producing essays in a look-up artifact"],
+      "reference": null,
+      "generate_modules": [1]
+    },
+    {
+      "id": "contract-act-authority",
+      "title": "Indian Contract Act — source/authority-heavy",
+      "request": "i need to study the indian contract act 1872 for my law semester, section wise",
+      "why_this_case": "The case the register says broke assumptions that looked reasonable under a coding workload. The subject has a primary source that is READ, not derived: the Act is numbered sections, and a 'derived concept landscape' is the wrong operation. Tests whether V1 invents a structure where an authoritative one exists.",
+      "situation": {
+        "purpose": "Law semester examination",
+        "entry_point": "Law student, first exposure to contract law",
+        "target_capability": "State and apply the sections; answer problem questions",
+        "constraints": ["stated: section wise", "stated: semester", "the Act is the authority, not the model's derivation"]
+      },
+      "intake_answers": [],
+      "corrections": ["the ordering should follow the act's own sections, not your grouping"],
+      "good_curriculum": {
+        "shape": "several-modules",
+        "module_range": [3, 8],
+        "must_cover": ["formation (offer, acceptance, consideration)", "capacity", "free consent", "void and voidable agreements", "performance", "breach and remedies"],
+        "must_not_become": [
+          "a derived conceptual landscape that renames or reorders statutory sections",
+          "a plan that silently invents a taxonomy the Act does not use"
+        ],
+        "capability_test": "capability must involve stating and applying provisions; terminology must be the Act's"
+      },
+      "watch_for": ["derive_structure inventing concept names not in the Act", "traversal that contradicts 'section wise'", "no mechanism to say 'this needs the source text'", "correction about ordering routed to partition rather than traversal"],
+      "reference": "references/contract-act-authority.md",
+      "generate_modules": []
+    },
+    {
+      "id": "git-commits-narrow",
+      "title": "Git commit messages — deliberately narrow",
+      "request": "how to write good git commit messages",
+      "why_this_case": "The partition floor. This is one small subject with one sitting's worth of material. plan_v3 says explicitly that length is never a reason to split and that most narrow requests are one module -- this measures whether that instruction holds. Over-partitioning here is the clearest possible signal that module count is not actually derived from scope.",
+      "situation": {
+        "purpose": "Do it better at work",
+        "entry_point": "Uses git daily; commits are messy",
+        "target_capability": "Write a commit message a reviewer can use",
+        "constraints": ["narrow by nature"]
+      },
+      "intake_answers": [],
+      "corrections": ["make it dark themed with orange accents"],
+      "good_curriculum": {
+        "shape": "one-module",
+        "module_range": [1, 1],
+        "must_cover": ["subject line", "body and the why-not-what rule", "conventional commit shape", "common anti-patterns"],
+        "must_not_become": [
+          "'Part 1: Fundamentals' and 'Part 2: Advanced' — packaging, not a curriculum",
+          "a module per commit-message section"
+        ],
+        "capability_test": "one capability, exercisable alone"
+      },
+      "watch_for": ["module_count > 1 at all", "the theme correction being absorbed into a plan decision instead of deferred as out_of_scope"],
+      "reference": "references/git-commits-narrow.md",
+      "generate_modules": [1]
+    },
+    {
+      "id": "heart-anatomy-visual",
+      "title": "Heart anatomy — spatial content",
+      "request": "human heart structure and blood flow for neet, i need to be able to label diagrams",
+      "why_this_case": "Probes the representation boundary directly. 'Label diagrams' is a stated requirement for exactly the thing the system cannot produce: family E, perceptual-referent. The honest outcome is a reported limitation before approval, not prose standing in for a figure. Tests feasibility reporting end to end.",
+      "situation": {
+        "purpose": "NEET examination",
+        "entry_point": "Class 11 biology",
+        "target_capability": "Label a heart diagram and trace blood flow",
+        "constraints": ["stated: label diagrams — spatial content is the target, not a nice-to-have"]
+      },
+      "intake_answers": [],
+      "corrections": [],
+      "good_curriculum": {
+        "shape": "one-module",
+        "module_range": [1, 3],
+        "must_cover": ["chambers", "valves", "great vessels", "pulmonary and systemic circuits", "the cardiac cycle"],
+        "must_not_become": [
+          "a plan claiming to teach diagram labelling with no acknowledgement that it cannot draw the diagram",
+          "a relation block of named parts standing in for a spatial figure"
+        ],
+        "capability_test": "the plan must report, before approval, that the figures this target needs are not producible"
+      },
+      "watch_for": ["anticipates=perceptual-referent on the spatial concepts", "feasibility.serves_everything true despite spatial targets", "generation drawing boxes instead of emitting the stated-gap callout", "stated_gaps count at generation"],
+      "reference": null,
+      "generate_modules": [1]
+    },
+    {
+      "id": "consensus-analogies",
+      "title": "Distributed consensus — stated treatment preference",
+      "request": "explain distributed consensus to me, raft and paxos. use lots of analogies and worked examples, i learn badly from formal definitions",
+      "why_this_case": "Aims straight at the gap found by code reading: `anticipates` never reaches the generator, and a stated treatment preference arrives at the unit prompt as one line among many with no machinery behind it. This case states the preference as plainly as a user can. If the artifact is not visibly analogy-heavy, the preference is decorative.",
+      "situation": {
+        "purpose": "Understand it well enough to reason about systems",
+        "entry_point": "Backend engineer; no distributed systems theory",
+        "target_capability": "Explain why consensus is hard and how Raft solves it",
+        "constraints": ["stated: lots of analogies", "stated: worked examples", "stated: learns badly from formal definitions"]
+      },
+      "intake_answers": [],
+      "corrections": [],
+      "good_curriculum": {
+        "shape": "several-modules",
+        "module_range": [2, 4],
+        "must_cover": ["why consensus is hard (failures, partitions)", "leader election", "log replication", "safety and liveness", "Raft", "Paxos in outline"],
+        "must_not_become": [
+          "formal-definition-first treatment, which is what the learner said defeats them",
+          "a plan that records the preference and generates content that ignores it"
+        ],
+        "capability_test": "treatment preference must survive into the generated artifact, measurably"
+      },
+      "watch_for": ["stated preference present in situation.stated but absent from the artifact", "treatments_anticipated vs treatments_produced divergence", "departures count and block mix in the generated module", "analogy density in the produced text"],
+      "reference": null,
+      "generate_modules": [1]
+    },
+    {
+      "id": "ml-weekend-conflict",
+      "title": "Machine learning in a weekend — conflicting request",
+      "request": "i want to master machine learning and be able to build production models, i have one weekend",
+      "why_this_case": "A request that cannot be satisfied as stated. Capacity and target are in direct conflict. The honest behaviours are: report the conflict, or scope to what a weekend genuinely buys and say plainly what was given up. The dishonest behaviour is a confident plan promising mastery. Tests whether consequence/extent reporting actually constrains the promise.",
+      "situation": {
+        "purpose": "Stated as production capability",
+        "entry_point": "Unstated",
+        "target_capability": "Stated as 'master ML and build production models' — not achievable in the stated capacity",
+        "constraints": ["stated: one weekend", "stated: production models", "these two cannot both hold"]
+      },
+      "intake_answers": ["i've written python for a few years but no ml at all"],
+      "corrections": ["ok that's too much, what can i actually get done in two days"],
+      "good_curriculum": {
+        "shape": "several-modules",
+        "module_range": [1, 4],
+        "must_cover": ["depends on how the conflict is resolved — but the resolution must be visible"],
+        "must_not_become": [
+          "a plan whose capability still promises production ML after a weekend",
+          "an extent estimate that quietly exceeds the stated capacity with no comment"
+        ],
+        "capability_test": "either the capability is honestly reduced, or the shortfall is stated in consequence/extent where the user can see it before approving"
+      },
+      "watch_for": ["capacity captured as a stated constraint at all", "extent vs stated capacity", "capability register after the correction", "whether the correction about time routes to scope and interpret_situation"],
+      "reference": null,
+      "generate_modules": []
+    }
+  ]
+}

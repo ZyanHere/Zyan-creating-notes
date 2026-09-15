@@ -1,0 +1,21 @@
+{
+  "project": {
+    "id": "fee72b80-7339-4030-9946-81146f669380",
+    "user_id": "local",
+    "title": "i need notes on vlsi",
+    "taxonomy_version": "plan-gate-1",
+    "created_at": "2026-09-14T12:44:55+00:00"
+  },
+  "utterance": [
+    {
+      "id": "866e8ca6-8de0-46a8-bc62-76aa96bfcb4c",
+      "project_id": "fee72b80-7339-4030-9946-81146f669380",
+      "ord": 0,
+      "role": "user",
+      "text": "i need notes on vlsi",
+      "created_at": "2026-09-14T12:44:55+00:00"
+    }
+  ],
+  "decision": [],
+  "commitment": []
+}

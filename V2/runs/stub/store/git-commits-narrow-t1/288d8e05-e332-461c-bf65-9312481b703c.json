@@ -1,0 +1,681 @@
+{
+  "project": {
+    "id": "288d8e05-e332-461c-bf65-9312481b703c",
+    "user_id": "local",
+    "title": "how to write good git commit messages",
+    "taxonomy_version": "plan-gate-1",
+    "created_at": "2026-09-14T10:34:50+00:00"
+  },
+  "utterance": [
+    {
+      "id": "3c8416aa-2f95-444e-bfd6-9de0bd480bd6",
+      "project_id": "288d8e05-e332-461c-bf65-9312481b703c",
+      "ord": 0,
+      "role": "user",
+      "text": "how to write good git commit messages",
+      "created_at": "2026-09-14T10:34:50+00:00"
+    },
+    {
+      "id": "35c08c08-3e34-434c-960b-dea9411cc4b0",
+      "project_id": "288d8e05-e332-461c-bf65-9312481b703c",
+      "ord": 1,
+      "role": "user",
+      "text": "make it dark themed with orange accents",
+      "created_at": "2026-09-14T10:34:50+00:00"
+    },
+    {
+      "id": "8de8182e-b3ef-4dfc-8e93-5f6932eca491",
+      "project_id": "288d8e05-e332-461c-bf65-9312481b703c",
+      "ord": 2,
+      "role": "router",
+      "text": "{\"correction\": \"make it dark themed with orange accents\", \"reading\": \"stubbed correction\", \"claimed\": [], \"actual\": [], \"unchanged\": [\"interpret_situation\", \"scope\", \"consequence\", \"traversal\", \"partition\", \"derive_structure\", \"relevance\", \"intake_strategy\"], \"unclaimed_drift\": [], \"claimed_but_unchanged\": [], \"out_of_scope\": null, \"not_understood\": true}",
+      "created_at": "2026-09-14T10:34:50+00:00"
+    }
+  ],
+  "decision": [
+    {
+      "id": "0f7a6e7ea5344d08ad79104cb0a61c98",
+      "project_id": "288d8e05-e332-461c-bf65-9312481b703c",
+      "kind": "interpret_situation",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "cc1bfd0bc5ff86fb7c73519efbcccecc",
+      "output": {
+        "subject": "Git commit messages — deliberately narrow",
+        "job": "orient",
+        "entry_point": "Nothing assumed.",
+        "purpose": "Stub run.",
+        "target_capability": "Prove the harness works.",
+        "capacity": null,
+        "stated": [],
+        "inferred": []
+      },
+      "model": "stub-1",
+      "prompt_version": "interpret_v1",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:50+00:00"
+    },
+    {
+      "id": "062dfb878b914f66b0f0cf2d5f7cd76e",
+      "project_id": "288d8e05-e332-461c-bf65-9312481b703c",
+      "kind": "intake_strategy",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "12cb51400e2d42e387c21f0e98526fd3",
+      "output": {
+        "questions": [],
+        "sufficiency": {
+          "verdict": "needs_subject",
+          "budget": 4,
+          "asking": [
+            "subject"
+          ],
+          "over_budget": [],
+          "axes": [
+            {
+              "axis": "subject",
+              "value": "Git commit messages — deliberately narrow",
+              "strength": "guessed",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "nothing, this is a stub",
+              "askable": true,
+              "asked": true,
+              "reason": "weak (guessed) but a different answer would not change the plan materially"
+            },
+            {
+              "axis": "purpose",
+              "value": "stub",
+              "strength": "guessed",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "nothing, this is a stub",
+              "askable": true,
+              "asked": false,
+              "reason": "weak (guessed) but a different answer would not change the plan materially"
+            },
+            {
+              "axis": "entry_point",
+              "value": "stub",
+              "strength": "guessed",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "nothing, this is a stub",
+              "askable": true,
+              "asked": false,
+              "reason": "weak (guessed) but a different answer would not change the plan materially"
+            },
+            {
+              "axis": "target_capability",
+              "value": "stub",
+              "strength": "guessed",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "nothing, this is a stub",
+              "askable": true,
+              "asked": false,
+              "reason": "weak (guessed) but a different answer would not change the plan materially"
+            },
+            {
+              "axis": "capacity",
+              "value": "stub",
+              "strength": "guessed",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "nothing, this is a stub",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Semantics §1 LOCKED — optional, and the corollary: deriving the plan and reporting its extent is what CAUSES a capacity to be stated. Asking upfront asks for a number the learner cannot honestly give."
+            },
+            {
+              "axis": "depth_register",
+              "value": "stub",
+              "strength": "guessed",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "nothing, this is a stub",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Semantics §1 — biasing, not binding. A default is always defensible."
+            },
+            {
+              "axis": "artifact_type",
+              "value": "stub",
+              "strength": "guessed",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "nothing, this is a stub",
+              "askable": true,
+              "asked": false,
+              "reason": "weak (guessed) but a different answer would not change the plan materially"
+            },
+            {
+              "axis": "template",
+              "value": "stub",
+              "strength": "guessed",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "nothing, this is a stub",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Presentation-Boundary rule 1 — internal. Users never select one."
+            }
+          ]
+        }
+      },
+      "model": "stub-1",
+      "prompt_version": "ask_v1",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:50+00:00"
+    },
+    {
+      "id": "9f5200ced8af4d0a8f20c6efed99d21d",
+      "project_id": "288d8e05-e332-461c-bf65-9312481b703c",
+      "kind": "derive_structure",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "928adcf7ad6f51d946fc4e869ccf3230",
+      "output": {
+        "concepts": [
+          {
+            "name": "Alpha",
+            "built_from": [],
+            "family": "stub"
+          },
+          {
+            "name": "Beta",
+            "built_from": [],
+            "family": "stub"
+          },
+          {
+            "name": "Gamma",
+            "built_from": [],
+            "family": "stub"
+          }
+        ]
+      },
+      "model": "stub-1",
+      "prompt_version": "derive_v1",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:50+00:00"
+    },
+    {
+      "id": "a73b43167c0d4782bcf08bd2807e54c2",
+      "project_id": "288d8e05-e332-461c-bf65-9312481b703c",
+      "kind": "relevance",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "33de6fef21c3ab2e2cc444481dba97b8",
+      "output": {
+        "judgements": [
+          {
+            "concept": "Alpha",
+            "in_play": true,
+            "why": "stub"
+          },
+          {
+            "concept": "Beta",
+            "in_play": true,
+            "why": "stub"
+          },
+          {
+            "concept": "Gamma",
+            "in_play": true,
+            "why": "stub"
+          }
+        ]
+      },
+      "model": "stub-1",
+      "prompt_version": "derive_v1",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:50+00:00"
+    },
+    {
+      "id": "573e597da92f402495ef0d94d2ff8ebc",
+      "project_id": "288d8e05-e332-461c-bf65-9312481b703c",
+      "kind": "traversal",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "dab71cdfe17e50beb9b36216777d3da3",
+      "output": {
+        "sequence": [
+          "First",
+          "Second"
+        ],
+        "why": "stub"
+      },
+      "model": "stub-1",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:50+00:00"
+    },
+    {
+      "id": "570419f2ba14433094f98d7ea542b268",
+      "project_id": "288d8e05-e332-461c-bf65-9312481b703c",
+      "kind": "consequence",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "bb90f250c13f262dd38f30debc1d93a4",
+      "output": {
+        "exclusions": []
+      },
+      "model": "stub-1",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:50+00:00"
+    },
+    {
+      "id": "a980986faf954f70a8f0892ea5da76fa",
+      "project_id": "288d8e05-e332-461c-bf65-9312481b703c",
+      "kind": "scope",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "ed77a63965f47aa84036988a712c7aed",
+      "output": {
+        "covered": [
+          {
+            "concept": "Alpha",
+            "depth": "explain",
+            "why": "stub",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Beta",
+            "depth": "explain",
+            "why": "stub",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Gamma",
+            "depth": "explain",
+            "why": "stub",
+            "anticipates": "none"
+          }
+        ],
+        "cut": []
+      },
+      "model": "stub-1",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:50+00:00"
+    },
+    {
+      "id": "092826874e36415ab506b86eb407170c",
+      "project_id": "288d8e05-e332-461c-bf65-9312481b703c",
+      "kind": "partition",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "9ae32540c0606eaa20faddb154e8bab6",
+      "output": {
+        "modules": [
+          {
+            "title": "First",
+            "covers": [
+              "Alpha"
+            ],
+            "why_here": "stub",
+            "capability": "Do the first stub thing."
+          },
+          {
+            "title": "Second",
+            "covers": [
+              "Beta",
+              "Gamma"
+            ],
+            "why_here": "stub",
+            "capability": "Do the second stub thing."
+          }
+        ]
+      },
+      "model": "stub-1",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:50+00:00"
+    },
+    {
+      "id": "0f7a6e7ea5344d08ad79104cb0a61c98",
+      "project_id": "288d8e05-e332-461c-bf65-9312481b703c",
+      "kind": "interpret_situation",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "cc1bfd0bc5ff86fb7c73519efbcccecc",
+      "output": {
+        "subject": "Git commit messages — deliberately narrow",
+        "job": "orient",
+        "entry_point": "Nothing assumed.",
+        "purpose": "Stub run.",
+        "target_capability": "Prove the harness works.",
+        "capacity": null,
+        "stated": [],
+        "inferred": []
+      },
+      "model": "stub-1",
+      "prompt_version": "interpret_v1",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:50+00:00"
+    },
+    {
+      "id": "a980986faf954f70a8f0892ea5da76fa",
+      "project_id": "288d8e05-e332-461c-bf65-9312481b703c",
+      "kind": "scope",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "ed77a63965f47aa84036988a712c7aed",
+      "output": {
+        "covered": [
+          {
+            "concept": "Alpha",
+            "depth": "explain",
+            "why": "stub",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Beta",
+            "depth": "explain",
+            "why": "stub",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Gamma",
+            "depth": "explain",
+            "why": "stub",
+            "anticipates": "none"
+          }
+        ],
+        "cut": []
+      },
+      "model": "stub-1",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:50+00:00"
+    },
+    {
+      "id": "570419f2ba14433094f98d7ea542b268",
+      "project_id": "288d8e05-e332-461c-bf65-9312481b703c",
+      "kind": "consequence",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "bb90f250c13f262dd38f30debc1d93a4",
+      "output": {
+        "exclusions": []
+      },
+      "model": "stub-1",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:50+00:00"
+    },
+    {
+      "id": "573e597da92f402495ef0d94d2ff8ebc",
+      "project_id": "288d8e05-e332-461c-bf65-9312481b703c",
+      "kind": "traversal",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "dab71cdfe17e50beb9b36216777d3da3",
+      "output": {
+        "sequence": [
+          "First",
+          "Second"
+        ],
+        "why": "stub"
+      },
+      "model": "stub-1",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:50+00:00"
+    },
+    {
+      "id": "092826874e36415ab506b86eb407170c",
+      "project_id": "288d8e05-e332-461c-bf65-9312481b703c",
+      "kind": "partition",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "9ae32540c0606eaa20faddb154e8bab6",
+      "output": {
+        "modules": [
+          {
+            "title": "First",
+            "covers": [
+              "Alpha"
+            ],
+            "why_here": "stub",
+            "capability": "Do the first stub thing."
+          },
+          {
+            "title": "Second",
+            "covers": [
+              "Beta",
+              "Gamma"
+            ],
+            "why_here": "stub",
+            "capability": "Do the second stub thing."
+          }
+        ]
+      },
+      "model": "stub-1",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:50+00:00"
+    },
+    {
+      "id": "9f5200ced8af4d0a8f20c6efed99d21d",
+      "project_id": "288d8e05-e332-461c-bf65-9312481b703c",
+      "kind": "derive_structure",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "928adcf7ad6f51d946fc4e869ccf3230",
+      "output": {
+        "concepts": [
+          {
+            "name": "Alpha",
+            "built_from": [],
+            "family": "stub"
+          },
+          {
+            "name": "Beta",
+            "built_from": [],
+            "family": "stub"
+          },
+          {
+            "name": "Gamma",
+            "built_from": [],
+            "family": "stub"
+          }
+        ]
+      },
+      "model": "stub-1",
+      "prompt_version": "derive_v1",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:50+00:00"
+    },
+    {
+      "id": "a73b43167c0d4782bcf08bd2807e54c2",
+      "project_id": "288d8e05-e332-461c-bf65-9312481b703c",
+      "kind": "relevance",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "33de6fef21c3ab2e2cc444481dba97b8",
+      "output": {
+        "judgements": [
+          {
+            "concept": "Alpha",
+            "in_play": true,
+            "why": "stub"
+          },
+          {
+            "concept": "Beta",
+            "in_play": true,
+            "why": "stub"
+          },
+          {
+            "concept": "Gamma",
+            "in_play": true,
+            "why": "stub"
+          }
+        ]
+      },
+      "model": "stub-1",
+      "prompt_version": "derive_v1",
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-14T10:34:50+00:00"
+    }
+  ],
+  "commitment": [
+    {
+      "id": "b260b9bb29c04796a1e7f8b20ec979ef",
+      "project_id": "288d8e05-e332-461c-bf65-9312481b703c",
+      "kind": "plan",
+      "snapshot": {
+        "interpret_situation": {
+          "subject": "Git commit messages — deliberately narrow",
+          "job": "orient",
+          "entry_point": "Nothing assumed.",
+          "purpose": "Stub run.",
+          "target_capability": "Prove the harness works.",
+          "capacity": null,
+          "stated": [],
+          "inferred": []
+        },
+        "scope": {
+          "covered": [
+            {
+              "concept": "Alpha",
+              "depth": "explain",
+              "why": "stub",
+              "anticipates": "none"
+            },
+            {
+              "concept": "Beta",
+              "depth": "explain",
+              "why": "stub",
+              "anticipates": "none"
+            },
+            {
+              "concept": "Gamma",
+              "depth": "explain",
+              "why": "stub",
+              "anticipates": "none"
+            }
+          ],
+          "cut": []
+        },
+        "consequence": {
+          "exclusions": []
+        },
+        "traversal": {
+          "sequence": [
+            "First",
+            "Second"
+          ],
+          "why": "stub"
+        },
+        "partition": {
+          "modules": [
+            {
+              "title": "First",
+              "covers": [
+                "Alpha"
+              ],
+              "why_here": "stub",
+              "capability": "Do the first stub thing."
+            },
+            {
+              "title": "Second",
+              "covers": [
+                "Beta",
+                "Gamma"
+              ],
+              "why_here": "stub",
+              "capability": "Do the second stub thing."
+            }
+          ]
+        },
+        "extent": {
+          "total": "~2 pages · 24 min",
+          "pages": "~2 pages",
+          "study_time": "24 min",
+          "parts": 2,
+          "modules": 2,
+          "per_unit": {
+            "First": "~1 page",
+            "Second": "~1 page"
+          }
+        }
+      },
+      "decision_ids": [
+        "0f7a6e7ea5344d08ad79104cb0a61c98",
+        "a980986faf954f70a8f0892ea5da76fa",
+        "570419f2ba14433094f98d7ea542b268",
+        "573e597da92f402495ef0d94d2ff8ebc",
+        "092826874e36415ab506b86eb407170c",
+        "9f5200ced8af4d0a8f20c6efed99d21d",
+        "a73b43167c0d4782bcf08bd2807e54c2"
+      ],
+      "decision_ids_hash": "6aaacde04e3602ba6c92453c7bf95d2f",
+      "decision_environment": {
+        "prompt_versions": [
+          "derive_v1",
+          "interpret_v1",
+          "plan_v3"
+        ],
+        "models": [
+          "stub-1"
+        ]
+      },
+      "approved_by": "local",
+      "approved_at": "2026-09-14T10:34:50+00:00"
+    }
+  ]
+}

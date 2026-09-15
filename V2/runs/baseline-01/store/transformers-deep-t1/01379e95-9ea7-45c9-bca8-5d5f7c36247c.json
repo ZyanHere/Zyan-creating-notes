@@ -1,0 +1,21 @@
+{
+  "project": {
+    "id": "01379e95-9ea7-45c9-bca8-5d5f7c36247c",
+    "user_id": "local",
+    "title": "i want to properly understand transformers, not just the high level stuff. i've ",
+    "taxonomy_version": "plan-gate-1",
+    "created_at": "2026-09-14T12:14:26+00:00"
+  },
+  "utterance": [
+    {
+      "id": "ca092822-8933-4ece-bc8b-5f54d2116b4c",
+      "project_id": "01379e95-9ea7-45c9-bca8-5d5f7c36247c",
+      "ord": 0,
+      "role": "user",
+      "text": "i want to properly understand transformers, not just the high level stuff. i've done linear algebra and i can read pytorch",
+      "created_at": "2026-09-14T12:14:26+00:00"
+    }
+  ],
+  "decision": [],
+  "commitment": []
+}

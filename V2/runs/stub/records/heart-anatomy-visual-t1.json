@@ -1,0 +1,484 @@
+{
+  "case_id": "heart-anatomy-visual",
+  "case_title": "Heart anatomy — spatial content",
+  "trial": 1,
+  "phase": "plan",
+  "stub": true,
+  "started_at": "2026-09-14T10:34:50+00:00",
+  "request": "human heart structure and blood flow for neet, i need to be able to label diagrams",
+  "baseline": {
+    "repo": "D:\\myNotes\\V1",
+    "commit": "1c8a1d780ba3a652fa2ee04a61617e43de96154a",
+    "subject": "Enhance error reporting in fulfilment and generation processes with detailed failure reasons",
+    "source_hash": "807c8ec99a60d320e745e8ac208b8c7f690ebd273b3930f6680688d159cda116",
+    "source_files": 38,
+    "matches_baseline": true
+  },
+  "provider": {
+    "name": "stub",
+    "model": "stub-1"
+  },
+  "stages": [
+    "create",
+    "intake",
+    "plan",
+    "approve"
+  ],
+  "failure": null,
+  "project_id": "b879c84e-f897-49e7-8224-ffe651461e8c",
+  "after_create": {
+    "state": "needs_subject",
+    "verdict": "needs_subject",
+    "budget": 4,
+    "asking": [
+      "subject"
+    ],
+    "over_budget": [],
+    "questions_written": 0,
+    "questions": [],
+    "axes": [
+      {
+        "axis": "subject",
+        "value": "Heart anatomy — spatial content",
+        "strength": "guessed",
+        "material": false,
+        "asked": true,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "weak (guessed) but a different answer would not change the plan materially"
+      },
+      {
+        "axis": "purpose",
+        "value": "stub",
+        "strength": "guessed",
+        "material": false,
+        "asked": false,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "weak (guessed) but a different answer would not change the plan materially"
+      },
+      {
+        "axis": "entry_point",
+        "value": "stub",
+        "strength": "guessed",
+        "material": false,
+        "asked": false,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "weak (guessed) but a different answer would not change the plan materially"
+      },
+      {
+        "axis": "target_capability",
+        "value": "stub",
+        "strength": "guessed",
+        "material": false,
+        "asked": false,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "weak (guessed) but a different answer would not change the plan materially"
+      },
+      {
+        "axis": "capacity",
+        "value": "stub",
+        "strength": "guessed",
+        "material": false,
+        "asked": false,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "never asked — Semantics §1 LOCKED — optional, and the corollary: deriving the plan and reporting its extent is what CAUSES a capacity to be stated. Asking upfront asks for a number the learner cannot honestly give."
+      },
+      {
+        "axis": "depth_register",
+        "value": "stub",
+        "strength": "guessed",
+        "material": false,
+        "asked": false,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "never asked — Semantics §1 — biasing, not binding. A default is always defensible."
+      },
+      {
+        "axis": "artifact_type",
+        "value": "stub",
+        "strength": "guessed",
+        "material": false,
+        "asked": false,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "weak (guessed) but a different answer would not change the plan materially"
+      },
+      {
+        "axis": "template",
+        "value": "stub",
+        "strength": "guessed",
+        "material": false,
+        "asked": false,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "never asked — Presentation-Boundary rule 1 — internal. Users never select one."
+      }
+    ],
+    "weak_axes": [
+      "subject",
+      "purpose",
+      "entry_point",
+      "target_capability",
+      "capacity",
+      "depth_register",
+      "artifact_type",
+      "template"
+    ],
+    "guessed_but_material": []
+  },
+  "intake_turns": 0,
+  "intake_answers_unused": 0,
+  "intake": {
+    "state": "needs_subject",
+    "verdict": "needs_subject",
+    "budget": 4,
+    "asking": [
+      "subject"
+    ],
+    "over_budget": [],
+    "questions_written": 0,
+    "questions": [],
+    "axes": [
+      {
+        "axis": "subject",
+        "value": "Heart anatomy — spatial content",
+        "strength": "guessed",
+        "material": false,
+        "asked": true,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "weak (guessed) but a different answer would not change the plan materially"
+      },
+      {
+        "axis": "purpose",
+        "value": "stub",
+        "strength": "guessed",
+        "material": false,
+        "asked": false,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "weak (guessed) but a different answer would not change the plan materially"
+      },
+      {
+        "axis": "entry_point",
+        "value": "stub",
+        "strength": "guessed",
+        "material": false,
+        "asked": false,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "weak (guessed) but a different answer would not change the plan materially"
+      },
+      {
+        "axis": "target_capability",
+        "value": "stub",
+        "strength": "guessed",
+        "material": false,
+        "asked": false,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "weak (guessed) but a different answer would not change the plan materially"
+      },
+      {
+        "axis": "capacity",
+        "value": "stub",
+        "strength": "guessed",
+        "material": false,
+        "asked": false,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "never asked — Semantics §1 LOCKED — optional, and the corollary: deriving the plan and reporting its extent is what CAUSES a capacity to be stated. Asking upfront asks for a number the learner cannot honestly give."
+      },
+      {
+        "axis": "depth_register",
+        "value": "stub",
+        "strength": "guessed",
+        "material": false,
+        "asked": false,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "never asked — Semantics §1 — biasing, not binding. A default is always defensible."
+      },
+      {
+        "axis": "artifact_type",
+        "value": "stub",
+        "strength": "guessed",
+        "material": false,
+        "asked": false,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "weak (guessed) but a different answer would not change the plan materially"
+      },
+      {
+        "axis": "template",
+        "value": "stub",
+        "strength": "guessed",
+        "material": false,
+        "asked": false,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "never asked — Presentation-Boundary rule 1 — internal. Users never select one."
+      }
+    ],
+    "weak_axes": [
+      "subject",
+      "purpose",
+      "entry_point",
+      "target_capability",
+      "capacity",
+      "depth_register",
+      "artifact_type",
+      "template"
+    ],
+    "guessed_but_material": []
+  },
+  "plan": {
+    "state": "planned",
+    "situation": {
+      "subject": "Heart anatomy — spatial content",
+      "job": "orient",
+      "purpose": "Stub run.",
+      "entry_point": "Nothing assumed.",
+      "target_capability": "Prove the harness works.",
+      "capacity": null,
+      "stated": [],
+      "stated_axes": [],
+      "inferred": []
+    },
+    "landscape": {
+      "concept_count": 3,
+      "concepts": [
+        {
+          "name": "Alpha",
+          "built_from": [],
+          "family": "stub"
+        },
+        {
+          "name": "Beta",
+          "built_from": [],
+          "family": "stub"
+        },
+        {
+          "name": "Gamma",
+          "built_from": [],
+          "family": "stub"
+        }
+      ],
+      "families": [
+        "stub"
+      ],
+      "edges": 0,
+      "roots": [
+        "Alpha",
+        "Beta",
+        "Gamma"
+      ],
+      "parenthetical_lists": [],
+      "judged": 3,
+      "in_play": 3,
+      "out_of_play": [],
+      "unjudged": []
+    },
+    "scope": {
+      "covered_count": 3,
+      "covered": [
+        {
+          "concept": "Alpha",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "stub"
+        },
+        {
+          "concept": "Beta",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "stub"
+        },
+        {
+          "concept": "Gamma",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "stub"
+        }
+      ],
+      "depths": {
+        "explain": 3
+      },
+      "anticipates": {
+        "none": 3
+      },
+      "anticipates_any": 0,
+      "cut": []
+    },
+    "partition": {
+      "shape": "modules",
+      "module_count": 2,
+      "legacy_unit_count": 0,
+      "modules": [
+        {
+          "title": "First",
+          "covers": [
+            "Alpha"
+          ],
+          "concept_count": 1,
+          "capability": "Do the first stub thing.",
+          "why_here": "stub"
+        },
+        {
+          "title": "Second",
+          "covers": [
+            "Beta",
+            "Gamma"
+          ],
+          "concept_count": 2,
+          "capability": "Do the second stub thing.",
+          "why_here": "stub"
+        }
+      ],
+      "concepts_per_module": [
+        1,
+        2
+      ],
+      "orphans": [],
+      "phantoms": [],
+      "duplicate_coverage": [],
+      "slug_collisions": []
+    },
+    "promises": {
+      "capability_clauses": 2,
+      "capability_unbacked": 2,
+      "capability_unbacked_share": 1.0,
+      "capability_support": [
+        {
+          "module": "First",
+          "clauses": [
+            "Do the first stub thing."
+          ],
+          "backed": [],
+          "unbacked": [
+            "Do the first stub thing."
+          ]
+        },
+        {
+          "module": "Second",
+          "clauses": [
+            "Do the second stub thing."
+          ],
+          "backed": [],
+          "unbacked": [
+            "Do the second stub thing."
+          ]
+        }
+      ],
+      "coherence": [
+        {
+          "module": "First",
+          "concepts": 1,
+          "internal": 0,
+          "external": 0,
+          "ratio": null,
+          "depends_on_modules": [],
+          "links": []
+        },
+        {
+          "module": "Second",
+          "concepts": 2,
+          "internal": 0,
+          "external": 0,
+          "ratio": null,
+          "depends_on_modules": [],
+          "links": []
+        }
+      ],
+      "modules_with_no_internal_dependency": [
+        "First",
+        "Second"
+      ],
+      "external_dependency_total": 0
+    },
+    "extent": {
+      "total": "~2 pages · 24 min",
+      "pages": "~2 pages",
+      "study_time": "24 min",
+      "parts": 2,
+      "modules": 2,
+      "per_unit": {
+        "First": "~1 page",
+        "Second": "~1 page"
+      }
+    },
+    "feasibility": {
+      "serves_everything": true,
+      "shortfalls": []
+    },
+    "decisions_present": [
+      "consequence",
+      "derive_structure",
+      "intake_strategy",
+      "interpret_situation",
+      "partition",
+      "relevance",
+      "scope",
+      "traversal"
+    ]
+  },
+  "approval": {
+    "approved": true,
+    "decision_count": 7,
+    "refused_because": null
+  },
+  "finished_at": "2026-09-14T10:34:50+00:00",
+  "seconds_total": 0.12,
+  "seconds_by_stage": {
+    "create": 0.01,
+    "intake": 0.0,
+    "plan": 0.01,
+    "approve": 0.01
+  },
+  "cost": {
+    "model_calls": 4,
+    "failed_calls": 0,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "seconds": 0.0,
+    "calls": [
+      {
+        "ok": true,
+        "seconds": 0.0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "schema": "Reading",
+        "error": null
+      },
+      {
+        "ok": true,
+        "seconds": 0.0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "schema": "Intake",
+        "error": null
+      },
+      {
+        "ok": true,
+        "seconds": 0.0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "schema": "Landscape",
+        "error": null
+      },
+      {
+        "ok": true,
+        "seconds": 0.0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "schema": "PlanBody",
+        "error": null
+      }
+    ],
+    "stub": true
+  }
+}

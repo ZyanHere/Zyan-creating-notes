@@ -1,0 +1,677 @@
+{
+  "project": {
+    "id": "245ccf5b-0cb4-402d-812e-78b8abed9f5b",
+    "user_id": "local",
+    "title": "french revolution notes for my class 9 history exam next week",
+    "taxonomy_version": "plan-gate-1",
+    "created_at": "2026-09-14T12:28:14+00:00"
+  },
+  "utterance": [
+    {
+      "id": "ec9faade-2fd4-4d4b-8d53-55d85261f46d",
+      "project_id": "245ccf5b-0cb4-402d-812e-78b8abed9f5b",
+      "ord": 0,
+      "role": "user",
+      "text": "french revolution notes for my class 9 history exam next week",
+      "created_at": "2026-09-14T12:28:14+00:00"
+    }
+  ],
+  "decision": [
+    {
+      "id": "d4d88a474c754325aec4dc31a13c3978",
+      "project_id": "245ccf5b-0cb4-402d-812e-78b8abed9f5b",
+      "kind": "interpret_situation",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "97afd1c99a45e7b21f321401ae80f517",
+      "output": {
+        "subject": "French Revolution",
+        "job": "retrieve",
+        "entry_point": "Class 9 student with general history awareness but no specialized French Revolution knowledge",
+        "purpose": "Prepare for Class 9 history exam next week",
+        "target_capability": "Recall and explain causes, key events, timeline, figures, and outcomes of the French Revolution for written exam answers",
+        "capacity": "Exam in one week; needs efficient revision material",
+        "stated": [
+          {
+            "text": "french revolution notes",
+            "axis": "artifact_type"
+          },
+          {
+            "text": "for my class 9 history exam",
+            "axis": "purpose"
+          },
+          {
+            "text": "class 9",
+            "axis": "entry_point"
+          },
+          {
+            "text": "next week",
+            "axis": "capacity"
+          }
+        ],
+        "inferred": [
+          "Subject is the French Revolution (late 18th century France)",
+          "Depth register matches CBSE/ICSE Class 9 syllabus: causes (social, economic, political), Estates-General, National Assembly, Bastille, Reign of Terror, Directory, Napoleon's rise",
+          "Artifact type is structured revision notes with key dates, terms, and exam-oriented summaries",
+          "No template specified; standard history notes format assumed"
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "interpret_v1",
+      "cost": {
+        "in": 3156,
+        "out": 1398
+      },
+      "created_at": "2026-09-14T12:31:14+00:00"
+    },
+    {
+      "id": "d95fead706c84933948a80a424d142c8",
+      "project_id": "245ccf5b-0cb4-402d-812e-78b8abed9f5b",
+      "kind": "intake_strategy",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "f49424412a5573c49aa4b540d7bb278f",
+      "output": {
+        "questions": [],
+        "sufficiency": {
+          "verdict": "sufficient",
+          "budget": 4,
+          "asking": [],
+          "over_budget": [],
+          "axes": [
+            {
+              "axis": "subject",
+              "value": "French Revolution",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "french revolution"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "A different subject (e.g., Russian Revolution) would require entirely different concepts, timeline, and figures",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "purpose",
+              "value": "Exam preparation for Class 9 history exam",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "for my class 9 history exam"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If purpose were 'build an essay' or 'teach a class', the notes would need more analysis, historiography, and primary sources rather than exam-focused recall",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "entry_point",
+              "value": "Class 9 student with general history awareness but no specialized French Revolution knowledge",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "class 9"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "A university student would need historiographical debates and primary source analysis; a Class 6 student would need simpler language and more narrative scaffolding",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "target_capability",
+              "value": "Recall and explain causes, key events, timeline, figures, and outcomes of the French Revolution for written exam answers",
+              "strength": "inferred",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "class 9 history exam"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If target were 'explain to a peer' or 'write a research paper', the notes would emphasize different skills (teaching vs. argumentation vs. recall)",
+              "askable": true,
+              "asked": false,
+              "reason": "inferred, supported by 'class 9 history exam'"
+            },
+            {
+              "axis": "capacity",
+              "value": "Exam in one week; needs efficient revision material",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "next week"
+                }
+              ],
+              "unverified": [],
+              "material": false,
+              "would_differ": "If exam were tomorrow, notes would be ultra-condensed cheatsheet; if a month away, could include practice questions and deeper concept maps",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Semantics §1 LOCKED — optional, and the corollary: deriving the plan and reporting its extent is what CAUSES a capacity to be stated. Asking upfront asks for a number the learner cannot honestly give."
+            },
+            {
+              "axis": "depth_register",
+              "value": "CBSE/ICSE Class 9 syllabus level: causes (social, economic, political), Estates-General, National Assembly, Bastille, Reign of Terror, Directory, Napoleon's rise; key dates, terms, and exam-oriented summaries",
+              "strength": "inferred",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "class 9 history exam"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "AP/IB level would need historiography and comparative revolutions; university level would need primary sources and scholarly debates",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Semantics §1 — biasing, not binding. A default is always defensible."
+            },
+            {
+              "axis": "artifact_type",
+              "value": "Structured revision notes with key dates, terms, causes/events/outcomes framework, and exam-oriented summaries",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "notes"
+                }
+              ],
+              "unverified": [],
+              "material": false,
+              "would_differ": "Flashcards would be Q/A format only; cheatsheet would be one-page ultra-condensed; detailed notes would include full narrative paragraphs",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "template",
+              "value": null,
+              "strength": "unknown",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "A specific template (e.g., Cornell, timeline-only, mind-map) would constrain the output structure; without one, standard history notes format is used",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Presentation-Boundary rule 1 — internal. Users never select one."
+            }
+          ]
+        }
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "interpret_v1",
+      "cost": {
+        "in": 3156,
+        "out": 1398
+      },
+      "created_at": "2026-09-14T12:31:14+00:00"
+    },
+    {
+      "id": "4d8091d1414e4b44a032dbb8101d745e",
+      "project_id": "245ccf5b-0cb4-402d-812e-78b8abed9f5b",
+      "kind": "derive_structure",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "e4be2ea5dd2c376624948dc7476c280d",
+      "output": {
+        "concepts": [
+          {
+            "name": "Ancien Régime",
+            "built_from": [],
+            "family": "background structure"
+          },
+          {
+            "name": "Three Estates",
+            "built_from": [
+              "Ancien Régime"
+            ],
+            "family": "social structure"
+          },
+          {
+            "name": "Social Causes (privilege, inequality, burden on Third Estate)",
+            "built_from": [
+              "Three Estates"
+            ],
+            "family": "cause"
+          },
+          {
+            "name": "Economic Causes (debt, taxation, harvest failures, fiscal crisis)",
+            "built_from": [
+              "Ancien Régime"
+            ],
+            "family": "cause"
+          },
+          {
+            "name": "Political Causes (absolutism, weak leadership, Estates-General absence)",
+            "built_from": [
+              "Ancien Régime"
+            ],
+            "family": "cause"
+          },
+          {
+            "name": "Intellectual Causes (Enlightenment ideas, philosophers: Voltaire, Rousseau, Montesquieu)",
+            "built_from": [],
+            "family": "cause"
+          },
+          {
+            "name": "Estates-General of 1789",
+            "built_from": [
+              "Political Causes (absolutism, weak leadership, Estates-General absence)",
+              "Economic Causes (debt, taxation, harvest failures, fiscal crisis)"
+            ],
+            "family": "key event"
+          },
+          {
+            "name": "National Assembly formation",
+            "built_from": [
+              "Estates-General of 1789",
+              "Three Estates"
+            ],
+            "family": "key event"
+          },
+          {
+            "name": "Tennis Court Oath",
+            "built_from": [
+              "National Assembly formation"
+            ],
+            "family": "key event"
+          },
+          {
+            "name": "Storming of the Bastille (14 July 1789)",
+            "built_from": [
+              "National Assembly formation",
+              "Economic Causes (debt, taxation, harvest failures, fiscal crisis)"
+            ],
+            "family": "key event"
+          },
+          {
+            "name": "Great Fear (peasant revolts, summer 1789)",
+            "built_from": [
+              "Storming of the Bastille (14 July 1789)",
+              "Social Causes (privilege, inequality, burden on Third Estate)"
+            ],
+            "family": "key event"
+          },
+          {
+            "name": "August Decrees (abolition of feudalism)",
+            "built_from": [
+              "Great Fear (peasant revolts, summer 1789)",
+              "National Assembly formation"
+            ],
+            "family": "key event"
+          },
+          {
+            "name": "Declaration of the Rights of Man and Citizen",
+            "built_from": [
+              "National Assembly formation",
+              "Intellectual Causes (Enlightenment ideas, philosophers: Voltaire, Rousseau, Montesquieu)"
+            ],
+            "family": "key document"
+          },
+          {
+            "name": "Constitution of 1791 (Constitutional Monarchy)",
+            "built_from": [
+              "National Assembly formation",
+              "Declaration of the Rights of Man and Citizen"
+            ],
+            "family": "key document"
+          },
+          {
+            "name": "Legislative Assembly (1791-1792)",
+            "built_from": [
+              "Constitution of 1791 (Constitutional Monarchy)"
+            ],
+            "family": "government phase"
+          },
+          {
+            "name": "War with Austria and Prussia (1792)",
+            "built_from": [
+              "Legislative Assembly (1791-1792)",
+              "Political Causes (absolutism, weak leadership, Estates-General absence)"
+            ],
+            "family": "key event"
+          },
+          {
+            "name": "Fall of Monarchy / August 10 Insurrection (1792)",
+            "built_from": [
+              "War with Austria and Prussia (1792)",
+              "Legislative Assembly (1791-1792)"
+            ],
+            "family": "key event"
+          },
+          {
+            "name": "National Convention (1792-1795)",
+            "built_from": [
+              "Fall of Monarchy / August 10 Insurrection (1792)"
+            ],
+            "family": "government phase"
+          },
+          {
+            "name": "Proclamation of Republic (September 1792)",
+            "built_from": [
+              "National Convention (1792-1795)"
+            ],
+            "family": "key event"
+          },
+          {
+            "name": "Execution of Louis XVI (January 1793)",
+            "built_from": [
+              "National Convention (1792-1795)",
+              "Proclamation of Republic (September 1792)"
+            ],
+            "family": "key event"
+          },
+          {
+            "name": "Reign of Terror (1793-1794)",
+            "built_from": [
+              "Execution of Louis XVI (January 1793)",
+              "National Convention (1792-1795)",
+              "War with Austria and Prussia (1792)"
+            ],
+            "family": "phase"
+          },
+          {
+            "name": "Committee of Public Safety",
+            "built_from": [
+              "Reign of Terror (1793-1794)"
+            ],
+            "family": "institution"
+          },
+          {
+            "name": "Robespierre's role and fall (Thermidorian Reaction, July 1794)",
+            "built_from": [
+              "Committee of Public Safety",
+              "Reign of Terror (1793-1794)"
+            ],
+            "family": "key event"
+          },
+          {
+            "name": "Directory (1795-1799)",
+            "built_from": [
+              "Robespierre's role and fall (Thermidorian Reaction, July 1794)",
+              "National Convention (1792-1795)"
+            ],
+            "family": "government phase"
+          },
+          {
+            "name": "Napoleon's rise / Coup of 18 Brumaire (1799)",
+            "built_from": [
+              "Directory (1795-1799)",
+              "War with Austria and Prussia (1792)"
+            ],
+            "family": "key event"
+          },
+          {
+            "name": "Key Figures: Louis XVI, Marie Antoinette",
+            "built_from": [
+              "Ancien Régime",
+              "Three Estates"
+            ],
+            "family": "key figure"
+          },
+          {
+            "name": "Key Figures: Mirabeau, Abbé Sieyès",
+            "built_from": [
+              "Estates-General of 1789",
+              "National Assembly formation"
+            ],
+            "family": "key figure"
+          },
+          {
+            "name": "Key Figures: Robespierre, Danton, Marat",
+            "built_from": [
+              "National Convention (1792-1795)",
+              "Reign of Terror (1793-1794)"
+            ],
+            "family": "key figure"
+          },
+          {
+            "name": "Key Figure: Napoleon Bonaparte",
+            "built_from": [
+              "Directory (1795-1799)",
+              "War with Austria and Prussia (1792)"
+            ],
+            "family": "key figure"
+          },
+          {
+            "name": "Key Terms: bourgeoisie, sans-culottes, guillotine, levée en masse, émigrés",
+            "built_from": [
+              "Three Estates",
+              "Reign of Terror (1793-1794)",
+              "War with Austria and Prussia (1792)"
+            ],
+            "family": "key terminology"
+          },
+          {
+            "name": "Outcomes and Legacy (end of feudalism, rise of nationalism, secularism, Napoleonic Code, spread of revolutionary ideas)",
+            "built_from": [
+              "Napoleon's rise / Coup of 18 Brumaire (1799)",
+              "Declaration of the Rights of Man and Citizen",
+              "August Decrees (abolition of feudalism)"
+            ],
+            "family": "outcome"
+          },
+          {
+            "name": "Timeline and Chronology (key dates sequence)",
+            "built_from": [
+              "Estates-General of 1789",
+              "Storming of the Bastille (14 July 1789)",
+              "August Decrees (abolition of feudalism)",
+              "Declaration of the Rights of Man and Citizen",
+              "Constitution of 1791 (Constitutional Monarchy)",
+              "Fall of Monarchy / August 10 Insurrection (1792)",
+              "Execution of Louis XVI (January 1793)",
+              "Reign of Terror (1793-1794)",
+              "Robespierre's role and fall (Thermidorian Reaction, July 1794)",
+              "Directory (1795-1799)",
+              "Napoleon's rise / Coup of 18 Brumaire (1799)"
+            ],
+            "family": "chronological framework"
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "derive_v1",
+      "cost": {
+        "in": 1561,
+        "out": 4203
+      },
+      "created_at": "2026-09-14T12:33:44+00:00"
+    },
+    {
+      "id": "1f1a3456ec5348c9b53cf67b5e25a82e",
+      "project_id": "245ccf5b-0cb4-402d-812e-78b8abed9f5b",
+      "kind": "relevance",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "dba5b2615e76b9b489ed3a3e8f9b13a5",
+      "output": {
+        "judgements": [
+          {
+            "concept": "Ancien Régime",
+            "in_play": true,
+            "why": "Foundational background; Class 9 exams require explaining the pre-revolutionary system as context for all causes."
+          },
+          {
+            "concept": "Three Estates",
+            "in_play": true,
+            "why": "Core social structure; directly tested in cause questions and source-based questions about estate privileges."
+          },
+          {
+            "concept": "Social Causes (privilege, inequality, burden on Third Estate)",
+            "in_play": true,
+            "why": "Standard cause category in Class 9 syllabus; appears in 'explain the causes' long-answer questions."
+          },
+          {
+            "concept": "Economic Causes (debt, taxation, harvest failures, fiscal crisis)",
+            "in_play": true,
+            "why": "Standard cause category; examiners expect specific examples like taille, gabelle, and 1788-89 harvest failure."
+          },
+          {
+            "concept": "Political Causes (absolutism, weak leadership, Estates-General absence)",
+            "in_play": true,
+            "why": "Standard cause category; Louis XVI's indecisiveness and the 175-year gap in Estates-General are textbook points."
+          },
+          {
+            "concept": "Intellectual Causes (Enlightenment ideas, philosophers: Voltaire, Rousseau, Montesquieu)",
+            "in_play": true,
+            "why": "Explicitly in syllabus; students must name philosophers and link ideas (liberty, equality, popular sovereignty) to revolutionary demands."
+          },
+          {
+            "concept": "Estates-General of 1789",
+            "in_play": true,
+            "why": "Trigger event; exam questions ask why it was called, voting dispute, and Third Estate's response."
+          },
+          {
+            "concept": "National Assembly formation",
+            "in_play": true,
+            "why": "Pivotal moment; tested as 'how did the National Assembly come into being' and its early decrees."
+          },
+          {
+            "concept": "Tennis Court Oath",
+            "in_play": true,
+            "why": "Iconic event; short-answer questions ask for date, significance, and the oath's wording."
+          },
+          {
+            "concept": "Storming of the Bastille (14 July 1789)",
+            "in_play": true,
+            "why": "Symbolic start of revolution; always appears in timeline questions and 'why was Bastille stormed' explanations."
+          },
+          {
+            "concept": "Great Fear (peasant revolts, summer 1789)",
+            "in_play": true,
+            "why": "Explains August Decrees; tested in cause-consequence chains linking rural panic to feudal abolition."
+          },
+          {
+            "concept": "August Decrees (abolition of feudalism)",
+            "in_play": true,
+            "why": "Direct outcome of Great Fear; exam questions ask what feudal rights were abolished and significance."
+          },
+          {
+            "concept": "Declaration of the Rights of Man and Citizen",
+            "in_play": true,
+            "why": "Key document; source-based questions quote articles, and students must explain principles and Enlightenment links."
+          },
+          {
+            "concept": "Constitution of 1791 (Constitutional Monarchy)",
+            "in_play": true,
+            "why": "First written constitution; tested on features (separation of powers, active/passive citizens) and why it failed."
+          },
+          {
+            "concept": "Legislative Assembly (1791-1792)",
+            "in_play": true,
+            "why": "Transitional phase; exams ask about political clubs (Girondins, Jacobins) and why war was declared."
+          },
+          {
+            "concept": "War with Austria and Prussia (1792)",
+            "in_play": true,
+            "why": "Major turning point; explains radicalisation, fall of monarchy, and levée en masse. Standard long-answer topic."
+          },
+          {
+            "concept": "Fall of Monarchy / August 10 Insurrection (1792)",
+            "in_play": true,
+            "why": "End of constitutional monarchy; tested on role of sans-culottes, Paris Commune, and suspension of king."
+          },
+          {
+            "concept": "National Convention (1792-1795)",
+            "in_play": true,
+            "why": "Republican government phase; exams cover its three stages (Girondin, Jacobin, Thermidorian) and key actions."
+          },
+          {
+            "concept": "Proclamation of Republic (September 1792)",
+            "in_play": true,
+            "why": "Formal declaration; short-answer questions ask date, context, and immediate consequences."
+          },
+          {
+            "concept": "Execution of Louis XVI (January 1793)",
+            "in_play": true,
+            "why": "Dramatic event; tested on trial, vote, European reaction, and impact on war and internal politics."
+          },
+          {
+            "concept": "Reign of Terror (1793-1794)",
+            "in_play": true,
+            "why": "Major phase; exams demand explanation of causes (war, internal rebellion), machinery (Law of Suspects), and scale."
+          },
+          {
+            "concept": "Committee of Public Safety",
+            "in_play": true,
+            "why": "Executive body of Terror; students must describe its powers, members, and role in 'revolutionary government'."
+          },
+          {
+            "concept": "Robespierre's role and fall (Thermidorian Reaction, July 1794)",
+            "in_play": true,
+            "why": "End of Terror; tested on why Robespierre fell, Law of 22 Prairial, and Thermidorian Reaction significance."
+          },
+          {
+            "concept": "Directory (1795-1799)",
+            "in_play": true,
+            "why": "Final revolutionary government; exams cover Constitution of Year III, five Directors, corruption, and reliance on army."
+          },
+          {
+            "concept": "Napoleon's rise / Coup of 18 Brumaire (1799)",
+            "in_play": true,
+            "why": "Standard endpoint for Class 9; tested on coup mechanics, Napoleon's appeal, and transition to Consulate."
+          },
+          {
+            "concept": "Key Figures: Louis XVI, Marie Antoinette",
+            "in_play": true,
+            "why": "Central personalities; exam questions ask about their roles, decisions, and contribution to revolutionary crisis."
+          },
+          {
+            "concept": "Key Figures: Mirabeau, Abbé Sieyès",
+            "in_play": true,
+            "why": "Early revolutionary leaders; Sieyès' 'What is the Third Estate?' and Mirabeau's mediation are syllabus specifics."
+          },
+          {
+            "concept": "Key Figures: Robespierre, Danton, Marat",
+            "in_play": true,
+            "why": "Jacobin leaders; exams contrast their roles, Robespierre's 'virtue and terror', Danton's moderation, Marat's propaganda."
+          },
+          {
+            "concept": "Key Figure: Napoleon Bonaparte",
+            "in_play": true,
+            "why": "Culminating figure; tested on military successes, coup, and as bridge to next chapter (Napoleonic era)."
+          },
+          {
+            "concept": "Key Terms: bourgeoisie, sans-culottes, guillotine, levée en masse, émigrés",
+            "in_play": true,
+            "why": "Vocabulary for written answers; examiners expect precise usage in explanations and source analysis."
+          },
+          {
+            "concept": "Outcomes and Legacy (end of feudalism, rise of nationalism, secularism, Napoleonic Code, spread of revolutionary ideas)",
+            "in_play": true,
+            "why": "Standard 'significance/legacy' long-answer question; students must structure answer around political, social, economic, and global impacts."
+          },
+          {
+            "concept": "Timeline and Chronology (key dates sequence)",
+            "in_play": true,
+            "why": "Exam questions explicitly ask 'arrange in chronological order' and 'write a timeline'; dates are easy marks."
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "derive_v1",
+      "cost": {
+        "in": 1561,
+        "out": 4203
+      },
+      "created_at": "2026-09-14T12:33:44+00:00"
+    }
+  ],
+  "commitment": []
+}

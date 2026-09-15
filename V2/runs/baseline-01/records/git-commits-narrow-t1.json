@@ -1,0 +1,1040 @@
+{
+  "case_id": "git-commits-narrow",
+  "case_title": "Git commit messages — deliberately narrow",
+  "trial": 1,
+  "phase": "plan",
+  "stub": false,
+  "started_at": "2026-09-14T11:36:54+00:00",
+  "request": "how to write good git commit messages",
+  "baseline": {
+    "repo": "D:\\myNotes\\V1",
+    "commit": "1c8a1d780ba3a652fa2ee04a61617e43de96154a",
+    "subject": "Enhance error reporting in fulfilment and generation processes with detailed failure reasons",
+    "source_hash": "807c8ec99a60d320e745e8ac208b8c7f690ebd273b3930f6680688d159cda116",
+    "source_files": 38,
+    "matches_baseline": true
+  },
+  "provider": {
+    "name": "openrouter",
+    "model": "nvidia/nemotron-3-ultra-550b-a55b:free"
+  },
+  "stages": [
+    "create",
+    "intake",
+    "plan",
+    "correct",
+    "approve"
+  ],
+  "failure": null,
+  "project_id": "0fa6fe4a-fce8-4b6a-be0f-273e71c5a9c0",
+  "after_create": {
+    "state": "asking",
+    "verdict": "ask",
+    "budget": 4,
+    "asking": [
+      "purpose",
+      "entry_point",
+      "artifact_type",
+      "target_capability"
+    ],
+    "over_budget": [],
+    "questions_written": 4,
+    "questions": [
+      {
+        "axis": "purpose",
+        "question": "What's driving you to improve your commit messages right now?",
+        "options": [
+          "Contribute to open source",
+          "Work on a professional team",
+          "Personal projects / solo work"
+        ],
+        "default_label": "Personal projects / solo work"
+      },
+      {
+        "axis": "entry_point",
+        "question": "Which describes your current git fluency?",
+        "options": [
+          "Never committed — new to git",
+          "Commit regularly but messages are vague (\"fix\", \"update\")",
+          "Already use Conventional Commits, want sharper context"
+        ],
+        "default_label": "Commit regularly but messages are vague (\"fix\", \"update\")"
+      },
+      {
+        "axis": "artifact_type",
+        "question": "What deliverable would you actually use day-to-day?",
+        "options": [
+          "One-page cheat sheet for myself",
+          "Team CONTRIBUTING/COMMITTING.md",
+          "Git hook or CI lint config (prepare-commit-msg / commitlint)",
+          "Interactive practice repo with exercises"
+        ],
+        "default_label": "One-page cheat sheet for myself"
+      },
+      {
+        "axis": "target_capability",
+        "question": "What does \"clear, conventional\" mean for you — which level is the finish line?",
+        "options": [
+          "Basics — subject line, body, 50/72, imperative mood",
+          "Conventional Commits spec (feat:/fix:/chore:, scopes, BREAKING CHANGE:)",
+          "Advanced — footers (Refs:, Co-authored-by:, Signed-off-by:), GPG signing, fixup/squash workflows"
+        ],
+        "default_label": "Conventional Commits spec (feat:/fix:/chore:, scopes, BREAKING CHANGE:)"
+      }
+    ],
+    "axes": [
+      {
+        "axis": "subject",
+        "value": "Git commit messages",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "purpose",
+        "value": null,
+        "strength": "unknown",
+        "material": true,
+        "asked": true,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "weak (unknown) and a different answer would change the plan"
+      },
+      {
+        "axis": "entry_point",
+        "value": null,
+        "strength": "unknown",
+        "material": true,
+        "asked": true,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "weak (unknown) and a different answer would change the plan"
+      },
+      {
+        "axis": "target_capability",
+        "value": "Write clear, conventional git commit messages",
+        "strength": "guessed",
+        "material": true,
+        "asked": true,
+        "verified_spans": 0,
+        "discarded_spans": 1,
+        "reason": "weak (guessed) and a different answer would change the plan · discarded unverifiable support: ['how to write good git commit messages']"
+      },
+      {
+        "axis": "capacity",
+        "value": null,
+        "strength": "unknown",
+        "material": true,
+        "asked": false,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "never asked — Semantics §1 LOCKED — optional, and the corollary: deriving the plan and reporting its extent is what CAUSES a capacity to be stated. Asking upfront asks for a number the learner cannot honestly give."
+      },
+      {
+        "axis": "depth_register",
+        "value": null,
+        "strength": "unknown",
+        "material": true,
+        "asked": false,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "never asked — Semantics §1 — biasing, not binding. A default is always defensible."
+      },
+      {
+        "axis": "artifact_type",
+        "value": null,
+        "strength": "unknown",
+        "material": true,
+        "asked": true,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "weak (unknown) and a different answer would change the plan"
+      },
+      {
+        "axis": "template",
+        "value": null,
+        "strength": "unknown",
+        "material": false,
+        "asked": false,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "never asked — Presentation-Boundary rule 1 — internal. Users never select one."
+      }
+    ],
+    "weak_axes": [
+      "purpose",
+      "entry_point",
+      "target_capability",
+      "capacity",
+      "depth_register",
+      "artifact_type",
+      "template"
+    ],
+    "guessed_but_material": [
+      "purpose",
+      "entry_point",
+      "target_capability",
+      "capacity",
+      "depth_register",
+      "artifact_type"
+    ]
+  },
+  "intake_turns": 0,
+  "intake_answers_unused": 0,
+  "intake": {
+    "state": "asking",
+    "verdict": "ask",
+    "budget": 4,
+    "asking": [
+      "purpose",
+      "entry_point",
+      "artifact_type",
+      "target_capability"
+    ],
+    "over_budget": [],
+    "questions_written": 4,
+    "questions": [
+      {
+        "axis": "purpose",
+        "question": "What's driving you to improve your commit messages right now?",
+        "options": [
+          "Contribute to open source",
+          "Work on a professional team",
+          "Personal projects / solo work"
+        ],
+        "default_label": "Personal projects / solo work"
+      },
+      {
+        "axis": "entry_point",
+        "question": "Which describes your current git fluency?",
+        "options": [
+          "Never committed — new to git",
+          "Commit regularly but messages are vague (\"fix\", \"update\")",
+          "Already use Conventional Commits, want sharper context"
+        ],
+        "default_label": "Commit regularly but messages are vague (\"fix\", \"update\")"
+      },
+      {
+        "axis": "artifact_type",
+        "question": "What deliverable would you actually use day-to-day?",
+        "options": [
+          "One-page cheat sheet for myself",
+          "Team CONTRIBUTING/COMMITTING.md",
+          "Git hook or CI lint config (prepare-commit-msg / commitlint)",
+          "Interactive practice repo with exercises"
+        ],
+        "default_label": "One-page cheat sheet for myself"
+      },
+      {
+        "axis": "target_capability",
+        "question": "What does \"clear, conventional\" mean for you — which level is the finish line?",
+        "options": [
+          "Basics — subject line, body, 50/72, imperative mood",
+          "Conventional Commits spec (feat:/fix:/chore:, scopes, BREAKING CHANGE:)",
+          "Advanced — footers (Refs:, Co-authored-by:, Signed-off-by:), GPG signing, fixup/squash workflows"
+        ],
+        "default_label": "Conventional Commits spec (feat:/fix:/chore:, scopes, BREAKING CHANGE:)"
+      }
+    ],
+    "axes": [
+      {
+        "axis": "subject",
+        "value": "Git commit messages",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "purpose",
+        "value": null,
+        "strength": "unknown",
+        "material": true,
+        "asked": true,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "weak (unknown) and a different answer would change the plan"
+      },
+      {
+        "axis": "entry_point",
+        "value": null,
+        "strength": "unknown",
+        "material": true,
+        "asked": true,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "weak (unknown) and a different answer would change the plan"
+      },
+      {
+        "axis": "target_capability",
+        "value": "Write clear, conventional git commit messages",
+        "strength": "guessed",
+        "material": true,
+        "asked": true,
+        "verified_spans": 0,
+        "discarded_spans": 1,
+        "reason": "weak (guessed) and a different answer would change the plan · discarded unverifiable support: ['how to write good git commit messages']"
+      },
+      {
+        "axis": "capacity",
+        "value": null,
+        "strength": "unknown",
+        "material": true,
+        "asked": false,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "never asked — Semantics §1 LOCKED — optional, and the corollary: deriving the plan and reporting its extent is what CAUSES a capacity to be stated. Asking upfront asks for a number the learner cannot honestly give."
+      },
+      {
+        "axis": "depth_register",
+        "value": null,
+        "strength": "unknown",
+        "material": true,
+        "asked": false,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "never asked — Semantics §1 — biasing, not binding. A default is always defensible."
+      },
+      {
+        "axis": "artifact_type",
+        "value": null,
+        "strength": "unknown",
+        "material": true,
+        "asked": true,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "weak (unknown) and a different answer would change the plan"
+      },
+      {
+        "axis": "template",
+        "value": null,
+        "strength": "unknown",
+        "material": false,
+        "asked": false,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "never asked — Presentation-Boundary rule 1 — internal. Users never select one."
+      }
+    ],
+    "weak_axes": [
+      "purpose",
+      "entry_point",
+      "target_capability",
+      "capacity",
+      "depth_register",
+      "artifact_type",
+      "template"
+    ],
+    "guessed_but_material": [
+      "purpose",
+      "entry_point",
+      "target_capability",
+      "capacity",
+      "depth_register",
+      "artifact_type"
+    ]
+  },
+  "plan": {
+    "state": "planned",
+    "situation": {
+      "subject": "Git commit messages",
+      "job": "construct",
+      "purpose": "unknown",
+      "entry_point": "unknown",
+      "target_capability": "Write clear, conventional git commit messages that communicate intent and context",
+      "capacity": null,
+      "stated": [],
+      "stated_axes": [],
+      "inferred": [
+        "No specific convention or format requested",
+        "No target audience or project context specified",
+        "No existing git knowledge level stated"
+      ]
+    },
+    "landscape": {
+      "concept_count": 11,
+      "concepts": [
+        {
+          "name": "Git commit fundamentals",
+          "built_from": [],
+          "family": "core concept"
+        },
+        {
+          "name": "Conventional Commits specification",
+          "built_from": [
+            "Git commit fundamentals"
+          ],
+          "family": "standard"
+        },
+        {
+          "name": "Commit message structure (header, body, footer)",
+          "built_from": [
+            "Git commit fundamentals"
+          ],
+          "family": "core mechanism"
+        },
+        {
+          "name": "Commit types (feat, fix, docs, style, refactor, test, chore)",
+          "built_from": [
+            "Conventional Commits specification"
+          ],
+          "family": "classification"
+        },
+        {
+          "name": "Scope in commit messages",
+          "built_from": [
+            "Commit message structure (header, body, footer)"
+          ],
+          "family": "core mechanism"
+        },
+        {
+          "name": "Breaking changes notation",
+          "built_from": [
+            "Conventional Commits specification"
+          ],
+          "family": "core mechanism"
+        },
+        {
+          "name": "Writing imperative mood commit messages",
+          "built_from": [
+            "Git commit fundamentals"
+          ],
+          "family": "style guideline"
+        },
+        {
+          "name": "Writing descriptive commit bodies",
+          "built_from": [
+            "Commit message structure (header, body, footer)"
+          ],
+          "family": "skill"
+        },
+        {
+          "name": "Referencing issues and pull requests",
+          "built_from": [
+            "Commit message structure (header, body, footer)"
+          ],
+          "family": "practice"
+        },
+        {
+          "name": "Atomic commits vs. bundled changes",
+          "built_from": [
+            "Git commit fundamentals"
+          ],
+          "family": "practice"
+        },
+        {
+          "name": "Common anti-patterns (vague messages, mixed changes, missing context)",
+          "built_from": [
+            "Git commit fundamentals"
+          ],
+          "family": "failure modes"
+        }
+      ],
+      "families": [
+        "classification",
+        "core concept",
+        "core mechanism",
+        "failure modes",
+        "practice",
+        "skill",
+        "standard",
+        "style guideline"
+      ],
+      "edges": 10,
+      "roots": [
+        "Git commit fundamentals"
+      ],
+      "parenthetical_lists": [
+        "Commit message structure (header, body, footer)",
+        "Commit types (feat, fix, docs, style, refactor, test, chore)",
+        "Common anti-patterns (vague messages, mixed changes, missing context)"
+      ],
+      "judged": 11,
+      "in_play": 11,
+      "out_of_play": [],
+      "unjudged": []
+    },
+    "scope": {
+      "covered_count": 11,
+      "covered": [
+        {
+          "concept": "Git commit fundamentals",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Establishes what a commit is, why messages exist, and what makes them valuable — the foundation for everything else."
+        },
+        {
+          "concept": "Conventional Commits specification",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Provides the standard format the target capability explicitly asks for; defines the contract all later concepts follow."
+        },
+        {
+          "concept": "Commit message structure (header, body, footer)",
+          "depth": "work through",
+          "anticipates": "procedure-execution",
+          "why": "The core mechanism — learner must be able to produce each part correctly and know when each is required."
+        },
+        {
+          "concept": "Commit types (feat, fix, docs, style, refactor, test, chore)",
+          "depth": "work through",
+          "anticipates": "cross-reference",
+          "why": "Essential vocabulary for communicating intent; learner must choose the right type fluently."
+        },
+        {
+          "concept": "Scope in commit messages",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Adds contextual precision; learner needs to know when and how to apply it, not just that it exists."
+        },
+        {
+          "concept": "Breaking changes notation",
+          "depth": "explain",
+          "anticipates": "false-comprehension",
+          "why": "High-stakes signal; learner must recognise when it applies and format it correctly."
+        },
+        {
+          "concept": "Writing imperative mood commit messages",
+          "depth": "work through",
+          "anticipates": "abstraction-grounding",
+          "why": "Style convention that directly affects clarity; requires practice to internalise (not just understand)."
+        },
+        {
+          "concept": "Writing descriptive commit bodies",
+          "depth": "work through",
+          "anticipates": "procedure-execution",
+          "why": "Directly satisfies 'communicate context' in the target capability; learner must produce bodies that explain why and what changed."
+        },
+        {
+          "concept": "Referencing issues and pull requests",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Common traceability practice; learner needs to know the syntax and when to include references."
+        },
+        {
+          "concept": "Atomic commits vs. bundled changes",
+          "depth": "explain",
+          "anticipates": "false-comprehension",
+          "why": "Affects message clarity — atomic commits make messages focused and meaningful; bundled changes force vague messages."
+        },
+        {
+          "concept": "Common anti-patterns (vague messages, mixed changes, missing context)",
+          "depth": "explain",
+          "anticipates": "false-comprehension",
+          "why": "Negative examples cement the positive rules; learner recognises what to avoid in their own writing."
+        }
+      ],
+      "depths": {
+        "explain": 7,
+        "work through": 4
+      },
+      "anticipates": {
+        "none": 4,
+        "procedure-execution": 2,
+        "cross-reference": 1,
+        "false-comprehension": 3,
+        "abstraction-grounding": 1
+      },
+      "anticipates_any": 7,
+      "cut": []
+    },
+    "partition": {
+      "shape": "modules",
+      "module_count": 1,
+      "legacy_unit_count": 0,
+      "modules": [
+        {
+          "title": "Writing Clear, Conventional Git Commit Messages",
+          "covers": [
+            "Git commit fundamentals",
+            "Conventional Commits specification",
+            "Commit message structure (header, body, footer)",
+            "Commit types (feat, fix, docs, style, refactor, test, chore)",
+            "Scope in commit messages",
+            "Breaking changes notation",
+            "Writing imperative mood commit messages",
+            "Writing descriptive commit bodies",
+            "Referencing issues and pull requests",
+            "Atomic commits vs. bundled changes",
+            "Common anti-patterns (vague messages, mixed changes, missing context)"
+          ],
+          "concept_count": 11,
+          "capability": "Write a complete conventional commit message — including correct type, optional scope, imperative subject, descriptive body explaining the why and what, breaking-change footer when needed, and issue/PR references — and recognise and avoid the common anti-patterns that undermine clarity.",
+          "why_here": "Every concept is a necessary piece of the single target capability: writing a complete, conventional commit message that communicates intent and context. None stands alone as an exercisable skill — types without structure are useless, structure without types is empty, style without practice doesn't stick. They form one teachable unit."
+        }
+      ],
+      "concepts_per_module": [
+        11
+      ],
+      "orphans": [],
+      "phantoms": [],
+      "duplicate_coverage": [],
+      "slug_collisions": []
+    },
+    "promises": {
+      "capability_clauses": 1,
+      "capability_unbacked": 0,
+      "capability_unbacked_share": 0.0,
+      "capability_support": [
+        {
+          "module": "Writing Clear, Conventional Git Commit Messages",
+          "clauses": [
+            "Write a complete conventional commit message — including correct type, optional scope, imperative subject, descriptive body explaining the why and what, breaking-change footer when needed, and issue/PR references — and recognise and avoid the common anti-patterns that undermine clarity."
+          ],
+          "backed": [
+            {
+              "clause": "Write a complete conventional commit message — including correct type, optional scope, imperative subject, descriptive body explaining the why and what, breaking-change footer when needed, and issue/PR references — and recognise and avoid the common anti-patterns that undermine clarity.",
+              "concepts": [
+                "Git commit fundamentals",
+                "Conventional Commits specification",
+                "Commit message structure (header, body, footer)",
+                "Commit types (feat, fix, docs, style, refactor, test, chore)",
+                "Scope in commit messages",
+                "Breaking changes notation",
+                "Writing imperative mood commit messages",
+                "Writing descriptive commit bodies",
+                "Referencing issues and pull requests",
+                "Atomic commits vs. bundled changes",
+                "Common anti-patterns (vague messages, mixed changes, missing context)"
+              ]
+            }
+          ],
+          "unbacked": []
+        }
+      ],
+      "coherence": [
+        {
+          "module": "Writing Clear, Conventional Git Commit Messages",
+          "concepts": 11,
+          "internal": 10,
+          "external": 0,
+          "ratio": 1.0,
+          "depends_on_modules": [],
+          "links": []
+        }
+      ],
+      "modules_with_no_internal_dependency": [],
+      "external_dependency_total": 0
+    },
+    "extent": {
+      "total": "~10 pages · about 3 hours",
+      "pages": "~10 pages",
+      "study_time": "about 3 hours",
+      "parts": 1,
+      "modules": 1,
+      "per_unit": {
+        "Writing Clear, Conventional Git Commit Messages": "~10 pages"
+      }
+    },
+    "feasibility": {
+      "serves_everything": true,
+      "shortfalls": []
+    },
+    "decisions_present": [
+      "consequence",
+      "derive_structure",
+      "intake_strategy",
+      "interpret_situation",
+      "partition",
+      "relevance",
+      "scope",
+      "traversal"
+    ]
+  },
+  "corrections": [
+    {
+      "said": "make it dark themed with orange accents",
+      "reading": "User wants a dark-themed visual design with orange accent colours for the output.",
+      "claimed": [],
+      "actual": [],
+      "unclaimed_drift": [],
+      "claimed_but_unchanged": [],
+      "out_of_scope": "Theme and colour choices (dark theme with orange accents) are presentation decisions owned by the demo/rendering stage, not the plan.",
+      "not_understood": false,
+      "landed": false
+    }
+  ],
+  "plan_after_corrections": {
+    "state": "planned",
+    "situation": {
+      "subject": "Git commit messages",
+      "job": "construct",
+      "purpose": "unknown",
+      "entry_point": "unknown",
+      "target_capability": "Write clear, conventional git commit messages that communicate intent and context",
+      "capacity": null,
+      "stated": [],
+      "stated_axes": [],
+      "inferred": [
+        "No specific convention or format requested",
+        "No target audience or project context specified",
+        "No existing git knowledge level stated"
+      ]
+    },
+    "landscape": {
+      "concept_count": 11,
+      "concepts": [
+        {
+          "name": "Git commit fundamentals",
+          "built_from": [],
+          "family": "core concept"
+        },
+        {
+          "name": "Conventional Commits specification",
+          "built_from": [
+            "Git commit fundamentals"
+          ],
+          "family": "standard"
+        },
+        {
+          "name": "Commit message structure (header, body, footer)",
+          "built_from": [
+            "Git commit fundamentals"
+          ],
+          "family": "core mechanism"
+        },
+        {
+          "name": "Commit types (feat, fix, docs, style, refactor, test, chore)",
+          "built_from": [
+            "Conventional Commits specification"
+          ],
+          "family": "classification"
+        },
+        {
+          "name": "Scope in commit messages",
+          "built_from": [
+            "Commit message structure (header, body, footer)"
+          ],
+          "family": "core mechanism"
+        },
+        {
+          "name": "Breaking changes notation",
+          "built_from": [
+            "Conventional Commits specification"
+          ],
+          "family": "core mechanism"
+        },
+        {
+          "name": "Writing imperative mood commit messages",
+          "built_from": [
+            "Git commit fundamentals"
+          ],
+          "family": "style guideline"
+        },
+        {
+          "name": "Writing descriptive commit bodies",
+          "built_from": [
+            "Commit message structure (header, body, footer)"
+          ],
+          "family": "skill"
+        },
+        {
+          "name": "Referencing issues and pull requests",
+          "built_from": [
+            "Commit message structure (header, body, footer)"
+          ],
+          "family": "practice"
+        },
+        {
+          "name": "Atomic commits vs. bundled changes",
+          "built_from": [
+            "Git commit fundamentals"
+          ],
+          "family": "practice"
+        },
+        {
+          "name": "Common anti-patterns (vague messages, mixed changes, missing context)",
+          "built_from": [
+            "Git commit fundamentals"
+          ],
+          "family": "failure modes"
+        }
+      ],
+      "families": [
+        "classification",
+        "core concept",
+        "core mechanism",
+        "failure modes",
+        "practice",
+        "skill",
+        "standard",
+        "style guideline"
+      ],
+      "edges": 10,
+      "roots": [
+        "Git commit fundamentals"
+      ],
+      "parenthetical_lists": [
+        "Commit message structure (header, body, footer)",
+        "Commit types (feat, fix, docs, style, refactor, test, chore)",
+        "Common anti-patterns (vague messages, mixed changes, missing context)"
+      ],
+      "judged": 11,
+      "in_play": 11,
+      "out_of_play": [],
+      "unjudged": []
+    },
+    "scope": {
+      "covered_count": 11,
+      "covered": [
+        {
+          "concept": "Git commit fundamentals",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Establishes what a commit is, why messages exist, and what makes them valuable — the foundation for everything else."
+        },
+        {
+          "concept": "Conventional Commits specification",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Provides the standard format the target capability explicitly asks for; defines the contract all later concepts follow."
+        },
+        {
+          "concept": "Commit message structure (header, body, footer)",
+          "depth": "work through",
+          "anticipates": "procedure-execution",
+          "why": "The core mechanism — learner must be able to produce each part correctly and know when each is required."
+        },
+        {
+          "concept": "Commit types (feat, fix, docs, style, refactor, test, chore)",
+          "depth": "work through",
+          "anticipates": "cross-reference",
+          "why": "Essential vocabulary for communicating intent; learner must choose the right type fluently."
+        },
+        {
+          "concept": "Scope in commit messages",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Adds contextual precision; learner needs to know when and how to apply it, not just that it exists."
+        },
+        {
+          "concept": "Breaking changes notation",
+          "depth": "explain",
+          "anticipates": "false-comprehension",
+          "why": "High-stakes signal; learner must recognise when it applies and format it correctly."
+        },
+        {
+          "concept": "Writing imperative mood commit messages",
+          "depth": "work through",
+          "anticipates": "abstraction-grounding",
+          "why": "Style convention that directly affects clarity; requires practice to internalise (not just understand)."
+        },
+        {
+          "concept": "Writing descriptive commit bodies",
+          "depth": "work through",
+          "anticipates": "procedure-execution",
+          "why": "Directly satisfies 'communicate context' in the target capability; learner must produce bodies that explain why and what changed."
+        },
+        {
+          "concept": "Referencing issues and pull requests",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Common traceability practice; learner needs to know the syntax and when to include references."
+        },
+        {
+          "concept": "Atomic commits vs. bundled changes",
+          "depth": "explain",
+          "anticipates": "false-comprehension",
+          "why": "Affects message clarity — atomic commits make messages focused and meaningful; bundled changes force vague messages."
+        },
+        {
+          "concept": "Common anti-patterns (vague messages, mixed changes, missing context)",
+          "depth": "explain",
+          "anticipates": "false-comprehension",
+          "why": "Negative examples cement the positive rules; learner recognises what to avoid in their own writing."
+        }
+      ],
+      "depths": {
+        "explain": 7,
+        "work through": 4
+      },
+      "anticipates": {
+        "none": 4,
+        "procedure-execution": 2,
+        "cross-reference": 1,
+        "false-comprehension": 3,
+        "abstraction-grounding": 1
+      },
+      "anticipates_any": 7,
+      "cut": []
+    },
+    "partition": {
+      "shape": "modules",
+      "module_count": 1,
+      "legacy_unit_count": 0,
+      "modules": [
+        {
+          "title": "Writing Clear, Conventional Git Commit Messages",
+          "covers": [
+            "Git commit fundamentals",
+            "Conventional Commits specification",
+            "Commit message structure (header, body, footer)",
+            "Commit types (feat, fix, docs, style, refactor, test, chore)",
+            "Scope in commit messages",
+            "Breaking changes notation",
+            "Writing imperative mood commit messages",
+            "Writing descriptive commit bodies",
+            "Referencing issues and pull requests",
+            "Atomic commits vs. bundled changes",
+            "Common anti-patterns (vague messages, mixed changes, missing context)"
+          ],
+          "concept_count": 11,
+          "capability": "Write a complete conventional commit message — including correct type, optional scope, imperative subject, descriptive body explaining the why and what, breaking-change footer when needed, and issue/PR references — and recognise and avoid the common anti-patterns that undermine clarity.",
+          "why_here": "Every concept is a necessary piece of the single target capability: writing a complete, conventional commit message that communicates intent and context. None stands alone as an exercisable skill — types without structure are useless, structure without types is empty, style without practice doesn't stick. They form one teachable unit."
+        }
+      ],
+      "concepts_per_module": [
+        11
+      ],
+      "orphans": [],
+      "phantoms": [],
+      "duplicate_coverage": [],
+      "slug_collisions": []
+    },
+    "promises": {
+      "capability_clauses": 1,
+      "capability_unbacked": 0,
+      "capability_unbacked_share": 0.0,
+      "capability_support": [
+        {
+          "module": "Writing Clear, Conventional Git Commit Messages",
+          "clauses": [
+            "Write a complete conventional commit message — including correct type, optional scope, imperative subject, descriptive body explaining the why and what, breaking-change footer when needed, and issue/PR references — and recognise and avoid the common anti-patterns that undermine clarity."
+          ],
+          "backed": [
+            {
+              "clause": "Write a complete conventional commit message — including correct type, optional scope, imperative subject, descriptive body explaining the why and what, breaking-change footer when needed, and issue/PR references — and recognise and avoid the common anti-patterns that undermine clarity.",
+              "concepts": [
+                "Git commit fundamentals",
+                "Conventional Commits specification",
+                "Commit message structure (header, body, footer)",
+                "Commit types (feat, fix, docs, style, refactor, test, chore)",
+                "Scope in commit messages",
+                "Breaking changes notation",
+                "Writing imperative mood commit messages",
+                "Writing descriptive commit bodies",
+                "Referencing issues and pull requests",
+                "Atomic commits vs. bundled changes",
+                "Common anti-patterns (vague messages, mixed changes, missing context)"
+              ]
+            }
+          ],
+          "unbacked": []
+        }
+      ],
+      "coherence": [
+        {
+          "module": "Writing Clear, Conventional Git Commit Messages",
+          "concepts": 11,
+          "internal": 10,
+          "external": 0,
+          "ratio": 1.0,
+          "depends_on_modules": [],
+          "links": []
+        }
+      ],
+      "modules_with_no_internal_dependency": [],
+      "external_dependency_total": 0
+    },
+    "extent": {
+      "total": "~10 pages · about 3 hours",
+      "pages": "~10 pages",
+      "study_time": "about 3 hours",
+      "parts": 1,
+      "modules": 1,
+      "per_unit": {
+        "Writing Clear, Conventional Git Commit Messages": "~10 pages"
+      }
+    },
+    "feasibility": {
+      "serves_everything": true,
+      "shortfalls": []
+    },
+    "decisions_present": [
+      "consequence",
+      "derive_structure",
+      "intake_strategy",
+      "interpret_situation",
+      "partition",
+      "relevance",
+      "scope",
+      "traversal"
+    ]
+  },
+  "approval": {
+    "approved": true,
+    "decision_count": 7,
+    "refused_because": null
+  },
+  "finished_at": "2026-09-14T11:54:56+00:00",
+  "seconds_total": 1082.03,
+  "seconds_by_stage": {
+    "create": 415.59,
+    "intake": 0.0,
+    "plan": 559.22,
+    "correct": 107.08,
+    "approve": 0.02
+  },
+  "cost": {
+    "model_calls": 6,
+    "failed_calls": 0,
+    "input_tokens": 20828,
+    "output_tokens": 7753,
+    "seconds": 1081.78,
+    "calls": [
+      {
+        "ok": true,
+        "seconds": 200.67,
+        "input_tokens": 3150,
+        "output_tokens": 1712,
+        "schema": "Reading",
+        "error": null
+      },
+      {
+        "ok": true,
+        "seconds": 214.88,
+        "input_tokens": 1140,
+        "output_tokens": 1618,
+        "schema": "Intake",
+        "error": null
+      },
+      {
+        "ok": true,
+        "seconds": 185.56,
+        "input_tokens": 1366,
+        "output_tokens": 1300,
+        "schema": "Landscape",
+        "error": null
+      },
+      {
+        "ok": true,
+        "seconds": 183.66,
+        "input_tokens": 1497,
+        "output_tokens": 867,
+        "schema": "Landscape",
+        "error": null
+      },
+      {
+        "ok": true,
+        "seconds": 189.95,
+        "input_tokens": 4284,
+        "output_tokens": 1965,
+        "schema": "PlanBody",
+        "error": null
+      },
+      {
+        "ok": true,
+        "seconds": 107.06,
+        "input_tokens": 9391,
+        "output_tokens": 291,
+        "schema": "Routing",
+        "error": null
+      }
+    ]
+  }
+}

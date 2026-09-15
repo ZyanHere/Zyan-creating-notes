@@ -1,0 +1,1234 @@
+{
+  "project": {
+    "id": "8ee4b5cd-5fbb-4f58-88ef-58d1b6b0dd99",
+    "user_id": "local",
+    "title": "i want to master machine learning and be able to build production models, i have",
+    "taxonomy_version": "plan-gate-1",
+    "created_at": "2026-09-14T15:49:51+00:00"
+  },
+  "utterance": [
+    {
+      "id": "495ee2a1-af7c-4ca9-8519-85b88485ae37",
+      "project_id": "8ee4b5cd-5fbb-4f58-88ef-58d1b6b0dd99",
+      "ord": 0,
+      "role": "user",
+      "text": "i want to master machine learning and be able to build production models, i have one weekend",
+      "created_at": "2026-09-14T15:49:51+00:00"
+    },
+    {
+      "id": "76996f92-5ff0-41eb-b069-a0e186021314",
+      "project_id": "8ee4b5cd-5fbb-4f58-88ef-58d1b6b0dd99",
+      "ord": 1,
+      "role": "user",
+      "text": "i've written python for a few years but no ml at all",
+      "created_at": "2026-09-14T15:56:06+00:00"
+    },
+    {
+      "id": "e9ba2209-26fd-46dd-bd2e-d5a2d7e1132e",
+      "project_id": "8ee4b5cd-5fbb-4f58-88ef-58d1b6b0dd99",
+      "ord": 2,
+      "role": "user",
+      "text": "ok that's too much, what can i actually get done in two days",
+      "created_at": "2026-09-14T16:10:17+00:00"
+    }
+  ],
+  "decision": [
+    {
+      "id": "1155b6f24ea7405085b08bdc89a582cb",
+      "project_id": "8ee4b5cd-5fbb-4f58-88ef-58d1b6b0dd99",
+      "kind": "interpret_situation",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "030edc8c40904d7858ac6b192a85c22a",
+      "output": {
+        "subject": "machine learning",
+        "job": "construct",
+        "entry_point": "unknown",
+        "purpose": "build production ML models",
+        "target_capability": "build production ML models",
+        "capacity": "one weekend",
+        "stated": [
+          {
+            "text": "master machine learning",
+            "axis": "purpose"
+          },
+          {
+            "text": "be able to build production models",
+            "axis": "target_capability"
+          },
+          {
+            "text": "one weekend",
+            "axis": "capacity"
+          }
+        ],
+        "inferred": [
+          "artifact type not specified — could be a weekend project, a learning roadmap, code templates, or a condensed reference",
+          "no specific ML domain stated (tabular, NLP, vision, etc.)",
+          "no stated background — could be a software engineer new to ML, a data analyst, or a complete beginner",
+          "template not specified",
+          "depth register is in tension: 'master' suggests comprehensive depth but 'one weekend' forces extreme compression"
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "interpret_v1",
+      "cost": {
+        "in": 3161,
+        "out": 1501
+      },
+      "created_at": "2026-09-14T15:52:40+00:00"
+    },
+    {
+      "id": "467a3edfdeed482198fc2d17b6faa266",
+      "project_id": "8ee4b5cd-5fbb-4f58-88ef-58d1b6b0dd99",
+      "kind": "intake_strategy",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "bd723641b835f06fbd607bf0dcb39062",
+      "output": {
+        "questions": [
+          {
+            "axis": "entry_point",
+            "question": "Which background closest to yours?",
+            "why_it_matters": "Determines what prerequisites the plan assumes and what gets skipped vs taught from scratch.",
+            "options": [
+              {
+                "label": "Software engineer",
+                "implication": "Assumes Python, Git, basic linear algebra; focuses on ML concepts, model training loops, and production patterns."
+              },
+              {
+                "label": "Data analyst / scientist",
+                "implication": "Assumes pandas, SQL, statistics; adds ML modeling depth, experiment tracking, and deployment tooling."
+              },
+              {
+                "label": "Complete beginner",
+                "implication": "Includes Python fundamentals, NumPy/Pandas basics, and math refreshers — reduces ML scope to fit the weekend."
+              },
+              {
+                "label": "Researcher / academic",
+                "implication": "Assumes theory fluency; emphasizes production engineering: CI/CD, monitoring, serving, data pipelines."
+              }
+            ],
+            "default_label": "Software engineer"
+          },
+          {
+            "axis": "artifact_type",
+            "question": "What do you want to walk away with at the end of the weekend?",
+            "why_it_matters": "Shapes the deliverable: a runnable project, a study plan, reusable templates, or a quick-reference guide.",
+            "options": [
+              {
+                "label": "Runnable weekend project",
+                "implication": "End-to-end train/evaluate/serve code for one problem (e.g., tabular classification) with Dockerfile and tests."
+              },
+              {
+                "label": "Learning roadmap",
+                "implication": "Sequenced curriculum with resource links, milestones, and practice tasks — no runnable code, just the path forward."
+              },
+              {
+                "label": "Production code templates",
+                "implication": "Boilerplate for training pipelines, config management, experiment tracking, and model serving — copy-paste starters."
+              },
+              {
+                "label": "Condensed reference",
+                "implication": "Cheatsheet-style: key APIs, common patterns, debugging checklists, and one-liner recipes — optimized for lookup."
+              }
+            ],
+            "default_label": "Runnable weekend project"
+          }
+        ],
+        "sufficiency": {
+          "verdict": "ask",
+          "budget": 4,
+          "asking": [
+            "entry_point",
+            "artifact_type"
+          ],
+          "over_budget": [],
+          "axes": [
+            {
+              "axis": "subject",
+              "value": "machine learning (broad, no subdomain specified)",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "machine learning"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If the subject were narrowed (e.g., 'tabular ML for fraud detection'), the plan would focus on one pipeline instead of surveying the field.",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "purpose",
+              "value": "build production ML models",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "build production models"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If the purpose were 'pass an interview' or 'understand research papers', the plan would emphasize theory and derivations over deployment concerns like monitoring, CI/CD, and model serving.",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "entry_point",
+              "value": null,
+              "strength": "unknown",
+              "verified": [],
+              "unverified": [],
+              "material": true,
+              "would_differ": "A software engineer with Python experience needs no syntax basics and can start with ML concepts; a complete beginner needs programming fundamentals first; a data analyst knows pandas but not software engineering practices for production.",
+              "askable": true,
+              "asked": true,
+              "reason": "weak (unknown) and a different answer would change the plan"
+            },
+            {
+              "axis": "target_capability",
+              "value": "build production ML models",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "build production models"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If the target were 'prototype a model in a notebook', the plan would skip containerization, monitoring, feature stores, and model registry — cutting 60% of production content.",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "capacity",
+              "value": "one weekend",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "one weekend"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "With two weeks, the plan could include a hands-on end-to-end project with iteration; with one weekend, it must be a curated sequence of high-leverage concepts plus a minimal runnable template.",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Semantics §1 LOCKED — optional, and the corollary: deriving the plan and reporting its extent is what CAUSES a capacity to be stated. Asking upfront asks for a number the learner cannot honestly give."
+            },
+            {
+              "axis": "depth_register",
+              "value": null,
+              "strength": "unknown",
+              "verified": [],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If 'master' means 'deep conceptual understanding', the plan allocates time to math and derivations; if it means 'practical competence to ship', the plan allocates time to tooling, patterns, and a working template. The weekend constraint makes the latter the only viable reading, but the user's wording pulls the other way.",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Semantics §1 — biasing, not binding. A default is always defensible."
+            },
+            {
+              "axis": "artifact_type",
+              "value": null,
+              "strength": "unknown",
+              "verified": [],
+              "unverified": [],
+              "material": true,
+              "would_differ": "A 'weekend project template' (runnable repo) differs from a 'condensed reference guide' (concepts + checklists) which differs from a 'learning roadmap' (what to study in what order). Each produces a different deliverable and time allocation.",
+              "askable": true,
+              "asked": true,
+              "reason": "weak (unknown) and a different answer would change the plan"
+            },
+            {
+              "axis": "template",
+              "value": null,
+              "strength": "unknown",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "If a specific template were requested (e.g., 'MLOps cookiecutter', 'FastAPI + MLflow structure'), the plan would center on that; without one, the plan must choose or offer a minimal default.",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Presentation-Boundary rule 1 — internal. Users never select one."
+            }
+          ]
+        }
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "ask_v1",
+      "cost": {
+        "in": 1268,
+        "out": 793
+      },
+      "created_at": "2026-09-14T15:56:06+00:00"
+    },
+    {
+      "id": "35b8892b7aca4895abbcfbf99a6c4921",
+      "project_id": "8ee4b5cd-5fbb-4f58-88ef-58d1b6b0dd99",
+      "kind": "interpret_situation",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "2cfdfe77196d6c79879391e725e138c3",
+      "output": {
+        "subject": "Machine learning (production-focused)",
+        "job": "construct",
+        "entry_point": "Several years of Python programming; no prior machine learning experience",
+        "purpose": "Master machine learning and gain the ability to build production-ready ML models",
+        "target_capability": "Design, train, evaluate, and deploy production ML models end-to-end",
+        "capacity": "One weekend",
+        "stated": [
+          {
+            "text": "i want to master machine learning and be able to build production models",
+            "axis": "purpose"
+          },
+          {
+            "text": "i have one weekend",
+            "axis": "capacity"
+          },
+          {
+            "text": "i've written python for a few years but no ml at all",
+            "axis": "entry_point"
+          }
+        ],
+        "inferred": [
+          "Subject is production machine learning",
+          "Job is construct (building production systems)",
+          "Artifact type is a learning pathway / curriculum",
+          "Depth register is deep practical (production-grade)",
+          "Template is unspecified"
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "interpret_v1",
+      "cost": {
+        "in": 3175,
+        "out": 1282
+      },
+      "created_at": "2026-09-14T15:59:53+00:00"
+    },
+    {
+      "id": "acb58dd480304b60aec2c75395564910",
+      "project_id": "8ee4b5cd-5fbb-4f58-88ef-58d1b6b0dd99",
+      "kind": "intake_strategy",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "8c9575099ea7265dc4d4e3b772007ca7",
+      "output": {
+        "questions": [
+          {
+            "axis": "entry_point",
+            "question": "Which of these best describes your current Python toolkit?",
+            "why_it_matters": "Determines whether the pathway spends time on NumPy/pandas/scikit-learn fundamentals or jumps straight to model architecture and training loops.",
+            "options": [
+              {
+                "label": "Comfortable with NumPy, pandas, and scikit-learn",
+                "implication": "Skips the data-wrangling and classical-ML basics; starts with neural-network concepts and PyTorch/TensorFlow APIs."
+              },
+              {
+                "label": "Solid Python, but little or no data-science library experience",
+                "implication": "Adds a focused NumPy/pandas/scikit-learn primer (array ops, pipelines, model evaluation) before deep-learning material."
+              },
+              {
+                "label": "Strong software engineering (testing, CI/CD, packaging) but no data stack",
+                "implication": "Emphasises ML-specific engineering patterns (experiment tracking, model registries, serving) while teaching the data libraries from scratch."
+              }
+            ],
+            "default_label": "Solid Python, but little or no data-science library experience"
+          }
+        ],
+        "sufficiency": {
+          "verdict": "ask",
+          "budget": 4,
+          "asking": [
+            "entry_point"
+          ],
+          "over_budget": [],
+          "axes": [
+            {
+              "axis": "subject",
+              "value": "Machine learning (production-focused)",
+              "strength": "inferred",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "machine learning"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If the subject were only theoretical ML or only ML theory, the plan would omit deployment, monitoring, data pipelines, and model serving — all essential for production.",
+              "askable": true,
+              "asked": false,
+              "reason": "inferred, supported by 'machine learning'"
+            },
+            {
+              "axis": "purpose",
+              "value": "Master machine learning and gain the ability to build production-ready ML models",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "master machine learning and be able to build production models"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If the purpose were exam preparation or research, the plan would prioritize theory and derivations over engineering practices, CI/CD, and operational concerns.",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "entry_point",
+              "value": "Several years of Python programming; no prior machine learning experience",
+              "strength": "guessed",
+              "verified": [],
+              "unverified": [
+                "written python for a few years but no ml at all"
+              ],
+              "material": true,
+              "would_differ": "If the learner already knew ML fundamentals, the plan would skip introductory concepts (supervised/unsupervised, bias-variance, evaluation metrics) and start at model architecture, training loops, and production tooling.",
+              "askable": true,
+              "asked": true,
+              "reason": "weak (guessed) and a different answer would change the plan · discarded unverifiable support: ['written python for a few years but no ml at all']"
+            },
+            {
+              "axis": "target_capability",
+              "value": "Design, train, evaluate, and deploy production ML models end-to-end",
+              "strength": "inferred",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "be able to build production models"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If the target were only model training, the plan would omit data engineering, feature stores, model registry, serving infrastructure, and monitoring.",
+              "askable": true,
+              "asked": false,
+              "reason": "inferred, supported by 'be able to build production models'"
+            },
+            {
+              "axis": "capacity",
+              "value": "One weekend",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "one weekend"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "With a month, the plan would include multiple projects, deeper theory, and iterative refinement; with one weekend it must be a ruthlessly scoped minimal viable path covering only the highest-leverage concepts and tools.",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Semantics §1 LOCKED — optional, and the corollary: deriving the plan and reporting its extent is what CAUSES a capacity to be stated. Asking upfront asks for a number the learner cannot honestly give."
+            },
+            {
+              "axis": "depth_register",
+              "value": "Deep practical (production-grade)",
+              "strength": "inferred",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "production models"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "A survey-level register would give conceptual overviews without runnable code, config, or tooling; deep practical requires working training pipelines, Docker/serving configs, and actual deployment steps.",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Semantics §1 — biasing, not binding. A default is always defensible."
+            },
+            {
+              "axis": "artifact_type",
+              "value": "Learning pathway / curriculum with runnable code",
+              "strength": "inferred",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "master machine learning and be able to build production models"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If the artifact were a cheatsheet or reference card, it would contain no executable code, no project structure, and no stepwise exercises — only definitions and formulas.",
+              "askable": true,
+              "asked": false,
+              "reason": "inferred, supported by 'master machine learning and be able to build production models'"
+            },
+            {
+              "axis": "template",
+              "value": null,
+              "strength": "unknown",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "A specific template (e.g., 'Kaggle-style notebook', 'MLOps cookiecutter', 'academic syllabus') would impose a fixed structure; without one, the plan chooses the structure that best fits the weekend scope and production goal.",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Presentation-Boundary rule 1 — internal. Users never select one."
+            }
+          ]
+        }
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "ask_v1",
+      "cost": {
+        "in": 1265,
+        "out": 491
+      },
+      "created_at": "2026-09-14T16:02:17+00:00"
+    },
+    {
+      "id": "e71f8770b6a34220ad16bb33609b1dcb",
+      "project_id": "8ee4b5cd-5fbb-4f58-88ef-58d1b6b0dd99",
+      "kind": "derive_structure",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "b1525cecd8b4d3f8e264aa5448bd0510",
+      "output": {
+        "concepts": [
+          {
+            "name": "Python for ML ecosystem (NumPy, pandas, matplotlib, scikit-learn API)",
+            "built_from": [],
+            "family": "foundational tooling"
+          },
+          {
+            "name": "Supervised learning framing (classification vs regression)",
+            "built_from": [
+              "Python for ML ecosystem (NumPy, pandas, matplotlib, scikit-learn API)"
+            ],
+            "family": "core concept"
+          },
+          {
+            "name": "Unsupervised learning framing (clustering, dimensionality reduction)",
+            "built_from": [
+              "Python for ML ecosystem (NumPy, pandas, matplotlib, scikit-learn API)"
+            ],
+            "family": "core concept"
+          },
+          {
+            "name": "Train/validation/test split & cross-validation",
+            "built_from": [
+              "Supervised learning framing (classification vs regression)"
+            ],
+            "family": "core mechanism"
+          },
+          {
+            "name": "Model evaluation metrics (accuracy, precision, recall, F1, ROC-AUC, RMSE, MAE)",
+            "built_from": [
+              "Train/validation/test split & cross-validation"
+            ],
+            "family": "core mechanism"
+          },
+          {
+            "name": "Feature preprocessing (scaling, encoding, missing values, datetime, text)",
+            "built_from": [
+              "Python for ML ecosystem (NumPy, pandas, matplotlib, scikit-learn API)"
+            ],
+            "family": "core mechanism"
+          },
+          {
+            "name": "Feature engineering (interactions, polynomials, domain-specific, embeddings)",
+            "built_from": [
+              "Feature preprocessing (scaling, encoding, missing values, datetime, text)"
+            ],
+            "family": "applied technique"
+          },
+          {
+            "name": "Linear models (logistic/linear regression with regularization)",
+            "built_from": [
+              "Supervised learning framing (classification vs regression)",
+              "Feature preprocessing (scaling, encoding, missing values, datetime, text)"
+            ],
+            "family": "algorithm"
+          },
+          {
+            "name": "Tree-based models (decision trees, random forests, gradient boosting)",
+            "built_from": [
+              "Supervised learning framing (classification vs regression)",
+              "Feature preprocessing (scaling, encoding, missing values, datetime, text)"
+            ],
+            "family": "algorithm"
+          },
+          {
+            "name": "Gradient boosting libraries (XGBoost, LightGBM, CatBoost)",
+            "built_from": [
+              "Tree-based models (decision trees, random forests, gradient boosting)"
+            ],
+            "family": "algorithm"
+          },
+          {
+            "name": "Neural network fundamentals (MLP, backprop, activation functions)",
+            "built_from": [
+              "Supervised learning framing (classification vs regression)",
+              "Feature preprocessing (scaling, encoding, missing values, datetime, text)"
+            ],
+            "family": "algorithm"
+          },
+          {
+            "name": "Deep learning frameworks (PyTorch, TensorFlow/Keras)",
+            "built_from": [
+              "Neural network fundamentals (MLP, backprop, activation functions)"
+            ],
+            "family": "tooling"
+          },
+          {
+            "name": "Hyperparameter tuning (grid search, random search, Bayesian optimization)",
+            "built_from": [
+              "Model evaluation metrics (accuracy, precision, recall, F1, ROC-AUC, RMSE, MAE)",
+              "Tree-based models (decision trees, random forests, gradient boosting)"
+            ],
+            "family": "core mechanism"
+          },
+          {
+            "name": "Model selection & comparison",
+            "built_from": [
+              "Model evaluation metrics (accuracy, precision, recall, F1, ROC-AUC, RMSE, MAE)",
+              "Hyperparameter tuning (grid search, random search, Bayesian optimization)"
+            ],
+            "family": "core mechanism"
+          },
+          {
+            "name": "Overfitting/underfitting diagnosis & regularization",
+            "built_from": [
+              "Model evaluation metrics (accuracy, precision, recall, F1, ROC-AUC, RMSE, MAE)",
+              "Linear models (logistic/linear regression with regularization)",
+              "Tree-based models (decision trees, random forests, gradient boosting)"
+            ],
+            "family": "failure mode"
+          },
+          {
+            "name": "Imbalanced data handling (resampling, class weights, threshold tuning)",
+            "built_from": [
+              "Model evaluation metrics (accuracy, precision, recall, F1, ROC-AUC, RMSE, MAE)"
+            ],
+            "family": "applied technique"
+          },
+          {
+            "name": "Pipeline construction (sklearn Pipeline, ColumnTransformer)",
+            "built_from": [
+              "Feature preprocessing (scaling, encoding, missing values, datetime, text)",
+              "Linear models (logistic/linear regression with regularization)",
+              "Tree-based models (decision trees, random forests, gradient boosting)"
+            ],
+            "family": "production pattern"
+          },
+          {
+            "name": "Experiment tracking (MLflow, Weights & Biases, ClearML)",
+            "built_from": [
+              "Model selection & comparison",
+              "Pipeline construction (sklearn Pipeline, ColumnTransformer)"
+            ],
+            "family": "production tooling"
+          },
+          {
+            "name": "Model serialization & versioning (joblib, ONNX, model registry)",
+            "built_from": [
+              "Pipeline construction (sklearn Pipeline, ColumnTransformer)"
+            ],
+            "family": "production pattern"
+          },
+          {
+            "name": "Model serving patterns (REST API, batch inference, streaming, edge)",
+            "built_from": [
+              "Model serialization & versioning (joblib, ONNX, model registry)"
+            ],
+            "family": "production pattern"
+          },
+          {
+            "name": "API frameworks for ML (FastAPI, Flask, Triton, TorchServe)",
+            "built_from": [
+              "Model serving patterns (REST API, batch inference, streaming, edge)"
+            ],
+            "family": "production tooling"
+          },
+          {
+            "name": "Containerization for ML (Docker, multi-stage builds, GPU images)",
+            "built_from": [
+              "API frameworks for ML (FastAPI, Flask, Triton, TorchServe)"
+            ],
+            "family": "production tooling"
+          },
+          {
+            "name": "Orchestration & scheduling (Airflow, Prefect, Dagster, cron)",
+            "built_from": [
+              "Pipeline construction (sklearn Pipeline, ColumnTransformer)",
+              "Containerization for ML (Docker, multi-stage builds, GPU images)"
+            ],
+            "family": "production tooling"
+          },
+          {
+            "name": "Data validation & schema enforcement (Great Expectations, pandera, TFDV)",
+            "built_from": [
+              "Pipeline construction (sklearn Pipeline, ColumnTransformer)"
+            ],
+            "family": "production pattern"
+          },
+          {
+            "name": "Monitoring: data drift, concept drift, model performance",
+            "built_from": [
+              "Model serving patterns (REST API, batch inference, streaming, edge)",
+              "Data validation & schema enforcement (Great Expectations, pandera, TFDV)"
+            ],
+            "family": "production pattern"
+          },
+          {
+            "name": "Automated retraining & CI/CD for ML (GitHub Actions, GitLab CI, Jenkins)",
+            "built_from": [
+              "Orchestration & scheduling (Airflow, Prefect, Dagster, cron)",
+              "Monitoring: data drift, concept drift, model performance",
+              "Experiment tracking (MLflow, Weights & Biases, ClearML)"
+            ],
+            "family": "production pattern"
+          },
+          {
+            "name": "A/B testing & canary deployments for models",
+            "built_from": [
+              "Model serving patterns (REST API, batch inference, streaming, edge)",
+              "Monitoring: data drift, concept drift, model performance"
+            ],
+            "family": "production pattern"
+          },
+          {
+            "name": "Feature stores (Feast, Tecton, Hopsworks)",
+            "built_from": [
+              "Feature engineering (interactions, polynomials, domain-specific, embeddings)",
+              "Data validation & schema enforcement (Great Expectations, pandera, TFDV)"
+            ],
+            "family": "production tooling"
+          },
+          {
+            "name": "Model optimization (quantization, distillation, ONNX Runtime, TensorRT)",
+            "built_from": [
+              "Model serialization & versioning (joblib, ONNX, model registry)",
+              "Deep learning frameworks (PyTorch, TensorFlow/Keras)"
+            ],
+            "family": "production technique"
+          },
+          {
+            "name": "Distributed training & scaling (DDP, FSDP, Ray, Horovod)",
+            "built_from": [
+              "Deep learning frameworks (PyTorch, TensorFlow/Keras)"
+            ],
+            "family": "advanced technique"
+          },
+          {
+            "name": "Transfer learning & fine-tuning (vision, NLP, tabular)",
+            "built_from": [
+              "Deep learning frameworks (PyTorch, TensorFlow/Keras)"
+            ],
+            "family": "advanced technique"
+          },
+          {
+            "name": "Responsible ML (fairness, interpretability, SHAP, LIME, privacy)",
+            "built_from": [
+              "Model evaluation metrics (accuracy, precision, recall, F1, ROC-AUC, RMSE, MAE)",
+              "Model selection & comparison"
+            ],
+            "family": "cross-cutting concern"
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "derive_v1",
+      "cost": {
+        "in": 1500,
+        "out": 3738
+      },
+      "created_at": "2026-09-14T16:07:23+00:00"
+    },
+    {
+      "id": "2c5afa76a3eb4dccbd2ed0fff07b357c",
+      "project_id": "8ee4b5cd-5fbb-4f58-88ef-58d1b6b0dd99",
+      "kind": "relevance",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "b0e8a174c9f329f2f29778b95c3e8ae9",
+      "output": {
+        "judgements": [
+          {
+            "concept": "Python for ML ecosystem (NumPy, pandas, matplotlib, scikit-learn API)",
+            "in_play": true,
+            "why": "Learner knows Python but not ML libraries; this is the essential starting point for everything else."
+          },
+          {
+            "concept": "Supervised learning framing (classification vs regression)",
+            "in_play": true,
+            "why": "Core mental model — without this, no model selection or evaluation makes sense."
+          },
+          {
+            "concept": "Unsupervised learning framing (clustering, dimensionality reduction)",
+            "in_play": false,
+            "why": "Production ML is overwhelmingly supervised; unsupervised can be deferred."
+          },
+          {
+            "concept": "Train/validation/test split & cross-validation",
+            "in_play": true,
+            "why": "Non-negotiable for any credible model evaluation; directly enables production reliability."
+          },
+          {
+            "concept": "Model evaluation metrics (accuracy, precision, recall, F1, ROC-AUC, RMSE, MAE)",
+            "in_play": true,
+            "why": "Must choose the right metric for the business problem; production models live/die by this."
+          },
+          {
+            "concept": "Feature preprocessing (scaling, encoding, missing values, datetime, text)",
+            "in_play": true,
+            "why": "Real data is messy; preprocessing is where most production failures originate."
+          },
+          {
+            "concept": "Feature engineering (interactions, polynomials, domain-specific, embeddings)",
+            "in_play": false,
+            "why": "Important but open-ended; one weekend cannot cover domain-specific engineering meaningfully."
+          },
+          {
+            "concept": "Linear models (logistic/linear regression with regularization)",
+            "in_play": true,
+            "why": "Baseline models that are interpretable, fast, and often sufficient; essential first algorithm."
+          },
+          {
+            "concept": "Tree-based models (decision trees, random forests, gradient boosting)",
+            "in_play": true,
+            "why": "Industry standard for tabular data; random forest gives strong baseline with minimal tuning."
+          },
+          {
+            "concept": "Gradient boosting libraries (XGBoost, LightGBM, CatBoost)",
+            "in_play": true,
+            "why": "State-of-the-art for structured data; CatBoost handles categoricals natively — high leverage for weekend learner."
+          },
+          {
+            "concept": "Neural network fundamentals (MLP, backprop, activation functions)",
+            "in_play": false,
+            "why": "Too deep for one weekend with zero ML background; tabular production ML rarely starts here."
+          },
+          {
+            "concept": "Deep learning frameworks (PyTorch, TensorFlow/Keras)",
+            "in_play": false,
+            "why": "Not needed for tabular production models; adds complexity without payoff in this timeframe."
+          },
+          {
+            "concept": "Hyperparameter tuning (grid search, random search, Bayesian optimization)",
+            "in_play": true,
+            "why": "Random search + cross-validation is learnable in hours and dramatically improves results."
+          },
+          {
+            "concept": "Model selection & comparison",
+            "in_play": true,
+            "why": "Must compare 2-3 model families quickly; the practical skill is knowing what to try and when to stop."
+          },
+          {
+            "concept": "Overfitting/underfitting diagnosis & regularization",
+            "in_play": true,
+            "why": "Core diagnostic skill; without it, models fail silently in production."
+          },
+          {
+            "concept": "Imbalanced data handling (resampling, class weights, threshold tuning)",
+            "in_play": true,
+            "why": "Real production data is almost always imbalanced; threshold tuning is a high-ROI technique."
+          },
+          {
+            "concept": "Pipeline construction (sklearn Pipeline, ColumnTransformer)",
+            "in_play": true,
+            "why": "The single most important production pattern — prevents train/serve skew and enables deployment."
+          },
+          {
+            "concept": "Experiment tracking (MLflow, Weights & Biases, ClearML)",
+            "in_play": true,
+            "why": "Lightweight tracking (even just MLflow local) teaches reproducibility; can be learned in 30 minutes."
+          },
+          {
+            "concept": "Model serialization & versioning (joblib, ONNX, model registry)",
+            "in_play": true,
+            "why": "joblib/ONNX export is the bridge to serving; model registry concept is essential mental model."
+          },
+          {
+            "concept": "Model serving patterns (REST API, batch inference, streaming, edge)",
+            "in_play": true,
+            "why": "Must understand the deployment target; REST + batch covers 90% of cases."
+          },
+          {
+            "concept": "API frameworks for ML (FastAPI, Flask, Triton, TorchServe)",
+            "in_play": true,
+            "why": "FastAPI is Pythonic, fast, and teaches the serving pattern in one file."
+          },
+          {
+            "concept": "Containerization for ML (Docker, multi-stage builds, GPU images)",
+            "in_play": true,
+            "why": "Docker is the universal deployment artifact; a minimal Dockerfile is teachable in 20 minutes."
+          },
+          {
+            "concept": "Orchestration & scheduling (Airflow, Prefect, Dagster, cron)",
+            "in_play": false,
+            "why": "Orchestration is infrastructure, not model building; cron or a simple script suffices for weekend scope."
+          },
+          {
+            "concept": "Data validation & schema enforcement (Great Expectations, pandera, TFDV)",
+            "in_play": true,
+            "why": "pandera/sklearn's validation can be shown in 15 minutes; prevents silent data drift failures."
+          },
+          {
+            "concept": "Monitoring: data drift, concept drift, model performance",
+            "in_play": false,
+            "why": "Operational concern for running systems; learner isn't deploying to production traffic yet."
+          },
+          {
+            "concept": "Automated retraining & CI/CD for ML (GitHub Actions, GitLab CI, Jenkins)",
+            "in_play": false,
+            "why": "Full CI/CD is a team/infra concern; out of scope for individual weekend learning."
+          },
+          {
+            "concept": "A/B testing & canary deployments for models",
+            "in_play": false,
+            "why": "Requires production traffic and infrastructure; not a model-building skill."
+          },
+          {
+            "concept": "Feature stores (Feast, Tecton, Hopsworks)",
+            "in_play": false,
+            "why": "Organizational infrastructure; overkill for individual practitioner weekend."
+          },
+          {
+            "concept": "Model optimization (quantization, distillation, ONNX Runtime, TensorRT)",
+            "in_play": false,
+            "why": "Optimization comes after a working model; premature for this learner."
+          },
+          {
+            "concept": "Distributed training & scaling (DDP, FSDP, Ray, Horovod)",
+            "in_play": false,
+            "why": "Irrelevant for tabular data sizes typical of weekend projects."
+          },
+          {
+            "concept": "Transfer learning & fine-tuning (vision, NLP, tabular)",
+            "in_play": false,
+            "why": "Requires deep learning foundation; not applicable to tabular production ML."
+          },
+          {
+            "concept": "Responsible ML (fairness, interpretability, SHAP, LIME, privacy)",
+            "in_play": true,
+            "why": "SHAP for tree models is fast to learn and essential for stakeholder trust in production."
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "derive_v1",
+      "cost": {
+        "in": 1500,
+        "out": 3738
+      },
+      "created_at": "2026-09-14T16:07:23+00:00"
+    },
+    {
+      "id": "7efc9fa26b79482bac48df69c0ec0657",
+      "project_id": "8ee4b5cd-5fbb-4f58-88ef-58d1b6b0dd99",
+      "kind": "traversal",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "ac109176502a95167d5d3661fbc59f1c",
+      "output": {
+        "sequence": [
+          "Production ML End-to-End: From Data to Deployed Model"
+        ],
+        "why": "Single weekend capacity with zero ML background demands one contiguous learning arc — every concept builds toward the same deployed model artifact; splitting would fracture the end-to-end mental model the learner must internalize in 48 hours."
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 7300,
+        "out": 4886
+      },
+      "created_at": "2026-09-14T16:10:17+00:00"
+    },
+    {
+      "id": "88a35039359c4909a3ea53d61b86d4ac",
+      "project_id": "8ee4b5cd-5fbb-4f58-88ef-58d1b6b0dd99",
+      "kind": "consequence",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "fe9b95ad9c0773205f2eceb50186f8ce",
+      "output": {
+        "exclusions": [
+          {
+            "topic": "Unsupervised learning framing (clustering, dimensionality reduction)",
+            "consequence": "Cannot discover structure in unlabeled data or reduce feature dimensionality for visualization/compression; production systems occasionally need this for anomaly detection or preprocessing.",
+            "when_to_learn": "When a project requires pattern discovery without labels or when feature count explodes and supervised feature selection isn't enough."
+          },
+          {
+            "topic": "Feature engineering (interactions, polynomials, domain-specific, embeddings)",
+            "consequence": "Model performance plateaus at baseline; cannot create predictive signals that require domain knowledge or non-linear combinations.",
+            "when_to_learn": "After first model baseline is established and metrics show headroom — typically week 2 of a real project."
+          },
+          {
+            "topic": "Neural network fundamentals (MLP, backprop, activation functions)",
+            "consequence": "Cannot build or debug deep models; tabular production ML rarely needs this, but vision/NLP tasks are inaccessible.",
+            "when_to_learn": "When the problem domain shifts to images, text, or audio — or when tabular gradients demand representation learning."
+          },
+          {
+            "topic": "Deep learning frameworks (PyTorch, TensorFlow/Keras)",
+            "consequence": "Cannot implement custom architectures, use transfer learning, or leverage GPU acceleration for large-scale deep models.",
+            "when_to_learn": "Concurrently with neural network fundamentals, when the first deep learning project starts."
+          },
+          {
+            "topic": "Orchestration & scheduling (Airflow, Prefect, Dagster, cron)",
+            "consequence": "Retraining pipelines run manually or via brittle cron; no visibility into DAG failures, retries, or backfills.",
+            "when_to_learn": "When model retraining frequency exceeds weekly or when multiple interdependent pipelines exist."
+          },
+          {
+            "topic": "Monitoring: data drift, concept drift, model performance",
+            "consequence": "Silent degradation in production — predictions worsen without alerts; business impact discovered late.",
+            "when_to_learn": "Before first model serves live traffic; implement alongside serving layer."
+          },
+          {
+            "topic": "Automated retraining & CI/CD for ML (GitHub Actions, GitLab CI, Jenkins)",
+            "consequence": "Model updates require manual intervention; no automated testing of model artifacts; deployment risk scales with frequency.",
+            "when_to_learn": "When team owns multiple models or retraining cadence is daily/weekly."
+          },
+          {
+            "topic": "A/B testing & canary deployments for models",
+            "consequence": "Cannot safely compare model versions in production; full cutover risks user-facing regressions.",
+            "when_to_learn": "When model serves user-facing decisions and traffic volume supports statistical comparison."
+          },
+          {
+            "topic": "Feature stores (Feast, Tecton, Hopsworks)",
+            "consequence": "Feature definitions drift between training and serving; duplicate engineering across models; no point-in-time correctness.",
+            "when_to_learn": "When 3+ models share features or when feature freshness becomes a correctness requirement."
+          },
+          {
+            "topic": "Model optimization (quantization, distillation, ONNX Runtime, TensorRT)",
+            "consequence": "Inference latency/cost stays high; edge deployment impossible; GPU utilization suboptimal.",
+            "when_to_learn": "After model accuracy is validated and latency/cost become production constraints."
+          },
+          {
+            "topic": "Distributed training & scaling (DDP, FSDP, Ray, Horovod)",
+            "consequence": "Training time scales linearly with data/model size; cannot train large deep models or process TB-scale tabular data.",
+            "when_to_learn": "When single-GPU training exceeds 24 hours or model/data exceed GPU memory."
+          },
+          {
+            "topic": "Transfer learning & fine-tuning (vision, NLP, tabular)",
+            "consequence": "Cannot leverage pretrained foundations for vision/NLP; tabular transfer learning remains niche and less impactful.",
+            "when_to_learn": "When starting a vision/NLP project with limited labeled data — or when tabular pretrained models mature."
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 7300,
+        "out": 4886
+      },
+      "created_at": "2026-09-14T16:10:17+00:00"
+    },
+    {
+      "id": "764ca42a053a4253b54713397d1bd733",
+      "project_id": "8ee4b5cd-5fbb-4f58-88ef-58d1b6b0dd99",
+      "kind": "scope",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "efff620a1a63ab6c7fc4ab998c7cbfe8",
+      "output": {
+        "covered": [
+          {
+            "concept": "Python for ML ecosystem (NumPy, pandas, matplotlib, scikit-learn API)",
+            "depth": "work through",
+            "why": "Learner knows Python but not ML stack; hands-on fluency with arrays, DataFrames, and sklearn API is prerequisite for every subsequent step.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Supervised learning framing (classification vs regression)",
+            "depth": "explain",
+            "why": "Core mental model — determines task type, loss function, metric, and model family; conceptual clarity prevents category errors later.",
+            "anticipates": "false-comprehension"
+          },
+          {
+            "concept": "Train/validation/test split & cross-validation",
+            "depth": "work through",
+            "why": "Non-negotiable for credible evaluation; must implement stratified splits and k-fold CV to avoid leakage and variance underestimation.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Model evaluation metrics (accuracy, precision, recall, F1, ROC-AUC, RMSE, MAE)",
+            "depth": "work through",
+            "why": "Metric choice encodes business objective; must compute, interpret, and justify each for classification and regression.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Feature preprocessing (scaling, encoding, missing values, datetime, text)",
+            "depth": "work through",
+            "why": "Real data is messy; ColumnTransformer pipelines prevent train/serve skew — the #1 production failure mode.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Linear models (logistic/linear regression with regularization)",
+            "depth": "work through",
+            "why": "Interpretable baseline; regularization (L1/L2) teaches bias-variance tradeoff concretely; fast to train and debug.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Tree-based models (decision trees, random forests, gradient boosting)",
+            "depth": "work through",
+            "why": "Industry standard for tabular data; random forest gives strong baseline with minimal tuning; gradient boosting is SOTA.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Gradient boosting libraries (XGBoost, LightGBM, CatBoost)",
+            "depth": "work through",
+            "why": "CatBoost handles categoricals natively — highest leverage for weekend learner; must tune n_estimators, learning_rate, depth.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Hyperparameter tuning (grid search, random search, Bayesian optimization)",
+            "depth": "explain",
+            "why": "Random search + CV is learnable in hours and dramatically improves results; Bayesian is mention-only (Optuna demo).",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Model selection & comparison",
+            "depth": "work through",
+            "why": "Practical skill: compare 2-3 model families quickly, know what to try and when to stop; uses CV scores + training time.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Overfitting/underfitting diagnosis & regularization",
+            "depth": "explain",
+            "why": "Core diagnostic skill — learning curves, validation gaps, regularization paths; prevents silent production failures.",
+            "anticipates": "false-comprehension"
+          },
+          {
+            "concept": "Imbalanced data handling (resampling, class weights, threshold tuning)",
+            "depth": "work through",
+            "why": "Real production data is imbalanced; threshold tuning is high-ROI, zero-retrain technique; class_weight='balanced' is default.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Pipeline construction (sklearn Pipeline, ColumnTransformer)",
+            "depth": "work through",
+            "why": "Single most important production pattern — encapsulates preprocessing + model, prevents skew, enables serialization/serving.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Experiment tracking (MLflow, Weights & Biases, ClearML)",
+            "depth": "explain",
+            "why": "Lightweight local MLflow teaches reproducibility in 30 min; log params, metrics, artifacts — mental model for team scale.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Model serialization & versioning (joblib, ONNX, model registry)",
+            "depth": "work through",
+            "why": "joblib for sklearn, ONNX for portability; model registry concept (staging/production) is essential mental model.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Model serving patterns (REST API, batch inference, streaming, edge)",
+            "depth": "explain",
+            "why": "Must understand deployment targets; REST + batch covers 90% of cases; streaming/edge mentioned for awareness.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "API frameworks for ML (FastAPI, Flask, Triton, TorchServe)",
+            "depth": "work through",
+            "why": "FastAPI is Pythonic, async, auto-docs — teaches serving pattern in one file; Pydantic validates input schema.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Containerization for ML (Docker, multi-stage builds, GPU images)",
+            "depth": "work through",
+            "why": "Docker is universal deployment artifact; minimal multi-stage Dockerfile + .dockerignore teachable in 20 minutes.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Data validation & schema enforcement (Great Expectations, pandera, TFDV)",
+            "depth": "explain",
+            "why": "pandera/sklearn validation in 15 min prevents silent data drift failures; schema as contract between training and serving.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Responsible ML (fairness, interpretability, SHAP, LIME, privacy)",
+            "depth": "explain",
+            "why": "SHAP for tree models is fast to learn and essential for stakeholder trust; fairness/privacy mentioned as awareness.",
+            "anticipates": "abstraction-grounding"
+          }
+        ],
+        "cut": [
+          "Unsupervised learning framing (clustering, dimensionality reduction)",
+          "Feature engineering (interactions, polynomials, domain-specific, embeddings)",
+          "Neural network fundamentals (MLP, backprop, activation functions)",
+          "Deep learning frameworks (PyTorch, TensorFlow/Keras)",
+          "Orchestration & scheduling (Airflow, Prefect, Dagster, cron)",
+          "Monitoring: data drift, concept drift, model performance",
+          "Automated retraining & CI/CD for ML (GitHub Actions, GitLab CI, Jenkins)",
+          "A/B testing & canary deployments for models",
+          "Feature stores (Feast, Tecton, Hopsworks)",
+          "Model optimization (quantization, distillation, ONNX Runtime, TensorRT)",
+          "Distributed training & scaling (DDP, FSDP, Ray, Horovod)",
+          "Transfer learning & fine-tuning (vision, NLP, tabular)"
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 7300,
+        "out": 4886
+      },
+      "created_at": "2026-09-14T16:10:17+00:00"
+    },
+    {
+      "id": "bd22eed0a98943a8a56b70423aef4d86",
+      "project_id": "8ee4b5cd-5fbb-4f58-88ef-58d1b6b0dd99",
+      "kind": "partition",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "ec21ca9f30b46ef5160ce582caedd3df",
+      "output": {
+        "modules": [
+          {
+            "title": "Production ML End-to-End: From Data to Deployed Model",
+            "covers": [
+              "Python for ML ecosystem (NumPy, pandas, matplotlib, scikit-learn API)",
+              "Supervised learning framing (classification vs regression)",
+              "Train/validation/test split & cross-validation",
+              "Model evaluation metrics (accuracy, precision, recall, F1, ROC-AUC, RMSE, MAE)",
+              "Feature preprocessing (scaling, encoding, missing values, datetime, text)",
+              "Linear models (logistic/linear regression with regularization)",
+              "Tree-based models (decision trees, random forests, gradient boosting)",
+              "Gradient boosting libraries (XGBoost, LightGBM, CatBoost)",
+              "Hyperparameter tuning (grid search, random search, Bayesian optimization)",
+              "Model selection & comparison",
+              "Overfitting/underfitting diagnosis & regularization",
+              "Imbalanced data handling (resampling, class weights, threshold tuning)",
+              "Pipeline construction (sklearn Pipeline, ColumnTransformer)",
+              "Experiment tracking (MLflow, Weights & Biases, ClearML)",
+              "Model serialization & versioning (joblib, ONNX, model registry)",
+              "Model serving patterns (REST API, batch inference, streaming, edge)",
+              "API frameworks for ML (FastAPI, Flask, Triton, TorchServe)",
+              "Containerization for ML (Docker, multi-stage builds, GPU images)",
+              "Data validation & schema enforcement (Great Expectations, pandera, TFDV)",
+              "Responsible ML (fairness, interpretability, SHAP, LIME, privacy)"
+            ],
+            "why_here": "Single weekend capacity with zero ML background demands one contiguous learning arc — every concept builds toward the same deployed model artifact; the learner must internalize the full preprocessing → training → evaluation → packaging → serving chain in 48 hours, and no subset delivers the target capability alone.",
+            "capability": "Design, train, evaluate, and deploy a production-ready ML model end-to-end: frame a business problem as supervised learning, build a preprocessing+model pipeline with ColumnTransformer, compare linear/tree/boosting baselines with cross-validation, diagnose overfitting and handle imbalance, serialize the pipeline to joblib/ONNX, wrap it in a FastAPI service with Pydantic validation, containerize it with a multi-stage Dockerfile, and log experiments in MLflow — all on a real tabular dataset."
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 7300,
+        "out": 4886
+      },
+      "created_at": "2026-09-14T16:10:17+00:00"
+    }
+  ],
+  "commitment": []
+}
