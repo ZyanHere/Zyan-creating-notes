@@ -11,7 +11,7 @@ So the rule is narrow and absolute: nothing outside this module calls
 
 from __future__ import annotations
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from typing import Protocol
 
 
@@ -27,7 +27,7 @@ class SystemClock:
     __slots__ = ()
 
     def now(self) -> datetime:
-        return datetime.now(timezone.utc)
+        return datetime.now(UTC)
 
 
 class FrozenClock:
@@ -41,7 +41,7 @@ class FrozenClock:
     __slots__ = ("_now",)
 
     def __init__(self, start: datetime | None = None) -> None:
-        self._now = start or datetime(2026, 1, 1, tzinfo=timezone.utc)
+        self._now = start or datetime(2026, 1, 1, tzinfo=UTC)
 
     def now(self) -> datetime:
         return self._now

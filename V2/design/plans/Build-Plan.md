@@ -326,33 +326,91 @@ Every milestone answers the seven questions. Every milestone leaves a **runnable
 **User-visible capability** — none. This is the one milestone with no product outcome, and it is
 deliberately the only one.
 **Components** — all packages created empty; `core/identity` real.
-**Foundations introduced** — layout · import walls · config · structured logging · `/health` ·
-Postgres pool + migration runner · `Clock` port · CI · **`core/identity`** · immutability grants.
+**Foundations introduced** — layout · import walls · config · structured logging · `health()` ·
+`Clock` port · CI · **`core/identity`**.
 **Implemented** — `core/identity/{canonical,envelope,task_key,claim_key,member,content,fingerprint}.py`;
-`tests/test_boundaries.py` with the full FORBIDDEN table; `0001_init.sql` with `Project`, `Utterance`
-and their grants.
-**Demo** — `python -m backend.app` prints the banner (resolved model, renderer status), `/health`
-answers, a deliberately-injected bad import fails CI.
+`tests/test_boundaries.py` with the full FORBIDDEN table.
+**Demo** — `python -m backend.app` prints the banner (resolved model, renderer and database status),
+`health()` answers in-process, a deliberately-injected bad import fails CI.
 **Tests** — the §15.2 golden identity table **in both directions**;
 `test_three_key_constructions_are_disjoint`; `test_canonical_json_stable`; boundary test fails on an
-injected violation; append-only tables reject `UPDATE`/`DELETE` at the privilege level.
-**NOT yet** — any model call, any domain type beyond what identity hashes, Tasks, Claims, the Gateway.
+injected violation.
+**NOT yet** — any model call, any domain type beyond what identity hashes, Tasks, Claims, the Gateway,
+**anything touching Postgres**, and the HTTP surface (`health()` is a function here; the ASGI app that
+serves it at `/health` arrives with M1).
+
+> **Corrected.** This milestone previously claimed `0001_init.sql`, the Postgres pool, the migration
+> runner and the immutability grants. All four moved to **M1**, where the rest of the schema already
+> lived. They cannot be here: **D1 exists to gate the shape of M1's migration**, and a spike cannot gate
+> a migration that M0 has already written. `backend/api/health.py` had independently settled the same
+> question — it returns *"pool arrives with M1"*, and the banner prints it.
+
+### State, as of the first green gate run
+
+```
+layout · import walls · config · structured logging · Clock port   DONE
+import wall                       DONE - 9 tests, fails on an injected `import httpx`
+lint · format · types             GREEN - ruff 0.17, pyright 1.1.414 strict, 0 errors
+uv.lock                           generated, cross-platform, NOT YET COMMITTED
+CI                                written and audited; has NEVER EXECUTED (no commit exists)
+core/identity                     NOT STARTED   <- the remaining work in M0
+```
+
+**`uv.lock` must be committed before CI can pass at all.** The workflow sets `UV_FROZEN: "1"`, so a
+missing lockfile fails every job at `uv sync` — deliberately, because a CI run that resolves its own
+dependencies is not testing what gets deployed.
 
 ---
 
-## M1 · A project with a conversation
+## D1 · DBOS spike — a gate, not a milestone
 
-**User-visible capability** — create a project, send a message, see the transcript. No AI yet.
-**Components** — `client` · `backend` · Postgres.
-**Foundations** — `core/types` (the domain models) · `DecisionStore`/`SourceStore` ports ·
-`Utterance` append-only with `ord` slot-bump and `request_id` + fingerprint · `user_id` column
-(constant, *"one column to change"*).
-**Implemented** — `core/types/*`; `backend/api/conversation.py`; `store/pg/decisions.py` (utterances
-only); the client's conversation view.
-**Demo** — type three messages in the browser, reload, they are all there in order.
-**Tests** — `test_intake_retry_does_not_double_append` · `test_request_id_mismatch_returns_409` ·
-`test_concurrent_appends_get_distinct_ord` · utterances are immutable by privilege.
-**NOT yet** — any model call, intake, interpretation.
+**Half a day, after `core/identity` and before M1's migration.** See
+`Pre-Implementation-Decisions.md` §D1 for the six questions and the pre-committed decision rule.
+
+**Why it sits here rather than at M6:** a spike whose purpose is to inform a decision must precede the
+implementation, not follow it. And M1 writes `0001_init.sql` — if DBOS is adopted it keeps its own
+schema in the same database, and retrofitting that is a migration rather than an edit.
+
+**Outcome gates:** the shape of M1's migration, and whether `work/` is written at M6 at all. The Claim
+protocol survives every outcome.
+
+---
+
+## M1 · Log in, create a project, have a conversation
+
+**User-visible capability** — open MyNotes, **log in with the development account**, create a project,
+send messages, reload: the transcript is there and it belongs to you.
+**Components** — `client` · `backend/{auth,api}` · `ports/auth.py` · `store/pg` · Postgres.
+**Foundations** — `core/types` · **the authentication boundary** (`Principal`, `Authenticator`,
+`SessionStore`) · opaque session tokens, hashed at rest, in an httpOnly cookie ·
+**authorization on every project-scoped read** · `Utterance` append-only with `ord` slot-bump and
+`request_id` + fingerprint · `0001_init.sql` with immutability grants and an RLS-compatibility note ·
+**the Postgres pool** · **the migration runner** · **the ASGI app** — the last three inherited from M0,
+which could not hold them (see the correction note under M0).
+**Implemented** — `core/types/*`; `ports/auth.py`; `backend/auth/{dev,session}.py`;
+`backend/api/{deps,auth,conversation}.py`; `backend/api/asgi.py`; `backend/store/pg/pool.py`;
+`backend/store/migrate.py`; `store/pg/{sessions,decisions}.py`; `0001_init.sql`; the client's login and
+conversation views.
+
+**Those three module paths are already fixed by code that exists.** `Makefile`'s `migrate` target runs
+`python -m backend.store.migrate` and says *"runner arrives with M1"*; `backend/app.py` probes for
+`backend.api.asgi` and prints *"arrives with M1"*; `backend/api/health.py` reports *"pool arrives with
+M1."* The plan is being corrected to match three places that already agreed with each other.
+**Demo** — visit unauthenticated → login. Log in as the dev account. Create a project, type three
+messages, reload: all there. Log out: the session is gone **server-side** and the old cookie is refused.
+**Tests** — `test_unauthenticated_request_is_refused` ·
+`test_cannot_read_another_users_project` (→ **404**, not 403 — a 403 confirms existence) ·
+`test_logout_revokes_server_side` · `test_session_token_is_hashed_at_rest` ·
+`test_dev_authenticator_refuses_outside_local` · `test_intake_retry_does_not_double_append` ·
+`test_request_id_mismatch_returns_409` · `test_concurrent_appends_get_distinct_ord` ·
+utterances are immutable by privilege.
+**NOT yet** — any model call, registration, OAuth, roles, password reset, email, RLS enforcement.
+
+**Why auth is here and not deferred:** the frozen design already *requires* a principal — TD §13.4
+(*"a Task is readable and cancellable only by its project's owner"*), §4.2's `user_id` and
+`approved_by`, §13.1's *"every read path takes `(user_id, project_id)`"*. It specifies no **mechanism**.
+Building the mechanism now is implementing the design; retrofitting it later would thread an identity
+boundary through every handler and every store call. See `Pre-Implementation-Decisions.md` §D2.
 
 ---
 

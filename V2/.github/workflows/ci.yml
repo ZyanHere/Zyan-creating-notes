@@ -11,7 +11,17 @@ concurrency:
 
 env:
   # Every CI run is reproducible from the lockfile. No resolution happens here.
+  #
+  # This REQUIRES `uv.lock` to be committed. Without it every job fails at `uv sync`,
+  # which is the correct behaviour - a CI run that resolves its own dependencies is not
+  # testing the thing that will be deployed.
   UV_FROZEN: "1"
+
+  # Pinned, not inferred. `requires-python = ">=3.12"` lets uv pick any newer
+  # interpreter, so CI's Python would drift on uv's schedule rather than ours - and the
+  # first real finding of this project's gate run was a 3.14-only deprecation that only
+  # one interpreter would have surfaced. `.python-version` holds the same pin locally.
+  UV_PYTHON: "3.14"
 
 jobs:
   # Fast gate. Fails in seconds on a style or type error so the slower job is not
@@ -22,22 +32,22 @@ jobs:
       run:
         working-directory: V2
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: astral-sh/setup-uv@v3
+      - uses: astral-sh/setup-uv@v10
         with:
           enable-cache: true
 
       - name: install
         run: uv sync --all-extras
 
-      - name: ruff — lint
+      - name: ruff - lint
         run: uv run ruff check --output-format=github .
 
-      - name: ruff — format
+      - name: ruff - format
         run: uv run ruff format --check .
 
-      - name: pyright — strict
+      - name: pyright - strict
         run: uv run pyright
 
   # The boundary wall is its own job on purpose. It is the one test whose failure is
@@ -49,8 +59,8 @@ jobs:
       run:
         working-directory: V2
     steps:
-      - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v3
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10
         with:
           enable-cache: true
       - run: uv sync --all-extras
@@ -80,20 +90,23 @@ jobs:
       DB_URL: postgresql://postgres:postgres@localhost:5432/mynotes_v2
       APP_ENV: ci
     steps:
-      - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v3
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10
         with:
           enable-cache: true
       - run: uv sync --all-extras
 
-      # Not `-m "not slow"`. A skipped concurrency test is a concurrency test that
-      # does not exist, and those are the ones that must never be skipped.
+      # The two steps below run EVERYTHING between them. `db`-marked tests are excluded
+      # by neither: a skipped concurrency test is a concurrency test that does not
+      # exist, and those are the ones that must never be skipped.
       - name: pytest
         run: uv run pytest --cov --cov-report=term-missing -m "not slow"
 
-      - name: slow — browser and provider-stubbed paths
-        run: uv run pytest -m slow
-        # Playwright's browser is a separate download; until the engine lands (M5)
-        # there is nothing marked slow, and this step is a no-op that becomes real
-        # rather than a step someone has to remember to add.
-        continue-on-error: true
+      # `|| [ $? -eq 5 ]` instead of `continue-on-error`. Playwright's browser is a
+      # separate download and nothing is marked slow until the engine lands at M5, so
+      # pytest exits 5 ("no tests ran") today and that is the ONE acceptable failure.
+      # `continue-on-error: true` would also swallow a genuine slow-test failure from
+      # M5 onward, and nobody would remember to remove it - which is the exact trap
+      # this step was written to avoid for itself.
+      - name: slow - browser and provider-stubbed paths
+        run: uv run pytest -m slow || [ $? -eq 5 ]

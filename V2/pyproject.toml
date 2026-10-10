@@ -25,10 +25,18 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "pytest>=8.3,<9",
-    "pytest-asyncio>=0.24,<1",
+    # 1.x, not 0.26: the 0.x line calls `asyncio.get_event_loop_policy()`, which 3.14
+    # deprecates, and `filterwarnings = ["error"]` turns that into a failure in EVERY
+    # test. Either the bound moves or the warning policy weakens, and the warning policy
+    # is the more valuable of the two.
+    "pytest-asyncio>=1.0,<2",
     "pytest-cov>=5,<7",
     "ruff>=0.7,<1",
     "pyright>=1.1.385,<2",
+    # hypothesis belongs here and is NOT here yet. Its compiled `_native` extension is
+    # blocked by Smart App Control on the dev machine, and because pytest loads its
+    # plugin through entry points, merely installing it fails the whole suite. It goes
+    # in with the first property test, once the dev environment can load it.
 ]
 
 [build-system]

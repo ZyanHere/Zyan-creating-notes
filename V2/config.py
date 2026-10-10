@@ -75,9 +75,7 @@ class Server(BaseSettings):
     # working server still thinking. This is not a tuning knob.
     timeout_keep_alive: int = Field(default=900, ge=60)
 
-    cors_origins: list[str] = Field(
-        default=["http://localhost:3000", "http://127.0.0.1:3000"]
-    )
+    cors_origins: list[str] = Field(default=["http://localhost:3000", "http://127.0.0.1:3000"])
 
     @field_validator("cors_origins", mode="before")
     @classmethod
@@ -95,7 +93,15 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
-    env: Literal["local", "ci", "staging", "production"] = "local"
+    # `APP_ENV`, not `ENV`. Without the alias pydantic-settings reads the bare field
+    # name, so `.env.example` and CI both documented `APP_ENV` while the process
+    # silently stayed `local` -- the failure mode where the guard rail reports that it
+    # is armed. An alias rather than `env_prefix="APP_"` because the prefix would also
+    # rename ACCESS_CODE, which nothing asked for. `ENV` is additionally a bad name to
+    # own: Docker and several PaaS layers set it.
+    env: Literal["local", "ci", "staging", "production"] = Field(
+        default="local", validation_alias="APP_ENV"
+    )
 
     database: Database = Field(default_factory=Database)
     provider: Provider = Field(default_factory=Provider)

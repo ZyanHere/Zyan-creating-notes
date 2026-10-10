@@ -50,6 +50,7 @@ def error(event: str, **fields: Any) -> None:
 
 # ── the questions the design requires an answer to ────────────────────────────────
 
+
 def derivation(
     *,
     result_domain: str,
@@ -122,5 +123,9 @@ def task_transition(
     """Answers: where did the time go?"""
     info(
         "task_transition",
-        task_id=task_id, kind=kind, state=state, epoch=epoch, reason=reason,
+        task_id=task_id,
+        kind=kind,
+        state=state,
+        epoch=epoch,
+        reason=reason,
     )

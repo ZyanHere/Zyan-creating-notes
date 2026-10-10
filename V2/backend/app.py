@@ -10,6 +10,8 @@ no serverless timeout enters the path.
 
 from __future__ import annotations
 
+import importlib.util
+import json
 import os
 import socket
 import sys
@@ -20,6 +22,9 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 os.chdir(ROOT)
 
+# Both of these must follow the sys.path insert above, which is the whole reason this
+# file can be run as a script and not only as a module.
+from backend.api.health import health  # noqa: E402
 from config import settings  # noqa: E402
 
 
@@ -38,8 +43,6 @@ def _alternative_port_command(port: int) -> str:
 
 
 def _banner() -> None:
-    from backend.api.health import health
-
     status = health()
     renderer = status["renderer"]
     database = status["database"]
@@ -47,8 +50,10 @@ def _banner() -> None:
 
     print()
     print(f"  backend running   {base}")
-    print(f"  model             {status['model']}"
-          f"{'' if status['provider_configured'] else '   (NO API KEY SET)'}")
+    print(
+        f"  model             {status['model']}"
+        f"{'' if status['provider_configured'] else '   (NO API KEY SET)'}"
+    )
     print(f"  renderer          {renderer['state']} - {renderer['detail']}")
     print(f"  database          {database['state']} - {database['detail']}")
     print()
@@ -68,19 +73,20 @@ def main() -> int:
     _banner()
 
     try:
-        import uvicorn
+        import uvicorn  # noqa: PLC0415  -- deferred on purpose: see the fallback below
     except ImportError:
-        print("  uvicorn is not installed yet — the ASGI app arrives with M1.")
+        print("  uvicorn is not installed yet - the ASGI app arrives with M1.")
         print("  the skeleton is importable and /health is a function you can call:\n")
-        from backend.api.health import health
-        import json
         print("     ", json.dumps(health(), indent=2).replace("\n", "\n      "))
         print()
         return 0
 
-    try:
-        from backend.api.asgi import app  # noqa: F401
-    except ImportError:
+    # find_spec, not an import: we never want the symbol, only the answer to "does the
+    # module exist yet". uvicorn is handed the string below and does its own importing,
+    # so importing it here would have been a probe wearing an import's clothes -- and a
+    # probe that a type checker is right to reject, because at M0 the module genuinely
+    # is not there.
+    if importlib.util.find_spec("backend.api.asgi") is None:
         print("  no ASGI app yet - backend/api/asgi.py arrives with M1.\n")
         return 0
 

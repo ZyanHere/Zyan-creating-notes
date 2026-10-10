@@ -35,6 +35,7 @@ pinning fonts, not here.
 from __future__ import annotations
 
 import ast
+import importlib
 from pathlib import Path
 
 import pytest
@@ -44,6 +45,11 @@ ROOT = Path(__file__).resolve().parents[1]
 PACKAGES = ("core", "ports", "agent", "engine", "backend", "obs")
 
 # A package may not import any of these, at any depth.
+#
+# `fmt: off` because this is a table, not a list. The formatter would put one string per
+# line -- 100 lines where 40 read as a grid, and reading it as a grid is the point: the
+# architecture is legible here or nowhere.
+# fmt: off
 FORBIDDEN: dict[str, tuple[str, ...]] = {
     # Pure. No I/O, no infrastructure, no siblings. The whole point.
     #
@@ -85,6 +91,7 @@ FORBIDDEN: dict[str, tuple[str, ...]] = {
         "agent", "engine", "backend", "core",
     ),
 }
+# fmt: on
 
 # `backend` is allowed the bare `import engine` / `import agent` / `import core` --
 # coordinating them is the point. What it may not do is reach a provider outside the
@@ -132,9 +139,8 @@ def test_package_imports_nothing_forbidden(package: str) -> None:
                 if _violates(imported, bad):
                     offences.append(f"{path.relative_to(ROOT)} imports {imported!r}")
 
-    assert not offences, (
-        f"{package}/ broke its boundary:\n  " + "\n  ".join(sorted(offences))
-    )
+    detail = "\n  ".join(sorted(offences))
+    assert not offences, f"{package}/ broke its boundary:\n  {detail}"
 
 
 def test_only_the_gateway_reaches_a_provider() -> None:
@@ -155,9 +161,8 @@ def test_only_the_gateway_reaches_a_provider() -> None:
                 if _violates(imported, sdk):
                     offences.append(f"{rel} imports {imported!r}")
 
-    assert not offences, (
-        "only backend/gateway may reach a provider:\n  " + "\n  ".join(sorted(offences))
-    )
+    detail = "\n  ".join(sorted(offences))
+    assert not offences, f"only backend/gateway may reach a provider:\n  {detail}"
 
 
 def test_core_is_importable_without_anything_else() -> None:
@@ -166,8 +171,6 @@ def test_core_is_importable_without_anything_else() -> None:
     If this passes while the package is empty it proves nothing; it starts biting the
     moment core/identity exists, which is the next task.
     """
-    import importlib
-
     importlib.import_module("core")
 
 
