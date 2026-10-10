@@ -1,0 +1,28 @@
+# Local Postgres only.
+#
+# Not the application. The app runs on the host (`make run`) because the claim
+# protocol's tests need a real database and nothing else, and containerising the app
+# during development buys a rebuild on every edit.
+#
+# The image is pinned to a major version on purpose: the claim protocol depends on
+# `INSERT ... ON CONFLICT ... DO UPDATE ... WHERE` and on NULL-distinctness in UNIQUE
+# constraints, so "whatever postgres is latest" is not a safe input.
+
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: mynotes_v2
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  pgdata:

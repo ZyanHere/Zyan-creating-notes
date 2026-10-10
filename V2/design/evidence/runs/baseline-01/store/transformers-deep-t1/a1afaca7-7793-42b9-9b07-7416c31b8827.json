@@ -1,0 +1,233 @@
+{
+  "project": {
+    "id": "a1afaca7-7793-42b9-9b07-7416c31b8827",
+    "user_id": "local",
+    "title": "i want to properly understand transformers, not just the high level stuff. i've ",
+    "taxonomy_version": "plan-gate-1",
+    "created_at": "2026-09-25T15:34:03+00:00"
+  },
+  "utterance": [
+    {
+      "id": "a2d730e2-15ce-4049-b9fe-0201eb551b9f",
+      "project_id": "a1afaca7-7793-42b9-9b07-7416c31b8827",
+      "ord": 0,
+      "role": "user",
+      "text": "i want to properly understand transformers, not just the high level stuff. i've done linear algebra and i can read pytorch",
+      "created_at": "2026-09-25T15:34:03+00:00"
+    }
+  ],
+  "decision": [
+    {
+      "id": "cb5d6c5e23e741db9924efad0512f647",
+      "project_id": "a1afaca7-7793-42b9-9b07-7416c31b8827",
+      "kind": "interpret_situation",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "d3438f81796c146f2d063de0369c9932",
+      "output": {
+        "subject": "Transformer architecture (deep technical understanding)",
+        "job": "construct",
+        "entry_point": "Linear algebra proficiency; can read PyTorch code",
+        "purpose": "Build deep, working understanding of transformer internals — attention, positional encoding, layer norm, residuals, training dynamics — not just conceptual overview",
+        "target_capability": "Can derive attention mechanics, implement transformer components from scratch in PyTorch, debug training issues, and reason about architectural variants (e.g. RoPE, ALiBi, grouped-query attention)",
+        "capacity": null,
+        "stated": [
+          {
+            "text": "not just the high level stuff",
+            "axis": "depth_register"
+          },
+          {
+            "text": "i've done linear algebra",
+            "axis": "entry_point"
+          },
+          {
+            "text": "i can read pytorch",
+            "axis": "entry_point"
+          }
+        ],
+        "inferred": [
+          "Wants mathematical formalism alongside implementation",
+          "Wants to understand training dynamics (gradients, initialization, stability)",
+          "Interested in modern variants beyond vanilla attention",
+          "Artifact should be executable/derivable — code + math, not prose only"
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "interpret_v1",
+      "cost": {
+        "in": 3170,
+        "out": 1342
+      },
+      "created_at": "2026-09-25T15:35:12+00:00"
+    },
+    {
+      "id": "39662be3fcb048d0ba0a0a2eb740da1e",
+      "project_id": "a1afaca7-7793-42b9-9b07-7416c31b8827",
+      "kind": "intake_strategy",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "92ea3c61d5166fe20643747e2e82568f",
+      "output": {
+        "questions": [],
+        "sufficiency": {
+          "verdict": "sufficient",
+          "budget": 4,
+          "asking": [],
+          "over_budget": [],
+          "axes": [
+            {
+              "axis": "subject",
+              "value": "Transformer architecture (deep technical understanding)",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "transformers"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If subject were 'LLM applications' or 'prompt engineering', plan would drop all math/implementation and focus on API usage patterns",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "purpose",
+              "value": "Build deep, working understanding of transformer internals",
+              "strength": "inferred",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "properly understand"
+                },
+                {
+                  "utterance_ord": 0,
+                  "quote": "not just the high level stuff"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If purpose were 'pass an exam', plan would prioritize canonical derivations and skip modern variants; if 'ship a feature', plan would prioritize HF/Triton patterns over from-scratch",
+              "askable": true,
+              "asked": false,
+              "reason": "inferred, supported by 'properly understand' · 'not just the high level stuff'"
+            },
+            {
+              "axis": "entry_point",
+              "value": "Linear algebra proficiency; can read PyTorch code",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "i've done linear algebra"
+                },
+                {
+                  "utterance_ord": 0,
+                  "quote": "i can read pytorch"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If no linear algebra, need 3-4 foundational units on eigendecomp, SVD, matrix calculus; if no PyTorch, need tensor-shaped thinking + autograd basics before any transformer code",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "target_capability",
+              "value": "Can derive attention mechanics, implement transformer components from scratch in PyTorch, debug training issues, and reason about architectural variants",
+              "strength": "inferred",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "properly understand"
+                },
+                {
+                  "utterance_ord": 0,
+                  "quote": "not just the high level stuff"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If target were 'explain to colleague', plan would emphasize intuition/analogies over derivations; if 'write a paper', plan would emphasize theoretical proofs and citations",
+              "askable": true,
+              "asked": false,
+              "reason": "inferred, supported by 'properly understand' · 'not just the high level stuff'"
+            },
+            {
+              "axis": "capacity",
+              "value": null,
+              "strength": "unknown",
+              "verified": [],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If they have 2 weeks vs 6 months, depth allocation across attention/FFN/training-stability/variants shifts dramatically",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Semantics §1 LOCKED — optional, and the corollary: deriving the plan and reporting its extent is what CAUSES a capacity to be stated. Asking upfront asks for a number the learner cannot honestly give."
+            },
+            {
+              "axis": "depth_register",
+              "value": "Deep — mathematical derivations + from-scratch implementation",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "not just the high level stuff"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If 'high-level + code pointers', plan would skip softmax Jacobian, initialization schemes, and kernel-level details; if 'theory-only', plan would drop all PyTorch implementations",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Semantics §1 — biasing, not binding. A default is always defensible."
+            },
+            {
+              "axis": "artifact_type",
+              "value": "Interactive notebook-style guide: math derivations + runnable PyTorch implementations + debugging exercises",
+              "strength": "inferred",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "i can read pytorch"
+                },
+                {
+                  "utterance_ord": 0,
+                  "quote": "properly understand"
+                }
+              ],
+              "unverified": [],
+              "material": false,
+              "would_differ": "If 'cheatsheet', plan would compress to formulas + one-liners; if 'video script', plan would linearize and add narrative beats; if 'lecture notes', plan would add 'why this matters' boxes and further reading",
+              "askable": true,
+              "asked": false,
+              "reason": "inferred, supported by 'i can read pytorch' · 'properly understand'"
+            },
+            {
+              "axis": "template",
+              "value": null,
+              "strength": "unknown",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "If they want 'minimal nanoGPT style' vs 'annotated paper-reproduction style', file structure and comment density differ",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Presentation-Boundary rule 1 — internal. Users never select one."
+            }
+          ]
+        }
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "interpret_v1",
+      "cost": {
+        "in": 3170,
+        "out": 1342
+      },
+      "created_at": "2026-09-25T15:35:12+00:00"
+    }
+  ],
+  "commitment": []
+}

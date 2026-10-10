@@ -1,0 +1,331 @@
+{
+  "case_id": "dsa-graphs-interview",
+  "case_title": "Graph DSA — interview cheat sheet",
+  "trial": 1,
+  "phase": "plan",
+  "stub": false,
+  "started_at": "2026-09-25T16:06:23+00:00",
+  "request": "cheat sheet for graph dsa questions for my interview next month",
+  "baseline": {
+    "repo": "D:\\myNotes\\V1",
+    "commit": "8735d787e7b258cb735d854bc395c25abc3e6c98",
+    "subject": "feat: implement approval gate for plans with unassigned concepts",
+    "source_hash": "807c8ec99a60d320e745e8ac208b8c7f690ebd273b3930f6680688d159cda116",
+    "source_files": 38,
+    "matches_baseline": true
+  },
+  "provider": {
+    "name": "openrouter",
+    "model": "nvidia/nemotron-3-ultra-550b-a55b:free"
+  },
+  "stages": [
+    "create",
+    "intake",
+    "plan"
+  ],
+  "failure": {
+    "stage": "plan",
+    "type": "ValueError",
+    "message": "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free produced invalid output twice for derive_v1.\nfirst:  1 validation error for Landscape\n  Invalid JSON: EOF while parsing a value at line 1 column 0 [type=json_invalid, input_value='', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/json_invalid\nsecond: 1 validation error for Landscape\nrelevance\n  Field required [type=missing, input_value={'derive_structure': {'co...': 'interview skill'}]}}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/missing",
+    "traceback": "Traceback (most recent call last):\n  File \"D:\\myNotes\\V1\\agent\\plan.py\", line 619, in _call\n    return model.model_validate_json(_strip_fence(retry.text)), Completion(\n           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Asus\\AppData\\Roaming\\Python\\Python314\\site-packages\\pydantic\\main.py\", line 782, in model_validate_json\n    return cls.__pydantic_validator__.validate_json(\n           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        json_data, strict=strict, extra=extra, context=context, by_alias=by_alias, by_name=by_name\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\npydantic_core._pydantic_core.ValidationError: 1 validation error for Landscape\nrelevance\n  Field required [type=missing, input_value={'derive_structure': {'co...': 'interview skill'}]}}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/missing\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"D:\\myNotes\\V2\\harness\\run.py\", line 122, in run_trial\n    view = service.proceed(view.project_id)\n  File \"D:\\myNotes\\V1\\backend\\planning.py\", line 317, in proceed\n    self._plan(project_id)\n    ~~~~~~~~~~^^^^^^^^^^^^\n  File \"D:\\myNotes\\V1\\backend\\planning.py\", line 515, in _plan\n    landscape_call = planning.derive(situation, provider=self.provider)\n  File \"D:\\myNotes\\V1\\agent\\plan.py\", line 532, in derive\n    result, completion = _call(provider, PROMPT_DERIVE, user, Landscape)\n                         ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\myNotes\\V1\\agent\\plan.py\", line 627, in _call\n    raise ValueError(\n    ...<2 lines>...\n    ) from second\nValueError: openrouter/nvidia/nemotron-3-ultra-550b-a55b:free produced invalid output twice for derive_v1.\nfirst:  1 validation error for Landscape\n  Invalid JSON: EOF while parsing a value at line 1 column 0 [type=json_invalid, input_value='', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/json_invalid\nsecond: 1 validation error for Landscape\nrelevance\n  Field required [type=missing, input_value={'derive_structure': {'co...': 'interview skill'}]}}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/missing\n"
+  },
+  "project_id": "82a86ead-d1eb-44fe-9b9f-ae0d3acb37b3",
+  "after_create": {
+    "state": "asking",
+    "verdict": "ask",
+    "budget": 4,
+    "asking": [
+      "entry_point",
+      "target_capability"
+    ],
+    "over_budget": [],
+    "questions_written": 2,
+    "questions": [
+      {
+        "axis": "entry_point",
+        "question": "How comfortable are you writing graph algorithms from memory right now?",
+        "options": [
+          "Can write BFS/DFS/Dijkstra cold",
+          "Know the logic but forget syntax details",
+          "Need a refresher on the algorithms themselves"
+        ],
+        "default_label": "Know the logic but forget syntax details"
+      },
+      {
+        "axis": "target_capability",
+        "question": "What does \"interview-ready\" look like for you?",
+        "options": [
+          "Implement from scratch in 20–25 min",
+          "Modify a given starter implementation",
+          "Explain approach and complexity verbally"
+        ],
+        "default_label": "Implement from scratch in 20–25 min"
+      }
+    ],
+    "axes": [
+      {
+        "axis": "subject",
+        "value": "Graph data structures and algorithms for technical interview questions",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "purpose",
+        "value": "Prepare for technical interviews occurring within the next month",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "entry_point",
+        "value": "Assumes working knowledge of basic graph representations (adjacency list/matrix), traversal (BFS/DFS), and common algorithms (Dijkstra, topological sort, Union-Find); needs pattern recognition and implementation recall",
+        "strength": "guessed",
+        "material": true,
+        "asked": true,
+        "verified_spans": 0,
+        "discarded_spans": 1,
+        "reason": "weak (guessed) and a different answer would change the plan · discarded unverifiable support: ['cheat sheet for graph dsa questions for my interview']"
+      },
+      {
+        "axis": "target_capability",
+        "value": "Recognize graph problem patterns, select and implement correct algorithm, state time/space complexity, and handle edge cases under interview conditions",
+        "strength": "guessed",
+        "material": true,
+        "asked": true,
+        "verified_spans": 0,
+        "discarded_spans": 1,
+        "reason": "weak (guessed) and a different answer would change the plan · discarded unverifiable support: ['cheat sheet for graph dsa questions for my interview next month']"
+      },
+      {
+        "axis": "capacity",
+        "value": "Approximately one month until interviews; cheat sheet format implies need for condensed, high-yield reference",
+        "strength": "stated",
+        "material": false,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "never asked — Semantics §1 LOCKED — optional, and the corollary: deriving the plan and reporting its extent is what CAUSES a capacity to be stated. Asking upfront asks for a number the learner cannot honestly give."
+      },
+      {
+        "axis": "depth_register",
+        "value": "Condensed reference — pattern signatures, algorithm templates, complexity tables, edge-case checklists; no proofs, derivations, or extended explanations",
+        "strength": "inferred",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "never asked — Semantics §1 — biasing, not binding. A default is always defensible."
+      },
+      {
+        "axis": "artifact_type",
+        "value": "Cheat sheet",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "template",
+        "value": null,
+        "strength": "unknown",
+        "material": false,
+        "asked": false,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "never asked — Presentation-Boundary rule 1 — internal. Users never select one."
+      }
+    ],
+    "weak_axes": [
+      "entry_point",
+      "target_capability",
+      "template"
+    ],
+    "guessed_but_material": [
+      "entry_point",
+      "target_capability"
+    ]
+  },
+  "intake_turns": 0,
+  "intake_answers_unused": 0,
+  "intake": {
+    "state": "asking",
+    "verdict": "ask",
+    "budget": 4,
+    "asking": [
+      "entry_point",
+      "target_capability"
+    ],
+    "over_budget": [],
+    "questions_written": 2,
+    "questions": [
+      {
+        "axis": "entry_point",
+        "question": "How comfortable are you writing graph algorithms from memory right now?",
+        "options": [
+          "Can write BFS/DFS/Dijkstra cold",
+          "Know the logic but forget syntax details",
+          "Need a refresher on the algorithms themselves"
+        ],
+        "default_label": "Know the logic but forget syntax details"
+      },
+      {
+        "axis": "target_capability",
+        "question": "What does \"interview-ready\" look like for you?",
+        "options": [
+          "Implement from scratch in 20–25 min",
+          "Modify a given starter implementation",
+          "Explain approach and complexity verbally"
+        ],
+        "default_label": "Implement from scratch in 20–25 min"
+      }
+    ],
+    "axes": [
+      {
+        "axis": "subject",
+        "value": "Graph data structures and algorithms for technical interview questions",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "purpose",
+        "value": "Prepare for technical interviews occurring within the next month",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "entry_point",
+        "value": "Assumes working knowledge of basic graph representations (adjacency list/matrix), traversal (BFS/DFS), and common algorithms (Dijkstra, topological sort, Union-Find); needs pattern recognition and implementation recall",
+        "strength": "guessed",
+        "material": true,
+        "asked": true,
+        "verified_spans": 0,
+        "discarded_spans": 1,
+        "reason": "weak (guessed) and a different answer would change the plan · discarded unverifiable support: ['cheat sheet for graph dsa questions for my interview']"
+      },
+      {
+        "axis": "target_capability",
+        "value": "Recognize graph problem patterns, select and implement correct algorithm, state time/space complexity, and handle edge cases under interview conditions",
+        "strength": "guessed",
+        "material": true,
+        "asked": true,
+        "verified_spans": 0,
+        "discarded_spans": 1,
+        "reason": "weak (guessed) and a different answer would change the plan · discarded unverifiable support: ['cheat sheet for graph dsa questions for my interview next month']"
+      },
+      {
+        "axis": "capacity",
+        "value": "Approximately one month until interviews; cheat sheet format implies need for condensed, high-yield reference",
+        "strength": "stated",
+        "material": false,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "never asked — Semantics §1 LOCKED — optional, and the corollary: deriving the plan and reporting its extent is what CAUSES a capacity to be stated. Asking upfront asks for a number the learner cannot honestly give."
+      },
+      {
+        "axis": "depth_register",
+        "value": "Condensed reference — pattern signatures, algorithm templates, complexity tables, edge-case checklists; no proofs, derivations, or extended explanations",
+        "strength": "inferred",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "never asked — Semantics §1 — biasing, not binding. A default is always defensible."
+      },
+      {
+        "axis": "artifact_type",
+        "value": "Cheat sheet",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "template",
+        "value": null,
+        "strength": "unknown",
+        "material": false,
+        "asked": false,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "never asked — Presentation-Boundary rule 1 — internal. Users never select one."
+      }
+    ],
+    "weak_axes": [
+      "entry_point",
+      "target_capability",
+      "template"
+    ],
+    "guessed_but_material": [
+      "entry_point",
+      "target_capability"
+    ]
+  },
+  "finished_at": "2026-09-25T16:45:40+00:00",
+  "seconds_total": 2356.96,
+  "seconds_by_stage": {
+    "create": 91.16,
+    "intake": 0.0,
+    "plan": 64116.5585657
+  },
+  "cost": {
+    "model_calls": 4,
+    "failed_calls": 0,
+    "input_tokens": 7819,
+    "output_tokens": 5307,
+    "seconds": 2355.3,
+    "calls": [
+      {
+        "ok": true,
+        "seconds": 55.22,
+        "input_tokens": 3156,
+        "output_tokens": 1689,
+        "schema": "Reading",
+        "error": null
+      },
+      {
+        "ok": true,
+        "seconds": 35.93,
+        "input_tokens": 1345,
+        "output_tokens": 876,
+        "schema": "Intake",
+        "error": null
+      },
+      {
+        "ok": true,
+        "seconds": 1797.78,
+        "input_tokens": 1614,
+        "output_tokens": 963,
+        "schema": "Landscape",
+        "error": null
+      },
+      {
+        "ok": true,
+        "seconds": 466.37,
+        "input_tokens": 1704,
+        "output_tokens": 1779,
+        "schema": "Landscape",
+        "error": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,271 @@
+{
+  "case_id": "transformers-deep",
+  "case_title": "Transformers — deep understanding",
+  "trial": 1,
+  "phase": "plan",
+  "stub": false,
+  "started_at": "2026-09-25T15:34:03+00:00",
+  "request": "i want to properly understand transformers, not just the high level stuff. i've done linear algebra and i can read pytorch",
+  "baseline": {
+    "repo": "D:\\myNotes\\V1",
+    "commit": "8735d787e7b258cb735d854bc395c25abc3e6c98",
+    "subject": "feat: implement approval gate for plans with unassigned concepts",
+    "source_hash": "807c8ec99a60d320e745e8ac208b8c7f690ebd273b3930f6680688d159cda116",
+    "source_files": 38,
+    "matches_baseline": true
+  },
+  "provider": {
+    "name": "openrouter",
+    "model": "nvidia/nemotron-3-ultra-550b-a55b:free"
+  },
+  "stages": [
+    "create",
+    "intake",
+    "plan"
+  ],
+  "failure": {
+    "stage": "plan",
+    "type": "ValueError",
+    "message": "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free produced invalid output twice for derive_v1.\nfirst:  1 validation error for Landscape\n  Invalid JSON: EOF while parsing a value at line 1 column 0 [type=json_invalid, input_value='', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/json_invalid\nsecond: 1 validation error for Landscape\n  Invalid JSON: EOF while parsing a value at line 1 column 0 [type=json_invalid, input_value='', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/json_invalid",
+    "traceback": "Traceback (most recent call last):\n  File \"D:\\myNotes\\V1\\agent\\plan.py\", line 619, in _call\n    return model.model_validate_json(_strip_fence(retry.text)), Completion(\n           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Asus\\AppData\\Roaming\\Python\\Python314\\site-packages\\pydantic\\main.py\", line 782, in model_validate_json\n    return cls.__pydantic_validator__.validate_json(\n           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        json_data, strict=strict, extra=extra, context=context, by_alias=by_alias, by_name=by_name\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\npydantic_core._pydantic_core.ValidationError: 1 validation error for Landscape\n  Invalid JSON: EOF while parsing a value at line 1 column 0 [type=json_invalid, input_value='', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/json_invalid\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"D:\\myNotes\\V2\\harness\\run.py\", line 122, in run_trial\n    view = service.proceed(view.project_id)\n  File \"D:\\myNotes\\V1\\backend\\planning.py\", line 317, in proceed\n    self._plan(project_id)\n    ~~~~~~~~~~^^^^^^^^^^^^\n  File \"D:\\myNotes\\V1\\backend\\planning.py\", line 515, in _plan\n    landscape_call = planning.derive(situation, provider=self.provider)\n  File \"D:\\myNotes\\V1\\agent\\plan.py\", line 532, in derive\n    result, completion = _call(provider, PROMPT_DERIVE, user, Landscape)\n                         ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\myNotes\\V1\\agent\\plan.py\", line 627, in _call\n    raise ValueError(\n    ...<2 lines>...\n    ) from second\nValueError: openrouter/nvidia/nemotron-3-ultra-550b-a55b:free produced invalid output twice for derive_v1.\nfirst:  1 validation error for Landscape\n  Invalid JSON: EOF while parsing a value at line 1 column 0 [type=json_invalid, input_value='', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/json_invalid\nsecond: 1 validation error for Landscape\n  Invalid JSON: EOF while parsing a value at line 1 column 0 [type=json_invalid, input_value='', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/json_invalid\n"
+  },
+  "project_id": "a1afaca7-7793-42b9-9b07-7416c31b8827",
+  "after_create": {
+    "state": "ready",
+    "verdict": "sufficient",
+    "budget": 4,
+    "asking": [],
+    "over_budget": [],
+    "questions_written": 0,
+    "questions": [],
+    "axes": [
+      {
+        "axis": "subject",
+        "value": "Transformer architecture (deep technical understanding)",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "purpose",
+        "value": "Build deep, working understanding of transformer internals",
+        "strength": "inferred",
+        "material": true,
+        "asked": false,
+        "verified_spans": 2,
+        "discarded_spans": 0,
+        "reason": "inferred, supported by 'properly understand' · 'not just the high level stuff'"
+      },
+      {
+        "axis": "entry_point",
+        "value": "Linear algebra proficiency; can read PyTorch code",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 2,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "target_capability",
+        "value": "Can derive attention mechanics, implement transformer components from scratch in PyTorch, debug training issues, and reason about architectural variants",
+        "strength": "inferred",
+        "material": true,
+        "asked": false,
+        "verified_spans": 2,
+        "discarded_spans": 0,
+        "reason": "inferred, supported by 'properly understand' · 'not just the high level stuff'"
+      },
+      {
+        "axis": "capacity",
+        "value": null,
+        "strength": "unknown",
+        "material": true,
+        "asked": false,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "never asked — Semantics §1 LOCKED — optional, and the corollary: deriving the plan and reporting its extent is what CAUSES a capacity to be stated. Asking upfront asks for a number the learner cannot honestly give."
+      },
+      {
+        "axis": "depth_register",
+        "value": "Deep — mathematical derivations + from-scratch implementation",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "never asked — Semantics §1 — biasing, not binding. A default is always defensible."
+      },
+      {
+        "axis": "artifact_type",
+        "value": "Interactive notebook-style guide: math derivations + runnable PyTorch implementations + debugging exercises",
+        "strength": "inferred",
+        "material": false,
+        "asked": false,
+        "verified_spans": 2,
+        "discarded_spans": 0,
+        "reason": "inferred, supported by 'i can read pytorch' · 'properly understand'"
+      },
+      {
+        "axis": "template",
+        "value": null,
+        "strength": "unknown",
+        "material": false,
+        "asked": false,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "never asked — Presentation-Boundary rule 1 — internal. Users never select one."
+      }
+    ],
+    "weak_axes": [
+      "capacity",
+      "template"
+    ],
+    "guessed_but_material": [
+      "capacity"
+    ]
+  },
+  "intake_turns": 0,
+  "intake_answers_unused": 0,
+  "intake": {
+    "state": "ready",
+    "verdict": "sufficient",
+    "budget": 4,
+    "asking": [],
+    "over_budget": [],
+    "questions_written": 0,
+    "questions": [],
+    "axes": [
+      {
+        "axis": "subject",
+        "value": "Transformer architecture (deep technical understanding)",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "purpose",
+        "value": "Build deep, working understanding of transformer internals",
+        "strength": "inferred",
+        "material": true,
+        "asked": false,
+        "verified_spans": 2,
+        "discarded_spans": 0,
+        "reason": "inferred, supported by 'properly understand' · 'not just the high level stuff'"
+      },
+      {
+        "axis": "entry_point",
+        "value": "Linear algebra proficiency; can read PyTorch code",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 2,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "target_capability",
+        "value": "Can derive attention mechanics, implement transformer components from scratch in PyTorch, debug training issues, and reason about architectural variants",
+        "strength": "inferred",
+        "material": true,
+        "asked": false,
+        "verified_spans": 2,
+        "discarded_spans": 0,
+        "reason": "inferred, supported by 'properly understand' · 'not just the high level stuff'"
+      },
+      {
+        "axis": "capacity",
+        "value": null,
+        "strength": "unknown",
+        "material": true,
+        "asked": false,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "never asked — Semantics §1 LOCKED — optional, and the corollary: deriving the plan and reporting its extent is what CAUSES a capacity to be stated. Asking upfront asks for a number the learner cannot honestly give."
+      },
+      {
+        "axis": "depth_register",
+        "value": "Deep — mathematical derivations + from-scratch implementation",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "never asked — Semantics §1 — biasing, not binding. A default is always defensible."
+      },
+      {
+        "axis": "artifact_type",
+        "value": "Interactive notebook-style guide: math derivations + runnable PyTorch implementations + debugging exercises",
+        "strength": "inferred",
+        "material": false,
+        "asked": false,
+        "verified_spans": 2,
+        "discarded_spans": 0,
+        "reason": "inferred, supported by 'i can read pytorch' · 'properly understand'"
+      },
+      {
+        "axis": "template",
+        "value": null,
+        "strength": "unknown",
+        "material": false,
+        "asked": false,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "never asked — Presentation-Boundary rule 1 — internal. Users never select one."
+      }
+    ],
+    "weak_axes": [
+      "capacity",
+      "template"
+    ],
+    "guessed_but_material": [
+      "capacity"
+    ]
+  },
+  "finished_at": "2026-09-25T15:40:35+00:00",
+  "seconds_total": 392.58,
+  "seconds_by_stage": {
+    "create": 69.17,
+    "intake": 0.0,
+    "plan": 62152.4262848
+  },
+  "cost": {
+    "model_calls": 3,
+    "failed_calls": 0,
+    "input_tokens": 6426,
+    "output_tokens": 3556,
+    "seconds": 392.44,
+    "calls": [
+      {
+        "ok": true,
+        "seconds": 69.15,
+        "input_tokens": 3170,
+        "output_tokens": 1342,
+        "schema": "Reading",
+        "error": null
+      },
+      {
+        "ok": true,
+        "seconds": 159.83,
+        "input_tokens": 1560,
+        "output_tokens": 942,
+        "schema": "Landscape",
+        "error": null
+      },
+      {
+        "ok": true,
+        "seconds": 163.46,
+        "input_tokens": 1696,
+        "output_tokens": 1272,
+        "schema": "Landscape",
+        "error": null
+      }
+    ]
+  }
+}

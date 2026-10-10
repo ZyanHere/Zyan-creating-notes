@@ -1,0 +1,99 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # Every CI run is reproducible from the lockfile. No resolution happens here.
+  UV_FROZEN: "1"
+
+jobs:
+  # Fast gate. Fails in seconds on a style or type error so the slower job is not
+  # queued behind a typo.
+  static:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: V2
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+
+      - name: install
+        run: uv sync --all-extras
+
+      - name: ruff — lint
+        run: uv run ruff check --output-format=github .
+
+      - name: ruff — format
+        run: uv run ruff format --check .
+
+      - name: pyright — strict
+        run: uv run pyright
+
+  # The boundary wall is its own job on purpose. It is the one test whose failure is
+  # always an architectural regression rather than a bug, and separating it means the
+  # summary says which kind of thing broke.
+  boundaries:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: V2
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+      - run: uv sync --all-extras
+      - name: import boundaries
+        run: uv run pytest tests/test_boundaries.py -v
+
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: V2
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: mynotes_v2
+        ports: ["5432:5432"]
+        # The claim protocol's correctness IS database atomicity, so the db-marked
+        # tests are not optional and the service must be ready before they run.
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DB_URL: postgresql://postgres:postgres@localhost:5432/mynotes_v2
+      APP_ENV: ci
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+      - run: uv sync --all-extras
+
+      # Not `-m "not slow"`. A skipped concurrency test is a concurrency test that
+      # does not exist, and those are the ones that must never be skipped.
+      - name: pytest
+        run: uv run pytest --cov --cov-report=term-missing -m "not slow"
+
+      - name: slow — browser and provider-stubbed paths
+        run: uv run pytest -m slow
+        # Playwright's browser is a separate download; until the engine lands (M5)
+        # there is nothing marked slow, and this step is a no-op that becomes real
+        # rather than a step someone has to remember to add.
+        continue-on-error: true

@@ -1,0 +1,827 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Foundations: What Makes an Agent</title>
+<style>
+  /* One template. The catalogue is Semantics §2's open question and stays shut. */
+
+  @page {
+    size: A4;
+    margin: 20mm 18mm 18mm 18mm;
+    @bottom-center { content: counter(page); }
+  }
+
+  :root {
+    --ink:      #1a1c20;
+    --soft:     #4a5058;
+    --muted:    #767d87;
+    --rule:     #d8dce2;
+    --hairline: #eceff3;
+    --accent:   #1b4d6b;
+    --gap:      #8a4a35;
+    --gap-bg:   #fbf3f0;
+    --code-bg:  #f6f7f9;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+    font-size: 10.8pt;
+    line-height: 1.55;
+    color: var(--ink);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ---------- front matter ---------- */
+
+  .front { margin-bottom: 14mm; }
+
+  h1 {
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 22pt;
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+    margin: 0 0 3mm;
+    text-wrap: balance;
+  }
+
+  .subtitle {
+    font-size: 12pt;
+    color: var(--soft);
+    margin: 0 0 7mm;
+    line-height: 1.4;
+  }
+
+  .orient {
+    border-top: 1.5pt solid var(--ink);
+    border-bottom: 0.5pt solid var(--rule);
+    padding: 3.5mm 0;
+    display: table;
+    width: 100%;
+  }
+  .orient .row { display: table-row; }
+  .orient .k, .orient .v { display: table-cell; padding: 1.2mm 0; vertical-align: baseline; }
+  .orient .k {
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 7.5pt;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--muted);
+    width: 30mm;
+    white-space: nowrap;
+    padding-right: 5mm;
+  }
+  .orient .v { font-size: 10pt; color: var(--soft); }
+
+  /* ---------- sections ---------- */
+
+  h2 {
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 13.5pt;
+    line-height: 1.25;
+    margin: 9mm 0 3mm;
+    padding-bottom: 1.6mm;
+    border-bottom: 0.5pt solid var(--rule);
+    break-after: avoid;
+    text-wrap: balance;
+  }
+  h2:first-of-type { margin-top: 0; }
+
+  p { margin: 0 0 3.2mm; orphans: 2; widows: 2; }
+
+  ul, ol { margin: 0 0 3.5mm; padding-left: 6mm; }
+  li { margin-bottom: 1.4mm; }
+  li::marker { color: var(--muted); }
+
+  /* ---------- departures from prose ---------- */
+
+  figure { margin: 0 0 4.5mm; break-inside: avoid; }
+
+  figcaption {
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 8pt;
+    color: var(--muted);
+    margin-top: 1.6mm;
+    line-height: 1.45;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 9.3pt;
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  th {
+    text-align: left;
+    font-size: 7.6pt;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    padding: 0 4mm 1.6mm 0;
+    border-bottom: 0.9pt solid var(--ink);
+  }
+  td {
+    padding: 2mm 4mm 2mm 0;
+    border-bottom: 0.4pt solid var(--hairline);
+    vertical-align: top;
+    line-height: 1.4;
+  }
+  tr:last-child td { border-bottom: none; }
+
+  pre {
+    background: var(--code-bg);
+    border-left: 1.5pt solid var(--accent);
+    padding: 3mm 4mm;
+    margin: 0;
+    font-family: "Cascadia Mono", Consolas, "DejaVu Sans Mono", monospace;
+    font-size: 8.8pt;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    break-inside: avoid;
+  }
+
+  .example {
+    border: 0.5pt solid var(--rule);
+    border-radius: 1mm;
+    padding: 3.5mm 4.5mm 2mm;
+    margin: 0 0 4.5mm;
+    break-inside: avoid;
+  }
+  .example .label {
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 7.5pt;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.8mm;
+  }
+  .example .title {
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    font-size: 10pt;
+    margin-bottom: 2.4mm;
+  }
+  .example ol { margin-bottom: 1.5mm; padding-left: 5.5mm; }
+  .example li { font-size: 10pt; }
+
+  .check {
+    border-left: 1.5pt solid var(--muted);
+    padding: 0.5mm 0 0.5mm 4mm;
+    margin: 0 0 4.5mm;
+    break-inside: avoid;
+  }
+  .check .q { font-weight: 600; margin-bottom: 1.8mm; }
+  .check .a { color: var(--soft); font-size: 10.2pt; }
+  .check .a::before {
+    content: "→ ";
+    color: var(--muted);
+  }
+
+  .callout {
+    background: var(--code-bg);
+    border-left: 1.5pt solid var(--soft);
+    padding: 3mm 4mm;
+    margin: 0 0 4.5mm;
+    font-size: 10.2pt;
+    break-inside: avoid;
+  }
+  .callout.warning { background: var(--gap-bg); border-left-color: var(--gap); }
+  .callout .title {
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    font-size: 9pt;
+    margin-bottom: 1.4mm;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+
+  /* ---------- structural labels ---------- */
+
+  .subhead {
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 8pt;
+    font-weight: 600;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 5mm 0 2mm;
+  }
+  h3 {
+    font-size: 11.5pt;
+    font-weight: 600;
+    margin: 5mm 0 2mm;
+    color: var(--ink);
+  }
+  .chips { margin: 2mm 0 4mm; }
+  .chips .chip {
+    display: inline-block;
+    border: 0.5pt solid var(--rule);
+    border-radius: 1.6mm;
+    padding: .7mm 2.2mm;
+    margin: 0 1.4mm 1.4mm 0;
+    font-size: 8.6pt;
+    color: var(--soft);
+  }
+
+  /* ---------- relational figures ----------
+     One geometry per relation, each permitted for that relation by
+     Representation Boundary Rev. 3 §2's honesty table. The template chooses
+     among honest options; it never picks a geometry the relation forbids.
+     `causes` is deliberately NOT the `precedes` geometry: sharing it is the
+     table's named dishonesty, because it collapses order into causation. */
+
+  figure { margin: 3mm 0 5mm; break-inside: avoid; }
+  figure figcaption {
+    font-size: 8.8pt;
+    color: var(--muted);
+    margin-top: 1.6mm;
+  }
+  .rel { border-top: 0.9pt solid var(--ink); padding-top: 2.4mm; }
+  .rel .item { display: flex; align-items: baseline; gap: 2.4mm; padding: 1.4mm 0; }
+  .rel .item + .item { border-top: 0.4pt solid var(--hairline); }
+  .rel .lbl { font-weight: 600; font-size: 10.2pt; overflow-wrap: break-word; }
+  .rel .note { color: var(--soft); font-size: 9.4pt; }
+  .rel .emph .lbl { color: var(--accent); }
+  .rel .mark {
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 8pt;
+    color: var(--muted);
+    min-width: 9mm;
+  }
+  /* Containment and composition: depth is meaning, so it is drawn as depth. */
+  .rel.nest .item { border-top: none; }
+  .rel.nest .bar {
+    border-left: 1.5pt solid var(--accent);
+    padding-left: 2.4mm;
+    flex: 1;
+  }
+  /* Association asserts no order and no direction, so it gets neither. */
+  .rel.flat { display: flex; flex-wrap: wrap; gap: 2mm; }
+  .rel.flat .item { border: 0.5pt solid var(--rule); border-radius: 1.6mm; padding: 1.6mm 2.4mm; }
+
+  /* ---------- marked gaps ---------- */
+
+  .gaps { break-before: page; }
+  .gaps h2 { border-bottom-color: var(--gap); }
+  .gaps .lede { color: var(--soft); margin-bottom: 5mm; }
+
+  .gap {
+    border-top: 0.5pt solid var(--hairline);
+    padding: 3.5mm 0;
+    break-inside: avoid;
+  }
+  .gap:first-of-type { border-top: 0.9pt solid var(--gap); }
+  .gap .topic {
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    font-size: 10.5pt;
+    color: var(--gap);
+    margin-bottom: 1.8mm;
+  }
+  .gap .field { display: table; width: 100%; }
+  .gap .field .k, .gap .field .v { display: table-cell; padding-bottom: 1.2mm; }
+  .gap .field .k {
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 7.5pt;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    width: 32mm;
+    white-space: nowrap;
+    padding-right: 4mm;
+    vertical-align: baseline;
+  }
+  .gap .field .v { font-size: 10pt; color: var(--soft); line-height: 1.45; }
+
+  /* ---------- colophon ---------- */
+
+  .colophon {
+    margin-top: 10mm;
+    padding-top: 2.5mm;
+    border-top: 0.5pt solid var(--rule);
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 7.5pt;
+    color: var(--muted);
+    letter-spacing: 0.03em;
+  }
+</style>
+</head>
+<body>
+
+<div class="front">
+  <h1>Foundations: What Makes an Agent</h1>
+<p class="subtitle">Prepare for technical interviews covering agentic AI</p>  <div class="orient">
+    <div class="row"><div class="k">Assumes</div><div class="v">General programming ability; no prior agent construction or framework experience (LangGraph, CrewAI, AutoGen, etc.)</div></div>
+    <div class="row"><div class="k">After this</div><div class="v">Explain what distinguishes an agent from a plain LLM call or RAG pipeline, trace a single tool-use step (reason → act → observe), and describe the function calling API contract (schemas, parallel calls, strict JSON).</div></div>
+  </div>
+</div>
+
+<section>
+  <h2>Agent Definition &amp; Agency</h2>
+
+<p>An agent is a system that pursues a goal by repeatedly choosing actions, observing the results, and deciding what to do next. The defining move is the loop: reason → act → observe. A plain LLM call has no loop — it receives a prompt and returns a completion. A RAG pipeline has a fixed loop — retrieve, then generate — but the retrieval step is not chosen by the model; it is hard-coded into the pipeline.</p>
+
+      <figure>
+        <table>
+          <thead><tr><th>Capability</th><th>Plain LLM Call</th><th>RAG Pipeline</th><th>Agent</th></tr></thead>
+          <tbody>
+<tr><td>Goal pursuit</td><td>Single-turn response</td><td>Fixed retrieve-then-generate</td><td>Iterative, model-chosen steps</td></tr><tr><td>Action space</td><td>Text only</td><td>Text + fixed retrieval</td><td>Text + arbitrary tools (code, APIs, browser, etc.)</td></tr><tr><td>Control flow</td><td>None — one forward pass</td><td>Deterministic DAG</td><td>Dynamic, model-driven loop</td></tr><tr><td>Memory</td><td>Context window only</td><td>Context window + retrieved docs</td><td>Context window + external memory (scratchpad, vector store, episode log)</td></tr><tr><td>Failure recovery</td><td>None</td><td>None (pipeline fails or returns best effort)</td><td>Can retry, switch tools, re-plan</td></tr>          </tbody>
+        </table>
+<figcaption>What distinguishes an agent from a plain LLM call and a RAG pipeline</figcaption>      </figure>
+
+
+<p>The table makes the boundary sharp: an agent decides *whether* to act, *what* action to take, and *whether* the result satisfies the goal. In a RAG pipeline, the retrieval step is mandatory and its query is often constructed by a deterministic heuristic, not by the model&#39;s own reasoning. In an agent, the model itself emits a tool call — a structured decision — and the environment returns an observation that the model then conditions on.</p>
+
+      <figure data-relation="precedes" data-realization="numbered-steps">
+        <div class="rel">
+          <div class="item">
+            <span class="mark">1</span>
+            <span class="lbl">LLM Call</span>
+<span class="note">Prompt → completion, no loop</span>          </div>
+          <div class="item">
+            <span class="mark">2</span>
+            <span class="lbl">RAG Pipeline</span>
+<span class="note">Fixed retrieve → generate, no model-chosen actions</span>          </div>
+          <div class="item">
+            <span class="mark">3</span>
+            <span class="lbl">Single-Tool Agent</span>
+<span class="note">Model chooses one tool per step, loops until done</span>          </div>
+          <div class="item">
+            <span class="mark">4</span>
+            <span class="lbl">Multi-Tool Agent</span>
+<span class="note">Model chooses among many tools, parallel calls, structured outputs</span>          </div>
+          <div class="item">
+            <span class="mark">5</span>
+            <span class="lbl">Planning Agent</span>
+<span class="note">Explicit plan generation, decomposition, re-planning on failure</span>          </div>
+        </div>
+<figcaption>Spectrum of agency: each step adds a capability the previous one lacks</figcaption>      </figure>
+
+
+<p>Interviewers often probe the boundary with questions like: &#34;If I wrap an LLM call in a while loop that retries on error, is that an agent?&#34; The answer is no — retry logic is deterministic control flow, not model-chosen action. The model still does not decide *what* to do differently; the loop decides *whether* to repeat. Agency requires the model to author the next action conditioned on the previous observation.</p>
+
+      <div class="check">
+        <div class="q">A system uses an LLM to write a SQL query, executes it, and if the query fails, feeds the error back to the LLM to rewrite the query. Is this an agent? Why or why not?</div>
+        <div class="a">Yes. The model chooses the action (the SQL query), observes the result (success or error), and conditions its next action on that observation. The loop is model-driven, not a fixed retry.</div>
+      </div>
+
+
+<p>Another common trap: &#34;My RAG system uses an LLM to rewrite the user query before retrieval. Is that an agent?&#34; Rewriting the query is still a fixed step in a predetermined pipeline. The model does not decide *whether* to retrieve, *what* to retrieve from, or *whether* the retrieved passages are sufficient. It only reformulates. That is a prompt engineering technique, not agency.</p>
+
+      <div class="chips"><span class="chip">reason → act → observe loop</span><span class="chip">model-chosen actions</span><span class="chip">dynamic control flow</span><span class="chip">external memory</span><span class="chip">failure recovery</span></div>
+
+</section>
+<section>
+  <h2>LLM as Reasoning Engine</h2>
+
+<p>A plain LLM call is a completion engine: you give it a prompt, it predicts the next tokens. An agent treats the LLM as a reasoning engine: you give it a goal, it plans steps, decides which tool to invoke, observes the result, and reflects on whether to continue or change course. The difference is not the model — it is the control loop that wraps the model.</p>
+
+      <figure data-relation="associates-with" data-realization="undirected-cluster">
+        <div class="rel flat">
+          <div class="item">
+            <span class="lbl">Completion engine</span>
+<span class="note">Single prompt → single response, no loop</span>          </div>
+          <div class="item">
+            <span class="lbl">Reasoning engine</span>
+<span class="note">Goal → (plan → act → observe → reflect)* → answer</span>          </div>
+        </div>
+<figcaption>Completion vs. reasoning: two ways to use the same model</figcaption>      </figure>
+
+
+<p>In a RAG pipeline the LLM is still a completion engine: retrieve context, stuff it into a prompt, get an answer. There is no decision about *whether* to retrieve, *what* to retrieve, or *whether* the answer is sufficient. An agent adds those decisions. The LLM emits structured decisions (&#34;call search with query X&#34;) instead of free text, and the runtime feeds the tool result back for the next reasoning step.</p>
+
+      <div class="example">
+        <div class="label">Worked example</div>
+        <div class="title">Single tool-use step traced</div>
+        <ol><li>Goal: &#34;What is the current temperature in Tokyo?&#34;</li><li>Reason (LLM): decides it needs live data → emits function call <code>get_weather({&#34;city&#34;: &#34;Tokyo&#34;})</code></li><li>Act (runtime): executes the function, receives <code>{&#34;temp_c&#34;: 18, &#34;condition&#34;: &#34;cloudy&#34;}</code></li><li>Observe (LLM): receives the tool result as a new message</li><li>Reflect (LLM): decides the answer is complete → emits final response &#34;It&#39;s 18 °C and cloudy in Tokyo.&#34;</li></ol>
+      </div>
+
+
+      <div class="check">
+        <div class="q">A developer wraps an LLM call in a <code>while</code> loop that re-prompts the model until it says &#34;DONE&#34;. Is this an agent?</div>
+        <div class="a">No. The loop is hard-coded; the LLM never decides *whether* to continue or *what* to do next. An agent requires the LLM to make those decisions (plan, act, observe, reflect) on each iteration.</div>
+      </div>
+
+</section>
+<section>
+  <h2>Function Calling / Tool Calling API</h2>
+
+<p>Function calling is the primitive that turns a language model into an agent. Without it, the model can only emit text. With it, the model emits a structured decision — a name and arguments — that your code executes, then feeds the result back. The loop is: reason (choose a tool), act (call it), observe (read the result), repeat. Every agent framework (LangGraph, CrewAI, AutoGen) builds on this same contract.</p>
+
+      <h3>The API Contract</h3>
+
+
+<p>The model receives a list of tool definitions. Each definition is a JSON Schema describing the function name, description, and parameters. The model responds with a <code>tool_calls</code> array (OpenAI) or <code>tool_use</code> blocks (Anthropic). Your code executes each call and returns a <code>tool</code> message with the result. The model then continues.</p>
+
+      <figure>
+        <pre><code>// OpenAI tool definition
+{
+  &#34;type&#34;: &#34;function&#34;,
+  &#34;function&#34;: {
+    &#34;name&#34;: &#34;get_weather&#34;,
+    &#34;description&#34;: &#34;Get current weather for a location&#34;,
+    &#34;parameters&#34;: {
+      &#34;type&#34;: &#34;object&#34;,
+      &#34;properties&#34;: {
+        &#34;location&#34;: {
+          &#34;type&#34;: &#34;string&#34;,
+          &#34;description&#34;: &#34;City and state, e.g. &#39;San Francisco, CA&#39;&#34;
+        },
+        &#34;unit&#34;: {
+          &#34;type&#34;: &#34;string&#34;,
+          &#34;enum&#34;: [&#34;celsius&#34;, &#34;fahrenheit&#34;],
+          &#34;description&#34;: &#34;Temperature unit&#34;
+        }
+      },
+      &#34;required&#34;: [&#34;location&#34;],
+      &#34;additionalProperties&#34;: false
+    },
+    &#34;strict&#34;: true
+  }
+}</code></pre>
+<figcaption>Tool definition with strict JSON Schema. `strict: true` guarantees the model outputs valid JSON matching the schema.</figcaption>      </figure>
+
+
+      <figure>
+        <pre><code>// Model response with tool_calls
+{
+  &#34;choices&#34;: [{
+    &#34;message&#34;: {
+      &#34;role&#34;: &#34;assistant&#34;,
+      &#34;content&#34;: null,
+      &#34;tool_calls&#34;: [{
+        &#34;id&#34;: &#34;call_abc123&#34;,
+        &#34;type&#34;: &#34;function&#34;,
+        &#34;function&#34;: {
+          &#34;name&#34;: &#34;get_weather&#34;,
+          &#34;arguments&#34;: &#34;{\&#34;location\&#34;: \&#34;San Francisco, CA\&#34;, \&#34;unit\&#34;: \&#34;celsius\&#34;}&#34;
+        }
+      }]
+    }
+  }]}
+</code></pre>
+<figcaption>Model emits a tool call. `arguments` is a JSON string — parse it, don&#39;t eval.</figcaption>      </figure>
+
+
+      <figure>
+        <pre><code>// Your code returns the tool result
+{
+  &#34;role&#34;: &#34;tool&#34;,
+  &#34;tool_call_id&#34;: &#34;call_abc123&#34;,
+  &#34;content&#34;: &#34;{\&#34;temperature\&#34;: 18, \&#34;condition\&#34;: \&#34;foggy\&#34;, \&#34;unit\&#34;: \&#34;celsius\&#34;}&#34;
+}</code></pre>
+<figcaption>Tool result message. `tool_call_id` must match the call. Content is a string (JSON or plain text).</figcaption>      </figure>
+
+
+      <div class="subhead">KEY SCHEMA RULES</div>
+
+
+<ul><li>Set <code>additionalProperties: false</code> on the root parameters object — prevents hallucinated keys.</li><li>Mark all required fields in <code>required</code> array — the model will omit optional ones.</li><li>Use <code>enum</code> for closed sets (units, categories, status codes).</li><li>Descriptions are prompts — write them for the model, not for humans.</li><li>Keep schemas flat; nested objects increase error rate.</li></ul>
+
+      <h3>Parallel Calls</h3>
+
+
+<p>The model can emit multiple <code>tool_calls</code> in one response. Your executor must run them concurrently (or sequentially, but parallel is faster) and return all results before the next model turn. This is how an agent fetches weather for three cities in one round trip.</p>
+
+      <figure>
+        <pre><code>import asyncio
+import json
+from openai import AsyncOpenAI
+
+client = AsyncOpenAI()
+
+async def run_parallel_tool_calls():
+    tools = [{
+        &#34;type&#34;: &#34;function&#34;,
+        &#34;function&#34;: {
+            &#34;name&#34;: &#34;get_weather&#34;,
+            &#34;description&#34;: &#34;Get weather for a location&#34;,
+            &#34;parameters&#34;: {
+                &#34;type&#34;: &#34;object&#34;,
+                &#34;properties&#34;: {
+                    &#34;location&#34;: {&#34;type&#34;: &#34;string&#34;},
+                    &#34;unit&#34;: {&#34;type&#34;: &#34;string&#34;, &#34;enum&#34;: [&#34;celsius&#34;, &#34;fahrenheit&#34;]}
+                },
+                &#34;required&#34;: [&#34;location&#34;],
+                &#34;additionalProperties&#34;: false
+            },
+            &#34;strict&#34;: true
+        }
+    }]
+
+    resp = await client.chat.completions.create(
+        model=&#34;gpt-4o&#34;,
+        messages=[{&#34;role&#34;: &#34;user&#34;, &#34;content&#34;: &#34;Weather in NYC, London, Tokyo in celsius&#34;}],
+        tools=tools,
+        tool_choice=&#34;auto&#34;
+    )
+
+    tool_calls = resp.choices[0].message.tool_calls
+    if not tool_calls:
+        return resp.choices[0].message.content
+
+    # Execute all calls in parallel
+    async def execute(call):
+        args = json.loads(call.function.arguments)
+        # In reality, call your actual API here
+        result = await fake_weather_api(args[&#34;location&#34;], args.get(&#34;unit&#34;, &#34;celsius&#34;))
+        return {
+            &#34;role&#34;: &#34;tool&#34;,
+            &#34;tool_call_id&#34;: call.id,
+            &#34;content&#34;: json.dumps(result)
+        }
+
+    tool_results = await asyncio.gather(*[execute(c) for c in tool_calls])
+
+    # Second turn: feed results back
+    final = await client.chat.completions.create(
+        model=&#34;gpt-4o&#34;,
+        messages=[
+            {&#34;role&#34;: &#34;user&#34;, &#34;content&#34;: &#34;Weather in NYC, London, Tokyo in celsius&#34;},
+            resp.choices[0].message,
+            *tool_results
+        ],
+        tools=tools
+    )
+    return final.choices[0].message.content
+
+async def fake_weather_api(location, unit):
+    # Simulated external call
+    await asyncio.sleep(0.1)
+    return {&#34;location&#34;: location, &#34;temperature&#34;: 20, &#34;unit&#34;: unit}
+
+print(asyncio.run(run_parallel_tool_calls()))</code></pre>
+<figcaption>Parallel tool execution pattern. `asyncio.gather` runs all calls concurrently. The second turn includes the assistant&#39;s tool_calls message AND all tool results.</figcaption>      </figure>
+
+
+      <h3>Strict JSON Mode</h3>
+
+
+<p>Set <code>&#34;strict&#34;: true</code> in the function definition. This constrains the model&#39;s token generation to only produce valid JSON matching your schema. Without it, the model may emit trailing commas, unquoted keys, or hallucinated fields. Strict mode adds latency (constrained decoding) but eliminates a whole class of parsing errors. Use it in production.</p>
+
+      <figure>
+        <table>
+          <thead><tr><th>Mode</th><th>Valid JSON Guaranteed</th><th>Latency</th><th>Use Case</th></tr></thead>
+          <tbody>
+<tr><td>strict: false</td><td>No</td><td>Lower</td><td>Prototyping, trusted models</td></tr><tr><td>strict: true</td><td>Yes (constrained decoding)</td><td>Higher</td><td>Production, untrusted inputs, any schema with enums/required</td></tr><tr><td>response_format: {type: &#39;json_object&#39;}</td><td>Yes (but no schema validation)</td><td>Medium</td><td>General JSON output, not tool calls</td></tr>          </tbody>
+        </table>
+<figcaption>JSON mode trade-offs. Strict mode is the only one that validates against your schema during generation.</figcaption>      </figure>
+
+
+      <h3>Tracing a Single Tool-Use Step</h3>
+
+
+<p>Interviewers ask you to trace: user question → model reasoning → tool call → execution → result → model response. Here is the complete trace for &#34;What&#39;s the weather in Boston?&#34;</p>
+
+      <div class="example">
+        <div class="label">Worked example</div>
+        <div class="title">Trace: Single Tool-Use Step (Reason → Act → Observe)</div>
+        <ol><li>USER: &#34;What&#39;s the weather in Boston?&#34;</li><li>MODEL (reasoning): User wants current weather. I have get_weather tool. Need location=&#34;Boston, MA&#34;, unit default celsius.</li><li>MODEL (tool_calls): [{&#34;id&#34;: &#34;call_1&#34;, &#34;name&#34;: &#34;get_weather&#34;, &#34;arguments&#34;: &#34;{\&#34;location\&#34;: \&#34;Boston, MA\&#34;}&#34;}]</li><li>YOUR CODE (act): Parse arguments → call weather API with location=&#34;Boston, MA&#34; → get {&#34;temp&#34;: 15, &#34;condition&#34;: &#34;rainy&#34;}</li><li>YOUR CODE (tool message): {&#34;role&#34;: &#34;tool&#34;, &#34;tool_call_id&#34;: &#34;call_1&#34;, &#34;content&#34;: &#34;{\&#34;temp\&#34;: 15, \&#34;condition\&#34;: \&#34;rainy\&#34;}&#34;}</li><li>MODEL (observe + respond): Sees tool result. Generates final answer: &#34;It&#39;s 15°C and rainy in Boston.&#34;</li></ol>
+      </div>
+
+
+      <figure data-relation="precedes" data-realization="numbered-steps">
+        <div class="rel">
+          <div class="item">
+            <span class="mark">1</span>
+            <span class="lbl">User Query</span>
+<span class="note">Natural language request</span>          </div>
+          <div class="item">
+            <span class="mark">2</span>
+            <span class="lbl">Model Reasoning</span>
+<span class="note">Selects tool, fills arguments</span>          </div>
+          <div class="item">
+            <span class="mark">3</span>
+            <span class="lbl">Tool Call Emitted</span>
+<span class="note">Structured JSON with id, name, arguments</span>          </div>
+          <div class="item">
+            <span class="mark">4</span>
+            <span class="lbl">Executor Runs Tool</span>
+<span class="note">Your code: parse, call API, catch errors</span>          </div>
+          <div class="item">
+            <span class="mark">5</span>
+            <span class="lbl">Tool Result Returned</span>
+<span class="note">Tool message with matching tool_call_id</span>          </div>
+          <div class="item">
+            <span class="mark">6</span>
+            <span class="lbl">Model Observes &amp; Responds</span>
+<span class="note">Incorporates result into final answer</span>          </div>
+        </div>
+<figcaption>The reason → act → observe loop. Each step precedes the next. The executor (your code) owns steps 3–4.</figcaption>      </figure>
+
+
+      <h3>Common Interview Traps</h3>
+
+
+<ul><li>&#34;What happens if the model hallucinates a tool name?&#34; → You get a tool_calls entry for a function you didn&#39;t define. Return an error tool message: {&#34;role&#34;: &#34;tool&#34;, &#34;tool_call_id&#34;: id, &#34;content&#34;: &#34;Error: unknown function&#34;}. The model then recovers.</li><li>&#34;What if arguments fail schema validation?&#34; → With strict: true, this cannot happen. Without it, catch JSON parse errors and return a tool error message.</li><li>&#34;How do you handle a tool that takes 30 seconds?&#34; → Set a timeout. On timeout, return a tool message with error content. The model sees the failure and can retry or apologize.</li><li>&#34;Can the model call a tool, see the result, then call another?&#34; → Yes. That&#39;s multi-turn tool use. Each turn: model emits calls → you execute → you return results → model decides next step.</li></ul>
+
+      <div class="check">
+        <div class="q">The model emits a tool call with arguments {&#34;location&#34;: &#34;Paris&#34;, &#34;unit&#34;: &#34;kelvin&#34;} but your schema only allows enum [&#34;celsius&#34;, &#34;fahrenheit&#34;]. What happens with strict: true vs strict: false?</div>
+        <div class="a">strict: true — the model physically cannot emit &#34;kelvin&#34;; constrained decoding blocks invalid tokens. strict: false — the model emits it, your JSON parser accepts it, your executor must validate and return an error tool message.</div>
+      </div>
+
+
+      <div class="check">
+        <div class="q">In a parallel call scenario, the model emits 3 tool_calls. Your second call fails (API timeout). How do you structure the tool messages for the next turn?</div>
+        <div class="a">Return 3 tool messages with the same tool_call_ids. For the failed one, content is an error string like &#34;Error: timeout&#34;. The model sees all three results simultaneously and decides how to proceed.</div>
+      </div>
+
+</section>
+<section>
+  <h2>Structured Output / JSON Mode</h2>
+
+<p>An agent is a loop: the model reasons, emits a structured action, the environment executes it, and the model observes the result. If the model emits free-form text, the downstream parser must guess where the action starts, what its name is, and what arguments it carries. That guesswork breaks autonomy — the loop stalls or executes the wrong thing. Structured output removes the guesswork by constraining the model to emit only valid JSON that conforms to a declared schema.</p>
+
+<p>There are two mechanisms. JSON mode (sometimes called response_format) tells the model: &#34;Your entire reply must be a single JSON object.&#34; It gives you syntactic validity but no semantic contract — the model can invent any keys it likes. Function calling (tool calling) goes further: you supply a JSON Schema for each tool, and the model must pick one tool (or several in parallel) and emit arguments that validate against that exact schema. The API returns a tool_calls array with name, id, and arguments already parsed. Frameworks such as LangGraph, CrewAI, and AutoGen build their entire orchestration on this contract: they register tools as schemas, invoke the model, receive validated tool_calls, execute them, and feed the results back as tool messages.</p>
+
+      <figure>
+        <pre><code>// OpenAI function-calling request (simplified)
+{
+  &#34;model&#34;: &#34;gpt-4o&#34;,
+  &#34;messages&#34;: [
+    {&#34;role&#34;: &#34;system&#34;, &#34;content&#34;: &#34;You have access to tools.&#34;},
+    {&#34;role&#34;: &#34;user&#34;, &#34;content&#34;: &#34;What&#39;s the weather in Tokyo?&#34;}
+  ],
+  &#34;tools&#34;: [
+    {
+      &#34;type&#34;: &#34;function&#34;,
+      &#34;function&#34;: {
+        &#34;name&#34;: &#34;get_weather&#34;,
+        &#34;description&#34;: &#34;Get current weather for a location&#34;,
+        &#34;parameters&#34;: {
+          &#34;type&#34;: &#34;object&#34;,
+          &#34;properties&#34;: {
+            &#34;location&#34;: {&#34;type&#34;: &#34;string&#34;, &#34;description&#34;: &#34;City name&#34;},
+            &#34;unit&#34;: {&#34;type&#34;: &#34;string&#34;, &#34;enum&#34;: [&#34;celsius&#34;, &#34;fahrenheit&#34;]}
+          },
+          &#34;required&#34;: [&#34;location&#34;],
+          &#34;additionalProperties&#34;: false
+        },
+        &#34;strict&#34;: true
+      }
+    }
+  ],
+  &#34;tool_choice&#34;: &#34;auto&#34;
+}</code></pre>
+<figcaption>Function-calling request: schema + strict=true guarantees the model emits only valid arguments.</figcaption>      </figure>
+
+
+      <figure>
+        <pre><code>// Model response with tool_calls
+{
+  &#34;choices&#34;: [{
+    &#34;message&#34;: {
+      &#34;role&#34;: &#34;assistant&#34;,
+      &#34;tool_calls&#34;: [{
+        &#34;id&#34;: &#34;call_abc123&#34;,
+        &#34;type&#34;: &#34;function&#34;,
+        &#34;function&#34;: {
+          &#34;name&#34;: &#34;get_weather&#34;,
+          &#34;arguments&#34;: &#34;{\&#34;location\&#34;: \&#34;Tokyo\&#34;, \&#34;unit\&#34;: \&#34;celsius\&#34;}&#34;
+        }
+      }]
+    }
+  }]
+}</code></pre>
+<figcaption>Model emits a tool_call with validated arguments (JSON string). The framework parses and executes.</figcaption>      </figure>
+
+
+      <figure>
+        <table>
+          <thead><tr><th>Property</th><th>JSON Mode (response_format)</th><th>Function Calling (tool_calls)</th></tr></thead>
+          <tbody>
+<tr><td>Output shape</td><td>Single JSON object</td><td>Array of tool_calls (each with name, id, arguments)</td></tr><tr><td>Schema enforcement</td><td>None (model invents keys)</td><td>Strict: arguments must match declared JSON Schema</td></tr><tr><td>Parallel calls</td><td>Not supported</td><td>Native: model can emit multiple tool_calls in one turn</td></tr><tr><td>Strict JSON (no stray commas/comments)</td><td>Best effort</td><td>Guaranteed when strict=true</td></tr><tr><td>Use case</td><td>One-off structured extraction</td><td>Agent tool use, multi-step loops</td></tr>          </tbody>
+        </table>
+<figcaption>JSON mode vs function calling — what each guarantees</figcaption>      </figure>
+
+
+<p>The strict flag (strict: true in the schema) is the linchpin. Without it, the model may emit trailing commas, comments, or keys not in the schema — valid JSON but invalid against your contract. With strict=true, the API pre-compiles the schema into a constrained grammar and forces the tokenizer to follow it. You get parseable output every time, which is what lets an agent loop run unattended.</p>
+
+      <div class="check">
+        <div class="q">A candidate says: &#34;I&#39;ll just use JSON mode and ask the model to output {\&#34;tool\&#34;: \&#34;get_weather\&#34;, \&#34;args\&#34;: {...}} — same thing, right?&#34; Why is this wrong for an agent loop?</div>
+        <div class="a">JSON mode has no schema enforcement — the model can rename keys, omit required fields, or add commentary. Function calling validates arguments against the declared schema at generation time (strict=true) and returns pre-parsed tool_calls. The framework cannot reliably dispatch a tool from free-form JSON.</div>
+      </div>
+
+</section>
+<section>
+  <h2>Tool Use / Function Calling Pattern</h2>
+
+<p>An agent differs from a plain LLM call or RAG pipeline in one structural way: it can *act* on the world through tools, observe the result, and decide what to do next. A plain LLM call produces text and stops. A RAG pipeline retrieves context, stuffs it into the prompt, and produces text. An agent closes the loop: reason → act → observe → reason again.</p>
+
+      <h3>The Single Tool-Use Step: Reason → Act → Observe</h3>
+
+
+<p>Every agent framework (LangGraph, CrewAI, AutoGen, OpenAI Assistants, Anthropic tool use) implements the same base pattern. One step consists of three phases:</p><p>1. <strong>Reason</strong> — The model receives the conversation history (system prompt, user messages, prior tool results) and decides whether to call a tool, and if so, which one and with what arguments.
+2. <strong>Act</strong> — The framework executes the tool with those arguments. This is *your* code: a Python function, an HTTP request, a database query.
+3. <strong>Observe</strong> — The tool&#39;s return value (or error) is formatted as a tool-result message and appended to the conversation. The model now sees the outcome and reasons again.</p>
+
+      <div class="example">
+        <div class="label">Worked example</div>
+        <div class="title">Trace: User asks &#34;What&#39;s the weather in Tokyo?&#34;</div>
+        <ol><li>[1] USER MESSAGE → conversation: [{&#34;role&#34;: &#34;user&#34;, &#34;content&#34;: &#34;What&#39;s the weather in Tokyo?&#34;}]</li><li>[2] REASON → model sees conversation + tool schemas. It decides to call get_weather({&#34;city&#34;: &#34;Tokyo&#34;}). Output: {&#34;tool_calls&#34;: [{&#34;id&#34;: &#34;call_abc123&#34;, &#34;name&#34;: &#34;get_weather&#34;, &#34;arguments&#34;: &#34;{\&#34;city\&#34;: \&#34;Tokyo\&#34;}&#34;}]}</li><li>[3] ACT → framework parses tool_calls, invokes your Python function get_weather(city=&#34;Tokyo&#34;). Your code calls an API, returns {&#34;temp_c&#34;: 18, &#34;condition&#34;: &#34;cloudy&#34;}.</li><li>[4] OBSERVE → framework appends tool result message: {&#34;role&#34;: &#34;tool&#34;, &#34;tool_call_id&#34;: &#34;call_abc123&#34;, &#34;name&#34;: &#34;get_weather&#34;, &#34;content&#34;: &#34;{\&#34;temp_c\&#34;: 18, \&#34;condition\&#34;: \&#34;cloudy\&#34;}&#34;}</li><li>[5] REASON (again) → model now sees the tool result. It produces final answer: &#34;It&#39;s 18°C and cloudy in Tokyo.&#34;</li><li>[6] FINAL → conversation ends with assistant message: {&#34;role&#34;: &#34;assistant&#34;, &#34;content&#34;: &#34;It&#39;s 18°C and cloudy in Tokyo.&#34;}</li></ol>
+      </div>
+
+
+      <h3>Function Calling API Contract</h3>
+
+
+<p>The contract between model and framework is defined by JSON Schema. You provide a list of tool *schemas*; the model promises to emit arguments that validate against those schemas. Three details matter for interviews:</p>
+
+      <figure>
+        <table>
+          <thead><tr><th>Aspect</th><th>What the model sees</th><th>What you must handle</th></tr></thead>
+          <tbody>
+<tr><td>Schema</td><td>JSON Schema (Draft 2020-12 subset). Properties = parameters. Required array = mandatory args.</td><td>Define schemas precisely. Extra properties are rejected if <code>additionalProperties: false</code>.</td></tr><tr><td>Parallel calls</td><td>Model may emit multiple tool_calls in one response (e.g., get_weather for Tokyo AND Seoul).</td><td>Your framework must dispatch all calls, collect all results, append *all* tool messages before the next model turn.</td></tr><tr><td>Strict JSON / <code>strict: true</code></td><td>OpenAI&#39;s <code>strict: true</code> forces the model to output only valid JSON matching the schema — no prose, no markdown fences.</td><td>If you don&#39;t use strict mode, you must parse defensively: strip markdown, handle trailing commas, recover from partial JSON.</td></tr><tr><td>Tool result format</td><td>A message with <code>role: &#34;tool&#34;</code>, <code>tool_call_id</code> (must match the call), <code>name</code>, and string <code>content</code>.</td><td>Serialize your return value to JSON string. Errors: return error info in content; the model decides how to proceed.</td></tr><tr><td>System prompt role</td><td>Describes *when* to use each tool, not *how*. The schema describes *how*.</td><td>Keep system prompt focused on policy (e.g., &#34;always verify user location before weather&#34;).</td></tr>          </tbody>
+        </table>
+<figcaption>Function calling contract essentials</figcaption>      </figure>
+
+
+      <h3>Minimal Working Code (No Framework)</h3>
+
+
+<p>You can implement the loop in ~30 lines. This is what every framework wraps:</p>
+
+      <figure>
+        <pre><code>import json
+from openai import OpenAI
+
+client = OpenAI()
+
+def get_weather(city: str) -&gt; dict:
+    # Your real implementation here
+    return {&#34;temp_c&#34;: 18, &#34;condition&#34;: &#34;cloudy&#34;}
+
+tools = [{
+    &#34;type&#34;: &#34;function&#34;,
+    &#34;function&#34;: {
+        &#34;name&#34;: &#34;get_weather&#34;,
+        &#34;description&#34;: &#34;Get current weather for a city&#34;,
+        &#34;parameters&#34;: {
+            &#34;type&#34;: &#34;object&#34;,
+            &#34;properties&#34;: {&#34;city&#34;: {&#34;type&#34;: &#34;string&#34;}},
+            &#34;required&#34;: [&#34;city&#34;],
+            &#34;additionalProperties&#34;: False
+        },
+        &#34;strict&#34;: True
+    }
+}]
+
+messages = [
+    {&#34;role&#34;: &#34;system&#34;, &#34;content&#34;: &#34;You have access to get_weather. Use it when users ask for weather.&#34;},
+    {&#34;role&#34;: &#34;user&#34;, &#34;content&#34;: &#34;What&#39;s the weather in Tokyo?&#34;}
+]
+
+# 1. REASON
+response = client.chat.completions.create(
+    model=&#34;gpt-4o-mini&#34;,
+    messages=messages,
+    tools=tools,
+    tool_choice=&#34;auto&#34;
+)
+msg = response.choices[0].message
+messages.append(msg.model_dump())
+
+# 2. ACT (if tool calls exist)
+if msg.tool_calls:
+    for tc in msg.tool_calls:
+        args = json.loads(tc.function.arguments)
+        result = get_weather(**args)
+        # 3. OBSERVE
+        messages.append({
+            &#34;role&#34;: &#34;tool&#34;,
+            &#34;tool_call_id&#34;: tc.id,
+            &#34;name&#34;: tc.function.name,
+            &#34;content&#34;: json.dumps(result)
+        })
+    # 4. REASON again → final answer
+    final = client.chat.completions.create(
+        model=&#34;gpt-4o-mini&#34;,
+        messages=messages,
+        tools=tools
+    )
+    print(final.choices[0].message.content)  # &#34;It&#39;s 18°C and cloudy in Tokyo.&#34;</code></pre>
+<figcaption>Single-step tool-use loop (OpenAI-compatible)</figcaption>      </figure>
+
+
+      <div class="check">
+        <div class="q">The model returns a tool_calls array with two entries: get_weather({&#34;city&#34;: &#34;Tokyo&#34;}) and get_weather({&#34;city&#34;: &#34;Seoul&#34;). Your code executes both. How many tool-result messages must you append before the next model call?</div>
+        <div class="a">Two. Each tool_call has a unique <code>tool_call_id</code>. You must append one tool-result message per call, each carrying its matching <code>tool_call_id</code>. The model expects to see *all* results before it reasons again.</div>
+      </div>
+
+
+      <div class="callout note">
+        <p>Interviewers often ask: &#34;What happens if the model calls a tool that doesn&#39;t exist?&#34; Answer: The framework should catch the unknown tool name, return an error tool-result (e.g., <code>{&#34;error&#34;: &#34;unknown tool: foo&#34;}</code>), and let the model recover. Never crash the loop.</p>
+      </div>
+
+</section>
+
+
+<div class="colophon">Generated 2026-09-26 · template study-notes@31f7aa7febc1</div>
+
+</body>
+</html>

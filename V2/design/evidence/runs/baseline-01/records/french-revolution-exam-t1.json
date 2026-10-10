@@ -1,0 +1,1143 @@
+{
+  "case_id": "french-revolution-exam",
+  "case_title": "French Revolution — school exam revision",
+  "trial": 1,
+  "phase": "plan",
+  "stub": false,
+  "started_at": "2026-09-25T15:40:35+00:00",
+  "request": "french revolution notes for my class 9 history exam next week",
+  "baseline": {
+    "repo": "D:\\myNotes\\V1",
+    "commit": "8735d787e7b258cb735d854bc395c25abc3e6c98",
+    "subject": "feat: implement approval gate for plans with unassigned concepts",
+    "source_hash": "807c8ec99a60d320e745e8ac208b8c7f690ebd273b3930f6680688d159cda116",
+    "source_files": 38,
+    "matches_baseline": true
+  },
+  "provider": {
+    "name": "openrouter",
+    "model": "nvidia/nemotron-3-ultra-550b-a55b:free"
+  },
+  "stages": [
+    "create",
+    "intake",
+    "plan",
+    "correct",
+    "approve"
+  ],
+  "failure": null,
+  "project_id": "6f057006-8bcf-448c-8e4c-450a8976f67e",
+  "after_create": {
+    "state": "asking",
+    "verdict": "ask",
+    "budget": 4,
+    "asking": [
+      "purpose"
+    ],
+    "over_budget": [],
+    "questions_written": 1,
+    "questions": [
+      {
+        "axis": "purpose",
+        "question": "What does a successful result look like for this exam?",
+        "options": [
+          "Pass efficiently",
+          "Score 90 % or above",
+          "Build foundation for higher classes"
+        ],
+        "default_label": "Score 90 % or above"
+      }
+    ],
+    "axes": [
+      {
+        "axis": "subject",
+        "value": "French Revolution (Class 9 History curriculum)",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "purpose",
+        "value": "Prepare for Class 9 history exam next week",
+        "strength": "guessed",
+        "material": true,
+        "asked": true,
+        "verified_spans": 0,
+        "discarded_spans": 1,
+        "reason": "weak (guessed) and a different answer would change the plan · discarded unverifiable support: ['for my class 9 history exam next week']"
+      },
+      {
+        "axis": "entry_point",
+        "value": "Class 9 student with standard school history background; familiar with basic historical concepts but needs focused coverage of French Revolution syllabus",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "target_capability",
+        "value": "Answer exam questions on French Revolution — causes, key events, figures, outcomes, and significance at Class 9 board level",
+        "strength": "inferred",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "inferred, supported by 'class 9 history exam'"
+      },
+      {
+        "axis": "capacity",
+        "value": "Exam in one week; needs efficient, high-yield revision material",
+        "strength": "stated",
+        "material": false,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "never asked — Semantics §1 LOCKED — optional, and the corollary: deriving the plan and reporting its extent is what CAUSES a capacity to be stated. Asking upfront asks for a number the learner cannot honestly give."
+      },
+      {
+        "axis": "depth_register",
+        "value": "Class 9 board-exam standard (NCERT/CBSE aligned); factual recall + short explanations; no historiography",
+        "strength": "inferred",
+        "material": false,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "never asked — Semantics §1 — biasing, not binding. A default is always defensible."
+      },
+      {
+        "axis": "artifact_type",
+        "value": "Structured revision notes — exam-oriented, keyword-dense, mapped to likely question types",
+        "strength": "stated",
+        "material": false,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "template",
+        "value": "Standard history revision template: Causes → Timeline/Key Events → Key Figures → Outcomes → Significance → Probable Questions",
+        "strength": "inferred",
+        "material": false,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "never asked — Presentation-Boundary rule 1 — internal. Users never select one."
+      }
+    ],
+    "weak_axes": [
+      "purpose"
+    ],
+    "guessed_but_material": [
+      "purpose"
+    ]
+  },
+  "intake_turns": 0,
+  "intake_answers_unused": 0,
+  "intake": {
+    "state": "asking",
+    "verdict": "ask",
+    "budget": 4,
+    "asking": [
+      "purpose"
+    ],
+    "over_budget": [],
+    "questions_written": 1,
+    "questions": [
+      {
+        "axis": "purpose",
+        "question": "What does a successful result look like for this exam?",
+        "options": [
+          "Pass efficiently",
+          "Score 90 % or above",
+          "Build foundation for higher classes"
+        ],
+        "default_label": "Score 90 % or above"
+      }
+    ],
+    "axes": [
+      {
+        "axis": "subject",
+        "value": "French Revolution (Class 9 History curriculum)",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "purpose",
+        "value": "Prepare for Class 9 history exam next week",
+        "strength": "guessed",
+        "material": true,
+        "asked": true,
+        "verified_spans": 0,
+        "discarded_spans": 1,
+        "reason": "weak (guessed) and a different answer would change the plan · discarded unverifiable support: ['for my class 9 history exam next week']"
+      },
+      {
+        "axis": "entry_point",
+        "value": "Class 9 student with standard school history background; familiar with basic historical concepts but needs focused coverage of French Revolution syllabus",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "target_capability",
+        "value": "Answer exam questions on French Revolution — causes, key events, figures, outcomes, and significance at Class 9 board level",
+        "strength": "inferred",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "inferred, supported by 'class 9 history exam'"
+      },
+      {
+        "axis": "capacity",
+        "value": "Exam in one week; needs efficient, high-yield revision material",
+        "strength": "stated",
+        "material": false,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "never asked — Semantics §1 LOCKED — optional, and the corollary: deriving the plan and reporting its extent is what CAUSES a capacity to be stated. Asking upfront asks for a number the learner cannot honestly give."
+      },
+      {
+        "axis": "depth_register",
+        "value": "Class 9 board-exam standard (NCERT/CBSE aligned); factual recall + short explanations; no historiography",
+        "strength": "inferred",
+        "material": false,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "never asked — Semantics §1 — biasing, not binding. A default is always defensible."
+      },
+      {
+        "axis": "artifact_type",
+        "value": "Structured revision notes — exam-oriented, keyword-dense, mapped to likely question types",
+        "strength": "stated",
+        "material": false,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "template",
+        "value": "Standard history revision template: Causes → Timeline/Key Events → Key Figures → Outcomes → Significance → Probable Questions",
+        "strength": "inferred",
+        "material": false,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "never asked — Presentation-Boundary rule 1 — internal. Users never select one."
+      }
+    ],
+    "weak_axes": [
+      "purpose"
+    ],
+    "guessed_but_material": [
+      "purpose"
+    ]
+  },
+  "plan": {
+    "state": "planned",
+    "situation": {
+      "subject": "French Revolution (Class 9 History curriculum)",
+      "job": "retrieve",
+      "purpose": "Prepare for Class 9 history exam next week",
+      "entry_point": "Class 9 student with standard school history background; familiar with basic historical concepts but needs focused coverage of French Revolution syllabus",
+      "target_capability": "Answer exam questions on French Revolution — causes, key events, figures, outcomes, and significance at Class 9 board level",
+      "capacity": "Exam in one week; needs efficient, high-yield revision material",
+      "stated": [
+        "french revolution notes",
+        "french revolution notes",
+        "for my class 9 history exam",
+        "for my class 9 history exam",
+        "next week"
+      ],
+      "stated_axes": [
+        "subject",
+        "artifact_type",
+        "purpose",
+        "entry_point",
+        "capacity"
+      ],
+      "inferred": [
+        "Depth register is Class 9 board-exam standard (NCERT/CBSE aligned)",
+        "Artifact type is structured revision notes — not a textbook, not flashcards",
+        "Template follows typical history exam pattern: causes → events → consequences → significance",
+        "No need for historiographical debates or primary source analysis"
+      ]
+    },
+    "landscape": {
+      "concept_count": 17,
+      "concepts": [
+        {
+          "name": "Ancien Regime and Three Estates",
+          "built_from": [],
+          "family": "social structure"
+        },
+        {
+          "name": "Economic Crisis and Financial Mismanagement",
+          "built_from": [
+            "Ancien Regime and Three Estates"
+          ],
+          "family": "cause"
+        },
+        {
+          "name": "Enlightenment Ideas and Philosophers",
+          "built_from": [],
+          "family": "intellectual cause"
+        },
+        {
+          "name": "Political Crisis: Weak Monarchy and Estates-General",
+          "built_from": [
+            "Ancien Regime and Three Estates",
+            "Economic Crisis and Financial Mismanagement"
+          ],
+          "family": "political cause"
+        },
+        {
+          "name": "Tennis Court Oath and National Assembly",
+          "built_from": [
+            "Political Crisis: Weak Monarchy and Estates-General"
+          ],
+          "family": "key event"
+        },
+        {
+          "name": "Storming of the Bastille",
+          "built_from": [
+            "Tennis Court Oath and National Assembly"
+          ],
+          "family": "key event"
+        },
+        {
+          "name": "August Decrees and Abolition of Feudalism",
+          "built_from": [
+            "Storming of the Bastille"
+          ],
+          "family": "key event"
+        },
+        {
+          "name": "Declaration of the Rights of Man and Citizen",
+          "built_from": [
+            "August Decrees and Abolition of Feudalism",
+            "Enlightenment Ideas and Philosophers"
+          ],
+          "family": "key document"
+        },
+        {
+          "name": "Constitution of 1791 and Constitutional Monarchy",
+          "built_from": [
+            "Declaration of the Rights of Man and Citizen"
+          ],
+          "family": "political development"
+        },
+        {
+          "name": "Fall of Monarchy and Republic Proclamation",
+          "built_from": [
+            "Constitution of 1791 and Constitutional Monarchy"
+          ],
+          "family": "key event"
+        },
+        {
+          "name": "Reign of Terror and Committee of Public Safety",
+          "built_from": [
+            "Fall of Monarchy and Republic Proclamation"
+          ],
+          "family": "radical phase"
+        },
+        {
+          "name": "Robespierre and Jacobins",
+          "built_from": [
+            "Reign of Terror and Committee of Public Safety"
+          ],
+          "family": "key figure"
+        },
+        {
+          "name": "Thermidorian Reaction and Directory",
+          "built_from": [
+            "Reign of Terror and Committee of Public Safety"
+          ],
+          "family": "political development"
+        },
+        {
+          "name": "Rise of Napoleon Bonaparte",
+          "built_from": [
+            "Thermidorian Reaction and Directory"
+          ],
+          "family": "key figure"
+        },
+        {
+          "name": "Outcomes: End of Feudalism and Social Change",
+          "built_from": [
+            "August Decrees and Abolition of Feudalism",
+            "Reign of Terror and Committee of Public Safety",
+            "Thermidorian Reaction and Directory"
+          ],
+          "family": "outcome"
+        },
+        {
+          "name": "Legacy: Liberty, Equality, Fraternity and Global Impact",
+          "built_from": [
+            "Declaration of the Rights of Man and Citizen",
+            "Outcomes: End of Feudalism and Social Change",
+            "Rise of Napoleon Bonaparte"
+          ],
+          "family": "significance"
+        },
+        {
+          "name": "Key Figures: Louis XVI, Marie Antoinette, Lafayette, Mirabeau",
+          "built_from": [
+            "Ancien Regime and Three Estates",
+            "Political Crisis: Weak Monarchy and Estates-General",
+            "Constitution of 1791 and Constitutional Monarchy"
+          ],
+          "family": "key figure"
+        }
+      ],
+      "families": [
+        "cause",
+        "intellectual cause",
+        "key document",
+        "key event",
+        "key figure",
+        "outcome",
+        "political cause",
+        "political development",
+        "radical phase",
+        "significance",
+        "social structure"
+      ],
+      "edges": 23,
+      "roots": [
+        "Ancien Regime and Three Estates",
+        "Enlightenment Ideas and Philosophers"
+      ],
+      "parenthetical_lists": [],
+      "judged": 17,
+      "in_play": 17,
+      "out_of_play": [],
+      "unjudged": []
+    },
+    "scope": {
+      "covered_count": 17,
+      "covered": [
+        {
+          "concept": "Ancien Regime and Three Estates",
+          "depth": "explain",
+          "anticipates": "cross-reference",
+          "why": "Foundation for every cause question; must compare estates on privileges, taxes, population for short/long answers."
+        },
+        {
+          "concept": "Economic Crisis and Financial Mismanagement",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Core economic cause; needs clear link to war debt, taxation inequality, and subsistence crisis for 3–5 mark answers."
+        },
+        {
+          "concept": "Enlightenment Ideas and Philosophers",
+          "depth": "explain",
+          "anticipates": "cross-reference",
+          "why": "Named philosophers (Voltaire, Rousseau, Montesquieu) and their specific ideas are directly tested; must match thinker to concept."
+        },
+        {
+          "concept": "Political Crisis: Weak Monarchy and Estates-General",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Explains the immediate political trigger; voting controversy and deadlock are standard short-answer material."
+        },
+        {
+          "concept": "Tennis Court Oath and National Assembly",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "First revolutionary act; significance as assertion of popular sovereignty is a frequent long-answer prompt."
+        },
+        {
+          "concept": "Storming of the Bastille",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Symbolic start of Revolution; date, cause, and symbolic meaning are all tested individually."
+        },
+        {
+          "concept": "August Decrees and Abolition of Feudalism",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Shows immediate social transformation; specific provisions (tithes, seigneurial rights) appear in short answers."
+        },
+        {
+          "concept": "Declaration of the Rights of Man and Citizen",
+          "depth": "explain",
+          "anticipates": "cross-reference",
+          "why": "Central document; principles (liberty, equality, property, resistance) and articles are quoted in answers."
+        },
+        {
+          "concept": "Constitution of 1791 and Constitutional Monarchy",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "First written constitution; features (separation of powers, limited suffrage) explain why it failed — a common question."
+        },
+        {
+          "concept": "Fall of Monarchy and Republic Proclamation",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Phase shift to radical republic; September Massacres, 1792 election, and abolition of monarchy are tested."
+        },
+        {
+          "concept": "Reign of Terror and Committee of Public Safety",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Radical phase core; Law of Suspects, Revolutionary Tribunal, and 'Terror as order of the day' are exam staples."
+        },
+        {
+          "concept": "Robespierre and Jacobins",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Named figures; Robespierre's role, Jacobin policies, and his fall are directly asked."
+        },
+        {
+          "concept": "Thermidorian Reaction and Directory",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Post-Terror stabilisation attempt; Directory's weaknesses (corruption, reliance on army) set up Napoleon."
+        },
+        {
+          "concept": "Rise of Napoleon Bonaparte",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Culmination; 1799 Coup of 18 Brumaire ends Revolution — must state this clearly for 'end of Revolution' questions."
+        },
+        {
+          "concept": "Outcomes: End of Feudalism and Social Change",
+          "depth": "explain",
+          "anticipates": "cross-reference",
+          "why": "Consequences question requires structured social, political, economic outcomes; this concept aggregates them."
+        },
+        {
+          "concept": "Legacy: Liberty, Equality, Fraternity and Global Impact",
+          "depth": "explain",
+          "anticipates": "cross-reference",
+          "why": "Standard long-answer topic; impact on France, Europe (nationalism), and world (anti-colonial) must be distinguishable."
+        },
+        {
+          "concept": "Key Figures: Louis XVI, Marie Antoinette, Lafayette, Mirabeau",
+          "depth": "explain",
+          "anticipates": "cross-reference",
+          "why": "Named individuals; each linked to specific events (Louis XVI → Estates-General/flight/ execution, etc.) for 1–2 mark questions."
+        }
+      ],
+      "depths": {
+        "explain": 17
+      },
+      "anticipates": {
+        "cross-reference": 6,
+        "none": 11
+      },
+      "anticipates_any": 6,
+      "cut": []
+    },
+    "partition": {
+      "shape": "modules",
+      "module_count": 1,
+      "legacy_unit_count": 0,
+      "modules": [
+        {
+          "title": "French Revolution: Complete Revision Notes for Class 9 Exam",
+          "covers": [
+            "Ancien Regime and Three Estates",
+            "Economic Crisis and Financial Mismanagement",
+            "Enlightenment Ideas and Philosophers",
+            "Political Crisis: Weak Monarchy and Estates-General",
+            "Tennis Court Oath and National Assembly",
+            "Storming of the Bastille",
+            "August Decrees and Abolition of Feudalism",
+            "Declaration of the Rights of Man and Citizen",
+            "Constitution of 1791 and Constitutional Monarchy",
+            "Fall of Monarchy and Republic Proclamation",
+            "Reign of Terror and Committee of Public Safety",
+            "Robespierre and Jacobins",
+            "Thermidorian Reaction and Directory",
+            "Rise of Napoleon Bonaparte",
+            "Outcomes: End of Feudalism and Social Change",
+            "Legacy: Liberty, Equality, Fraternity and Global Impact",
+            "Key Figures: Louis XVI, Marie Antoinette, Lafayette, Mirabeau"
+          ],
+          "concept_count": 17,
+          "capability": "Answer any Class 9 board exam question on the French Revolution — including causes (social, economic, intellectual, political), key events in sequence, major figures and their roles, legislative acts and declarations, the radical phase and its end, and the revolution's outcomes and global legacy — using structured, exam-oriented explanations.",
+          "why_here": "All 17 in-play concepts form the complete Class 9 French Revolution syllabus in the exact chronological and thematic sequence board exams follow. Splitting would fragment the narrative the learner must reproduce in long answers and make cross-concept revision (e.g., causes → outcomes) inefficient for a one-week timeline."
+        }
+      ],
+      "concepts_per_module": [
+        17
+      ],
+      "orphans": [],
+      "phantoms": [],
+      "duplicate_coverage": [],
+      "slug_collisions": []
+    },
+    "promises": {
+      "capability_clauses": 1,
+      "capability_unbacked": 0,
+      "capability_unbacked_share": 0.0,
+      "capability_support": [
+        {
+          "module": "French Revolution: Complete Revision Notes for Class 9 Exam",
+          "clauses": [
+            "Answer any Class 9 board exam question on the French Revolution — including causes (social, economic, intellectual, political), key events in sequence, major figures and their roles, legislative acts and declarations, the radical phase and its end, and the revolution's outcomes and global legacy — using structured, exam-oriented explanations."
+          ],
+          "backed": [
+            {
+              "clause": "Answer any Class 9 board exam question on the French Revolution — including causes (social, economic, intellectual, political), key events in sequence, major figures and their roles, legislative acts and declarations, the radical phase and its end, and the revolution's outcomes and global legacy — using structured, exam-oriented explanations.",
+              "concepts": [
+                "Economic Crisis and Financial Mismanagement",
+                "Political Crisis: Weak Monarchy and Estates-General",
+                "Declaration of the Rights of Man and Citizen",
+                "Outcomes: End of Feudalism and Social Change",
+                "Legacy: Liberty, Equality, Fraternity and Global Impact",
+                "Key Figures: Louis XVI, Marie Antoinette, Lafayette, Mirabeau"
+              ]
+            }
+          ],
+          "unbacked": []
+        }
+      ],
+      "coherence": [
+        {
+          "module": "French Revolution: Complete Revision Notes for Class 9 Exam",
+          "concepts": 17,
+          "internal": 23,
+          "external": 0,
+          "ratio": 1.0,
+          "depends_on_modules": [],
+          "links": []
+        }
+      ],
+      "modules_with_no_internal_dependency": [],
+      "external_dependency_total": 0
+    },
+    "extent": {
+      "total": "~9 pages · about 3 hours",
+      "pages": "~9 pages",
+      "study_time": "about 3 hours",
+      "parts": 1,
+      "modules": 1,
+      "per_unit": {
+        "French Revolution: Complete Revision Notes for Class 9 Exam": "~9 pages"
+      }
+    },
+    "feasibility": {
+      "serves_everything": true,
+      "shortfalls": []
+    },
+    "decisions_present": [
+      "consequence",
+      "derive_structure",
+      "intake_strategy",
+      "interpret_situation",
+      "partition",
+      "relevance",
+      "scope",
+      "traversal"
+    ]
+  },
+  "corrections": [
+    {
+      "said": "i don't need the economic theory stuff, the exam is mostly dates causes and people",
+      "reading": "The user wants to cut economic theory depth and keep only factual dates, causes, and key people — economic causes stay in play but at a factual/date level rather than theoretical explanation.",
+      "claimed": [
+        "scope"
+      ],
+      "actual": [
+        "scope"
+      ],
+      "unclaimed_drift": [],
+      "claimed_but_unchanged": [],
+      "out_of_scope": null,
+      "not_understood": false,
+      "landed": true
+    }
+  ],
+  "plan_after_corrections": {
+    "state": "planned",
+    "situation": {
+      "subject": "French Revolution (Class 9 History curriculum)",
+      "job": "retrieve",
+      "purpose": "Prepare for Class 9 history exam next week",
+      "entry_point": "Class 9 student with standard school history background; familiar with basic historical concepts but needs focused coverage of French Revolution syllabus",
+      "target_capability": "Answer exam questions on French Revolution — causes, key events, figures, outcomes, and significance at Class 9 board level",
+      "capacity": "Exam in one week; needs efficient, high-yield revision material",
+      "stated": [
+        "french revolution notes",
+        "french revolution notes",
+        "for my class 9 history exam",
+        "for my class 9 history exam",
+        "next week"
+      ],
+      "stated_axes": [
+        "subject",
+        "artifact_type",
+        "purpose",
+        "entry_point",
+        "capacity"
+      ],
+      "inferred": [
+        "Depth register is Class 9 board-exam standard (NCERT/CBSE aligned)",
+        "Artifact type is structured revision notes — not a textbook, not flashcards",
+        "Template follows typical history exam pattern: causes → events → consequences → significance",
+        "No need for historiographical debates or primary source analysis"
+      ]
+    },
+    "landscape": {
+      "concept_count": 17,
+      "concepts": [
+        {
+          "name": "Ancien Regime and Three Estates",
+          "built_from": [],
+          "family": "social structure"
+        },
+        {
+          "name": "Economic Crisis and Financial Mismanagement",
+          "built_from": [
+            "Ancien Regime and Three Estates"
+          ],
+          "family": "cause"
+        },
+        {
+          "name": "Enlightenment Ideas and Philosophers",
+          "built_from": [],
+          "family": "intellectual cause"
+        },
+        {
+          "name": "Political Crisis: Weak Monarchy and Estates-General",
+          "built_from": [
+            "Ancien Regime and Three Estates",
+            "Economic Crisis and Financial Mismanagement"
+          ],
+          "family": "political cause"
+        },
+        {
+          "name": "Tennis Court Oath and National Assembly",
+          "built_from": [
+            "Political Crisis: Weak Monarchy and Estates-General"
+          ],
+          "family": "key event"
+        },
+        {
+          "name": "Storming of the Bastille",
+          "built_from": [
+            "Tennis Court Oath and National Assembly"
+          ],
+          "family": "key event"
+        },
+        {
+          "name": "August Decrees and Abolition of Feudalism",
+          "built_from": [
+            "Storming of the Bastille"
+          ],
+          "family": "key event"
+        },
+        {
+          "name": "Declaration of the Rights of Man and Citizen",
+          "built_from": [
+            "August Decrees and Abolition of Feudalism",
+            "Enlightenment Ideas and Philosophers"
+          ],
+          "family": "key document"
+        },
+        {
+          "name": "Constitution of 1791 and Constitutional Monarchy",
+          "built_from": [
+            "Declaration of the Rights of Man and Citizen"
+          ],
+          "family": "political development"
+        },
+        {
+          "name": "Fall of Monarchy and Republic Proclamation",
+          "built_from": [
+            "Constitution of 1791 and Constitutional Monarchy"
+          ],
+          "family": "key event"
+        },
+        {
+          "name": "Reign of Terror and Committee of Public Safety",
+          "built_from": [
+            "Fall of Monarchy and Republic Proclamation"
+          ],
+          "family": "radical phase"
+        },
+        {
+          "name": "Robespierre and Jacobins",
+          "built_from": [
+            "Reign of Terror and Committee of Public Safety"
+          ],
+          "family": "key figure"
+        },
+        {
+          "name": "Thermidorian Reaction and Directory",
+          "built_from": [
+            "Reign of Terror and Committee of Public Safety"
+          ],
+          "family": "political development"
+        },
+        {
+          "name": "Rise of Napoleon Bonaparte",
+          "built_from": [
+            "Thermidorian Reaction and Directory"
+          ],
+          "family": "key figure"
+        },
+        {
+          "name": "Outcomes: End of Feudalism and Social Change",
+          "built_from": [
+            "August Decrees and Abolition of Feudalism",
+            "Reign of Terror and Committee of Public Safety",
+            "Thermidorian Reaction and Directory"
+          ],
+          "family": "outcome"
+        },
+        {
+          "name": "Legacy: Liberty, Equality, Fraternity and Global Impact",
+          "built_from": [
+            "Declaration of the Rights of Man and Citizen",
+            "Outcomes: End of Feudalism and Social Change",
+            "Rise of Napoleon Bonaparte"
+          ],
+          "family": "significance"
+        },
+        {
+          "name": "Key Figures: Louis XVI, Marie Antoinette, Lafayette, Mirabeau",
+          "built_from": [
+            "Ancien Regime and Three Estates",
+            "Political Crisis: Weak Monarchy and Estates-General",
+            "Constitution of 1791 and Constitutional Monarchy"
+          ],
+          "family": "key figure"
+        }
+      ],
+      "families": [
+        "cause",
+        "intellectual cause",
+        "key document",
+        "key event",
+        "key figure",
+        "outcome",
+        "political cause",
+        "political development",
+        "radical phase",
+        "significance",
+        "social structure"
+      ],
+      "edges": 23,
+      "roots": [
+        "Ancien Regime and Three Estates",
+        "Enlightenment Ideas and Philosophers"
+      ],
+      "parenthetical_lists": [],
+      "judged": 17,
+      "in_play": 17,
+      "out_of_play": [],
+      "unjudged": []
+    },
+    "scope": {
+      "covered_count": 17,
+      "covered": [
+        {
+          "concept": "Ancien Regime and Three Estates",
+          "depth": "explain",
+          "anticipates": "cross-reference",
+          "why": "Foundation for every cause question; must compare estates on privileges, taxes, population for short/long answers."
+        },
+        {
+          "concept": "Economic Crisis and Financial Mismanagement",
+          "depth": "mention",
+          "anticipates": "none",
+          "why": "Exam tests key facts — war debt, taxation inequality, subsistence crisis, 1788–89 harvest failure — not economic theory; keep as dated bullet points for recall."
+        },
+        {
+          "concept": "Enlightenment Ideas and Philosophers",
+          "depth": "explain",
+          "anticipates": "cross-reference",
+          "why": "Named philosophers (Voltaire, Rousseau, Montesquieu) and their specific ideas are directly tested; must match thinker to concept."
+        },
+        {
+          "concept": "Political Crisis: Weak Monarchy and Estates-General",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Explains the immediate political trigger; voting controversy and deadlock are standard short-answer material."
+        },
+        {
+          "concept": "Tennis Court Oath and National Assembly",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "First revolutionary act; significance as assertion of popular sovereignty is a frequent long-answer prompt."
+        },
+        {
+          "concept": "Storming of the Bastille",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Symbolic start of Revolution; date, cause, and symbolic meaning are all tested individually."
+        },
+        {
+          "concept": "August Decrees and Abolition of Feudalism",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Shows immediate social transformation; specific provisions (tithes, seigneurial rights) appear in short answers."
+        },
+        {
+          "concept": "Declaration of the Rights of Man and Citizen",
+          "depth": "explain",
+          "anticipates": "cross-reference",
+          "why": "Central document; principles (liberty, equality, property, resistance) and articles are quoted in answers."
+        },
+        {
+          "concept": "Constitution of 1791 and Constitutional Monarchy",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "First written constitution; features (separation of powers, limited suffrage) explain why it failed — a common question."
+        },
+        {
+          "concept": "Fall of Monarchy and Republic Proclamation",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Phase shift to radical republic; September Massacres, 1792 election, and abolition of monarchy are tested."
+        },
+        {
+          "concept": "Reign of Terror and Committee of Public Safety",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Radical phase core; Law of Suspects, Revolutionary Tribunal, and 'Terror as order of the day' are exam staples."
+        },
+        {
+          "concept": "Robespierre and Jacobins",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Named figures; Robespierre's role, Jacobin policies, and his fall are directly asked."
+        },
+        {
+          "concept": "Thermidorian Reaction and Directory",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Post-Terror stabilisation attempt; Directory's weaknesses (corruption, reliance on army) set up Napoleon."
+        },
+        {
+          "concept": "Rise of Napoleon Bonaparte",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Culmination; 1799 Coup of 18 Brumaire ends Revolution — must state this clearly for 'end of Revolution' questions."
+        },
+        {
+          "concept": "Outcomes: End of Feudalism and Social Change",
+          "depth": "explain",
+          "anticipates": "cross-reference",
+          "why": "Consequences question requires structured social, political, economic outcomes; this concept aggregates them."
+        },
+        {
+          "concept": "Legacy: Liberty, Equality, Fraternity and Global Impact",
+          "depth": "explain",
+          "anticipates": "cross-reference",
+          "why": "Standard long-answer topic; impact on France, Europe (nationalism), and world (anti-colonial) must be distinguishable."
+        },
+        {
+          "concept": "Key Figures: Louis XVI, Marie Antoinette, Lafayette, Mirabeau",
+          "depth": "explain",
+          "anticipates": "cross-reference",
+          "why": "Named individuals; each linked to specific events (Louis XVI → Estates-General/flight/execution, etc.) for 1–2 mark questions."
+        }
+      ],
+      "depths": {
+        "explain": 16,
+        "mention": 1
+      },
+      "anticipates": {
+        "cross-reference": 6,
+        "none": 11
+      },
+      "anticipates_any": 6,
+      "cut": []
+    },
+    "partition": {
+      "shape": "modules",
+      "module_count": 1,
+      "legacy_unit_count": 0,
+      "modules": [
+        {
+          "title": "French Revolution: Complete Revision Notes for Class 9 Exam",
+          "covers": [
+            "Ancien Regime and Three Estates",
+            "Economic Crisis and Financial Mismanagement",
+            "Enlightenment Ideas and Philosophers",
+            "Political Crisis: Weak Monarchy and Estates-General",
+            "Tennis Court Oath and National Assembly",
+            "Storming of the Bastille",
+            "August Decrees and Abolition of Feudalism",
+            "Declaration of the Rights of Man and Citizen",
+            "Constitution of 1791 and Constitutional Monarchy",
+            "Fall of Monarchy and Republic Proclamation",
+            "Reign of Terror and Committee of Public Safety",
+            "Robespierre and Jacobins",
+            "Thermidorian Reaction and Directory",
+            "Rise of Napoleon Bonaparte",
+            "Outcomes: End of Feudalism and Social Change",
+            "Legacy: Liberty, Equality, Fraternity and Global Impact",
+            "Key Figures: Louis XVI, Marie Antoinette, Lafayette, Mirabeau"
+          ],
+          "concept_count": 17,
+          "capability": "Answer any Class 9 board exam question on the French Revolution — including causes (social, economic, intellectual, political), key events in sequence, major figures and their roles, legislative acts and declarations, the radical phase and its end, and the revolution's outcomes and global legacy — using structured, exam-oriented explanations.",
+          "why_here": "All 17 in-play concepts form the complete Class 9 French Revolution syllabus in the exact chronological and thematic sequence board exams follow. Splitting would fragment the narrative the learner must reproduce in long answers and make cross-concept revision (e.g., causes → outcomes) inefficient for a one-week timeline."
+        }
+      ],
+      "concepts_per_module": [
+        17
+      ],
+      "orphans": [],
+      "phantoms": [],
+      "duplicate_coverage": [],
+      "slug_collisions": []
+    },
+    "promises": {
+      "capability_clauses": 1,
+      "capability_unbacked": 0,
+      "capability_unbacked_share": 0.0,
+      "capability_support": [
+        {
+          "module": "French Revolution: Complete Revision Notes for Class 9 Exam",
+          "clauses": [
+            "Answer any Class 9 board exam question on the French Revolution — including causes (social, economic, intellectual, political), key events in sequence, major figures and their roles, legislative acts and declarations, the radical phase and its end, and the revolution's outcomes and global legacy — using structured, exam-oriented explanations."
+          ],
+          "backed": [
+            {
+              "clause": "Answer any Class 9 board exam question on the French Revolution — including causes (social, economic, intellectual, political), key events in sequence, major figures and their roles, legislative acts and declarations, the radical phase and its end, and the revolution's outcomes and global legacy — using structured, exam-oriented explanations.",
+              "concepts": [
+                "Economic Crisis and Financial Mismanagement",
+                "Political Crisis: Weak Monarchy and Estates-General",
+                "Declaration of the Rights of Man and Citizen",
+                "Outcomes: End of Feudalism and Social Change",
+                "Legacy: Liberty, Equality, Fraternity and Global Impact",
+                "Key Figures: Louis XVI, Marie Antoinette, Lafayette, Mirabeau"
+              ]
+            }
+          ],
+          "unbacked": []
+        }
+      ],
+      "coherence": [
+        {
+          "module": "French Revolution: Complete Revision Notes for Class 9 Exam",
+          "concepts": 17,
+          "internal": 23,
+          "external": 0,
+          "ratio": 1.0,
+          "depends_on_modules": [],
+          "links": []
+        }
+      ],
+      "modules_with_no_internal_dependency": [],
+      "external_dependency_total": 0
+    },
+    "extent": {
+      "total": "~9 pages · about 2 hours",
+      "pages": "~9 pages",
+      "study_time": "about 2 hours",
+      "parts": 1,
+      "modules": 1,
+      "per_unit": {
+        "French Revolution: Complete Revision Notes for Class 9 Exam": "~9 pages"
+      }
+    },
+    "feasibility": {
+      "serves_everything": true,
+      "shortfalls": []
+    },
+    "decisions_present": [
+      "consequence",
+      "derive_structure",
+      "intake_strategy",
+      "interpret_situation",
+      "partition",
+      "relevance",
+      "scope",
+      "traversal"
+    ]
+  },
+  "approval": {
+    "approved": true,
+    "decision_count": 7,
+    "refused_because": null
+  },
+  "finished_at": "2026-09-25T15:47:57+00:00",
+  "seconds_total": 441.58,
+  "seconds_by_stage": {
+    "create": 85.81,
+    "intake": 0.0,
+    "plan": 293.99,
+    "correct": 61.65,
+    "approve": 0.02
+  },
+  "cost": {
+    "model_calls": 6,
+    "failed_calls": 0,
+    "input_tokens": 23396,
+    "output_tokens": 8848,
+    "seconds": 441.39,
+    "calls": [
+      {
+        "ok": true,
+        "seconds": 51.54,
+        "input_tokens": 3156,
+        "output_tokens": 1514,
+        "schema": "Reading",
+        "error": null
+      },
+      {
+        "ok": true,
+        "seconds": 34.25,
+        "input_tokens": 1348,
+        "output_tokens": 647,
+        "schema": "Intake",
+        "error": null
+      },
+      {
+        "ok": true,
+        "seconds": 144.91,
+        "input_tokens": 1601,
+        "output_tokens": 462,
+        "schema": "Landscape",
+        "error": null
+      },
+      {
+        "ok": true,
+        "seconds": 37.38,
+        "input_tokens": 1712,
+        "output_tokens": 1816,
+        "schema": "Landscape",
+        "error": null
+      },
+      {
+        "ok": true,
+        "seconds": 111.68,
+        "input_tokens": 5241,
+        "output_tokens": 2714,
+        "schema": "PlanBody",
+        "error": null
+      },
+      {
+        "ok": true,
+        "seconds": 61.63,
+        "input_tokens": 10338,
+        "output_tokens": 1695,
+        "schema": "Routing",
+        "error": null
+      }
+    ]
+  }
+}

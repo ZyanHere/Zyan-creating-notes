@@ -1,0 +1,1055 @@
+{
+  "project": {
+    "id": "a8a0694d-834b-425b-996d-3df0ccefa868",
+    "user_id": "local",
+    "title": "i need notes on vlsi",
+    "taxonomy_version": "plan-gate-1",
+    "created_at": "2026-09-25T15:47:57+00:00"
+  },
+  "utterance": [
+    {
+      "id": "ff2d9667-bb25-49a5-9c45-37acca71150a",
+      "project_id": "a8a0694d-834b-425b-996d-3df0ccefa868",
+      "ord": 0,
+      "role": "user",
+      "text": "i need notes on vlsi",
+      "created_at": "2026-09-25T15:47:57+00:00"
+    },
+    {
+      "id": "98a9c0c9-b0fe-4f26-bad1-2cd15cde6e1e",
+      "project_id": "a8a0694d-834b-425b-996d-3df0ccefa868",
+      "ord": 1,
+      "role": "user",
+      "text": "it's for my university semester exam, i've done basic digital electronics",
+      "created_at": "2026-09-25T15:49:29+00:00"
+    }
+  ],
+  "decision": [
+    {
+      "id": "b569455f99294473b284588195f8d3d2",
+      "project_id": "a8a0694d-834b-425b-996d-3df0ccefa868",
+      "kind": "interpret_situation",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "74ca6c0c86c8155303ac191ef0980c3f",
+      "output": {
+        "subject": "VLSI (Very Large Scale Integration)",
+        "job": "orient",
+        "entry_point": "unknown",
+        "purpose": "unknown",
+        "target_capability": "unknown",
+        "capacity": null,
+        "stated": [
+          {
+            "text": "i need notes on vlsi",
+            "axis": "subject"
+          },
+          {
+            "text": "i need notes on vlsi",
+            "axis": "artifact_type"
+          }
+        ],
+        "inferred": [
+          "artifact_type defaults to structured notes unless format specified",
+          "job defaults to orient for a first request with no action verb",
+          "entry_point, purpose, target_capability, depth_register, template all unresolved"
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "interpret_v1",
+      "cost": {
+        "in": 3149,
+        "out": 1207
+      },
+      "created_at": "2026-09-25T15:48:45+00:00"
+    },
+    {
+      "id": "0751d8d65d36421790c0fc66099ae26d",
+      "project_id": "a8a0694d-834b-425b-996d-3df0ccefa868",
+      "kind": "intake_strategy",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "82dbb7f7819216e2e3b112bc69d1325c",
+      "output": {
+        "questions": [
+          {
+            "axis": "purpose",
+            "question": "What's driving the request for VLSI notes?",
+            "why_it_matters": "An exam cheat-sheet highlights formulas and common questions; an interview guide stresses trade-off talking points; a project reference includes tool flows and sign-off checklists; a research map cites recent papers and open problems.",
+            "options": [
+              {
+                "label": "Exam / course revision",
+                "implication": "condenses each topic to definitions, key equations, and typical numerical problems — ~15 pages"
+              },
+              {
+                "label": "Job interview prep",
+                "implication": "organises by frequently-asked areas (timing, power, verification, analog basics) with 'why this matters' talking points — ~20 pages"
+              },
+              {
+                "label": "Active design project",
+                "implication": "adds a runnable RTL-to-GDS flow checklist, common DRC/LVS errors, and sign-off deliverables — ~30 pages"
+              },
+              {
+                "label": "Research / literature survey",
+                "implication": "clusters by sub-field (3D IC, neuromorphic, quantum, etc.) with seminal papers and open challenges — ~25 pages"
+              }
+            ],
+            "default_label": "Exam / course revision"
+          },
+          {
+            "axis": "entry_point",
+            "question": "Which background best matches you right now?",
+            "why_it_matters": "A beginner needs MOS physics and stick diagrams explained; a digital-logic student can skip to synthesis and timing; a practicing analog engineer wants digital-back-end flow; a senior designer only needs advanced-nodes and methodology updates.",
+            "options": [
+              {
+                "label": "No prior semiconductor background",
+                "implication": "starts with energy bands, p-n junction, MOSFET I-V, and stick diagrams — adds ~8 foundational pages"
+              },
+              {
+                "label": "Digital logic / computer architecture course done",
+                "implication": "skips device physics; opens with CMOS inverter VTC, then combinational / sequential layout — saves ~8 pages"
+              },
+              {
+                "label": "Analog / RF circuit experience, new to digital back-end",
+                "implication": "assumes small-signal models; focuses on standard-cell flow, STA, power grid, and sign-off — ~22 pages"
+              },
+              {
+                "label": "2+ tape-outs, need advanced-node updates",
+                "implication": "jumps straight to FinFET/GAA effects, DTCO, PPA optimisation, and ML-driven flows — ~18 pages"
+              }
+            ],
+            "default_label": "Digital logic / computer architecture course done"
+          },
+          {
+            "axis": "target_capability",
+            "question": "What should the notes let you do afterwards?",
+            "why_it_matters": "Explaining concepts needs clear narratives; reading specs needs vocabulary and spec-breakdown tables; designing a block needs worked RTL-to-layout examples; running full flow needs tool scripts and sign-off checklists.",
+            "options": [
+              {
+                "label": "Explain VLSI concepts to peers",
+                "implication": "adds one-page concept summaries with diagrams and analogies — ~18 pages"
+              },
+              {
+                "label": "Read foundry PDK docs and spec sheets",
+                "implication": "includes parameter tables, corner definitions, and a 'how to read a Liberty file' walkthrough — ~22 pages"
+              },
+              {
+                "label": "Design and verify a small digital block (ALU, FIFO, small CPU)",
+                "implication": "provides coded RTL, synthesis constraints, floorplan, and STA scripts for a 4-bit RISC-V core — ~35 pages"
+              },
+              {
+                "label": "Execute a full RTL-to-GDS flow with sign-off",
+                "implication": "adds complete flow scripts (DC/ICC/PT/Calibre), UPF power intent, and a tape-out checklist — ~40 pages"
+              }
+            ],
+            "default_label": "Read foundry PDK docs and spec sheets"
+          }
+        ],
+        "sufficiency": {
+          "verdict": "ask",
+          "budget": 4,
+          "asking": [
+            "purpose",
+            "entry_point",
+            "target_capability"
+          ],
+          "over_budget": [],
+          "axes": [
+            {
+              "axis": "subject",
+              "value": "VLSI (Very Large Scale Integration)",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "vlsi"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "A different subject (e.g., 'analog IC design' or 'FPGA') would produce a completely different concept landscape and partition.",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "purpose",
+              "value": null,
+              "strength": "unknown",
+              "verified": [],
+              "unverified": [],
+              "material": true,
+              "would_differ": "Exam prep (GATE, semester) would prioritize syllabus coverage, solved problems, and formula sheets. Interview prep would prioritize concepts, trade-offs, and verbal explanation. Building a chip would prioritize flow, DRC/LVS, sign-off, and tool commands. General learning would prioritize intuition and mental models.",
+              "askable": true,
+              "asked": true,
+              "reason": "weak (unknown) and a different answer would change the plan"
+            },
+            {
+              "axis": "entry_point",
+              "value": null,
+              "strength": "unknown",
+              "verified": [],
+              "unverified": [],
+              "material": true,
+              "would_differ": "A student who has taken digital logic needs MOSFET physics and fabrication basics. A software engineer needs the entire semiconductor physics stack. A working analog designer needs digital flow, STA, and P&R. Each entry point cuts the landscape at a different place.",
+              "askable": true,
+              "asked": true,
+              "reason": "weak (unknown) and a different answer would change the plan"
+            },
+            {
+              "axis": "target_capability",
+              "value": null,
+              "strength": "unknown",
+              "verified": [],
+              "unverified": [],
+              "material": true,
+              "would_differ": "Pass a written exam → reproduce derivations, solve timing problems. Explain in interview → articulate trade-offs (power/area/speed), describe flow steps. Run a tapeout → write SDC, debug DRC, read GDS. Each capability demands different concepts at different depths.",
+              "askable": true,
+              "asked": true,
+              "reason": "weak (unknown) and a different answer would change the plan"
+            },
+            {
+              "axis": "capacity",
+              "value": null,
+              "strength": "unknown",
+              "verified": [],
+              "unverified": [],
+              "material": true,
+              "would_differ": "A 2-hour budget forces a one-pager cheatsheet. A semester allows a full textbook partition with 15+ concepts. No stated limit means the plan must propose a scope and wait for reaction.",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Semantics §1 LOCKED — optional, and the corollary: deriving the plan and reporting its extent is what CAUSES a capacity to be stated. Asking upfront asks for a number the learner cannot honestly give."
+            },
+            {
+              "axis": "depth_register",
+              "value": null,
+              "strength": "unknown",
+              "verified": [],
+              "unverified": [],
+              "material": true,
+              "would_differ": "Introductory register builds intuition with analogies and block diagrams. Graduate register includes equations (Ids-Vgs, Elmore delay, RC extraction). Research register includes process corners, variation modeling, and TCAD. The register determines which concepts appear and how they are treated.",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Semantics §1 — biasing, not binding. A default is always defensible."
+            },
+            {
+              "axis": "artifact_type",
+              "value": "structured notes",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "notes"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "Cheatsheet → one page, dense, formulas only. Flashcards → Q&A pairs. Detailed notes → full derivations, diagrams, cross-references. Video script → narrative, spoken transitions. The artifact type drives the partition granularity and treatment density.",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "template",
+              "value": null,
+              "strength": "unknown",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "A GATE template imposes syllabus order and solved-problem slots. An interview template imposes concept → trade-off → follow-up structure. A tapeout checklist imposes flow order with sign-off criteria. No template means the system designs the structure from the other axes.",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Presentation-Boundary rule 1 — internal. Users never select one."
+            }
+          ]
+        }
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "ask_v1",
+      "cost": {
+        "in": 1197,
+        "out": 1119
+      },
+      "created_at": "2026-09-25T15:49:29+00:00"
+    },
+    {
+      "id": "3fd31e5c9c374f248115cd1a4eadd4fb",
+      "project_id": "a8a0694d-834b-425b-996d-3df0ccefa868",
+      "kind": "interpret_situation",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "0b1637642028d603ec257afd13ffe5c6",
+      "output": {
+        "subject": "VLSI (Very Large Scale Integration)",
+        "job": "retrieve",
+        "entry_point": "Basic digital electronics knowledge",
+        "purpose": "University semester exam preparation",
+        "target_capability": "Recall and explain VLSI concepts, designs, and methodologies at the level required to pass a university semester exam",
+        "capacity": null,
+        "stated": [
+          {
+            "text": "vlsi",
+            "axis": "subject"
+          },
+          {
+            "text": "notes",
+            "axis": "artifact_type"
+          },
+          {
+            "text": "university semester exam",
+            "axis": "purpose"
+          },
+          {
+            "text": "basic digital electronics",
+            "axis": "entry_point"
+          }
+        ],
+        "inferred": [
+          "Target capability is exam performance — not design capability or research readiness",
+          "Depth register aligns with standard undergraduate VLSI curriculum",
+          "No specific template requested; default academic notes structure applies"
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "interpret_v1",
+      "cost": {
+        "in": 3164,
+        "out": 1788
+      },
+      "created_at": "2026-09-25T15:50:32+00:00"
+    },
+    {
+      "id": "492cec1febd24b409f856ae46a506243",
+      "project_id": "a8a0694d-834b-425b-996d-3df0ccefa868",
+      "kind": "intake_strategy",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "acc673aa69a180b1f5353b634d7e8db3",
+      "output": {
+        "questions": [],
+        "sufficiency": {
+          "verdict": "sufficient",
+          "budget": 4,
+          "asking": [],
+          "over_budget": [],
+          "axes": [
+            {
+              "axis": "subject",
+              "value": "VLSI (Very Large Scale Integration)",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "vlsi"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If the subject were Verilog/SystemVerilog instead of VLSI broadly, the plan would focus on HDL syntax, simulation, and synthesis flow rather than fabrication, layout, timing analysis, and architecture.",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "purpose",
+              "value": "University semester exam preparation",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 1,
+                  "quote": "university semester exam"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If the purpose were interview prep, the plan would prioritize frequently asked concepts, trade-off discussions, and quick-recall formats over comprehensive syllabus coverage.",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "entry_point",
+              "value": "Basic digital electronics knowledge",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 1,
+                  "quote": "basic digital electronics"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If the learner had no digital electronics background, the plan would need 3-4 foundational units on logic gates, sequential circuits, and timing before any VLSI content. If they had advanced knowledge (e.g., computer architecture), the plan could skip introductory MOS theory.",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "target_capability",
+              "value": "Recall and explain VLSI concepts, designs, and methodologies at the level required to pass a university semester exam",
+              "strength": "inferred",
+              "verified": [
+                {
+                  "utterance_ord": 1,
+                  "quote": "university semester exam"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If the target were tape-out readiness, the plan would include DRC/LVS, sign-off timing, and physical verification flows. If it were research literacy, it would emphasize recent literature and open problems.",
+              "askable": true,
+              "asked": false,
+              "reason": "inferred, supported by 'university semester exam'"
+            },
+            {
+              "axis": "capacity",
+              "value": null,
+              "strength": "unknown",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "If a page limit (e.g., 10-page cheatsheet) or time budget (e.g., 3 hours total study) were given, the plan would aggressively prune low-yield topics and compress explanations.",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Semantics §1 LOCKED — optional, and the corollary: deriving the plan and reporting its extent is what CAUSES a capacity to be stated. Asking upfront asks for a number the learner cannot honestly give."
+            },
+            {
+              "axis": "depth_register",
+              "value": null,
+              "strength": "unknown",
+              "verified": [],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If depth were 'overview only', the plan would cover 8-10 units at conceptual level with no derivations. If 'deep with derivations', each unit would include mathematical models, device physics equations, and numerical examples — roughly 2-3x the concept count.",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Semantics §1 — biasing, not binding. A default is always defensible."
+            },
+            {
+              "axis": "artifact_type",
+              "value": "notes",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "notes"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If artifact were 'cheatsheet', the plan would produce a 2-4 page high-density reference with formulas and decision trees only. If 'flashcards', it would emit Q&A pairs. If 'detailed notes', it would include worked examples and derivations.",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "template",
+              "value": null,
+              "strength": "unknown",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "If a specific template were requested (e.g., 'Cornell notes format', 'one-page-per-topic'), the rendering would conform to that structure. Absent that, default academic notes with concept → explanation → example → summary per topic.",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Presentation-Boundary rule 1 — internal. Users never select one."
+            }
+          ]
+        }
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "interpret_v1",
+      "cost": {
+        "in": 3164,
+        "out": 1788
+      },
+      "created_at": "2026-09-25T15:50:32+00:00"
+    },
+    {
+      "id": "f6ea63664c9d4367a5a88bd07b3af472",
+      "project_id": "a8a0694d-834b-425b-996d-3df0ccefa868",
+      "kind": "intake_strategy",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "ec363a41f8a68a181cd10c508f43a95c",
+      "output": {
+        "questions": [],
+        "sufficiency": {
+          "verdict": "sufficient",
+          "budget": 4,
+          "asking": [],
+          "over_budget": [],
+          "axes": [
+            {
+              "axis": "subject",
+              "value": "VLSI (Very Large Scale Integration)",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "vlsi"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If the subject were Verilog/SystemVerilog instead of VLSI broadly, the plan would focus on HDL syntax, simulation, and synthesis flow rather than fabrication, layout, timing analysis, and architecture.",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "purpose",
+              "value": "University semester exam preparation",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 1,
+                  "quote": "university semester exam"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If the purpose were interview prep, the plan would prioritize frequently asked concepts, trade-off discussions, and quick-recall formats over comprehensive syllabus coverage.",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "entry_point",
+              "value": "Basic digital electronics knowledge",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 1,
+                  "quote": "basic digital electronics"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If the learner had no digital electronics background, the plan would need 3-4 foundational units on logic gates, sequential circuits, and timing before any VLSI content. If they had advanced knowledge (e.g., computer architecture), the plan could skip introductory MOS theory.",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "target_capability",
+              "value": "Recall and explain VLSI concepts, designs, and methodologies at the level required to pass a university semester exam",
+              "strength": "inferred",
+              "verified": [
+                {
+                  "utterance_ord": 1,
+                  "quote": "university semester exam"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If the target were tape-out readiness, the plan would include DRC/LVS, sign-off timing, and physical verification flows. If it were research literacy, it would emphasize recent literature and open problems.",
+              "askable": true,
+              "asked": false,
+              "reason": "inferred, supported by 'university semester exam'"
+            },
+            {
+              "axis": "capacity",
+              "value": null,
+              "strength": "unknown",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "If a page limit (e.g., 10-page cheatsheet) or time budget (e.g., 3 hours total study) were given, the plan would aggressively prune low-yield topics and compress explanations.",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Semantics §1 LOCKED — optional, and the corollary: deriving the plan and reporting its extent is what CAUSES a capacity to be stated. Asking upfront asks for a number the learner cannot honestly give."
+            },
+            {
+              "axis": "depth_register",
+              "value": null,
+              "strength": "unknown",
+              "verified": [],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If depth were 'overview only', the plan would cover 8-10 units at conceptual level with no derivations. If 'deep with derivations', each unit would include mathematical models, device physics equations, and numerical examples — roughly 2-3x the concept count.",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Semantics §1 — biasing, not binding. A default is always defensible."
+            },
+            {
+              "axis": "artifact_type",
+              "value": "notes",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "notes"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If artifact were 'cheatsheet', the plan would produce a 2-4 page high-density reference with formulas and decision trees only. If 'flashcards', it would emit Q&A pairs. If 'detailed notes', it would include worked examples and derivations.",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "template",
+              "value": null,
+              "strength": "unknown",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "If a specific template were requested (e.g., 'Cornell notes format', 'one-page-per-topic'), the rendering would conform to that structure. Absent that, default academic notes with concept → explanation → example → summary per topic.",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Presentation-Boundary rule 1 — internal. Users never select one."
+            }
+          ]
+        },
+        "exhausted": true,
+        "closed_because": "nothing material left to ask"
+      },
+      "model": null,
+      "prompt_version": null,
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-25T15:50:33+00:00"
+    },
+    {
+      "id": "8182125503ee4ba0a486c15bbf83f400",
+      "project_id": "a8a0694d-834b-425b-996d-3df0ccefa868",
+      "kind": "derive_structure",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "b807b598c953bb36f5853d132081695f",
+      "output": {
+        "concepts": [
+          {
+            "name": "MOSFET Physics & Operation",
+            "built_from": [],
+            "family": "device physics"
+          },
+          {
+            "name": "CMOS Technology & Scaling",
+            "built_from": [
+              "MOSFET Physics & Operation"
+            ],
+            "family": "technology"
+          },
+          {
+            "name": "Fabrication Process Steps",
+            "built_from": [
+              "CMOS Technology & Scaling"
+            ],
+            "family": "fabrication"
+          },
+          {
+            "name": "Layout Design Rules (Lambda/DRC)",
+            "built_from": [
+              "Fabrication Process Steps"
+            ],
+            "family": "layout"
+          },
+          {
+            "name": "Stick Diagrams & Euler Paths",
+            "built_from": [
+              "Layout Design Rules (Lambda/DRC)"
+            ],
+            "family": "layout"
+          },
+          {
+            "name": "CMOS Inverter (Static & Dynamic Behavior)",
+            "built_from": [
+              "MOSFET Physics & Operation",
+              "CMOS Technology & Scaling"
+            ],
+            "family": "core circuit"
+          },
+          {
+            "name": "Combinational CMOS Logic Gates",
+            "built_from": [
+              "CMOS Inverter (Static & Dynamic Behavior)"
+            ],
+            "family": "core circuit"
+          },
+          {
+            "name": "Pass-Transistor & Transmission-Gate Logic",
+            "built_from": [
+              "Combinational CMOS Logic Gates"
+            ],
+            "family": "core circuit"
+          },
+          {
+            "name": "Dynamic Logic (Domino, NP-CMOS)",
+            "built_from": [
+              "Combinational CMOS Logic Gates"
+            ],
+            "family": "core circuit"
+          },
+          {
+            "name": "Sequential Elements (Latches, Flip-Flops)",
+            "built_from": [
+              "Combinational CMOS Logic Gates"
+            ],
+            "family": "core circuit"
+          },
+          {
+            "name": "Timing Parameters (Setup, Hold, Propagation Delay)",
+            "built_from": [
+              "Sequential Elements (Latches, Flip-Flops)",
+              "CMOS Inverter (Static & Dynamic Behavior)"
+            ],
+            "family": "timing"
+          },
+          {
+            "name": "Clock Distribution & Skew",
+            "built_from": [
+              "Timing Parameters (Setup, Hold, Propagation Delay)"
+            ],
+            "family": "timing"
+          },
+          {
+            "name": "Static Timing Analysis (STA)",
+            "built_from": [
+              "Timing Parameters (Setup, Hold, Propagation Delay)",
+              "Clock Distribution & Skew"
+            ],
+            "family": "timing"
+          },
+          {
+            "name": "Power Dissipation (Dynamic, Static, Short-Circuit)",
+            "built_from": [
+              "CMOS Inverter (Static & Dynamic Behavior)",
+              "CMOS Technology & Scaling"
+            ],
+            "family": "power"
+          },
+          {
+            "name": "Low-Power Design Techniques",
+            "built_from": [
+              "Power Dissipation (Dynamic, Static, Short-Circuit)"
+            ],
+            "family": "power"
+          },
+          {
+            "name": "Interconnect Modeling (RC, Crosstalk, Repeaters)",
+            "built_from": [
+              "CMOS Technology & Scaling",
+              "Fabrication Process Steps"
+            ],
+            "family": "interconnect"
+          },
+          {
+            "name": "SRAM Cell Design (6T, 8T) & Peripheral Circuits",
+            "built_from": [
+              "CMOS Inverter (Static & Dynamic Behavior)",
+              "Layout Design Rules (Lambda/DRC)"
+            ],
+            "family": "memory"
+          },
+          {
+            "name": "DRAM Cell Design & Sense Amplifiers",
+            "built_from": [
+              "MOSFET Physics & Operation",
+              "Layout Design Rules (Lambda/DRC)"
+            ],
+            "family": "memory"
+          },
+          {
+            "name": "ROM & Non-Volatile Memory Basics",
+            "built_from": [
+              "Fabrication Process Steps"
+            ],
+            "family": "memory"
+          },
+          {
+            "name": "Datapath Components (Adders, Multipliers, Shifters)",
+            "built_from": [
+              "Combinational CMOS Logic Gates",
+              "Pass-Transistor & Transmission-Gate Logic"
+            ],
+            "family": "datapath"
+          },
+          {
+            "name": "ALU & Register File Design",
+            "built_from": [
+              "Datapath Components (Adders, Multipliers, Shifters)",
+              "Sequential Elements (Latches, Flip-Flops)"
+            ],
+            "family": "datapath"
+          },
+          {
+            "name": "Testing: Fault Models (Stuck-At, Delay, Bridging)",
+            "built_from": [
+              "Combinational CMOS Logic Gates",
+              "Sequential Elements (Latches, Flip-Flops)"
+            ],
+            "family": "test"
+          },
+          {
+            "name": "Design for Testability (Scan, BIST, Boundary Scan)",
+            "built_from": [
+              "Testing: Fault Models (Stuck-At, Delay, Bridging)",
+              "Sequential Elements (Latches, Flip-Flops)"
+            ],
+            "family": "test"
+          },
+          {
+            "name": "ATPG & Fault Coverage",
+            "built_from": [
+              "Design for Testability (Scan, BIST, Boundary Scan)"
+            ],
+            "family": "test"
+          },
+          {
+            "name": "VLSI Design Flow (RTL to GDSII)",
+            "built_from": [],
+            "family": "methodology"
+          },
+          {
+            "name": "Logic Synthesis & Optimization",
+            "built_from": [
+              "VLSI Design Flow (RTL to GDSII)",
+              "Combinational CMOS Logic Gates"
+            ],
+            "family": "methodology"
+          },
+          {
+            "name": "Floorplanning, Placement & Routing",
+            "built_from": [
+              "VLSI Design Flow (RTL to GDSII)",
+              "Interconnect Modeling (RC, Crosstalk, Repeaters)"
+            ],
+            "family": "methodology"
+          },
+          {
+            "name": "Physical Verification (DRC, LVS, ERC)",
+            "built_from": [
+              "Layout Design Rules (Lambda/DRC)",
+              "VLSI Design Flow (RTL to GDSII)"
+            ],
+            "family": "methodology"
+          },
+          {
+            "name": "Process Variation & Statistical Timing",
+            "built_from": [
+              "CMOS Technology & Scaling",
+              "Static Timing Analysis (STA)"
+            ],
+            "family": "advanced"
+          },
+          {
+            "name": "Reliability (Electromigration, Hot Carrier, BTI, TDDB)",
+            "built_from": [
+              "MOSFET Physics & Operation",
+              "Interconnect Modeling (RC, Crosstalk, Repeaters)"
+            ],
+            "family": "advanced"
+          },
+          {
+            "name": "FinFET / Multi-Gate Devices",
+            "built_from": [
+              "MOSFET Physics & Operation",
+              "CMOS Technology & Scaling"
+            ],
+            "family": "advanced"
+          },
+          {
+            "name": "3D Integration & TSVs",
+            "built_from": [
+              "Fabrication Process Steps",
+              "Interconnect Modeling (RC, Crosstalk, Repeaters)"
+            ],
+            "family": "advanced"
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "derive_v1",
+      "cost": {
+        "in": 1486,
+        "out": 3364
+      },
+      "created_at": "2026-09-25T15:54:00+00:00"
+    },
+    {
+      "id": "7d669cc3599548bfbec592335bfb1fcc",
+      "project_id": "a8a0694d-834b-425b-996d-3df0ccefa868",
+      "kind": "relevance",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "a9035b9d3ce1643fbcc3234cafd1ad4b",
+      "output": {
+        "judgements": [
+          {
+            "concept": "MOSFET Physics & Operation",
+            "in_play": true,
+            "why": "Foundation for every CMOS circuit topic; exam questions routinely ask about threshold voltage, body effect, channel-length modulation, and I-V characteristics."
+          },
+          {
+            "concept": "CMOS Technology & Scaling",
+            "in_play": true,
+            "why": "Core to understanding why designs work as they do; scaling trends (Dennard, constant-field, constant-voltage) are standard exam material."
+          },
+          {
+            "concept": "Fabrication Process Steps",
+            "in_play": true,
+            "why": "Undergraduate VLSI exams always include process flow (oxidation, photolithography, etch, doping, metallization) and cross-section interpretation."
+          },
+          {
+            "concept": "Layout Design Rules (Lambda/DRC)",
+            "in_play": true,
+            "why": "Lambda-based rules, stick diagrams, and DRC/LVS concepts are directly tested — students must draw layouts and check rule compliance."
+          },
+          {
+            "concept": "Stick Diagrams & Euler Paths",
+            "in_play": true,
+            "why": "Standard exam skill: convert a logic function to stick diagram, optimize transistor ordering via Euler path, estimate area."
+          },
+          {
+            "concept": "CMOS Inverter (Static & Dynamic Behavior)",
+            "in_play": true,
+            "why": "The canonical building block; VTC, noise margins, delay (tau model, Elmore), and power are exam staples."
+          },
+          {
+            "concept": "Combinational CMOS Logic Gates",
+            "in_play": true,
+            "why": "NAND, NOR, AOI, OAI sizing for equal rise/fall delay, logical effort introduction — all standard exam content."
+          },
+          {
+            "concept": "Pass-Transistor & Transmission-Gate Logic",
+            "in_play": true,
+            "why": "Frequently examined for area/delay trade-offs, voltage drop (Vth loss), and specific circuits (mux, XOR)."
+          },
+          {
+            "concept": "Dynamic Logic (Domino, NP-CMOS)",
+            "in_play": true,
+            "why": "Precharge/evaluate, charge sharing, clock feedthrough, keeper sizing — common exam questions on high-speed design."
+          },
+          {
+            "concept": "Sequential Elements (Latches, Flip-Flops)",
+            "in_play": true,
+            "why": "Master-slave, edge-triggered, setup/hold time derivation, metastability — core sequential logic exam material."
+          },
+          {
+            "concept": "Timing Parameters (Setup, Hold, Propagation Delay)",
+            "in_play": true,
+            "why": "Directly tested with waveform analysis; students must compute max clock frequency given path delays."
+          },
+          {
+            "concept": "Clock Distribution & Skew",
+            "in_play": true,
+            "why": "Clock tree basics, skew vs. jitter, useful skew for timing closure — standard undergraduate topic."
+          },
+          {
+            "concept": "Static Timing Analysis (STA)",
+            "in_play": true,
+            "why": "Path-based vs. graph-based, setup/hold checks, slack computation — often a dedicated exam question."
+          },
+          {
+            "concept": "Power Dissipation (Dynamic, Static, Short-Circuit)",
+            "in_play": true,
+            "why": "Breakdown of P = αCV²f + I_leak·V + P_sc; exam problems on activity factor, capacitance estimation, leakage components."
+          },
+          {
+            "concept": "Low-Power Design Techniques",
+            "in_play": true,
+            "why": "Clock gating, power gating, multi-Vt, DVFS, operand isolation — standard coverage in modern curricula."
+          },
+          {
+            "concept": "Interconnect Modeling (RC, Crosstalk, Repeaters)",
+            "in_play": true,
+            "why": "Elmore delay, Pi/T models, crosstalk noise/glitch, repeater insertion optimization — all exam-relevant."
+          },
+          {
+            "concept": "SRAM Cell Design (6T, 8T) & Peripheral Circuits",
+            "in_play": true,
+            "why": "6T cell stability (SNM), read/write assist, sense amps, row/column decoders — major memory exam topic."
+          },
+          {
+            "concept": "DRAM Cell Design & Sense Amplifiers",
+            "in_play": true,
+            "why": "1T1C cell, charge sharing, sense amp operation, refresh — standard memory coverage."
+          },
+          {
+            "concept": "ROM & Non-Volatile Memory Basics",
+            "in_play": true,
+            "why": "Mask ROM, NOR/NAND flash basics, floating gate — lighter coverage but still appears in exams."
+          },
+          {
+            "concept": "Datapath Components (Adders, Multipliers, Shifters)",
+            "in_play": true,
+            "why": "Ripple-carry, carry-lookahead, prefix adders; array/Booth/Wallace multipliers; barrel shifters — classic datapath exam questions."
+          },
+          {
+            "concept": "ALU & Register File Design",
+            "in_play": true,
+            "why": "ALU control, flag logic, multi-port register file bitcell and layout — integrated datapath exam problems."
+          },
+          {
+            "concept": "Testing: Fault Models (Stuck-At, Delay, Bridging)",
+            "in_play": true,
+            "why": "Stuck-at fault equivalence/collapsing, delay fault models — theoretical foundation for DFT exam questions."
+          },
+          {
+            "concept": "Design for Testability (Scan, BIST, Boundary Scan)",
+            "in_play": true,
+            "why": "Scan chain operation, LFSR/MISR for BIST, JTAG (IEEE 1149.1) — standard DFT exam coverage."
+          },
+          {
+            "concept": "ATPG & Fault Coverage",
+            "in_play": true,
+            "why": "D-algorithm, PODEM, fault simulation, coverage metrics — often tested conceptually."
+          },
+          {
+            "concept": "VLSI Design Flow (RTL to GDSII)",
+            "in_play": true,
+            "why": "High-level flow understanding (synthesis → floorplan → place → route → signoff) is exam baseline knowledge."
+          },
+          {
+            "concept": "Logic Synthesis & Optimization",
+            "in_play": true,
+            "why": "Technology mapping, area/delay trade-offs, retiming, constant propagation — synthesis exam questions are common."
+          },
+          {
+            "concept": "Floorplanning, Placement & Routing",
+            "in_play": true,
+            "why": "Partitioning, placement algorithms (min-cut, simulated annealing, quadratic), global/detailed routing — methodology exam content."
+          },
+          {
+            "concept": "Physical Verification (DRC, LVS, ERC)",
+            "in_play": true,
+            "why": "DRC rule decks, LVS netlist vs. layout, antenna rules — signoff verification is standard curriculum."
+          },
+          {
+            "concept": "Process Variation & Statistical Timing",
+            "in_play": false,
+            "why": "Typically graduate-level (SSTA, parametric yield); undergraduate exams mention variation qualitatively but rarely require statistical methods."
+          },
+          {
+            "concept": "Reliability (Electromigration, Hot Carrier, BTI, TDDB)",
+            "in_play": false,
+            "why": "Device reliability physics is usually a graduate topic; undergrad courses may name-drop EM/IR drop but not model them."
+          },
+          {
+            "concept": "FinFET / Multi-Gate Devices",
+            "in_play": false,
+            "why": "Advanced technology node content; most undergraduate curricula still teach planar CMOS with FinFET as a 'future/advanced' note."
+          },
+          {
+            "concept": "3D Integration & TSVs",
+            "in_play": false,
+            "why": "Emerging packaging/integration topic; not part of standard undergraduate VLSI semester exam scope."
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "derive_v1",
+      "cost": {
+        "in": 1486,
+        "out": 3364
+      },
+      "created_at": "2026-09-25T15:54:00+00:00"
+    }
+  ],
+  "commitment": []
+}

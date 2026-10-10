@@ -1,0 +1,3524 @@
+{
+  "project": {
+    "id": "6c7a02dc-72bb-4eb7-9e91-917220f1b2f3",
+    "user_id": "local",
+    "title": "i need agentic ai notes for interview, from scratch",
+    "taxonomy_version": "plan-gate-1",
+    "created_at": "2026-09-25T21:15:24+00:00"
+  },
+  "utterance": [
+    {
+      "id": "9b9c2b63-7666-4528-85be-a98509054eec",
+      "project_id": "6c7a02dc-72bb-4eb7-9e91-917220f1b2f3",
+      "ord": 0,
+      "role": "user",
+      "text": "i need agentic ai notes for interview, from scratch",
+      "created_at": "2026-09-25T21:15:24+00:00"
+    },
+    {
+      "id": "6555884c-1e66-4d29-bbd0-98351af834e8",
+      "project_id": "6c7a02dc-72bb-4eb7-9e91-917220f1b2f3",
+      "ord": 1,
+      "role": "user",
+      "text": "i can code but i've never built an agent or used any of these frameworks",
+      "created_at": "2026-09-25T21:16:30+00:00"
+    },
+    {
+      "id": "2ee05e21-e2f1-4d11-a49f-a35da5b709a5",
+      "project_id": "6c7a02dc-72bb-4eb7-9e91-917220f1b2f3",
+      "ord": 2,
+      "role": "user",
+      "text": "you've missed evaluation entirely - interviewers always ask how you'd know if the agent is working",
+      "created_at": "2026-09-25T21:22:42+00:00"
+    },
+    {
+      "id": "2daf7c14-5a01-4e20-a1f4-48970200fc7b",
+      "project_id": "6c7a02dc-72bb-4eb7-9e91-917220f1b2f3",
+      "ord": 3,
+      "role": "router",
+      "text": "{\"correction\": \"you've missed evaluation entirely - interviewers always ask how you'd know if the agent is working\", \"reading\": \"The user feels evaluation coverage is missing entirely for interview prep, specifically wanting to answer 'how do you know the agent is working?' \\u2014 they likely missed that AgentBench and Custom Evaluation/LLM-as-Judge are already covered, and want the three cut benchmarks (WebShop, ALFWorld, \\u03c4-bench) restored plus stronger practical evaluation depth.\", \"claimed\": [\"scope\", \"consequence\", \"partition\"], \"actual\": [\"scope\", \"consequence\", \"partition\"], \"unchanged\": [\"interpret_situation\", \"traversal\", \"derive_structure\", \"relevance\", \"intake_strategy\"], \"unclaimed_drift\": [], \"claimed_but_unchanged\": [], \"out_of_scope\": null, \"not_understood\": false}",
+      "created_at": "2026-09-25T21:24:19+00:00"
+    }
+  ],
+  "decision": [
+    {
+      "id": "3e7a23fd558b4bb08b72883f21c1808a",
+      "project_id": "6c7a02dc-72bb-4eb7-9e91-917220f1b2f3",
+      "kind": "interpret_situation",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "5b73c0294126641686ba7aefb5b76abb",
+      "output": {
+        "subject": "Agentic AI (agentic artificial intelligence systems, architectures, and patterns)",
+        "job": "construct",
+        "entry_point": "No prior knowledge of agentic AI; starting from zero",
+        "purpose": "Prepare for technical interviews covering agentic AI concepts, architectures, and applications",
+        "target_capability": "Explain agentic AI fundamentals, compare architectures (ReAct, plan-and-execute, multi-agent), describe tool use and memory patterns, discuss evaluation and safety, and answer follow-up technical questions",
+        "capacity": null,
+        "stated": [
+          {
+            "text": "agentic ai",
+            "axis": "subject"
+          },
+          {
+            "text": "for interview",
+            "axis": "purpose"
+          },
+          {
+            "text": "from scratch",
+            "axis": "entry_point"
+          },
+          {
+            "text": "notes",
+            "axis": "artifact_type"
+          }
+        ],
+        "inferred": [
+          "Interview-level depth: conceptual clarity plus implementation awareness, not production-grade engineering detail",
+          "Coverage should include: definitions, core patterns (ReAct, plan-and-execute, reflection, multi-agent), tool use, memory, planning, evaluation, safety/guardrails, and common interview question themes",
+          "Artifact should be structured for revision: concept definitions, comparisons, diagrams-as-text, and FAQ-style Q&A"
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "interpret_v1",
+      "cost": {
+        "in": 3154,
+        "out": 1436
+      },
+      "created_at": "2026-09-25T21:16:08+00:00"
+    },
+    {
+      "id": "bc67aa8936064ac7a72ad46c86cacc37",
+      "project_id": "6c7a02dc-72bb-4eb7-9e91-917220f1b2f3",
+      "kind": "intake_strategy",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "14c224a9a3f89adca646f340d7357523",
+      "output": {
+        "questions": [
+          {
+            "axis": "entry_point",
+            "question": "What is your strongest existing technical background? This determines what prerequisites I can assume and what I need to explain from first principles.",
+            "why_it_matters": "A software engineer gets code snippets and API patterns; an ML engineer gets tensor shapes and loss discussions; a complete beginner gets analogies and zero jargon. The same concept definitions land differently.",
+            "options": [
+              {
+                "label": "Software engineer (comfortable reading/writing code, no ML)",
+                "implication": "Uses Python pseudocode and API-style examples; skips programming basics; explains ML concepts (embeddings, fine-tuning) when they first appear."
+              },
+              {
+                "label": "ML / data-science background (knows training, embeddings, transformers)",
+                "implication": "Assumes fluency with model internals; shows tensor shapes and loss terms; skips 'what is a language model' overview."
+              },
+              {
+                "label": "Research / academic (reads papers, comfortable with math notation)",
+                "implication": "Includes algorithm boxes, equations for reward/value functions, and citations; light on engineering pragmatics."
+              },
+              {
+                "label": "Complete beginner (no coding, no ML)",
+                "implication": "Purely conceptual with diagrams-as-text and analogies; no code blocks; every term defined inline; adds a one-page 'how to read this guide' preface."
+              }
+            ],
+            "default_label": "Software engineer (comfortable reading/writing code, no ML)"
+          }
+        ],
+        "sufficiency": {
+          "verdict": "ask",
+          "budget": 4,
+          "asking": [
+            "entry_point"
+          ],
+          "over_budget": [],
+          "axes": [
+            {
+              "axis": "subject",
+              "value": "Agentic AI",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "agentic ai"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If the subject were 'LLM applications' broadly, the plan would include RAG, fine-tuning, and prompt engineering as co-equal topics; agentic AI focuses the landscape on autonomy, tool use, planning, and multi-agent coordination.",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "purpose",
+              "value": "Interview preparation",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "for interview"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If the purpose were 'build a prototype', the plan would allocate depth to code patterns, framework comparisons (LangGraph, AutoGen, CrewAI), and debugging; interview prep prioritises conceptual distinctions, trade-off articulation, and FAQ-style recall.",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "entry_point",
+              "value": "No prior knowledge of agentic AI; general CS/ML literacy assumed",
+              "strength": "guessed",
+              "verified": [],
+              "unverified": [
+                "from scratch"
+              ],
+              "material": true,
+              "would_differ": "If the reader already knew LLM fundamentals, the plan would skip tokenisation, attention, and pretraining basics and start at the agent loop. 'From scratch' means those foundations must be included or explicitly referenced.",
+              "askable": true,
+              "asked": true,
+              "reason": "weak (guessed) and a different answer would change the plan · discarded unverifiable support: ['from scratch']"
+            },
+            {
+              "axis": "target_capability",
+              "value": "Explain agentic AI fundamentals, compare architectures (ReAct, plan-and-execute, multi-agent), describe tool use and memory patterns, discuss evaluation and safety, and answer follow-up technical questions",
+              "strength": "inferred",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "for interview"
+                },
+                {
+                  "utterance_ord": 0,
+                  "quote": "from scratch"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If the target were 'implement a production agent', the plan would add framework-specific code, observability, deployment, and cost optimisation — none of which are interview-critical.",
+              "askable": true,
+              "asked": false,
+              "reason": "inferred, supported by 'for interview' · 'from scratch'"
+            },
+            {
+              "axis": "capacity",
+              "value": null,
+              "strength": "unknown",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "If a hard limit (e.g., 'two evenings' or '10 pages') were given, the plan would cut lower-priority patterns and compress examples; without it, the plan sizes to interview-sufficiency.",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Semantics §1 LOCKED — optional, and the corollary: deriving the plan and reporting its extent is what CAUSES a capacity to be stated. Asking upfront asks for a number the learner cannot honestly give."
+            },
+            {
+              "axis": "depth_register",
+              "value": "Interview-level: conceptual clarity, architectural trade-offs, and FAQ readiness; not production engineering detail",
+              "strength": "inferred",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "for interview"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "A 'deep-dive' register would add mathematical formulations of planning, formal verification of guardrails, and benchmark methodology; a 'survey' register would drop multi-agent coordination details.",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Semantics §1 — biasing, not binding. A default is always defensible."
+            },
+            {
+              "axis": "artifact_type",
+              "value": "Structured revision notes",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "notes"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If 'cheatsheet', the plan would produce a one-page dense grid; if 'tutorial', it would include runnable code cells and stepwise exercises. 'Notes' implies sectioned prose with diagrams-as-text, comparison tables, and Q&A blocks.",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "template",
+              "value": null,
+              "strength": "unknown",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "If a specific template were requested (e.g., 'Anki cards', 'Notion database', 'markdown with frontmatter'), the output formatting would conform; otherwise a clean markdown note structure is used.",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Presentation-Boundary rule 1 — internal. Users never select one."
+            }
+          ]
+        }
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "ask_v1",
+      "cost": {
+        "in": 1334,
+        "out": 686
+      },
+      "created_at": "2026-09-25T21:16:30+00:00"
+    },
+    {
+      "id": "1b0fd8becef947efabf6d57247734efd",
+      "project_id": "6c7a02dc-72bb-4eb7-9e91-917220f1b2f3",
+      "kind": "interpret_situation",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "b1a30b941eb25cb7f988c8af891cf0a8",
+      "output": {
+        "subject": "Agentic AI — core concepts, patterns, and frameworks for interview readiness",
+        "job": "construct",
+        "entry_point": "General programming ability; no prior agent construction or framework experience (LangGraph, CrewAI, AutoGen, etc.)",
+        "purpose": "Prepare for technical interviews covering agentic AI",
+        "target_capability": "Explain agent architectures (ReAct, plan-and-execute, multi-agent), compare major frameworks, trace execution through tool-use loops, and answer follow-ups on memory, evaluation, and deployment trade-offs",
+        "capacity": null,
+        "stated": [
+          {
+            "text": "agentic ai notes for interview",
+            "axis": "subject"
+          },
+          {
+            "text": "agentic ai notes for interview",
+            "axis": "artifact_type"
+          },
+          {
+            "text": "agentic ai notes for interview",
+            "axis": "purpose"
+          },
+          {
+            "text": "from scratch",
+            "axis": "entry_point"
+          },
+          {
+            "text": "i can code but i've never built an agent or used any of these frameworks",
+            "axis": "entry_point"
+          }
+        ],
+        "inferred": [
+          "Depth register: interview-practical — concept definitions, mental models, framework comparison tables, and common pitfalls; not academic survey or production hardening",
+          "Template: none — free-form structured notes"
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "interpret_v1",
+      "cost": {
+        "in": 3171,
+        "out": 1514
+      },
+      "created_at": "2026-09-25T21:17:00+00:00"
+    },
+    {
+      "id": "add9e26a1451429f814d9fae383e31e3",
+      "project_id": "6c7a02dc-72bb-4eb7-9e91-917220f1b2f3",
+      "kind": "intake_strategy",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "7d9bcdd08c82cd86bd6b0602b5993743",
+      "output": {
+        "questions": [],
+        "sufficiency": {
+          "verdict": "sufficient",
+          "budget": 4,
+          "asking": [],
+          "over_budget": [],
+          "axes": [
+            {
+              "axis": "subject",
+              "value": "Agentic AI — core concepts, patterns, and frameworks for interview readiness",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "agentic ai"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If the subject were 'LLM fundamentals' or 'RAG', the concept map would shift to embeddings, retrieval, chunking instead of planning loops, tool schemas, and multi-agent orchestration.",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "purpose",
+              "value": "Interview preparation",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "for interview"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If the purpose were 'build a production agent', the plan would add observability, eval harnesses, deployment patterns, and cost/latency optimisation — none of which are interview-critical.",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "entry_point",
+              "value": "General programming ability; no prior agent construction or framework experience",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "from scratch"
+                }
+              ],
+              "unverified": [
+                "i can code but i've never built an agent or used any of these frameworks"
+              ],
+              "material": true,
+              "would_differ": "If the learner had already built agents, the plan would skip foundational definitions (what is an agent, tool-use loop, ReAct) and start at advanced patterns (reflection, planning, multi-agent negotiation).",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so · discarded unverifiable support: [\"i can code but i've never built an agent or used any of these frameworks\"]"
+            },
+            {
+              "axis": "target_capability",
+              "value": "Explain agent architectures (ReAct, plan-and-execute, multi-agent), compare major frameworks, trace execution through tool-use loops, and answer follow-ups on memory, evaluation, and deployment trade-offs",
+              "strength": "inferred",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "for interview"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If the target were 'ship a working agent', the plan would include a capstone project, debugging exercises, and framework-specific boilerplate — not conceptual trace-throughs.",
+              "askable": true,
+              "asked": false,
+              "reason": "inferred, supported by 'for interview'"
+            },
+            {
+              "axis": "capacity",
+              "value": null,
+              "strength": "unknown",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "A stated limit (e.g., 'two evenings' or 'one-pager') would compress the concept list and drop optional frameworks; without it the plan assumes a standard interview-prep scope (~8–12 core concepts).",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Semantics §1 LOCKED — optional, and the corollary: deriving the plan and reporting its extent is what CAUSES a capacity to be stated. Asking upfront asks for a number the learner cannot honestly give."
+            },
+            {
+              "axis": "depth_register",
+              "value": "Interview-practical — concept definitions, mental models, framework comparison tables, and common pitfalls; not academic survey or production hardening",
+              "strength": "inferred",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "for interview"
+                }
+              ],
+              "unverified": [],
+              "material": false,
+              "would_differ": "An academic register would add formal definitions, citations, and theory of mind literature; a production register would add logging, retries, cost tracking, and CI/CD — neither serves interview Q&A.",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Semantics §1 — biasing, not binding. A default is always defensible."
+            },
+            {
+              "axis": "artifact_type",
+              "value": "Structured interview notes",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "notes"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If the artifact were 'flashcards', the output would be Q/A pairs; if 'cheatsheet', a one-page dense grid; if 'tutorial', runnable code notebooks. Notes imply hierarchical sections with explanations.",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "template",
+              "value": null,
+              "strength": "unknown",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "A template (e.g., 'system-design one-pager' or 'FAQ format') would fix the section structure; without one the planner chooses a logical concept progression.",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Presentation-Boundary rule 1 — internal. Users never select one."
+            }
+          ]
+        }
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "interpret_v1",
+      "cost": {
+        "in": 3171,
+        "out": 1514
+      },
+      "created_at": "2026-09-25T21:17:00+00:00"
+    },
+    {
+      "id": "4ff0ba255ff64857ba13f28f3ace0193",
+      "project_id": "6c7a02dc-72bb-4eb7-9e91-917220f1b2f3",
+      "kind": "intake_strategy",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "dc525c91a14f2cfd719b29cb5f6a25e5",
+      "output": {
+        "questions": [],
+        "sufficiency": {
+          "verdict": "sufficient",
+          "budget": 4,
+          "asking": [],
+          "over_budget": [],
+          "axes": [
+            {
+              "axis": "subject",
+              "value": "Agentic AI — core concepts, patterns, and frameworks for interview readiness",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "agentic ai"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If the subject were 'LLM fundamentals' or 'RAG', the concept map would shift to embeddings, retrieval, chunking instead of planning loops, tool schemas, and multi-agent orchestration.",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "purpose",
+              "value": "Interview preparation",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "for interview"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If the purpose were 'build a production agent', the plan would add observability, eval harnesses, deployment patterns, and cost/latency optimisation — none of which are interview-critical.",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "entry_point",
+              "value": "General programming ability; no prior agent construction or framework experience",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "from scratch"
+                }
+              ],
+              "unverified": [
+                "i can code but i've never built an agent or used any of these frameworks"
+              ],
+              "material": true,
+              "would_differ": "If the learner had already built agents, the plan would skip foundational definitions (what is an agent, tool-use loop, ReAct) and start at advanced patterns (reflection, planning, multi-agent negotiation).",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so · discarded unverifiable support: [\"i can code but i've never built an agent or used any of these frameworks\"]"
+            },
+            {
+              "axis": "target_capability",
+              "value": "Explain agent architectures (ReAct, plan-and-execute, multi-agent), compare major frameworks, trace execution through tool-use loops, and answer follow-ups on memory, evaluation, and deployment trade-offs",
+              "strength": "inferred",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "for interview"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If the target were 'ship a working agent', the plan would include a capstone project, debugging exercises, and framework-specific boilerplate — not conceptual trace-throughs.",
+              "askable": true,
+              "asked": false,
+              "reason": "inferred, supported by 'for interview'"
+            },
+            {
+              "axis": "capacity",
+              "value": null,
+              "strength": "unknown",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "A stated limit (e.g., 'two evenings' or 'one-pager') would compress the concept list and drop optional frameworks; without it the plan assumes a standard interview-prep scope (~8–12 core concepts).",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Semantics §1 LOCKED — optional, and the corollary: deriving the plan and reporting its extent is what CAUSES a capacity to be stated. Asking upfront asks for a number the learner cannot honestly give."
+            },
+            {
+              "axis": "depth_register",
+              "value": "Interview-practical — concept definitions, mental models, framework comparison tables, and common pitfalls; not academic survey or production hardening",
+              "strength": "inferred",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "for interview"
+                }
+              ],
+              "unverified": [],
+              "material": false,
+              "would_differ": "An academic register would add formal definitions, citations, and theory of mind literature; a production register would add logging, retries, cost tracking, and CI/CD — neither serves interview Q&A.",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Semantics §1 — biasing, not binding. A default is always defensible."
+            },
+            {
+              "axis": "artifact_type",
+              "value": "Structured interview notes",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "notes"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If the artifact were 'flashcards', the output would be Q/A pairs; if 'cheatsheet', a one-page dense grid; if 'tutorial', runnable code notebooks. Notes imply hierarchical sections with explanations.",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "template",
+              "value": null,
+              "strength": "unknown",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "A template (e.g., 'system-design one-pager' or 'FAQ format') would fix the section structure; without one the planner chooses a logical concept progression.",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Presentation-Boundary rule 1 — internal. Users never select one."
+            }
+          ]
+        },
+        "exhausted": true,
+        "closed_because": "nothing material left to ask"
+      },
+      "model": null,
+      "prompt_version": null,
+      "cost": {
+        "in": 0,
+        "out": 0
+      },
+      "created_at": "2026-09-25T21:17:00+00:00"
+    },
+    {
+      "id": "6fb18055b12341df9ed777be4b532ca8",
+      "project_id": "6c7a02dc-72bb-4eb7-9e91-917220f1b2f3",
+      "kind": "derive_structure",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "2996f549adcbbcdec10813aca6102680",
+      "output": {
+        "concepts": [
+          {
+            "name": "Agent Definition & Agency",
+            "built_from": [],
+            "family": "foundational_primitive"
+          },
+          {
+            "name": "LLM as Reasoning Engine",
+            "built_from": [
+              "Agent Definition & Agency"
+            ],
+            "family": "foundational_primitive"
+          },
+          {
+            "name": "Function Calling / Tool Calling API",
+            "built_from": [
+              "LLM as Reasoning Engine"
+            ],
+            "family": "foundational_primitive"
+          },
+          {
+            "name": "Structured Output / JSON Mode",
+            "built_from": [
+              "Function Calling / Tool Calling API"
+            ],
+            "family": "foundational_primitive"
+          },
+          {
+            "name": "Tool Use / Function Calling Pattern",
+            "built_from": [
+              "Function Calling / Tool Calling API",
+              "Structured Output / JSON Mode"
+            ],
+            "family": "core_pattern"
+          },
+          {
+            "name": "ReAct Pattern (Reasoning + Acting)",
+            "built_from": [
+              "Tool Use / Function Calling Pattern"
+            ],
+            "family": "core_pattern"
+          },
+          {
+            "name": "Plan-and-Execute / Planner-Executor",
+            "built_from": [
+              "Tool Use / Function Calling Pattern",
+              "ReAct Pattern (Reasoning + Acting)"
+            ],
+            "family": "core_pattern"
+          },
+          {
+            "name": "Reflection / Self-Correction / Critique",
+            "built_from": [
+              "ReAct Pattern (Reasoning + Acting)"
+            ],
+            "family": "core_pattern"
+          },
+          {
+            "name": "Multi-Agent: Supervisor / Orchestrator",
+            "built_from": [
+              "Plan-and-Execute / Planner-Executor"
+            ],
+            "family": "core_pattern"
+          },
+          {
+            "name": "Multi-Agent: Swarm / Peer-to-Peer",
+            "built_from": [
+              "Plan-and-Execute / Planner-Executor"
+            ],
+            "family": "core_pattern"
+          },
+          {
+            "name": "Multi-Agent: Hierarchical / Tree",
+            "built_from": [
+              "Plan-and-Execute / Planner-Executor"
+            ],
+            "family": "core_pattern"
+          },
+          {
+            "name": "Multi-Agent: Debate / Adversarial",
+            "built_from": [
+              "Plan-and-Execute / Planner-Executor"
+            ],
+            "family": "core_pattern"
+          },
+          {
+            "name": "Human-in-the-Loop / Approval Gates",
+            "built_from": [
+              "Tool Use / Function Calling Pattern"
+            ],
+            "family": "core_pattern"
+          },
+          {
+            "name": "Agent Loop / Tool-Use Loop Execution",
+            "built_from": [
+              "ReAct Pattern (Reasoning + Acting)",
+              "Function Calling / Tool Calling API"
+            ],
+            "family": "execution_mechanism"
+          },
+          {
+            "name": "State Management & Checkpointing",
+            "built_from": [
+              "Agent Loop / Tool-Use Loop Execution"
+            ],
+            "family": "execution_mechanism"
+          },
+          {
+            "name": "Streaming & Async Execution",
+            "built_from": [
+              "Agent Loop / Tool-Use Loop Execution"
+            ],
+            "family": "execution_mechanism"
+          },
+          {
+            "name": "Error Handling, Retries & Fallbacks",
+            "built_from": [
+              "Agent Loop / Tool-Use Loop Execution"
+            ],
+            "family": "execution_mechanism"
+          },
+          {
+            "name": "Short-Term / Working Memory (Context Window)",
+            "built_from": [
+              "Agent Definition & Agency"
+            ],
+            "family": "memory_type"
+          },
+          {
+            "name": "Long-Term Memory: Episodic",
+            "built_from": [
+              "Short-Term / Working Memory (Context Window)"
+            ],
+            "family": "memory_type"
+          },
+          {
+            "name": "Long-Term Memory: Semantic / Knowledge",
+            "built_from": [
+              "Short-Term / Working Memory (Context Window)"
+            ],
+            "family": "memory_type"
+          },
+          {
+            "name": "Long-Term Memory: Procedural / Skills",
+            "built_from": [
+              "Short-Term / Working Memory (Context Window)"
+            ],
+            "family": "memory_type"
+          },
+          {
+            "name": "Memory Retrieval & RAG for Agents",
+            "built_from": [
+              "Long-Term Memory: Episodic",
+              "Long-Term Memory: Semantic / Knowledge"
+            ],
+            "family": "memory_type"
+          },
+          {
+            "name": "Prompt Engineering for Agents (System Prompts, Few-Shot)",
+            "built_from": [
+              "LLM as Reasoning Engine"
+            ],
+            "family": "foundational_primitive"
+          },
+          {
+            "name": "RAG vs Agents Distinction",
+            "built_from": [
+              "Agent Definition & Agency",
+              "Memory Retrieval & RAG for Agents"
+            ],
+            "family": "core_pattern"
+          },
+          {
+            "name": "LangGraph",
+            "built_from": [
+              "Agent Loop / Tool-Use Loop Execution",
+              "State Management & Checkpointing",
+              "Human-in-the-Loop / Approval Gates"
+            ],
+            "family": "framework"
+          },
+          {
+            "name": "CrewAI",
+            "built_from": [
+              "Multi-Agent: Supervisor / Orchestrator",
+              "Multi-Agent: Swarm / Peer-to-Peer"
+            ],
+            "family": "framework"
+          },
+          {
+            "name": "AutoGen",
+            "built_from": [
+              "Multi-Agent: Supervisor / Orchestrator",
+              "Multi-Agent: Debate / Adversarial",
+              "Human-in-the-Loop / Approval Gates"
+            ],
+            "family": "framework"
+          },
+          {
+            "name": "LangChain Agents (Legacy / create_react_agent)",
+            "built_from": [
+              "ReAct Pattern (Reasoning + Acting)",
+              "Agent Loop / Tool-Use Loop Execution"
+            ],
+            "family": "framework"
+          },
+          {
+            "name": "Semantic Kernel",
+            "built_from": [
+              "Plan-and-Execute / Planner-Executor",
+              "Function Calling / Tool Calling API"
+            ],
+            "family": "framework"
+          },
+          {
+            "name": "OpenAI Assistants API / Agents SDK",
+            "built_from": [
+              "Agent Loop / Tool-Use Loop Execution",
+              "State Management & Checkpointing",
+              "Function Calling / Tool Calling API"
+            ],
+            "family": "framework"
+          },
+          {
+            "name": "LlamaIndex Agents",
+            "built_from": [
+              "ReAct Pattern (Reasoning + Acting)",
+              "Memory Retrieval & RAG for Agents"
+            ],
+            "family": "framework"
+          },
+          {
+            "name": "AutoGPT / BabyAGI (Historical Reference)",
+            "built_from": [
+              "Plan-and-Execute / Planner-Executor",
+              "ReAct Pattern (Reasoning + Acting)"
+            ],
+            "family": "framework"
+          },
+          {
+            "name": "AgentBench",
+            "built_from": [],
+            "family": "evaluation_benchmark"
+          },
+          {
+            "name": "WebShop",
+            "built_from": [],
+            "family": "evaluation_benchmark"
+          },
+          {
+            "name": "ALFWorld",
+            "built_from": [],
+            "family": "evaluation_benchmark"
+          },
+          {
+            "name": "τ-bench (Tau-Bench)",
+            "built_from": [],
+            "family": "evaluation_benchmark"
+          },
+          {
+            "name": "Custom Evaluation / LLM-as-Judge for Agents",
+            "built_from": [
+              "AgentBench",
+              "WebShop",
+              "ALFWorld",
+              "τ-bench (Tau-Bench)"
+            ],
+            "family": "evaluation_benchmark"
+          },
+          {
+            "name": "Observability & Tracing (LangSmith, Arize, etc.)",
+            "built_from": [
+              "Agent Loop / Tool-Use Loop Execution",
+              "State Management & Checkpointing"
+            ],
+            "family": "deployment_concern"
+          },
+          {
+            "name": "Guardrails & Safety (Input/Output Filtering, PII, Jailbreak)",
+            "built_from": [
+              "Agent Loop / Tool-Use Loop Execution"
+            ],
+            "family": "deployment_concern"
+          },
+          {
+            "name": "Cost & Latency Optimization (Model Selection, Caching, Token Budget)",
+            "built_from": [
+              "Agent Loop / Tool-Use Loop Execution",
+              "LLM as Reasoning Engine"
+            ],
+            "family": "deployment_concern"
+          },
+          {
+            "name": "Scaling & Concurrency (Stateless vs Stateful, Queueing)",
+            "built_from": [
+              "State Management & Checkpointing",
+              "Streaming & Async Execution"
+            ],
+            "family": "deployment_concern"
+          },
+          {
+            "name": "Versioning, Prompt Management & CI/CD for Agents",
+            "built_from": [
+              "Prompt Engineering for Agents (System Prompts, Few-Shot)",
+              "State Management & Checkpointing"
+            ],
+            "family": "deployment_concern"
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "derive_v1",
+      "cost": {
+        "in": 1575,
+        "out": 5108
+      },
+      "created_at": "2026-09-25T21:18:57+00:00"
+    },
+    {
+      "id": "329008e3038f4004bd1ddf1bcb334955",
+      "project_id": "6c7a02dc-72bb-4eb7-9e91-917220f1b2f3",
+      "kind": "relevance",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "7093c1a2d8c1fa567ee8346c524f90fc",
+      "output": {
+        "judgements": [
+          {
+            "concept": "Agent Definition & Agency",
+            "in_play": true,
+            "why": "Foundational — every interview answer starts from what an agent *is* and how it differs from a plain LLM call or RAG pipeline."
+          },
+          {
+            "concept": "LLM as Reasoning Engine",
+            "in_play": true,
+            "why": "Core mental model: the LLM is not just completion but the planner/decider. Needed to explain *why* ReAct, plan-and-execute work."
+          },
+          {
+            "concept": "Function Calling / Tool Calling API",
+            "in_play": true,
+            "why": "The primitive that makes tool use possible. Interviewers expect you to know the API shape (tool schema, parallel calls, strict JSON)."
+          },
+          {
+            "concept": "Structured Output / JSON Mode",
+            "in_play": true,
+            "why": "Directly relevant — agents emit structured actions; JSON mode / function calling is how frameworks enforce it."
+          },
+          {
+            "concept": "Tool Use / Function Calling Pattern",
+            "in_play": true,
+            "why": "The base pattern every architecture builds on. Must trace a single tool-use step before explaining loops."
+          },
+          {
+            "concept": "ReAct Pattern (Reasoning + Acting)",
+            "in_play": true,
+            "why": "Explicitly named in target capability. Canonical single-agent pattern; baseline for comparing plan-and-execute and multi-agent."
+          },
+          {
+            "concept": "Plan-and-Execute / Planner-Executor",
+            "in_play": true,
+            "why": "Explicitly named in target capability. Separates planning from execution — key architectural distinction interviewers probe."
+          },
+          {
+            "concept": "Reflection / Self-Correction / Critique",
+            "in_play": true,
+            "why": "Common follow-up: \"How does the agent recover from a bad tool call?\" Reflection loops (ReAct+Reflexion, ReWOO, etc.) are standard interview territory."
+          },
+          {
+            "concept": "Multi-Agent: Supervisor / Orchestrator",
+            "in_play": true,
+            "why": "Explicitly named in target capability (multi-agent). Most common production pattern (CrewAI, AutoGen, LangGraph supervisor)."
+          },
+          {
+            "concept": "Multi-Agent: Swarm / Peer-to-Peer",
+            "in_play": true,
+            "why": "Explicitly named in target capability. Contrast with supervisor — interviewers ask trade-offs (latency, coordination, failure modes)."
+          },
+          {
+            "concept": "Multi-Agent: Hierarchical / Tree",
+            "in_play": true,
+            "why": "Less common but appears in advanced follow-ups (e.g., \"How would you scale to 50 agents?\"). Keep for completeness."
+          },
+          {
+            "concept": "Multi-Agent: Debate / Adversarial",
+            "in_play": true,
+            "why": "AutoGen's signature pattern; interviewers use it to test if you understand *why* multiple LLMs debating improves correctness."
+          },
+          {
+            "concept": "Human-in-the-Loop / Approval Gates",
+            "in_play": true,
+            "why": "Deployment trade-off target explicitly mentions. Frameworks differ here (LangGraph interrupt, AutoGen user proxy, OpenAI approvals)."
+          },
+          {
+            "concept": "Agent Loop / Tool-Use Loop Execution",
+            "in_play": true,
+            "why": "Target says \"trace execution through tool-use loops.\" This *is* the loop — must visualize state, messages, tool calls, returns."
+          },
+          {
+            "concept": "State Management & Checkpointing",
+            "in_play": true,
+            "why": "LangGraph's distinguishing feature; enables HITL, time-travel, recovery. Interviewers ask \"How does your agent resume after a crash?\""
+          },
+          {
+            "concept": "Streaming & Async Execution",
+            "in_play": true,
+            "why": "Production reality — interviews ask about UX (streaming tokens, progressive tool results) and backend (async tool calls, concurrency)."
+          },
+          {
+            "concept": "Error Handling, Retries & Fallbacks",
+            "in_play": true,
+            "why": "Practical follow-up: \"Tool fails — what happens?\" Frameworks handle differently (LangGraph retry policy, CrewAI max_iter, AutoGen max_consecutive_auto_reply)."
+          },
+          {
+            "concept": "Short-Term / Working Memory (Context Window)",
+            "in_play": true,
+            "why": "Memory follow-ups start here: context window limits, message history management, summarization strategies."
+          },
+          {
+            "concept": "Long-Term Memory: Episodic",
+            "in_play": true,
+            "why": "Target capability includes memory follow-ups. Episodic = past interactions / trajectories — key for personalization and few-shot."
+          },
+          {
+            "concept": "Long-Term Memory: Semantic / Knowledge",
+            "in_play": true,
+            "why": "Target capability includes memory follow-ups. Semantic = facts, docs, RAG — distinct from episodic in architecture and retrieval."
+          },
+          {
+            "concept": "Long-Term Memory: Procedural / Skills",
+            "in_play": true,
+            "why": "Target capability includes memory follow-ups. Procedural = learned skills / prompts / workflows — emerging concept (e.g., LangGraph \"skills\", AutoGen skills)."
+          },
+          {
+            "concept": "Memory Retrieval & RAG for Agents",
+            "in_play": true,
+            "why": "Agents *use* RAG as a tool; interviewers blur the line — must distinguish \"agent with RAG tool\" from \"RAG pipeline.\""
+          },
+          {
+            "concept": "Prompt Engineering for Agents (System Prompts, Few-Shot)",
+            "in_play": true,
+            "why": "Agents are prompt-heavy; system prompt defines personality, tool schemas, guardrails. Interviewers ask \"Show me your system prompt.\""
+          },
+          {
+            "concept": "RAG vs Agents Distinction",
+            "in_play": true,
+            "why": "Classic interview question: \"When would you use RAG vs an agent?\" Must articulate clearly: retrieval vs reasoning+action."
+          },
+          {
+            "concept": "LangGraph",
+            "in_play": true,
+            "why": "Target capability: \"compare major frameworks.\" LangGraph is the current standard for controllable, stateful, production-grade agents."
+          },
+          {
+            "concept": "CrewAI",
+            "in_play": true,
+            "why": "Target capability: \"compare major frameworks.\" CrewAI = role-based multi-agent, declarative, opinionated. Standard comparison point."
+          },
+          {
+            "concept": "AutoGen",
+            "in_play": true,
+            "why": "Target capability: \"compare major frameworks.\" AutoGen = conversation-centric, flexible multi-agent, strong on code execution and debate."
+          },
+          {
+            "concept": "LangChain Agents (Legacy / create_react_agent)",
+            "in_play": true,
+            "why": "Still appears in codebases and older tutorials. Interviewers may ask \"What's wrong with the old LangChain agent executor?\" — good contrast for LangGraph."
+          },
+          {
+            "concept": "Semantic Kernel",
+            "in_play": true,
+            "why": "Target capability: \"compare major frameworks.\" Microsoft's entry; planner-centric, strong .NET/C# story, kernel/plugin model. Distinct philosophy."
+          },
+          {
+            "concept": "OpenAI Assistants API / Agents SDK",
+            "in_play": true,
+            "why": "Target capability: \"compare major frameworks.\" Vendor-native, managed state, built-in tools (code interpreter, file search). Different trade-offs (lock-in, opacity)."
+          },
+          {
+            "concept": "LlamaIndex Agents",
+            "in_play": true,
+            "why": "Target capability: \"compare major frameworks.\" RAG-first agent framework; strong on data-centric agents. Often paired with LangGraph."
+          },
+          {
+            "concept": "AutoGPT / BabyAGI (Historical Reference)",
+            "in_play": true,
+            "why": "Historical context — interviewers ask \"What did AutoGPT get wrong?\" to test understanding of planning loops, context explosion, lack of control."
+          },
+          {
+            "concept": "AgentBench",
+            "in_play": true,
+            "why": "Target capability: \"answer follow-ups on evaluation.\" AgentBench is the standard multi-task benchmark; must know what it measures."
+          },
+          {
+            "concept": "WebShop",
+            "in_play": true,
+            "why": "Target capability: \"answer follow-ups on evaluation.\" Classic web navigation benchmark; tests tool-use in realistic environment."
+          },
+          {
+            "concept": "ALFWorld",
+            "in_play": true,
+            "why": "Target capability: \"answer follow-ups on evaluation.\" Embodied/ALFRED-style benchmark; tests planning + tool-use in simulated household."
+          },
+          {
+            "concept": "τ-bench (Tau-Bench)",
+            "in_play": true,
+            "why": "Target capability: \"answer follow-ups on evaluation.\" Newer, focuses on dynamic user interaction and policy adherence — closest to real customer support agents."
+          },
+          {
+            "concept": "Custom Evaluation / LLM-as-Judge for Agents",
+            "in_play": true,
+            "why": "Target capability: \"answer follow-ups on evaluation.\" Production teams don't use benchmarks — they build custom evals. Must explain LLM-as-judge, trajectory scoring, pass/fail criteria."
+          },
+          {
+            "concept": "Observability & Tracing (LangSmith, Arize, etc.)",
+            "in_play": true,
+            "why": "Target capability: \"deployment trade-offs.\" You cannot debug agents without traces. LangGraph/LangSmith integration is a major selling point."
+          },
+          {
+            "concept": "Guardrails & Safety (Input/Output Filtering, PII, Jailbreak)",
+            "in_play": true,
+            "why": "Target capability: \"deployment trade-offs.\" Enterprise interviews always ask safety. Guardrails vs framework-native controls (LangGraph interrupts, OpenAI moderation)."
+          },
+          {
+            "concept": "Cost & Latency Optimization (Model Selection, Caching, Token Budget)",
+            "in_play": true,
+            "why": "Target capability: \"deployment trade-offs.\" Agents are expensive (many turns, large contexts). Must discuss routing, caching, model cascade, token budgets."
+          },
+          {
+            "concept": "Scaling & Concurrency (Stateless vs Stateful, Queueing)",
+            "in_play": true,
+            "why": "Target capability: \"deployment trade-offs.\" LangGraph's stateful checkpointer vs stateless scaling; queueing human approvals; concurrent runs."
+          },
+          {
+            "concept": "Versioning, Prompt Management & CI/CD for Agents",
+            "in_play": true,
+            "why": "Target capability: \"deployment trade-offs.\" Prompts *are* code for agents. Versioning, A/B testing prompts, regression testing agent trajectories."
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "derive_v1",
+      "cost": {
+        "in": 1575,
+        "out": 5108
+      },
+      "created_at": "2026-09-25T21:18:57+00:00"
+    },
+    {
+      "id": "d5d4287976f0446791ed0bf07ad9e40d",
+      "project_id": "6c7a02dc-72bb-4eb7-9e91-917220f1b2f3",
+      "kind": "traversal",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "69123e617b44872fa6e8b879859311aa",
+      "output": {
+        "sequence": [
+          "Foundations: What Makes an Agent",
+          "Core Single-Agent Patterns",
+          "Agent Execution Mechanics",
+          "Multi-Agent Architectures",
+          "Memory for Agents",
+          "Framework Comparison: LangGraph, CrewAI, AutoGen",
+          "Other Frameworks & Evaluation",
+          "Deployment Trade-offs"
+        ],
+        "why": "Foundations establish the mental model (agent vs LLM, tool calling) before patterns build on it. Single-agent patterns (ReAct, plan-and-execute) are the baseline for multi-agent. Execution mechanics (loop, state, streaming) make tracing concrete before multi-agent adds coordination complexity. Memory follows patterns because agents use memory within those patterns. Core framework comparison comes after patterns so trade-offs are meaningful. Other frameworks and evaluation extend the comparison. Deployment trade-offs cap the curriculum since they assume the architecture is understood."
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 8162,
+        "out": 8589
+      },
+      "created_at": "2026-09-25T21:22:42+00:00"
+    },
+    {
+      "id": "62b317d324c64b4197a96afe25fdc913",
+      "project_id": "6c7a02dc-72bb-4eb7-9e91-917220f1b2f3",
+      "kind": "consequence",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "c2036e35de8ede6451a031afcbbcc1b2",
+      "output": {
+        "exclusions": [
+          {
+            "topic": "AutoGPT / BabyAGI (Historical Reference)",
+            "consequence": "Cannot answer 'What did AutoGPT get wrong?' or explain why uncontrolled planning loops, context explosion, and lack of state control failed in practice — a common interviewer probe for depth of understanding.",
+            "when_to_learn": "When an interviewer explicitly asks for historical context or when studying the evolution of agent architectures post-interview."
+          },
+          {
+            "topic": "WebShop",
+            "consequence": "Cannot discuss the classic web-navigation benchmark that tests tool-use in a realistic environment; limits ability to contrast benchmarks by domain (web vs embodied vs conversational).",
+            "when_to_learn": "When preparing for roles focused on web-agent benchmarks or when building custom eval suites that reference prior work."
+          },
+          {
+            "topic": "ALFWorld",
+            "consequence": "Cannot discuss embodied/household-simulation benchmarks that test planning + tool-use in grounded environments; misses a key reference for 'planning in simulation' follow-ups.",
+            "when_to_learn": "When interviewing for robotics-adjacent agent roles or when designing simulation-based evaluation."
+          },
+          {
+            "topic": "τ-bench (Tau-Bench)",
+            "consequence": "Cannot discuss the newest benchmark focusing on dynamic user interaction and policy adherence — the closest to real customer-support agents — which interviewers increasingly cite as the production-relevant benchmark.",
+            "when_to_learn": "When targeting customer-support agent roles or when evaluation methodology moves beyond static benchmarks."
+          },
+          {
+            "topic": "Semantic Kernel",
+            "consequence": "Cannot position Microsoft's planner-centric, kernel/plugin framework; misses the .NET/C# enterprise angle and the 'planner as separate component' philosophy that contrasts with LangGraph's graph-based control.",
+            "when_to_learn": "When interviewing at Microsoft-heavy shops or when the role involves .NET/C# agent integration."
+          },
+          {
+            "topic": "LlamaIndex Agents",
+            "consequence": "Cannot explain the RAG-first agent framework philosophy or how it composes with LangGraph; misses the data-centric agent pattern common in document-heavy enterprise use cases.",
+            "when_to_learn": "When the role emphasizes RAG-heavy agents or when evaluating frameworks for document-centric workloads."
+          },
+          {
+            "topic": "OpenAI Assistants API / Agents SDK",
+            "consequence": "Cannot articulate the vendor-managed trade-off: built-in state, code interpreter, file search vs lock-in, opacity, and limited control — a frequent 'buy vs build' interview discussion.",
+            "when_to_learn": "When evaluating managed vs self-hosted frameworks or when the organization uses OpenAI's platform natively."
+          },
+          {
+            "topic": "Versioning, Prompt Management & CI/CD for Agents",
+            "consequence": "Cannot discuss how prompt versioning, A/B testing, and regression testing differ for agents vs traditional software; misses a growing production concern that senior interviews probe.",
+            "when_to_learn": "When moving from interview prep to production engineering, or when the role includes MLOps/LLMOps responsibilities."
+          },
+          {
+            "topic": "Scaling & Concurrency (Stateless vs Stateful, Queueing)",
+            "consequence": "Cannot explain the tension between LangGraph's stateful checkpointer and horizontal scaling, or how to queue human approvals — a senior-level architecture question.",
+            "when_to_learn": "When designing production agent infrastructure or interviewing for platform/infrastructure-focused roles."
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 8162,
+        "out": 8589
+      },
+      "created_at": "2026-09-25T21:22:42+00:00"
+    },
+    {
+      "id": "723a5d091ce6411faea1f262ae9b7825",
+      "project_id": "6c7a02dc-72bb-4eb7-9e91-917220f1b2f3",
+      "kind": "scope",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "6794b2a71442c8a35661735252865be3",
+      "output": {
+        "covered": [
+          {
+            "concept": "Agent Definition & Agency",
+            "depth": "explain",
+            "why": "Establishes the boundary between agent, LLM call, and RAG pipeline — the starting point for every interview answer.",
+            "anticipates": "false-comprehension"
+          },
+          {
+            "concept": "LLM as Reasoning Engine",
+            "depth": "explain",
+            "why": "Provides the mental model for why ReAct/plan-and-execute work: the LLM plans, decides, and reflects, not just completes.",
+            "anticipates": "abstraction-grounding"
+          },
+          {
+            "concept": "Function Calling / Tool Calling API",
+            "depth": "work through",
+            "why": "Interviewers expect fluency with tool schemas, parallel calls, and strict JSON — the primitive all patterns build on.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Structured Output / JSON Mode",
+            "depth": "explain",
+            "why": "Agents emit structured actions; JSON mode/function calling enforces it. Needed to explain how frameworks guarantee parseable output.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Tool Use / Function Calling Pattern",
+            "depth": "work through",
+            "why": "Base pattern: must trace a single tool-use step (reason → act → observe) before explaining loops and multi-step patterns.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "ReAct Pattern (Reasoning + Acting)",
+            "depth": "work through",
+            "why": "Canonical single-agent pattern; baseline for comparing plan-and-execute and multi-agent. Must trace the reasoning-acting loop.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Plan-and-Execute / Planner-Executor",
+            "depth": "work through",
+            "why": "Key architectural distinction: separates planning from execution. Interviewers probe trade-offs (flexibility vs control, latency, error recovery).",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Reflection / Self-Correction / Critique",
+            "depth": "explain",
+            "why": "Standard follow-up: 'How does the agent recover from a bad tool call?' Covers Reflexion, ReWOO, self-critique loops.",
+            "anticipates": "false-comprehension"
+          },
+          {
+            "concept": "Multi-Agent: Supervisor / Orchestrator",
+            "depth": "work through",
+            "why": "Most common production pattern. Must trace delegation, compare with swarm, and explain framework implementations (LangGraph supervisor, CrewAI).",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Multi-Agent: Swarm / Peer-to-Peer",
+            "depth": "work through",
+            "why": "Contrast with supervisor: latency, coordination, failure modes. Interviewers ask 'when would you choose swarm over supervisor?'.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Multi-Agent: Hierarchical / Tree",
+            "depth": "explain",
+            "why": "Advanced follow-up for scaling ('how to coordinate 50 agents?'). Keep at explain level — mental model, not deep trace.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Multi-Agent: Debate / Adversarial",
+            "depth": "explain",
+            "why": "AutoGen's signature pattern. Must explain *why* debate improves correctness (diverse reasoning paths, error catching) not just *that* it does.",
+            "anticipates": "false-comprehension"
+          },
+          {
+            "concept": "Human-in-the-Loop / Approval Gates",
+            "depth": "work through",
+            "why": "Explicit deployment trade-off. Frameworks differ (LangGraph interrupt, AutoGen user proxy, OpenAI approvals). Must trace approval flow.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Agent Loop / Tool-Use Loop Execution",
+            "depth": "work through",
+            "why": "Target explicitly says 'trace execution through tool-use loops.' This IS the loop — state, messages, tool calls, returns.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "State Management & Checkpointing",
+            "depth": "work through",
+            "why": "LangGraph's differentiator; enables HITL, time-travel, recovery. 'How does your agent resume after a crash?' is a standard question.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Streaming & Async Execution",
+            "depth": "explain",
+            "why": "Production reality: streaming tokens, progressive tool results, async tool calls. Explain UX and backend implications.",
+            "anticipates": "parallel-state"
+          },
+          {
+            "concept": "Error Handling, Retries & Fallbacks",
+            "depth": "explain",
+            "why": "Practical follow-up: 'Tool fails — what happens?' Framework differences (LangGraph retry policy, CrewAI max_iter, AutoGen max_consecutive_auto_reply).",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Short-Term / Working Memory (Context Window)",
+            "depth": "explain",
+            "why": "Memory follow-ups start here: context limits, history management, summarization strategies.",
+            "anticipates": "abstraction-grounding"
+          },
+          {
+            "concept": "Long-Term Memory: Episodic",
+            "depth": "explain",
+            "why": "Past interactions/trajectories for personalization and few-shot. Distinct retrieval and storage from semantic.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Long-Term Memory: Semantic / Knowledge",
+            "depth": "explain",
+            "why": "Facts, docs, RAG — distinct from episodic in architecture and retrieval. Core to 'agent with RAG tool' vs 'RAG pipeline'.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Long-Term Memory: Procedural / Skills",
+            "depth": "mention",
+            "why": "Emerging concept (LangGraph skills, AutoGen skills). Mention for completeness; not yet standard interview territory.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Memory Retrieval & RAG for Agents",
+            "depth": "work through",
+            "why": "Agents *use* RAG as a tool; interviewers blur the line. Must distinguish 'agent with RAG tool' from 'RAG pipeline' clearly.",
+            "anticipates": "false-comprehension"
+          },
+          {
+            "concept": "Prompt Engineering for Agents (System Prompts, Few-Shot)",
+            "depth": "work through",
+            "why": "Agents are prompt-heavy; system prompt defines personality, tool schemas, guardrails. 'Show me your system prompt' is a real ask.",
+            "anticipates": "abstraction-grounding"
+          },
+          {
+            "concept": "RAG vs Agents Distinction",
+            "depth": "work through",
+            "why": "Classic interview question: 'When would you use RAG vs an agent?' Must articulate retrieval vs reasoning+action cleanly.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "LangGraph",
+            "depth": "work through",
+            "why": "Current standard for controllable, stateful, production-grade agents. Core of framework comparison — graph API, checkpointer, interrupts.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "CrewAI",
+            "depth": "work through",
+            "why": "Role-based multi-agent, declarative, opinionated. Standard comparison point for 'when to use vs LangGraph'.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "AutoGen",
+            "depth": "work through",
+            "why": "Conversation-centric, flexible multi-agent, strong on code execution and debate. Contrasts with LangGraph's explicit control.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "LangChain Agents (Legacy / create_react_agent)",
+            "depth": "explain",
+            "why": "Still in codebases/tutorials. 'What's wrong with the old agent executor?' tests understanding of LangGraph's improvements.",
+            "anticipates": "false-comprehension"
+          },
+          {
+            "concept": "AgentBench",
+            "depth": "explain",
+            "why": "Standard multi-task benchmark; must know what it measures (planning, tool-use, reasoning) and its limitations.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Custom Evaluation / LLM-as-Judge for Agents",
+            "depth": "work through",
+            "why": "Production teams build custom evals. Must explain LLM-as-judge, trajectory scoring, pass/fail criteria — not just benchmark names.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Observability & Tracing (LangSmith, Arize, etc.)",
+            "depth": "explain",
+            "why": "Cannot debug agents without traces. LangGraph/LangSmith integration is a major selling point interviewers expect you to know.",
+            "anticipates": "perceptual-referent"
+          },
+          {
+            "concept": "Guardrails & Safety (Input/Output Filtering, PII, Jailbreak)",
+            "depth": "explain",
+            "why": "Enterprise interviews always ask safety. Guardrails vs framework-native controls (LangGraph interrupts, OpenAI moderation).",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Cost & Latency Optimization (Model Selection, Caching, Token Budget)",
+            "depth": "explain",
+            "why": "Agents are expensive (many turns, large contexts). Must discuss routing, caching, model cascade, token budgets.",
+            "anticipates": "cross-reference"
+          }
+        ],
+        "cut": [
+          "AutoGPT / BabyAGI (Historical Reference)",
+          "WebShop",
+          "ALFWorld",
+          "τ-bench (Tau-Bench)",
+          "Semantic Kernel",
+          "LlamaIndex Agents",
+          "OpenAI Assistants API / Agents SDK",
+          "Versioning, Prompt Management & CI/CD for Agents",
+          "Scaling & Concurrency (Stateless vs Stateful, Queueing)"
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 8162,
+        "out": 8589
+      },
+      "created_at": "2026-09-25T21:22:42+00:00"
+    },
+    {
+      "id": "b9e08c2a98f74636899dcfe3c98c2ee6",
+      "project_id": "6c7a02dc-72bb-4eb7-9e91-917220f1b2f3",
+      "kind": "partition",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "c2b9a5fc932607fac4d8c64ae3fad52d",
+      "output": {
+        "modules": [
+          {
+            "title": "Foundations: What Makes an Agent",
+            "covers": [
+              "Agent Definition & Agency",
+              "LLM as Reasoning Engine",
+              "Function Calling / Tool Calling API",
+              "Structured Output / JSON Mode",
+              "Tool Use / Function Calling Pattern"
+            ],
+            "why_here": "These five concepts form the indivisible foundation: what an agent is, why the LLM can reason, the API primitive that enables tools, how structure is enforced, and the base tool-use step. Nothing later makes sense without this mental model, and they are tightly coupled — tool calling requires structured output, which requires function calling API, which requires the LLM-as-reasoner view.",
+            "capability": "Explain what distinguishes an agent from a plain LLM call or RAG pipeline, trace a single tool-use step (reason → act → observe), and describe the function calling API contract (schemas, parallel calls, strict JSON)."
+          },
+          {
+            "title": "Core Single-Agent Patterns",
+            "covers": [
+              "ReAct Pattern (Reasoning + Acting)",
+              "Plan-and-Execute / Planner-Executor",
+              "Reflection / Self-Correction / Critique"
+            ],
+            "why_here": "ReAct and plan-and-execute are the two canonical single-agent architectures — interviewers compare them directly. Reflection is the standard recovery mechanism layered on top. They share the same execution substrate (tool-use loop) and are best learned as a contrast set before multi-agent adds coordination complexity.",
+            "capability": "Compare ReAct and plan-and-execute architectures across planning granularity, error recovery, latency, and control; trace a ReAct loop iteration; explain how reflection/self-correction loops (Reflexion, ReWOO) improve recovery from bad tool calls."
+          },
+          {
+            "title": "Agent Execution Mechanics",
+            "covers": [
+              "Agent Loop / Tool-Use Loop Execution",
+              "State Management & Checkpointing",
+              "Streaming & Async Execution",
+              "Error Handling, Retries & Fallbacks"
+            ],
+            "why_here": "These four concepts are the runtime machinery: the loop itself, how state persists across steps, how output streams to users, and how failures are handled. They are framework-agnostic but directly determine framework capabilities (LangGraph's checkpointer, CrewAI's max_iter). Tracing execution — a target capability — requires all four together.",
+            "capability": "Trace execution through a complete tool-use loop including state updates, streaming tokens/progressive tool results, and error recovery paths; explain how checkpointing enables crash recovery, time-travel debugging, and human-in-the-loop approval gates."
+          },
+          {
+            "title": "Multi-Agent Architectures",
+            "covers": [
+              "Multi-Agent: Supervisor / Orchestrator",
+              "Multi-Agent: Swarm / Peer-to-Peer",
+              "Multi-Agent: Hierarchical / Tree",
+              "Multi-Agent: Debate / Adversarial",
+              "Human-in-the-Loop / Approval Gates"
+            ],
+            "why_here": "All five are coordination topologies for multiple agents. Supervisor, swarm, hierarchical, and debate form a complete contrast set — interviewers ask 'which topology for X?' Human-in-the-loop is included here because approval gates are a coordination pattern (human as a special agent) and frameworks implement HITL differently per topology (LangGraph interrupt vs AutoGen user proxy).",
+            "capability": "Distinguish supervisor, swarm, hierarchical, and debate multi-agent topologies; justify a topology choice for a given scenario (latency, failure modes, coordination needs); trace how human approval gates integrate into each topology across frameworks."
+          },
+          {
+            "title": "Memory for Agents",
+            "covers": [
+              "Short-Term / Working Memory (Context Window)",
+              "Long-Term Memory: Episodic",
+              "Long-Term Memory: Semantic / Knowledge",
+              "Long-Term Memory: Procedural / Skills",
+              "Memory Retrieval & RAG for Agents",
+              "Prompt Engineering for Agents (System Prompts, Few-Shot)",
+              "RAG vs Agents Distinction"
+            ],
+            "why_here": "Memory is a cross-cutting concern but forms a coherent subsystem: working memory feeds the loop; three long-term types (episodic, semantic, procedural) have distinct storage/retrieval; RAG is a tool agents *use*; prompt engineering configures behavior; RAG-vs-agent is the classic distinction interviewers test. They belong together because memory decisions are made at architecture time, not per-pattern.",
+            "capability": "Compare the three long-term memory types (episodic, semantic, procedural) and their retrieval strategies; distinguish an agent with a RAG tool from a RAG pipeline and justify when to use each; design a system prompt that defines agent personality, tool schemas, and guardrails."
+          },
+          {
+            "title": "Framework Comparison: LangGraph, CrewAI, AutoGen",
+            "covers": [
+              "LangGraph",
+              "CrewAI",
+              "AutoGen",
+              "LangChain Agents (Legacy / create_react_agent)"
+            ],
+            "why_here": "These are the three frameworks interviewers expect you to compare deeply, plus the legacy LangChain agent as a contrast for 'why LangGraph'. They map directly to the patterns: LangGraph → graph-based control (ReAct, plan-and-execute, supervisor), CrewAI → role-based declarative (supervisor), AutoGen → conversation-centric (debate, swarm). Legacy LangChain shows what explicit state management solves.",
+            "capability": "Compare LangGraph, CrewAI, and AutoGen across control model (explicit graph vs declarative roles vs conversation), state management (checkpointer vs shared context vs chat history), multi-agent topology support, and HITL integration; explain why LangGraph replaced the legacy LangChain agent executor."
+          },
+          {
+            "title": "Other Frameworks & Evaluation",
+            "covers": [
+              "Semantic Kernel",
+              "OpenAI Assistants API / Agents SDK",
+              "LlamaIndex Agents",
+              "AutoGPT / BabyAGI (Historical Reference)",
+              "AgentBench",
+              "WebShop",
+              "ALFWorld",
+              "τ-bench (Tau-Bench)",
+              "Custom Evaluation / LLM-as-Judge for Agents"
+            ],
+            "why_here": "Secondary frameworks (Semantic Kernel, OpenAI, LlamaIndex) are positioned relative to the big three — each represents a distinct philosophy (planner-centric, managed, RAG-first). Historical references (AutoGPT) explain evolution. Benchmarks (AgentBench + three named) and custom eval complete the evaluation story: what benchmarks measure vs what production teams actually build (LLM-as-judge, trajectory scoring).",
+            "capability": "Position Semantic Kernel, OpenAI Assistants, and LlamaIndex relative to LangGraph/CrewAI/AutoGen by philosophy and use case; explain what AutoGPT got wrong historically; select an evaluation approach (benchmark suite vs custom LLM-as-judge) for a given agent use case and design a trajectory scoring rubric."
+          },
+          {
+            "title": "Deployment Trade-offs",
+            "covers": [
+              "Observability & Tracing (LangSmith, Arize, etc.)",
+              "Guardrails & Safety (Input/Output Filtering, PII, Jailbreak)",
+              "Cost & Latency Optimization (Model Selection, Caching, Token Budget)"
+            ],
+            "why_here": "These three are the production concerns interviewers probe as 'deployment trade-offs': observability (you can't debug without traces), safety (enterprise requirement), cost/latency (agents are expensive). They are framework-agnostic but framework-informed (LangSmith integration, LangGraph interrupts for guardrails, model routing for cost). Versioning and scaling are cut (see consequence).",
+            "capability": "Articulate deployment trade-offs for observability (trace-driven debugging vs logging), safety (external guardrails vs framework-native interrupts vs vendor moderation), and cost/latency (model cascade, caching, token budgets, routing); explain how each concern influences framework choice."
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 8162,
+        "out": 8589
+      },
+      "created_at": "2026-09-25T21:22:42+00:00"
+    },
+    {
+      "id": "598f1a7f23bf4764800c5c9c74b906d4",
+      "project_id": "6c7a02dc-72bb-4eb7-9e91-917220f1b2f3",
+      "kind": "scope",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "6d0bc3c11c9031482ed0a41e33f3c302",
+      "output": {
+        "covered": [
+          {
+            "concept": "Agent Definition & Agency",
+            "depth": "explain",
+            "why": "Establishes the boundary between agent, LLM call, and RAG pipeline — the starting point for every interview answer.",
+            "anticipates": "false-comprehension"
+          },
+          {
+            "concept": "LLM as Reasoning Engine",
+            "depth": "explain",
+            "why": "Provides the mental model for why ReAct/plan-and-execute work: the LLM plans, decides, and reflects, not just completes.",
+            "anticipates": "abstraction-grounding"
+          },
+          {
+            "concept": "Function Calling / Tool Calling API",
+            "depth": "work through",
+            "why": "Interviewers expect fluency with tool schemas, parallel calls, and strict JSON — the primitive all patterns build on.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Structured Output / JSON Mode",
+            "depth": "explain",
+            "why": "Agents emit structured actions; JSON mode/function calling enforces it. Needed to explain how frameworks guarantee parseable output.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Tool Use / Function Calling Pattern",
+            "depth": "work through",
+            "why": "Base pattern: must trace a single tool-use step (reason → act → observe) before explaining loops and multi-step patterns.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "ReAct Pattern (Reasoning + Acting)",
+            "depth": "work through",
+            "why": "Canonical single-agent pattern; baseline for comparing plan-and-execute and multi-agent. Must trace the reasoning-acting loop.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Plan-and-Execute / Planner-Executor",
+            "depth": "work through",
+            "why": "Key architectural distinction: separates planning from execution. Interviewers probe trade-offs (flexibility vs control, latency, error recovery).",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Reflection / Self-Correction / Critique",
+            "depth": "explain",
+            "why": "Standard follow-up: 'How does the agent recover from a bad tool call?' Covers Reflexion, ReWOO, self-critique loops.",
+            "anticipates": "false-comprehension"
+          },
+          {
+            "concept": "Multi-Agent: Supervisor / Orchestrator",
+            "depth": "work through",
+            "why": "Most common production pattern. Must trace delegation, compare with swarm, and explain framework implementations (LangGraph supervisor, CrewAI).",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Multi-Agent: Swarm / Peer-to-Peer",
+            "depth": "work through",
+            "why": "Contrast with supervisor: latency, coordination, failure modes. Interviewers ask 'when would you choose swarm over supervisor?'.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Multi-Agent: Hierarchical / Tree",
+            "depth": "explain",
+            "why": "Advanced follow-up for scaling ('how to coordinate 50 agents?'). Keep at explain level — mental model, not deep trace.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Multi-Agent: Debate / Adversarial",
+            "depth": "explain",
+            "why": "AutoGen's signature pattern. Must explain *why* debate improves correctness (diverse reasoning paths, error catching) not just *that* it does.",
+            "anticipates": "false-comprehension"
+          },
+          {
+            "concept": "Human-in-the-Loop / Approval Gates",
+            "depth": "work through",
+            "why": "Explicit deployment trade-off. Frameworks differ (LangGraph interrupt, AutoGen user proxy, OpenAI approvals). Must trace approval flow.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Agent Loop / Tool-Use Loop Execution",
+            "depth": "work through",
+            "why": "Target explicitly says 'trace execution through tool-use loops.' This IS the loop — state, messages, tool calls, returns.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "State Management & Checkpointing",
+            "depth": "work through",
+            "why": "LangGraph's differentiator; enables HITL, time-travel, recovery. 'How does your agent resume after a crash?' is a standard question.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Streaming & Async Execution",
+            "depth": "explain",
+            "why": "Production reality: streaming tokens, progressive tool results, async tool calls. Explain UX and backend implications.",
+            "anticipates": "parallel-state"
+          },
+          {
+            "concept": "Error Handling, Retries & Fallbacks",
+            "depth": "explain",
+            "why": "Practical follow-up: 'Tool fails — what happens?' Framework differences (LangGraph retry policy, CrewAI max_iter, AutoGen max_consecutive_auto_reply).",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Short-Term / Working Memory (Context Window)",
+            "depth": "explain",
+            "why": "Memory follow-ups start here: context limits, history management, summarization strategies.",
+            "anticipates": "abstraction-grounding"
+          },
+          {
+            "concept": "Long-Term Memory: Episodic",
+            "depth": "explain",
+            "why": "Past interactions/trajectories for personalization and few-shot. Distinct retrieval and storage from semantic.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Long-Term Memory: Semantic / Knowledge",
+            "depth": "explain",
+            "why": "Facts, docs, RAG — distinct from episodic in architecture and retrieval. Core to 'agent with RAG tool' vs 'RAG pipeline'.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Long-Term Memory: Procedural / Skills",
+            "depth": "mention",
+            "why": "Emerging concept (LangGraph skills, AutoGen skills). Mention for completeness; not yet standard interview territory.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Memory Retrieval & RAG for Agents",
+            "depth": "work through",
+            "why": "Agents *use* RAG as a tool; interviewers blur the line. Must distinguish 'agent with RAG tool' from 'RAG pipeline' clearly.",
+            "anticipates": "false-comprehension"
+          },
+          {
+            "concept": "Prompt Engineering for Agents (System Prompts, Few-Shot)",
+            "depth": "work through",
+            "why": "Agents are prompt-heavy; system prompt defines personality, tool schemas, guardrails. 'Show me your system prompt' is a real ask.",
+            "anticipates": "abstraction-grounding"
+          },
+          {
+            "concept": "RAG vs Agents Distinction",
+            "depth": "work through",
+            "why": "Classic interview question: 'When would you use RAG vs an agent?' Must articulate retrieval vs reasoning+action cleanly.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "LangGraph",
+            "depth": "work through",
+            "why": "Current standard for controllable, stateful, production-grade agents. Core of framework comparison — graph API, checkpointer, interrupts.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "CrewAI",
+            "depth": "work through",
+            "why": "Role-based multi-agent, declarative, opinionated. Standard comparison point for 'when to use vs LangGraph'.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "AutoGen",
+            "depth": "work through",
+            "why": "Conversation-centric, flexible multi-agent, strong on code execution and debate. Contrasts with LangGraph's explicit control.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "LangChain Agents (Legacy / create_react_agent)",
+            "depth": "explain",
+            "why": "Still in codebases/tutorials. 'What's wrong with the old agent executor?' tests understanding of LangGraph's improvements.",
+            "anticipates": "false-comprehension"
+          },
+          {
+            "concept": "AgentBench",
+            "depth": "explain",
+            "why": "Standard multi-task benchmark; must know what it measures (planning, tool-use, reasoning) and its limitations.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "WebShop",
+            "depth": "explain",
+            "why": "Classic web-navigation benchmark testing tool-use in realistic environments; interviewers cite it to contrast web vs embodied vs conversational benchmarks.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "ALFWorld",
+            "depth": "explain",
+            "why": "Embodied/household-simulation benchmark testing planning + tool-use in grounded environments; key reference for 'planning in simulation' follow-ups.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "τ-bench (Tau-Bench)",
+            "depth": "explain",
+            "why": "Newest benchmark focusing on dynamic user interaction and policy adherence — closest to real customer-support agents; increasingly cited by interviewers.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Custom Evaluation / LLM-as-Judge for Agents",
+            "depth": "work through",
+            "why": "Production teams build custom evals. Must explain LLM-as-judge, trajectory scoring, pass/fail criteria — not just benchmark names. This directly answers 'how do you know the agent is working?'.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Observability & Tracing (LangSmith, Arize, etc.)",
+            "depth": "explain",
+            "why": "Cannot debug agents without traces. LangGraph/LangSmith integration is a major selling point interviewers expect you to know.",
+            "anticipates": "perceptual-referent"
+          },
+          {
+            "concept": "Guardrails & Safety (Input/Output Filtering, PII, Jailbreak)",
+            "depth": "explain",
+            "why": "Enterprise interviews always ask safety. Guardrails vs framework-native controls (LangGraph interrupts, OpenAI moderation).",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Cost & Latency Optimization (Model Selection, Caching, Token Budget)",
+            "depth": "explain",
+            "why": "Agents are expensive (many turns, large contexts). Must discuss routing, caching, model cascade, token budgets.",
+            "anticipates": "cross-reference"
+          }
+        ],
+        "cut": [
+          "AutoGPT / BabyAGI (Historical Reference)",
+          "Semantic Kernel",
+          "LlamaIndex Agents",
+          "OpenAI Assistants API / Agents SDK",
+          "Versioning, Prompt Management & CI/CD for Agents",
+          "Scaling & Concurrency (Stateless vs Stateful, Queueing)"
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_revise_v2",
+      "cost": {
+        "in": 16129,
+        "out": 6161
+      },
+      "created_at": "2026-09-25T21:24:19+00:00"
+    },
+    {
+      "id": "98b7c0f44d6143d3a2a40e669702596e",
+      "project_id": "6c7a02dc-72bb-4eb7-9e91-917220f1b2f3",
+      "kind": "consequence",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "ee8fcb0cf9445a0c1e6d21cccabe1cb5",
+      "output": {
+        "exclusions": [
+          {
+            "topic": "AutoGPT / BabyAGI (Historical Reference)",
+            "consequence": "Cannot answer 'What did AutoGPT get wrong?' or explain why uncontrolled planning loops, context explosion, and lack of state control failed in practice — a common interviewer probe for depth of understanding.",
+            "when_to_learn": "When an interviewer explicitly asks for historical context or when studying the evolution of agent architectures post-interview."
+          },
+          {
+            "topic": "Semantic Kernel",
+            "consequence": "Cannot position Microsoft's planner-centric, kernel/plugin framework; misses the .NET/C# enterprise angle and the 'planner as separate component' philosophy that contrasts with LangGraph's graph-based control.",
+            "when_to_learn": "When interviewing at Microsoft-heavy shops or when the role involves .NET/C# agent integration."
+          },
+          {
+            "topic": "LlamaIndex Agents",
+            "consequence": "Cannot explain the RAG-first agent framework philosophy or how it composes with LangGraph; misses the data-centric agent pattern common in document-heavy enterprise use cases.",
+            "when_to_learn": "When the role emphasizes RAG-heavy agents or when evaluating frameworks for document-centric workloads."
+          },
+          {
+            "topic": "OpenAI Assistants API / Agents SDK",
+            "consequence": "Cannot articulate the vendor-managed trade-off: built-in state, code interpreter, file search vs lock-in, opacity, and limited control — a frequent 'buy vs build' interview discussion.",
+            "when_to_learn": "When evaluating managed vs self-hosted frameworks or when the organization uses OpenAI's platform natively."
+          },
+          {
+            "topic": "Versioning, Prompt Management & CI/CD for Agents",
+            "consequence": "Cannot discuss how prompt versioning, A/B testing, and regression testing differ for agents vs traditional software; misses a growing production concern that senior interviews probe.",
+            "when_to_learn": "When moving from interview prep to production engineering, or when the role includes MLOps/LLMOps responsibilities."
+          },
+          {
+            "topic": "Scaling & Concurrency (Stateless vs Stateful, Queueing)",
+            "consequence": "Cannot explain the tension between LangGraph's stateful checkpointer and horizontal scaling, or how to queue human approvals — a senior-level architecture question.",
+            "when_to_learn": "When designing production agent infrastructure or interviewing for platform/infrastructure-focused roles."
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_revise_v2",
+      "cost": {
+        "in": 16129,
+        "out": 6161
+      },
+      "created_at": "2026-09-25T21:24:19+00:00"
+    },
+    {
+      "id": "b4a58aa1392e47f9bf3b27b8265eaa5f",
+      "project_id": "6c7a02dc-72bb-4eb7-9e91-917220f1b2f3",
+      "kind": "partition",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "411753a3f8ccc6eaed3d0f45500b36bc",
+      "output": {
+        "modules": [
+          {
+            "title": "Foundations: What Makes an Agent",
+            "covers": [
+              "Agent Definition & Agency",
+              "LLM as Reasoning Engine",
+              "Function Calling / Tool Calling API",
+              "Structured Output / JSON Mode",
+              "Tool Use / Function Calling Pattern"
+            ],
+            "why_here": "These five concepts form the indivisible foundation: what an agent is, why the LLM can reason, the API primitive that enables tools, how structure is enforced, and the base tool-use step. Nothing later makes sense without this mental model, and they are tightly coupled — tool calling requires structured output, which requires function calling API, which requires the LLM-as-reasoner view.",
+            "capability": "Explain what distinguishes an agent from a plain LLM call or RAG pipeline, trace a single tool-use step (reason → act → observe), and describe the function calling API contract (schemas, parallel calls, strict JSON)."
+          },
+          {
+            "title": "Core Single-Agent Patterns",
+            "covers": [
+              "ReAct Pattern (Reasoning + Acting)",
+              "Plan-and-Execute / Planner-Executor",
+              "Reflection / Self-Correction / Critique"
+            ],
+            "why_here": "ReAct and plan-and-execute are the two canonical single-agent architectures — interviewers compare them directly. Reflection is the standard recovery mechanism layered on top. They share the same execution substrate (tool-use loop) and are best learned as a contrast set before multi-agent adds coordination complexity.",
+            "capability": "Compare ReAct and plan-and-execute architectures across planning granularity, error recovery, latency, and control; trace a ReAct loop iteration; explain how reflection/self-correction loops (Reflexion, ReWOO) improve recovery from bad tool calls."
+          },
+          {
+            "title": "Agent Execution Mechanics",
+            "covers": [
+              "Agent Loop / Tool-Use Loop Execution",
+              "State Management & Checkpointing",
+              "Streaming & Async Execution",
+              "Error Handling, Retries & Fallbacks"
+            ],
+            "why_here": "These four concepts are the runtime machinery: the loop itself, how state persists across steps, how output streams to users, and how failures are handled. They are framework-agnostic but directly determine framework capabilities (LangGraph's checkpointer, CrewAI's max_iter). Tracing execution — a target capability — requires all four together.",
+            "capability": "Trace execution through a complete tool-use loop including state updates, streaming tokens/progressive tool results, and error recovery paths; explain how checkpointing enables crash recovery, time-travel debugging, and human-in-the-loop approval gates."
+          },
+          {
+            "title": "Multi-Agent Architectures",
+            "covers": [
+              "Multi-Agent: Supervisor / Orchestrator",
+              "Multi-Agent: Swarm / Peer-to-Peer",
+              "Multi-Agent: Hierarchical / Tree",
+              "Multi-Agent: Debate / Adversarial",
+              "Human-in-the-Loop / Approval Gates"
+            ],
+            "why_here": "All five are coordination topologies for multiple agents. Supervisor, swarm, hierarchical, and debate form a complete contrast set — interviewers ask 'which topology for X?' Human-in-the-loop is included here because approval gates are a coordination pattern (human as a special agent) and frameworks implement HITL differently per topology (LangGraph interrupt vs AutoGen user proxy).",
+            "capability": "Distinguish supervisor, swarm, hierarchical, and debate multi-agent topologies; justify a topology choice for a given scenario (latency, failure modes, coordination needs); trace how human approval gates integrate into each topology across frameworks."
+          },
+          {
+            "title": "Memory for Agents",
+            "covers": [
+              "Short-Term / Working Memory (Context Window)",
+              "Long-Term Memory: Episodic",
+              "Long-Term Memory: Semantic / Knowledge",
+              "Long-Term Memory: Procedural / Skills",
+              "Memory Retrieval & RAG for Agents",
+              "Prompt Engineering for Agents (System Prompts, Few-Shot)",
+              "RAG vs Agents Distinction"
+            ],
+            "why_here": "Memory is a cross-cutting concern but forms a coherent subsystem: working memory feeds the loop; three long-term types (episodic, semantic, procedural) have distinct storage/retrieval; RAG is a tool agents *use*; prompt engineering configures behavior; RAG-vs-agent is the classic distinction interviewers test. They belong together because memory decisions are made at architecture time, not per-pattern.",
+            "capability": "Compare the three long-term memory types (episodic, semantic, procedural) and their retrieval strategies; distinguish an agent with a RAG tool from a RAG pipeline and justify when to use each; design a system prompt that defines agent personality, tool schemas, and guardrails."
+          },
+          {
+            "title": "Framework Comparison: LangGraph, CrewAI, AutoGen",
+            "covers": [
+              "LangGraph",
+              "CrewAI",
+              "AutoGen",
+              "LangChain Agents (Legacy / create_react_agent)"
+            ],
+            "why_here": "These are the three frameworks interviewers expect you to compare deeply, plus the legacy LangChain agent as a contrast for 'why LangGraph'. They map directly to the patterns: LangGraph → graph-based control (ReAct, plan-and-execute, supervisor), CrewAI → role-based declarative (supervisor), AutoGen → conversation-centric (debate, swarm). Legacy LangChain shows what explicit state management solves.",
+            "capability": "Compare LangGraph, CrewAI, and AutoGen across control model (explicit graph vs declarative roles vs conversation), state management (checkpointer vs shared context vs chat history), multi-agent topology support, and HITL integration; explain why LangGraph replaced the legacy LangChain agent executor."
+          },
+          {
+            "title": "Other Frameworks & Evaluation",
+            "covers": [
+              "Semantic Kernel",
+              "OpenAI Assistants API / Agents SDK",
+              "LlamaIndex Agents",
+              "AutoGPT / BabyAGI (Historical Reference)",
+              "AgentBench",
+              "WebShop",
+              "ALFWorld",
+              "τ-bench (Tau-Bench)",
+              "Custom Evaluation / LLM-as-Judge for Agents"
+            ],
+            "why_here": "Secondary frameworks (Semantic Kernel, OpenAI, LlamaIndex) are positioned relative to the big three — each represents a distinct philosophy (planner-centric, managed, RAG-first). Historical references (AutoGPT) explain evolution. Benchmarks (AgentBench, WebShop, ALFWorld, τ-bench) and custom eval complete the evaluation story: what benchmarks measure vs what production teams actually build (LLM-as-judge, trajectory scoring).",
+            "capability": "Position Semantic Kernel, OpenAI Assistants, and LlamaIndex relative to LangGraph/CrewAI/AutoGen by philosophy and use case; explain what AutoGPT got wrong historically; select an evaluation approach (benchmark suite vs custom LLM-as-judge) for a given agent use case and design a trajectory scoring rubric."
+          },
+          {
+            "title": "Deployment Trade-offs",
+            "covers": [
+              "Observability & Tracing (LangSmith, Arize, etc.)",
+              "Guardrails & Safety (Input/Output Filtering, PII, Jailbreak)",
+              "Cost & Latency Optimization (Model Selection, Caching, Token Budget)"
+            ],
+            "why_here": "These three are the production concerns interviewers probe as 'deployment trade-offs': observability (you can't debug without traces), safety (enterprise requirement), cost/latency (agents are expensive). They are framework-agnostic but framework-informed (LangSmith integration, LangGraph interrupts for guardrails, model routing for cost). Versioning and scaling are cut (see consequence).",
+            "capability": "Articulate deployment trade-offs for observability (trace-driven debugging vs logging), safety (external guardrails vs framework-native interrupts vs vendor moderation), and cost/latency (model cascade, caching, token budgets, routing); explain how each concern influences framework choice."
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_revise_v2",
+      "cost": {
+        "in": 16129,
+        "out": 6161
+      },
+      "created_at": "2026-09-25T21:24:19+00:00"
+    },
+    {
+      "id": "1b0fd8becef947efabf6d57247734efd",
+      "project_id": "6c7a02dc-72bb-4eb7-9e91-917220f1b2f3",
+      "kind": "interpret_situation",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "b1a30b941eb25cb7f988c8af891cf0a8",
+      "output": {
+        "subject": "Agentic AI — core concepts, patterns, and frameworks for interview readiness",
+        "job": "construct",
+        "entry_point": "General programming ability; no prior agent construction or framework experience (LangGraph, CrewAI, AutoGen, etc.)",
+        "purpose": "Prepare for technical interviews covering agentic AI",
+        "target_capability": "Explain agent architectures (ReAct, plan-and-execute, multi-agent), compare major frameworks, trace execution through tool-use loops, and answer follow-ups on memory, evaluation, and deployment trade-offs",
+        "capacity": null,
+        "stated": [
+          {
+            "text": "agentic ai notes for interview",
+            "axis": "subject"
+          },
+          {
+            "text": "agentic ai notes for interview",
+            "axis": "artifact_type"
+          },
+          {
+            "text": "agentic ai notes for interview",
+            "axis": "purpose"
+          },
+          {
+            "text": "from scratch",
+            "axis": "entry_point"
+          },
+          {
+            "text": "i can code but i've never built an agent or used any of these frameworks",
+            "axis": "entry_point"
+          }
+        ],
+        "inferred": [
+          "Depth register: interview-practical — concept definitions, mental models, framework comparison tables, and common pitfalls; not academic survey or production hardening",
+          "Template: none — free-form structured notes"
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "interpret_v1",
+      "cost": {
+        "in": 3171,
+        "out": 1514
+      },
+      "created_at": "2026-09-25T21:17:00+00:00"
+    },
+    {
+      "id": "598f1a7f23bf4764800c5c9c74b906d4",
+      "project_id": "6c7a02dc-72bb-4eb7-9e91-917220f1b2f3",
+      "kind": "scope",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "6d0bc3c11c9031482ed0a41e33f3c302",
+      "output": {
+        "covered": [
+          {
+            "concept": "Agent Definition & Agency",
+            "depth": "explain",
+            "why": "Establishes the boundary between agent, LLM call, and RAG pipeline — the starting point for every interview answer.",
+            "anticipates": "false-comprehension"
+          },
+          {
+            "concept": "LLM as Reasoning Engine",
+            "depth": "explain",
+            "why": "Provides the mental model for why ReAct/plan-and-execute work: the LLM plans, decides, and reflects, not just completes.",
+            "anticipates": "abstraction-grounding"
+          },
+          {
+            "concept": "Function Calling / Tool Calling API",
+            "depth": "work through",
+            "why": "Interviewers expect fluency with tool schemas, parallel calls, and strict JSON — the primitive all patterns build on.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Structured Output / JSON Mode",
+            "depth": "explain",
+            "why": "Agents emit structured actions; JSON mode/function calling enforces it. Needed to explain how frameworks guarantee parseable output.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Tool Use / Function Calling Pattern",
+            "depth": "work through",
+            "why": "Base pattern: must trace a single tool-use step (reason → act → observe) before explaining loops and multi-step patterns.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "ReAct Pattern (Reasoning + Acting)",
+            "depth": "work through",
+            "why": "Canonical single-agent pattern; baseline for comparing plan-and-execute and multi-agent. Must trace the reasoning-acting loop.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Plan-and-Execute / Planner-Executor",
+            "depth": "work through",
+            "why": "Key architectural distinction: separates planning from execution. Interviewers probe trade-offs (flexibility vs control, latency, error recovery).",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Reflection / Self-Correction / Critique",
+            "depth": "explain",
+            "why": "Standard follow-up: 'How does the agent recover from a bad tool call?' Covers Reflexion, ReWOO, self-critique loops.",
+            "anticipates": "false-comprehension"
+          },
+          {
+            "concept": "Multi-Agent: Supervisor / Orchestrator",
+            "depth": "work through",
+            "why": "Most common production pattern. Must trace delegation, compare with swarm, and explain framework implementations (LangGraph supervisor, CrewAI).",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Multi-Agent: Swarm / Peer-to-Peer",
+            "depth": "work through",
+            "why": "Contrast with supervisor: latency, coordination, failure modes. Interviewers ask 'when would you choose swarm over supervisor?'.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Multi-Agent: Hierarchical / Tree",
+            "depth": "explain",
+            "why": "Advanced follow-up for scaling ('how to coordinate 50 agents?'). Keep at explain level — mental model, not deep trace.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Multi-Agent: Debate / Adversarial",
+            "depth": "explain",
+            "why": "AutoGen's signature pattern. Must explain *why* debate improves correctness (diverse reasoning paths, error catching) not just *that* it does.",
+            "anticipates": "false-comprehension"
+          },
+          {
+            "concept": "Human-in-the-Loop / Approval Gates",
+            "depth": "work through",
+            "why": "Explicit deployment trade-off. Frameworks differ (LangGraph interrupt, AutoGen user proxy, OpenAI approvals). Must trace approval flow.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Agent Loop / Tool-Use Loop Execution",
+            "depth": "work through",
+            "why": "Target explicitly says 'trace execution through tool-use loops.' This IS the loop — state, messages, tool calls, returns.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "State Management & Checkpointing",
+            "depth": "work through",
+            "why": "LangGraph's differentiator; enables HITL, time-travel, recovery. 'How does your agent resume after a crash?' is a standard question.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Streaming & Async Execution",
+            "depth": "explain",
+            "why": "Production reality: streaming tokens, progressive tool results, async tool calls. Explain UX and backend implications.",
+            "anticipates": "parallel-state"
+          },
+          {
+            "concept": "Error Handling, Retries & Fallbacks",
+            "depth": "explain",
+            "why": "Practical follow-up: 'Tool fails — what happens?' Framework differences (LangGraph retry policy, CrewAI max_iter, AutoGen max_consecutive_auto_reply).",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Short-Term / Working Memory (Context Window)",
+            "depth": "explain",
+            "why": "Memory follow-ups start here: context limits, history management, summarization strategies.",
+            "anticipates": "abstraction-grounding"
+          },
+          {
+            "concept": "Long-Term Memory: Episodic",
+            "depth": "explain",
+            "why": "Past interactions/trajectories for personalization and few-shot. Distinct retrieval and storage from semantic.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Long-Term Memory: Semantic / Knowledge",
+            "depth": "explain",
+            "why": "Facts, docs, RAG — distinct from episodic in architecture and retrieval. Core to 'agent with RAG tool' vs 'RAG pipeline'.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Long-Term Memory: Procedural / Skills",
+            "depth": "mention",
+            "why": "Emerging concept (LangGraph skills, AutoGen skills). Mention for completeness; not yet standard interview territory.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Memory Retrieval & RAG for Agents",
+            "depth": "work through",
+            "why": "Agents *use* RAG as a tool; interviewers blur the line. Must distinguish 'agent with RAG tool' from 'RAG pipeline' clearly.",
+            "anticipates": "false-comprehension"
+          },
+          {
+            "concept": "Prompt Engineering for Agents (System Prompts, Few-Shot)",
+            "depth": "work through",
+            "why": "Agents are prompt-heavy; system prompt defines personality, tool schemas, guardrails. 'Show me your system prompt' is a real ask.",
+            "anticipates": "abstraction-grounding"
+          },
+          {
+            "concept": "RAG vs Agents Distinction",
+            "depth": "work through",
+            "why": "Classic interview question: 'When would you use RAG vs an agent?' Must articulate retrieval vs reasoning+action cleanly.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "LangGraph",
+            "depth": "work through",
+            "why": "Current standard for controllable, stateful, production-grade agents. Core of framework comparison — graph API, checkpointer, interrupts.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "CrewAI",
+            "depth": "work through",
+            "why": "Role-based multi-agent, declarative, opinionated. Standard comparison point for 'when to use vs LangGraph'.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "AutoGen",
+            "depth": "work through",
+            "why": "Conversation-centric, flexible multi-agent, strong on code execution and debate. Contrasts with LangGraph's explicit control.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "LangChain Agents (Legacy / create_react_agent)",
+            "depth": "explain",
+            "why": "Still in codebases/tutorials. 'What's wrong with the old agent executor?' tests understanding of LangGraph's improvements.",
+            "anticipates": "false-comprehension"
+          },
+          {
+            "concept": "AgentBench",
+            "depth": "explain",
+            "why": "Standard multi-task benchmark; must know what it measures (planning, tool-use, reasoning) and its limitations.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "WebShop",
+            "depth": "explain",
+            "why": "Classic web-navigation benchmark testing tool-use in realistic environments; interviewers cite it to contrast web vs embodied vs conversational benchmarks.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "ALFWorld",
+            "depth": "explain",
+            "why": "Embodied/household-simulation benchmark testing planning + tool-use in grounded environments; key reference for 'planning in simulation' follow-ups.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "τ-bench (Tau-Bench)",
+            "depth": "explain",
+            "why": "Newest benchmark focusing on dynamic user interaction and policy adherence — closest to real customer-support agents; increasingly cited by interviewers.",
+            "anticipates": "none"
+          },
+          {
+            "concept": "Custom Evaluation / LLM-as-Judge for Agents",
+            "depth": "work through",
+            "why": "Production teams build custom evals. Must explain LLM-as-judge, trajectory scoring, pass/fail criteria — not just benchmark names. This directly answers 'how do you know the agent is working?'.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Observability & Tracing (LangSmith, Arize, etc.)",
+            "depth": "explain",
+            "why": "Cannot debug agents without traces. LangGraph/LangSmith integration is a major selling point interviewers expect you to know.",
+            "anticipates": "perceptual-referent"
+          },
+          {
+            "concept": "Guardrails & Safety (Input/Output Filtering, PII, Jailbreak)",
+            "depth": "explain",
+            "why": "Enterprise interviews always ask safety. Guardrails vs framework-native controls (LangGraph interrupts, OpenAI moderation).",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Cost & Latency Optimization (Model Selection, Caching, Token Budget)",
+            "depth": "explain",
+            "why": "Agents are expensive (many turns, large contexts). Must discuss routing, caching, model cascade, token budgets.",
+            "anticipates": "cross-reference"
+          }
+        ],
+        "cut": [
+          "AutoGPT / BabyAGI (Historical Reference)",
+          "Semantic Kernel",
+          "LlamaIndex Agents",
+          "OpenAI Assistants API / Agents SDK",
+          "Versioning, Prompt Management & CI/CD for Agents",
+          "Scaling & Concurrency (Stateless vs Stateful, Queueing)"
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_revise_v2",
+      "cost": {
+        "in": 16129,
+        "out": 6161
+      },
+      "created_at": "2026-09-25T21:24:19+00:00"
+    },
+    {
+      "id": "98b7c0f44d6143d3a2a40e669702596e",
+      "project_id": "6c7a02dc-72bb-4eb7-9e91-917220f1b2f3",
+      "kind": "consequence",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "ee8fcb0cf9445a0c1e6d21cccabe1cb5",
+      "output": {
+        "exclusions": [
+          {
+            "topic": "AutoGPT / BabyAGI (Historical Reference)",
+            "consequence": "Cannot answer 'What did AutoGPT get wrong?' or explain why uncontrolled planning loops, context explosion, and lack of state control failed in practice — a common interviewer probe for depth of understanding.",
+            "when_to_learn": "When an interviewer explicitly asks for historical context or when studying the evolution of agent architectures post-interview."
+          },
+          {
+            "topic": "Semantic Kernel",
+            "consequence": "Cannot position Microsoft's planner-centric, kernel/plugin framework; misses the .NET/C# enterprise angle and the 'planner as separate component' philosophy that contrasts with LangGraph's graph-based control.",
+            "when_to_learn": "When interviewing at Microsoft-heavy shops or when the role involves .NET/C# agent integration."
+          },
+          {
+            "topic": "LlamaIndex Agents",
+            "consequence": "Cannot explain the RAG-first agent framework philosophy or how it composes with LangGraph; misses the data-centric agent pattern common in document-heavy enterprise use cases.",
+            "when_to_learn": "When the role emphasizes RAG-heavy agents or when evaluating frameworks for document-centric workloads."
+          },
+          {
+            "topic": "OpenAI Assistants API / Agents SDK",
+            "consequence": "Cannot articulate the vendor-managed trade-off: built-in state, code interpreter, file search vs lock-in, opacity, and limited control — a frequent 'buy vs build' interview discussion.",
+            "when_to_learn": "When evaluating managed vs self-hosted frameworks or when the organization uses OpenAI's platform natively."
+          },
+          {
+            "topic": "Versioning, Prompt Management & CI/CD for Agents",
+            "consequence": "Cannot discuss how prompt versioning, A/B testing, and regression testing differ for agents vs traditional software; misses a growing production concern that senior interviews probe.",
+            "when_to_learn": "When moving from interview prep to production engineering, or when the role includes MLOps/LLMOps responsibilities."
+          },
+          {
+            "topic": "Scaling & Concurrency (Stateless vs Stateful, Queueing)",
+            "consequence": "Cannot explain the tension between LangGraph's stateful checkpointer and horizontal scaling, or how to queue human approvals — a senior-level architecture question.",
+            "when_to_learn": "When designing production agent infrastructure or interviewing for platform/infrastructure-focused roles."
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_revise_v2",
+      "cost": {
+        "in": 16129,
+        "out": 6161
+      },
+      "created_at": "2026-09-25T21:24:19+00:00"
+    },
+    {
+      "id": "d5d4287976f0446791ed0bf07ad9e40d",
+      "project_id": "6c7a02dc-72bb-4eb7-9e91-917220f1b2f3",
+      "kind": "traversal",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "69123e617b44872fa6e8b879859311aa",
+      "output": {
+        "sequence": [
+          "Foundations: What Makes an Agent",
+          "Core Single-Agent Patterns",
+          "Agent Execution Mechanics",
+          "Multi-Agent Architectures",
+          "Memory for Agents",
+          "Framework Comparison: LangGraph, CrewAI, AutoGen",
+          "Other Frameworks & Evaluation",
+          "Deployment Trade-offs"
+        ],
+        "why": "Foundations establish the mental model (agent vs LLM, tool calling) before patterns build on it. Single-agent patterns (ReAct, plan-and-execute) are the baseline for multi-agent. Execution mechanics (loop, state, streaming) make tracing concrete before multi-agent adds coordination complexity. Memory follows patterns because agents use memory within those patterns. Core framework comparison comes after patterns so trade-offs are meaningful. Other frameworks and evaluation extend the comparison. Deployment trade-offs cap the curriculum since they assume the architecture is understood."
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 8162,
+        "out": 8589
+      },
+      "created_at": "2026-09-25T21:22:42+00:00"
+    },
+    {
+      "id": "b4a58aa1392e47f9bf3b27b8265eaa5f",
+      "project_id": "6c7a02dc-72bb-4eb7-9e91-917220f1b2f3",
+      "kind": "partition",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "411753a3f8ccc6eaed3d0f45500b36bc",
+      "output": {
+        "modules": [
+          {
+            "title": "Foundations: What Makes an Agent",
+            "covers": [
+              "Agent Definition & Agency",
+              "LLM as Reasoning Engine",
+              "Function Calling / Tool Calling API",
+              "Structured Output / JSON Mode",
+              "Tool Use / Function Calling Pattern"
+            ],
+            "why_here": "These five concepts form the indivisible foundation: what an agent is, why the LLM can reason, the API primitive that enables tools, how structure is enforced, and the base tool-use step. Nothing later makes sense without this mental model, and they are tightly coupled — tool calling requires structured output, which requires function calling API, which requires the LLM-as-reasoner view.",
+            "capability": "Explain what distinguishes an agent from a plain LLM call or RAG pipeline, trace a single tool-use step (reason → act → observe), and describe the function calling API contract (schemas, parallel calls, strict JSON)."
+          },
+          {
+            "title": "Core Single-Agent Patterns",
+            "covers": [
+              "ReAct Pattern (Reasoning + Acting)",
+              "Plan-and-Execute / Planner-Executor",
+              "Reflection / Self-Correction / Critique"
+            ],
+            "why_here": "ReAct and plan-and-execute are the two canonical single-agent architectures — interviewers compare them directly. Reflection is the standard recovery mechanism layered on top. They share the same execution substrate (tool-use loop) and are best learned as a contrast set before multi-agent adds coordination complexity.",
+            "capability": "Compare ReAct and plan-and-execute architectures across planning granularity, error recovery, latency, and control; trace a ReAct loop iteration; explain how reflection/self-correction loops (Reflexion, ReWOO) improve recovery from bad tool calls."
+          },
+          {
+            "title": "Agent Execution Mechanics",
+            "covers": [
+              "Agent Loop / Tool-Use Loop Execution",
+              "State Management & Checkpointing",
+              "Streaming & Async Execution",
+              "Error Handling, Retries & Fallbacks"
+            ],
+            "why_here": "These four concepts are the runtime machinery: the loop itself, how state persists across steps, how output streams to users, and how failures are handled. They are framework-agnostic but directly determine framework capabilities (LangGraph's checkpointer, CrewAI's max_iter). Tracing execution — a target capability — requires all four together.",
+            "capability": "Trace execution through a complete tool-use loop including state updates, streaming tokens/progressive tool results, and error recovery paths; explain how checkpointing enables crash recovery, time-travel debugging, and human-in-the-loop approval gates."
+          },
+          {
+            "title": "Multi-Agent Architectures",
+            "covers": [
+              "Multi-Agent: Supervisor / Orchestrator",
+              "Multi-Agent: Swarm / Peer-to-Peer",
+              "Multi-Agent: Hierarchical / Tree",
+              "Multi-Agent: Debate / Adversarial",
+              "Human-in-the-Loop / Approval Gates"
+            ],
+            "why_here": "All five are coordination topologies for multiple agents. Supervisor, swarm, hierarchical, and debate form a complete contrast set — interviewers ask 'which topology for X?' Human-in-the-loop is included here because approval gates are a coordination pattern (human as a special agent) and frameworks implement HITL differently per topology (LangGraph interrupt vs AutoGen user proxy).",
+            "capability": "Distinguish supervisor, swarm, hierarchical, and debate multi-agent topologies; justify a topology choice for a given scenario (latency, failure modes, coordination needs); trace how human approval gates integrate into each topology across frameworks."
+          },
+          {
+            "title": "Memory for Agents",
+            "covers": [
+              "Short-Term / Working Memory (Context Window)",
+              "Long-Term Memory: Episodic",
+              "Long-Term Memory: Semantic / Knowledge",
+              "Long-Term Memory: Procedural / Skills",
+              "Memory Retrieval & RAG for Agents",
+              "Prompt Engineering for Agents (System Prompts, Few-Shot)",
+              "RAG vs Agents Distinction"
+            ],
+            "why_here": "Memory is a cross-cutting concern but forms a coherent subsystem: working memory feeds the loop; three long-term types (episodic, semantic, procedural) have distinct storage/retrieval; RAG is a tool agents *use*; prompt engineering configures behavior; RAG-vs-agent is the classic distinction interviewers test. They belong together because memory decisions are made at architecture time, not per-pattern.",
+            "capability": "Compare the three long-term memory types (episodic, semantic, procedural) and their retrieval strategies; distinguish an agent with a RAG tool from a RAG pipeline and justify when to use each; design a system prompt that defines agent personality, tool schemas, and guardrails."
+          },
+          {
+            "title": "Framework Comparison: LangGraph, CrewAI, AutoGen",
+            "covers": [
+              "LangGraph",
+              "CrewAI",
+              "AutoGen",
+              "LangChain Agents (Legacy / create_react_agent)"
+            ],
+            "why_here": "These are the three frameworks interviewers expect you to compare deeply, plus the legacy LangChain agent as a contrast for 'why LangGraph'. They map directly to the patterns: LangGraph → graph-based control (ReAct, plan-and-execute, supervisor), CrewAI → role-based declarative (supervisor), AutoGen → conversation-centric (debate, swarm). Legacy LangChain shows what explicit state management solves.",
+            "capability": "Compare LangGraph, CrewAI, and AutoGen across control model (explicit graph vs declarative roles vs conversation), state management (checkpointer vs shared context vs chat history), multi-agent topology support, and HITL integration; explain why LangGraph replaced the legacy LangChain agent executor."
+          },
+          {
+            "title": "Other Frameworks & Evaluation",
+            "covers": [
+              "Semantic Kernel",
+              "OpenAI Assistants API / Agents SDK",
+              "LlamaIndex Agents",
+              "AutoGPT / BabyAGI (Historical Reference)",
+              "AgentBench",
+              "WebShop",
+              "ALFWorld",
+              "τ-bench (Tau-Bench)",
+              "Custom Evaluation / LLM-as-Judge for Agents"
+            ],
+            "why_here": "Secondary frameworks (Semantic Kernel, OpenAI, LlamaIndex) are positioned relative to the big three — each represents a distinct philosophy (planner-centric, managed, RAG-first). Historical references (AutoGPT) explain evolution. Benchmarks (AgentBench, WebShop, ALFWorld, τ-bench) and custom eval complete the evaluation story: what benchmarks measure vs what production teams actually build (LLM-as-judge, trajectory scoring).",
+            "capability": "Position Semantic Kernel, OpenAI Assistants, and LlamaIndex relative to LangGraph/CrewAI/AutoGen by philosophy and use case; explain what AutoGPT got wrong historically; select an evaluation approach (benchmark suite vs custom LLM-as-judge) for a given agent use case and design a trajectory scoring rubric."
+          },
+          {
+            "title": "Deployment Trade-offs",
+            "covers": [
+              "Observability & Tracing (LangSmith, Arize, etc.)",
+              "Guardrails & Safety (Input/Output Filtering, PII, Jailbreak)",
+              "Cost & Latency Optimization (Model Selection, Caching, Token Budget)"
+            ],
+            "why_here": "These three are the production concerns interviewers probe as 'deployment trade-offs': observability (you can't debug without traces), safety (enterprise requirement), cost/latency (agents are expensive). They are framework-agnostic but framework-informed (LangSmith integration, LangGraph interrupts for guardrails, model routing for cost). Versioning and scaling are cut (see consequence).",
+            "capability": "Articulate deployment trade-offs for observability (trace-driven debugging vs logging), safety (external guardrails vs framework-native interrupts vs vendor moderation), and cost/latency (model cascade, caching, token budgets, routing); explain how each concern influences framework choice."
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_revise_v2",
+      "cost": {
+        "in": 16129,
+        "out": 6161
+      },
+      "created_at": "2026-09-25T21:24:19+00:00"
+    },
+    {
+      "id": "6fb18055b12341df9ed777be4b532ca8",
+      "project_id": "6c7a02dc-72bb-4eb7-9e91-917220f1b2f3",
+      "kind": "derive_structure",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "2996f549adcbbcdec10813aca6102680",
+      "output": {
+        "concepts": [
+          {
+            "name": "Agent Definition & Agency",
+            "built_from": [],
+            "family": "foundational_primitive"
+          },
+          {
+            "name": "LLM as Reasoning Engine",
+            "built_from": [
+              "Agent Definition & Agency"
+            ],
+            "family": "foundational_primitive"
+          },
+          {
+            "name": "Function Calling / Tool Calling API",
+            "built_from": [
+              "LLM as Reasoning Engine"
+            ],
+            "family": "foundational_primitive"
+          },
+          {
+            "name": "Structured Output / JSON Mode",
+            "built_from": [
+              "Function Calling / Tool Calling API"
+            ],
+            "family": "foundational_primitive"
+          },
+          {
+            "name": "Tool Use / Function Calling Pattern",
+            "built_from": [
+              "Function Calling / Tool Calling API",
+              "Structured Output / JSON Mode"
+            ],
+            "family": "core_pattern"
+          },
+          {
+            "name": "ReAct Pattern (Reasoning + Acting)",
+            "built_from": [
+              "Tool Use / Function Calling Pattern"
+            ],
+            "family": "core_pattern"
+          },
+          {
+            "name": "Plan-and-Execute / Planner-Executor",
+            "built_from": [
+              "Tool Use / Function Calling Pattern",
+              "ReAct Pattern (Reasoning + Acting)"
+            ],
+            "family": "core_pattern"
+          },
+          {
+            "name": "Reflection / Self-Correction / Critique",
+            "built_from": [
+              "ReAct Pattern (Reasoning + Acting)"
+            ],
+            "family": "core_pattern"
+          },
+          {
+            "name": "Multi-Agent: Supervisor / Orchestrator",
+            "built_from": [
+              "Plan-and-Execute / Planner-Executor"
+            ],
+            "family": "core_pattern"
+          },
+          {
+            "name": "Multi-Agent: Swarm / Peer-to-Peer",
+            "built_from": [
+              "Plan-and-Execute / Planner-Executor"
+            ],
+            "family": "core_pattern"
+          },
+          {
+            "name": "Multi-Agent: Hierarchical / Tree",
+            "built_from": [
+              "Plan-and-Execute / Planner-Executor"
+            ],
+            "family": "core_pattern"
+          },
+          {
+            "name": "Multi-Agent: Debate / Adversarial",
+            "built_from": [
+              "Plan-and-Execute / Planner-Executor"
+            ],
+            "family": "core_pattern"
+          },
+          {
+            "name": "Human-in-the-Loop / Approval Gates",
+            "built_from": [
+              "Tool Use / Function Calling Pattern"
+            ],
+            "family": "core_pattern"
+          },
+          {
+            "name": "Agent Loop / Tool-Use Loop Execution",
+            "built_from": [
+              "ReAct Pattern (Reasoning + Acting)",
+              "Function Calling / Tool Calling API"
+            ],
+            "family": "execution_mechanism"
+          },
+          {
+            "name": "State Management & Checkpointing",
+            "built_from": [
+              "Agent Loop / Tool-Use Loop Execution"
+            ],
+            "family": "execution_mechanism"
+          },
+          {
+            "name": "Streaming & Async Execution",
+            "built_from": [
+              "Agent Loop / Tool-Use Loop Execution"
+            ],
+            "family": "execution_mechanism"
+          },
+          {
+            "name": "Error Handling, Retries & Fallbacks",
+            "built_from": [
+              "Agent Loop / Tool-Use Loop Execution"
+            ],
+            "family": "execution_mechanism"
+          },
+          {
+            "name": "Short-Term / Working Memory (Context Window)",
+            "built_from": [
+              "Agent Definition & Agency"
+            ],
+            "family": "memory_type"
+          },
+          {
+            "name": "Long-Term Memory: Episodic",
+            "built_from": [
+              "Short-Term / Working Memory (Context Window)"
+            ],
+            "family": "memory_type"
+          },
+          {
+            "name": "Long-Term Memory: Semantic / Knowledge",
+            "built_from": [
+              "Short-Term / Working Memory (Context Window)"
+            ],
+            "family": "memory_type"
+          },
+          {
+            "name": "Long-Term Memory: Procedural / Skills",
+            "built_from": [
+              "Short-Term / Working Memory (Context Window)"
+            ],
+            "family": "memory_type"
+          },
+          {
+            "name": "Memory Retrieval & RAG for Agents",
+            "built_from": [
+              "Long-Term Memory: Episodic",
+              "Long-Term Memory: Semantic / Knowledge"
+            ],
+            "family": "memory_type"
+          },
+          {
+            "name": "Prompt Engineering for Agents (System Prompts, Few-Shot)",
+            "built_from": [
+              "LLM as Reasoning Engine"
+            ],
+            "family": "foundational_primitive"
+          },
+          {
+            "name": "RAG vs Agents Distinction",
+            "built_from": [
+              "Agent Definition & Agency",
+              "Memory Retrieval & RAG for Agents"
+            ],
+            "family": "core_pattern"
+          },
+          {
+            "name": "LangGraph",
+            "built_from": [
+              "Agent Loop / Tool-Use Loop Execution",
+              "State Management & Checkpointing",
+              "Human-in-the-Loop / Approval Gates"
+            ],
+            "family": "framework"
+          },
+          {
+            "name": "CrewAI",
+            "built_from": [
+              "Multi-Agent: Supervisor / Orchestrator",
+              "Multi-Agent: Swarm / Peer-to-Peer"
+            ],
+            "family": "framework"
+          },
+          {
+            "name": "AutoGen",
+            "built_from": [
+              "Multi-Agent: Supervisor / Orchestrator",
+              "Multi-Agent: Debate / Adversarial",
+              "Human-in-the-Loop / Approval Gates"
+            ],
+            "family": "framework"
+          },
+          {
+            "name": "LangChain Agents (Legacy / create_react_agent)",
+            "built_from": [
+              "ReAct Pattern (Reasoning + Acting)",
+              "Agent Loop / Tool-Use Loop Execution"
+            ],
+            "family": "framework"
+          },
+          {
+            "name": "Semantic Kernel",
+            "built_from": [
+              "Plan-and-Execute / Planner-Executor",
+              "Function Calling / Tool Calling API"
+            ],
+            "family": "framework"
+          },
+          {
+            "name": "OpenAI Assistants API / Agents SDK",
+            "built_from": [
+              "Agent Loop / Tool-Use Loop Execution",
+              "State Management & Checkpointing",
+              "Function Calling / Tool Calling API"
+            ],
+            "family": "framework"
+          },
+          {
+            "name": "LlamaIndex Agents",
+            "built_from": [
+              "ReAct Pattern (Reasoning + Acting)",
+              "Memory Retrieval & RAG for Agents"
+            ],
+            "family": "framework"
+          },
+          {
+            "name": "AutoGPT / BabyAGI (Historical Reference)",
+            "built_from": [
+              "Plan-and-Execute / Planner-Executor",
+              "ReAct Pattern (Reasoning + Acting)"
+            ],
+            "family": "framework"
+          },
+          {
+            "name": "AgentBench",
+            "built_from": [],
+            "family": "evaluation_benchmark"
+          },
+          {
+            "name": "WebShop",
+            "built_from": [],
+            "family": "evaluation_benchmark"
+          },
+          {
+            "name": "ALFWorld",
+            "built_from": [],
+            "family": "evaluation_benchmark"
+          },
+          {
+            "name": "τ-bench (Tau-Bench)",
+            "built_from": [],
+            "family": "evaluation_benchmark"
+          },
+          {
+            "name": "Custom Evaluation / LLM-as-Judge for Agents",
+            "built_from": [
+              "AgentBench",
+              "WebShop",
+              "ALFWorld",
+              "τ-bench (Tau-Bench)"
+            ],
+            "family": "evaluation_benchmark"
+          },
+          {
+            "name": "Observability & Tracing (LangSmith, Arize, etc.)",
+            "built_from": [
+              "Agent Loop / Tool-Use Loop Execution",
+              "State Management & Checkpointing"
+            ],
+            "family": "deployment_concern"
+          },
+          {
+            "name": "Guardrails & Safety (Input/Output Filtering, PII, Jailbreak)",
+            "built_from": [
+              "Agent Loop / Tool-Use Loop Execution"
+            ],
+            "family": "deployment_concern"
+          },
+          {
+            "name": "Cost & Latency Optimization (Model Selection, Caching, Token Budget)",
+            "built_from": [
+              "Agent Loop / Tool-Use Loop Execution",
+              "LLM as Reasoning Engine"
+            ],
+            "family": "deployment_concern"
+          },
+          {
+            "name": "Scaling & Concurrency (Stateless vs Stateful, Queueing)",
+            "built_from": [
+              "State Management & Checkpointing",
+              "Streaming & Async Execution"
+            ],
+            "family": "deployment_concern"
+          },
+          {
+            "name": "Versioning, Prompt Management & CI/CD for Agents",
+            "built_from": [
+              "Prompt Engineering for Agents (System Prompts, Few-Shot)",
+              "State Management & Checkpointing"
+            ],
+            "family": "deployment_concern"
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "derive_v1",
+      "cost": {
+        "in": 1575,
+        "out": 5108
+      },
+      "created_at": "2026-09-25T21:18:57+00:00"
+    },
+    {
+      "id": "329008e3038f4004bd1ddf1bcb334955",
+      "project_id": "6c7a02dc-72bb-4eb7-9e91-917220f1b2f3",
+      "kind": "relevance",
+      "status": "committed",
+      "freshness": "current",
+      "inputs_hash": "7093c1a2d8c1fa567ee8346c524f90fc",
+      "output": {
+        "judgements": [
+          {
+            "concept": "Agent Definition & Agency",
+            "in_play": true,
+            "why": "Foundational — every interview answer starts from what an agent *is* and how it differs from a plain LLM call or RAG pipeline."
+          },
+          {
+            "concept": "LLM as Reasoning Engine",
+            "in_play": true,
+            "why": "Core mental model: the LLM is not just completion but the planner/decider. Needed to explain *why* ReAct, plan-and-execute work."
+          },
+          {
+            "concept": "Function Calling / Tool Calling API",
+            "in_play": true,
+            "why": "The primitive that makes tool use possible. Interviewers expect you to know the API shape (tool schema, parallel calls, strict JSON)."
+          },
+          {
+            "concept": "Structured Output / JSON Mode",
+            "in_play": true,
+            "why": "Directly relevant — agents emit structured actions; JSON mode / function calling is how frameworks enforce it."
+          },
+          {
+            "concept": "Tool Use / Function Calling Pattern",
+            "in_play": true,
+            "why": "The base pattern every architecture builds on. Must trace a single tool-use step before explaining loops."
+          },
+          {
+            "concept": "ReAct Pattern (Reasoning + Acting)",
+            "in_play": true,
+            "why": "Explicitly named in target capability. Canonical single-agent pattern; baseline for comparing plan-and-execute and multi-agent."
+          },
+          {
+            "concept": "Plan-and-Execute / Planner-Executor",
+            "in_play": true,
+            "why": "Explicitly named in target capability. Separates planning from execution — key architectural distinction interviewers probe."
+          },
+          {
+            "concept": "Reflection / Self-Correction / Critique",
+            "in_play": true,
+            "why": "Common follow-up: \"How does the agent recover from a bad tool call?\" Reflection loops (ReAct+Reflexion, ReWOO, etc.) are standard interview territory."
+          },
+          {
+            "concept": "Multi-Agent: Supervisor / Orchestrator",
+            "in_play": true,
+            "why": "Explicitly named in target capability (multi-agent). Most common production pattern (CrewAI, AutoGen, LangGraph supervisor)."
+          },
+          {
+            "concept": "Multi-Agent: Swarm / Peer-to-Peer",
+            "in_play": true,
+            "why": "Explicitly named in target capability. Contrast with supervisor — interviewers ask trade-offs (latency, coordination, failure modes)."
+          },
+          {
+            "concept": "Multi-Agent: Hierarchical / Tree",
+            "in_play": true,
+            "why": "Less common but appears in advanced follow-ups (e.g., \"How would you scale to 50 agents?\"). Keep for completeness."
+          },
+          {
+            "concept": "Multi-Agent: Debate / Adversarial",
+            "in_play": true,
+            "why": "AutoGen's signature pattern; interviewers use it to test if you understand *why* multiple LLMs debating improves correctness."
+          },
+          {
+            "concept": "Human-in-the-Loop / Approval Gates",
+            "in_play": true,
+            "why": "Deployment trade-off target explicitly mentions. Frameworks differ here (LangGraph interrupt, AutoGen user proxy, OpenAI approvals)."
+          },
+          {
+            "concept": "Agent Loop / Tool-Use Loop Execution",
+            "in_play": true,
+            "why": "Target says \"trace execution through tool-use loops.\" This *is* the loop — must visualize state, messages, tool calls, returns."
+          },
+          {
+            "concept": "State Management & Checkpointing",
+            "in_play": true,
+            "why": "LangGraph's distinguishing feature; enables HITL, time-travel, recovery. Interviewers ask \"How does your agent resume after a crash?\""
+          },
+          {
+            "concept": "Streaming & Async Execution",
+            "in_play": true,
+            "why": "Production reality — interviews ask about UX (streaming tokens, progressive tool results) and backend (async tool calls, concurrency)."
+          },
+          {
+            "concept": "Error Handling, Retries & Fallbacks",
+            "in_play": true,
+            "why": "Practical follow-up: \"Tool fails — what happens?\" Frameworks handle differently (LangGraph retry policy, CrewAI max_iter, AutoGen max_consecutive_auto_reply)."
+          },
+          {
+            "concept": "Short-Term / Working Memory (Context Window)",
+            "in_play": true,
+            "why": "Memory follow-ups start here: context window limits, message history management, summarization strategies."
+          },
+          {
+            "concept": "Long-Term Memory: Episodic",
+            "in_play": true,
+            "why": "Target capability includes memory follow-ups. Episodic = past interactions / trajectories — key for personalization and few-shot."
+          },
+          {
+            "concept": "Long-Term Memory: Semantic / Knowledge",
+            "in_play": true,
+            "why": "Target capability includes memory follow-ups. Semantic = facts, docs, RAG — distinct from episodic in architecture and retrieval."
+          },
+          {
+            "concept": "Long-Term Memory: Procedural / Skills",
+            "in_play": true,
+            "why": "Target capability includes memory follow-ups. Procedural = learned skills / prompts / workflows — emerging concept (e.g., LangGraph \"skills\", AutoGen skills)."
+          },
+          {
+            "concept": "Memory Retrieval & RAG for Agents",
+            "in_play": true,
+            "why": "Agents *use* RAG as a tool; interviewers blur the line — must distinguish \"agent with RAG tool\" from \"RAG pipeline.\""
+          },
+          {
+            "concept": "Prompt Engineering for Agents (System Prompts, Few-Shot)",
+            "in_play": true,
+            "why": "Agents are prompt-heavy; system prompt defines personality, tool schemas, guardrails. Interviewers ask \"Show me your system prompt.\""
+          },
+          {
+            "concept": "RAG vs Agents Distinction",
+            "in_play": true,
+            "why": "Classic interview question: \"When would you use RAG vs an agent?\" Must articulate clearly: retrieval vs reasoning+action."
+          },
+          {
+            "concept": "LangGraph",
+            "in_play": true,
+            "why": "Target capability: \"compare major frameworks.\" LangGraph is the current standard for controllable, stateful, production-grade agents."
+          },
+          {
+            "concept": "CrewAI",
+            "in_play": true,
+            "why": "Target capability: \"compare major frameworks.\" CrewAI = role-based multi-agent, declarative, opinionated. Standard comparison point."
+          },
+          {
+            "concept": "AutoGen",
+            "in_play": true,
+            "why": "Target capability: \"compare major frameworks.\" AutoGen = conversation-centric, flexible multi-agent, strong on code execution and debate."
+          },
+          {
+            "concept": "LangChain Agents (Legacy / create_react_agent)",
+            "in_play": true,
+            "why": "Still appears in codebases and older tutorials. Interviewers may ask \"What's wrong with the old LangChain agent executor?\" — good contrast for LangGraph."
+          },
+          {
+            "concept": "Semantic Kernel",
+            "in_play": true,
+            "why": "Target capability: \"compare major frameworks.\" Microsoft's entry; planner-centric, strong .NET/C# story, kernel/plugin model. Distinct philosophy."
+          },
+          {
+            "concept": "OpenAI Assistants API / Agents SDK",
+            "in_play": true,
+            "why": "Target capability: \"compare major frameworks.\" Vendor-native, managed state, built-in tools (code interpreter, file search). Different trade-offs (lock-in, opacity)."
+          },
+          {
+            "concept": "LlamaIndex Agents",
+            "in_play": true,
+            "why": "Target capability: \"compare major frameworks.\" RAG-first agent framework; strong on data-centric agents. Often paired with LangGraph."
+          },
+          {
+            "concept": "AutoGPT / BabyAGI (Historical Reference)",
+            "in_play": true,
+            "why": "Historical context — interviewers ask \"What did AutoGPT get wrong?\" to test understanding of planning loops, context explosion, lack of control."
+          },
+          {
+            "concept": "AgentBench",
+            "in_play": true,
+            "why": "Target capability: \"answer follow-ups on evaluation.\" AgentBench is the standard multi-task benchmark; must know what it measures."
+          },
+          {
+            "concept": "WebShop",
+            "in_play": true,
+            "why": "Target capability: \"answer follow-ups on evaluation.\" Classic web navigation benchmark; tests tool-use in realistic environment."
+          },
+          {
+            "concept": "ALFWorld",
+            "in_play": true,
+            "why": "Target capability: \"answer follow-ups on evaluation.\" Embodied/ALFRED-style benchmark; tests planning + tool-use in simulated household."
+          },
+          {
+            "concept": "τ-bench (Tau-Bench)",
+            "in_play": true,
+            "why": "Target capability: \"answer follow-ups on evaluation.\" Newer, focuses on dynamic user interaction and policy adherence — closest to real customer support agents."
+          },
+          {
+            "concept": "Custom Evaluation / LLM-as-Judge for Agents",
+            "in_play": true,
+            "why": "Target capability: \"answer follow-ups on evaluation.\" Production teams don't use benchmarks — they build custom evals. Must explain LLM-as-judge, trajectory scoring, pass/fail criteria."
+          },
+          {
+            "concept": "Observability & Tracing (LangSmith, Arize, etc.)",
+            "in_play": true,
+            "why": "Target capability: \"deployment trade-offs.\" You cannot debug agents without traces. LangGraph/LangSmith integration is a major selling point."
+          },
+          {
+            "concept": "Guardrails & Safety (Input/Output Filtering, PII, Jailbreak)",
+            "in_play": true,
+            "why": "Target capability: \"deployment trade-offs.\" Enterprise interviews always ask safety. Guardrails vs framework-native controls (LangGraph interrupts, OpenAI moderation)."
+          },
+          {
+            "concept": "Cost & Latency Optimization (Model Selection, Caching, Token Budget)",
+            "in_play": true,
+            "why": "Target capability: \"deployment trade-offs.\" Agents are expensive (many turns, large contexts). Must discuss routing, caching, model cascade, token budgets."
+          },
+          {
+            "concept": "Scaling & Concurrency (Stateless vs Stateful, Queueing)",
+            "in_play": true,
+            "why": "Target capability: \"deployment trade-offs.\" LangGraph's stateful checkpointer vs stateless scaling; queueing human approvals; concurrent runs."
+          },
+          {
+            "concept": "Versioning, Prompt Management & CI/CD for Agents",
+            "in_play": true,
+            "why": "Target capability: \"deployment trade-offs.\" Prompts *are* code for agents. Versioning, A/B testing prompts, regression testing agent trajectories."
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "derive_v1",
+      "cost": {
+        "in": 1575,
+        "out": 5108
+      },
+      "created_at": "2026-09-25T21:18:57+00:00"
+    }
+  ],
+  "commitment": [
+    {
+      "id": "f8d37f6536254f6d880baea10b3bb67d",
+      "project_id": "6c7a02dc-72bb-4eb7-9e91-917220f1b2f3",
+      "kind": "plan",
+      "snapshot": {
+        "interpret_situation": {
+          "subject": "Agentic AI — core concepts, patterns, and frameworks for interview readiness",
+          "job": "construct",
+          "entry_point": "General programming ability; no prior agent construction or framework experience (LangGraph, CrewAI, AutoGen, etc.)",
+          "purpose": "Prepare for technical interviews covering agentic AI",
+          "target_capability": "Explain agent architectures (ReAct, plan-and-execute, multi-agent), compare major frameworks, trace execution through tool-use loops, and answer follow-ups on memory, evaluation, and deployment trade-offs",
+          "capacity": null,
+          "stated": [
+            {
+              "text": "agentic ai notes for interview",
+              "axis": "subject"
+            },
+            {
+              "text": "agentic ai notes for interview",
+              "axis": "artifact_type"
+            },
+            {
+              "text": "agentic ai notes for interview",
+              "axis": "purpose"
+            },
+            {
+              "text": "from scratch",
+              "axis": "entry_point"
+            },
+            {
+              "text": "i can code but i've never built an agent or used any of these frameworks",
+              "axis": "entry_point"
+            }
+          ],
+          "inferred": [
+            "Depth register: interview-practical — concept definitions, mental models, framework comparison tables, and common pitfalls; not academic survey or production hardening",
+            "Template: none — free-form structured notes"
+          ]
+        },
+        "scope": {
+          "covered": [
+            {
+              "concept": "Agent Definition & Agency",
+              "depth": "explain",
+              "why": "Establishes the boundary between agent, LLM call, and RAG pipeline — the starting point for every interview answer.",
+              "anticipates": "false-comprehension"
+            },
+            {
+              "concept": "LLM as Reasoning Engine",
+              "depth": "explain",
+              "why": "Provides the mental model for why ReAct/plan-and-execute work: the LLM plans, decides, and reflects, not just completes.",
+              "anticipates": "abstraction-grounding"
+            },
+            {
+              "concept": "Function Calling / Tool Calling API",
+              "depth": "work through",
+              "why": "Interviewers expect fluency with tool schemas, parallel calls, and strict JSON — the primitive all patterns build on.",
+              "anticipates": "procedure-execution"
+            },
+            {
+              "concept": "Structured Output / JSON Mode",
+              "depth": "explain",
+              "why": "Agents emit structured actions; JSON mode/function calling enforces it. Needed to explain how frameworks guarantee parseable output.",
+              "anticipates": "none"
+            },
+            {
+              "concept": "Tool Use / Function Calling Pattern",
+              "depth": "work through",
+              "why": "Base pattern: must trace a single tool-use step (reason → act → observe) before explaining loops and multi-step patterns.",
+              "anticipates": "procedure-execution"
+            },
+            {
+              "concept": "ReAct Pattern (Reasoning + Acting)",
+              "depth": "work through",
+              "why": "Canonical single-agent pattern; baseline for comparing plan-and-execute and multi-agent. Must trace the reasoning-acting loop.",
+              "anticipates": "topology"
+            },
+            {
+              "concept": "Plan-and-Execute / Planner-Executor",
+              "depth": "work through",
+              "why": "Key architectural distinction: separates planning from execution. Interviewers probe trade-offs (flexibility vs control, latency, error recovery).",
+              "anticipates": "cross-reference"
+            },
+            {
+              "concept": "Reflection / Self-Correction / Critique",
+              "depth": "explain",
+              "why": "Standard follow-up: 'How does the agent recover from a bad tool call?' Covers Reflexion, ReWOO, self-critique loops.",
+              "anticipates": "false-comprehension"
+            },
+            {
+              "concept": "Multi-Agent: Supervisor / Orchestrator",
+              "depth": "work through",
+              "why": "Most common production pattern. Must trace delegation, compare with swarm, and explain framework implementations (LangGraph supervisor, CrewAI).",
+              "anticipates": "topology"
+            },
+            {
+              "concept": "Multi-Agent: Swarm / Peer-to-Peer",
+              "depth": "work through",
+              "why": "Contrast with supervisor: latency, coordination, failure modes. Interviewers ask 'when would you choose swarm over supervisor?'.",
+              "anticipates": "cross-reference"
+            },
+            {
+              "concept": "Multi-Agent: Hierarchical / Tree",
+              "depth": "explain",
+              "why": "Advanced follow-up for scaling ('how to coordinate 50 agents?'). Keep at explain level — mental model, not deep trace.",
+              "anticipates": "topology"
+            },
+            {
+              "concept": "Multi-Agent: Debate / Adversarial",
+              "depth": "explain",
+              "why": "AutoGen's signature pattern. Must explain *why* debate improves correctness (diverse reasoning paths, error catching) not just *that* it does.",
+              "anticipates": "false-comprehension"
+            },
+            {
+              "concept": "Human-in-the-Loop / Approval Gates",
+              "depth": "work through",
+              "why": "Explicit deployment trade-off. Frameworks differ (LangGraph interrupt, AutoGen user proxy, OpenAI approvals). Must trace approval flow.",
+              "anticipates": "procedure-execution"
+            },
+            {
+              "concept": "Agent Loop / Tool-Use Loop Execution",
+              "depth": "work through",
+              "why": "Target explicitly says 'trace execution through tool-use loops.' This IS the loop — state, messages, tool calls, returns.",
+              "anticipates": "topology"
+            },
+            {
+              "concept": "State Management & Checkpointing",
+              "depth": "work through",
+              "why": "LangGraph's differentiator; enables HITL, time-travel, recovery. 'How does your agent resume after a crash?' is a standard question.",
+              "anticipates": "topology"
+            },
+            {
+              "concept": "Streaming & Async Execution",
+              "depth": "explain",
+              "why": "Production reality: streaming tokens, progressive tool results, async tool calls. Explain UX and backend implications.",
+              "anticipates": "parallel-state"
+            },
+            {
+              "concept": "Error Handling, Retries & Fallbacks",
+              "depth": "explain",
+              "why": "Practical follow-up: 'Tool fails — what happens?' Framework differences (LangGraph retry policy, CrewAI max_iter, AutoGen max_consecutive_auto_reply).",
+              "anticipates": "cross-reference"
+            },
+            {
+              "concept": "Short-Term / Working Memory (Context Window)",
+              "depth": "explain",
+              "why": "Memory follow-ups start here: context limits, history management, summarization strategies.",
+              "anticipates": "abstraction-grounding"
+            },
+            {
+              "concept": "Long-Term Memory: Episodic",
+              "depth": "explain",
+              "why": "Past interactions/trajectories for personalization and few-shot. Distinct retrieval and storage from semantic.",
+              "anticipates": "cross-reference"
+            },
+            {
+              "concept": "Long-Term Memory: Semantic / Knowledge",
+              "depth": "explain",
+              "why": "Facts, docs, RAG — distinct from episodic in architecture and retrieval. Core to 'agent with RAG tool' vs 'RAG pipeline'.",
+              "anticipates": "cross-reference"
+            },
+            {
+              "concept": "Long-Term Memory: Procedural / Skills",
+              "depth": "mention",
+              "why": "Emerging concept (LangGraph skills, AutoGen skills). Mention for completeness; not yet standard interview territory.",
+              "anticipates": "none"
+            },
+            {
+              "concept": "Memory Retrieval & RAG for Agents",
+              "depth": "work through",
+              "why": "Agents *use* RAG as a tool; interviewers blur the line. Must distinguish 'agent with RAG tool' from 'RAG pipeline' clearly.",
+              "anticipates": "false-comprehension"
+            },
+            {
+              "concept": "Prompt Engineering for Agents (System Prompts, Few-Shot)",
+              "depth": "work through",
+              "why": "Agents are prompt-heavy; system prompt defines personality, tool schemas, guardrails. 'Show me your system prompt' is a real ask.",
+              "anticipates": "abstraction-grounding"
+            },
+            {
+              "concept": "RAG vs Agents Distinction",
+              "depth": "work through",
+              "why": "Classic interview question: 'When would you use RAG vs an agent?' Must articulate retrieval vs reasoning+action cleanly.",
+              "anticipates": "cross-reference"
+            },
+            {
+              "concept": "LangGraph",
+              "depth": "work through",
+              "why": "Current standard for controllable, stateful, production-grade agents. Core of framework comparison — graph API, checkpointer, interrupts.",
+              "anticipates": "topology"
+            },
+            {
+              "concept": "CrewAI",
+              "depth": "work through",
+              "why": "Role-based multi-agent, declarative, opinionated. Standard comparison point for 'when to use vs LangGraph'.",
+              "anticipates": "cross-reference"
+            },
+            {
+              "concept": "AutoGen",
+              "depth": "work through",
+              "why": "Conversation-centric, flexible multi-agent, strong on code execution and debate. Contrasts with LangGraph's explicit control.",
+              "anticipates": "cross-reference"
+            },
+            {
+              "concept": "LangChain Agents (Legacy / create_react_agent)",
+              "depth": "explain",
+              "why": "Still in codebases/tutorials. 'What's wrong with the old agent executor?' tests understanding of LangGraph's improvements.",
+              "anticipates": "false-comprehension"
+            },
+            {
+              "concept": "AgentBench",
+              "depth": "explain",
+              "why": "Standard multi-task benchmark; must know what it measures (planning, tool-use, reasoning) and its limitations.",
+              "anticipates": "none"
+            },
+            {
+              "concept": "WebShop",
+              "depth": "explain",
+              "why": "Classic web-navigation benchmark testing tool-use in realistic environments; interviewers cite it to contrast web vs embodied vs conversational benchmarks.",
+              "anticipates": "none"
+            },
+            {
+              "concept": "ALFWorld",
+              "depth": "explain",
+              "why": "Embodied/household-simulation benchmark testing planning + tool-use in grounded environments; key reference for 'planning in simulation' follow-ups.",
+              "anticipates": "none"
+            },
+            {
+              "concept": "τ-bench (Tau-Bench)",
+              "depth": "explain",
+              "why": "Newest benchmark focusing on dynamic user interaction and policy adherence — closest to real customer-support agents; increasingly cited by interviewers.",
+              "anticipates": "none"
+            },
+            {
+              "concept": "Custom Evaluation / LLM-as-Judge for Agents",
+              "depth": "work through",
+              "why": "Production teams build custom evals. Must explain LLM-as-judge, trajectory scoring, pass/fail criteria — not just benchmark names. This directly answers 'how do you know the agent is working?'.",
+              "anticipates": "procedure-execution"
+            },
+            {
+              "concept": "Observability & Tracing (LangSmith, Arize, etc.)",
+              "depth": "explain",
+              "why": "Cannot debug agents without traces. LangGraph/LangSmith integration is a major selling point interviewers expect you to know.",
+              "anticipates": "perceptual-referent"
+            },
+            {
+              "concept": "Guardrails & Safety (Input/Output Filtering, PII, Jailbreak)",
+              "depth": "explain",
+              "why": "Enterprise interviews always ask safety. Guardrails vs framework-native controls (LangGraph interrupts, OpenAI moderation).",
+              "anticipates": "cross-reference"
+            },
+            {
+              "concept": "Cost & Latency Optimization (Model Selection, Caching, Token Budget)",
+              "depth": "explain",
+              "why": "Agents are expensive (many turns, large contexts). Must discuss routing, caching, model cascade, token budgets.",
+              "anticipates": "cross-reference"
+            }
+          ],
+          "cut": [
+            "AutoGPT / BabyAGI (Historical Reference)",
+            "Semantic Kernel",
+            "LlamaIndex Agents",
+            "OpenAI Assistants API / Agents SDK",
+            "Versioning, Prompt Management & CI/CD for Agents",
+            "Scaling & Concurrency (Stateless vs Stateful, Queueing)"
+          ]
+        },
+        "consequence": {
+          "exclusions": [
+            {
+              "topic": "AutoGPT / BabyAGI (Historical Reference)",
+              "consequence": "Cannot answer 'What did AutoGPT get wrong?' or explain why uncontrolled planning loops, context explosion, and lack of state control failed in practice — a common interviewer probe for depth of understanding.",
+              "when_to_learn": "When an interviewer explicitly asks for historical context or when studying the evolution of agent architectures post-interview."
+            },
+            {
+              "topic": "Semantic Kernel",
+              "consequence": "Cannot position Microsoft's planner-centric, kernel/plugin framework; misses the .NET/C# enterprise angle and the 'planner as separate component' philosophy that contrasts with LangGraph's graph-based control.",
+              "when_to_learn": "When interviewing at Microsoft-heavy shops or when the role involves .NET/C# agent integration."
+            },
+            {
+              "topic": "LlamaIndex Agents",
+              "consequence": "Cannot explain the RAG-first agent framework philosophy or how it composes with LangGraph; misses the data-centric agent pattern common in document-heavy enterprise use cases.",
+              "when_to_learn": "When the role emphasizes RAG-heavy agents or when evaluating frameworks for document-centric workloads."
+            },
+            {
+              "topic": "OpenAI Assistants API / Agents SDK",
+              "consequence": "Cannot articulate the vendor-managed trade-off: built-in state, code interpreter, file search vs lock-in, opacity, and limited control — a frequent 'buy vs build' interview discussion.",
+              "when_to_learn": "When evaluating managed vs self-hosted frameworks or when the organization uses OpenAI's platform natively."
+            },
+            {
+              "topic": "Versioning, Prompt Management & CI/CD for Agents",
+              "consequence": "Cannot discuss how prompt versioning, A/B testing, and regression testing differ for agents vs traditional software; misses a growing production concern that senior interviews probe.",
+              "when_to_learn": "When moving from interview prep to production engineering, or when the role includes MLOps/LLMOps responsibilities."
+            },
+            {
+              "topic": "Scaling & Concurrency (Stateless vs Stateful, Queueing)",
+              "consequence": "Cannot explain the tension between LangGraph's stateful checkpointer and horizontal scaling, or how to queue human approvals — a senior-level architecture question.",
+              "when_to_learn": "When designing production agent infrastructure or interviewing for platform/infrastructure-focused roles."
+            }
+          ]
+        },
+        "traversal": {
+          "sequence": [
+            "Foundations: What Makes an Agent",
+            "Core Single-Agent Patterns",
+            "Agent Execution Mechanics",
+            "Multi-Agent Architectures",
+            "Memory for Agents",
+            "Framework Comparison: LangGraph, CrewAI, AutoGen",
+            "Other Frameworks & Evaluation",
+            "Deployment Trade-offs"
+          ],
+          "why": "Foundations establish the mental model (agent vs LLM, tool calling) before patterns build on it. Single-agent patterns (ReAct, plan-and-execute) are the baseline for multi-agent. Execution mechanics (loop, state, streaming) make tracing concrete before multi-agent adds coordination complexity. Memory follows patterns because agents use memory within those patterns. Core framework comparison comes after patterns so trade-offs are meaningful. Other frameworks and evaluation extend the comparison. Deployment trade-offs cap the curriculum since they assume the architecture is understood."
+        },
+        "partition": {
+          "modules": [
+            {
+              "title": "Foundations: What Makes an Agent",
+              "covers": [
+                "Agent Definition & Agency",
+                "LLM as Reasoning Engine",
+                "Function Calling / Tool Calling API",
+                "Structured Output / JSON Mode",
+                "Tool Use / Function Calling Pattern"
+              ],
+              "why_here": "These five concepts form the indivisible foundation: what an agent is, why the LLM can reason, the API primitive that enables tools, how structure is enforced, and the base tool-use step. Nothing later makes sense without this mental model, and they are tightly coupled — tool calling requires structured output, which requires function calling API, which requires the LLM-as-reasoner view.",
+              "capability": "Explain what distinguishes an agent from a plain LLM call or RAG pipeline, trace a single tool-use step (reason → act → observe), and describe the function calling API contract (schemas, parallel calls, strict JSON)."
+            },
+            {
+              "title": "Core Single-Agent Patterns",
+              "covers": [
+                "ReAct Pattern (Reasoning + Acting)",
+                "Plan-and-Execute / Planner-Executor",
+                "Reflection / Self-Correction / Critique"
+              ],
+              "why_here": "ReAct and plan-and-execute are the two canonical single-agent architectures — interviewers compare them directly. Reflection is the standard recovery mechanism layered on top. They share the same execution substrate (tool-use loop) and are best learned as a contrast set before multi-agent adds coordination complexity.",
+              "capability": "Compare ReAct and plan-and-execute architectures across planning granularity, error recovery, latency, and control; trace a ReAct loop iteration; explain how reflection/self-correction loops (Reflexion, ReWOO) improve recovery from bad tool calls."
+            },
+            {
+              "title": "Agent Execution Mechanics",
+              "covers": [
+                "Agent Loop / Tool-Use Loop Execution",
+                "State Management & Checkpointing",
+                "Streaming & Async Execution",
+                "Error Handling, Retries & Fallbacks"
+              ],
+              "why_here": "These four concepts are the runtime machinery: the loop itself, how state persists across steps, how output streams to users, and how failures are handled. They are framework-agnostic but directly determine framework capabilities (LangGraph's checkpointer, CrewAI's max_iter). Tracing execution — a target capability — requires all four together.",
+              "capability": "Trace execution through a complete tool-use loop including state updates, streaming tokens/progressive tool results, and error recovery paths; explain how checkpointing enables crash recovery, time-travel debugging, and human-in-the-loop approval gates."
+            },
+            {
+              "title": "Multi-Agent Architectures",
+              "covers": [
+                "Multi-Agent: Supervisor / Orchestrator",
+                "Multi-Agent: Swarm / Peer-to-Peer",
+                "Multi-Agent: Hierarchical / Tree",
+                "Multi-Agent: Debate / Adversarial",
+                "Human-in-the-Loop / Approval Gates"
+              ],
+              "why_here": "All five are coordination topologies for multiple agents. Supervisor, swarm, hierarchical, and debate form a complete contrast set — interviewers ask 'which topology for X?' Human-in-the-loop is included here because approval gates are a coordination pattern (human as a special agent) and frameworks implement HITL differently per topology (LangGraph interrupt vs AutoGen user proxy).",
+              "capability": "Distinguish supervisor, swarm, hierarchical, and debate multi-agent topologies; justify a topology choice for a given scenario (latency, failure modes, coordination needs); trace how human approval gates integrate into each topology across frameworks."
+            },
+            {
+              "title": "Memory for Agents",
+              "covers": [
+                "Short-Term / Working Memory (Context Window)",
+                "Long-Term Memory: Episodic",
+                "Long-Term Memory: Semantic / Knowledge",
+                "Long-Term Memory: Procedural / Skills",
+                "Memory Retrieval & RAG for Agents",
+                "Prompt Engineering for Agents (System Prompts, Few-Shot)",
+                "RAG vs Agents Distinction"
+              ],
+              "why_here": "Memory is a cross-cutting concern but forms a coherent subsystem: working memory feeds the loop; three long-term types (episodic, semantic, procedural) have distinct storage/retrieval; RAG is a tool agents *use*; prompt engineering configures behavior; RAG-vs-agent is the classic distinction interviewers test. They belong together because memory decisions are made at architecture time, not per-pattern.",
+              "capability": "Compare the three long-term memory types (episodic, semantic, procedural) and their retrieval strategies; distinguish an agent with a RAG tool from a RAG pipeline and justify when to use each; design a system prompt that defines agent personality, tool schemas, and guardrails."
+            },
+            {
+              "title": "Framework Comparison: LangGraph, CrewAI, AutoGen",
+              "covers": [
+                "LangGraph",
+                "CrewAI",
+                "AutoGen",
+                "LangChain Agents (Legacy / create_react_agent)"
+              ],
+              "why_here": "These are the three frameworks interviewers expect you to compare deeply, plus the legacy LangChain agent as a contrast for 'why LangGraph'. They map directly to the patterns: LangGraph → graph-based control (ReAct, plan-and-execute, supervisor), CrewAI → role-based declarative (supervisor), AutoGen → conversation-centric (debate, swarm). Legacy LangChain shows what explicit state management solves.",
+              "capability": "Compare LangGraph, CrewAI, and AutoGen across control model (explicit graph vs declarative roles vs conversation), state management (checkpointer vs shared context vs chat history), multi-agent topology support, and HITL integration; explain why LangGraph replaced the legacy LangChain agent executor."
+            },
+            {
+              "title": "Other Frameworks & Evaluation",
+              "covers": [
+                "Semantic Kernel",
+                "OpenAI Assistants API / Agents SDK",
+                "LlamaIndex Agents",
+                "AutoGPT / BabyAGI (Historical Reference)",
+                "AgentBench",
+                "WebShop",
+                "ALFWorld",
+                "τ-bench (Tau-Bench)",
+                "Custom Evaluation / LLM-as-Judge for Agents"
+              ],
+              "why_here": "Secondary frameworks (Semantic Kernel, OpenAI, LlamaIndex) are positioned relative to the big three — each represents a distinct philosophy (planner-centric, managed, RAG-first). Historical references (AutoGPT) explain evolution. Benchmarks (AgentBench, WebShop, ALFWorld, τ-bench) and custom eval complete the evaluation story: what benchmarks measure vs what production teams actually build (LLM-as-judge, trajectory scoring).",
+              "capability": "Position Semantic Kernel, OpenAI Assistants, and LlamaIndex relative to LangGraph/CrewAI/AutoGen by philosophy and use case; explain what AutoGPT got wrong historically; select an evaluation approach (benchmark suite vs custom LLM-as-judge) for a given agent use case and design a trajectory scoring rubric."
+            },
+            {
+              "title": "Deployment Trade-offs",
+              "covers": [
+                "Observability & Tracing (LangSmith, Arize, etc.)",
+                "Guardrails & Safety (Input/Output Filtering, PII, Jailbreak)",
+                "Cost & Latency Optimization (Model Selection, Caching, Token Budget)"
+              ],
+              "why_here": "These three are the production concerns interviewers probe as 'deployment trade-offs': observability (you can't debug without traces), safety (enterprise requirement), cost/latency (agents are expensive). They are framework-agnostic but framework-informed (LangSmith integration, LangGraph interrupts for guardrails, model routing for cost). Versioning and scaling are cut (see consequence).",
+              "capability": "Articulate deployment trade-offs for observability (trace-driven debugging vs logging), safety (external guardrails vs framework-native interrupts vs vendor moderation), and cost/latency (model cascade, caching, token budgets, routing); explain how each concern influences framework choice."
+            }
+          ]
+        },
+        "extent": {
+          "total": "~36 pages · about 11 hours",
+          "pages": "~36 pages",
+          "study_time": "about 11 hours",
+          "parts": 8,
+          "modules": 8,
+          "per_unit": {
+            "Foundations: What Makes an Agent": "~5 pages",
+            "Core Single-Agent Patterns": "~4 pages",
+            "Agent Execution Mechanics": "~5 pages",
+            "Multi-Agent Architectures": "~6 pages",
+            "Memory for Agents": "~6 pages",
+            "Framework Comparison: LangGraph, CrewAI, AutoGen": "~5 pages",
+            "Other Frameworks & Evaluation": "~4 pages",
+            "Deployment Trade-offs": "~2 pages"
+          }
+        }
+      },
+      "decision_ids": [
+        "1b0fd8becef947efabf6d57247734efd",
+        "598f1a7f23bf4764800c5c9c74b906d4",
+        "98b7c0f44d6143d3a2a40e669702596e",
+        "d5d4287976f0446791ed0bf07ad9e40d",
+        "b4a58aa1392e47f9bf3b27b8265eaa5f",
+        "6fb18055b12341df9ed777be4b532ca8",
+        "329008e3038f4004bd1ddf1bcb334955"
+      ],
+      "decision_ids_hash": "07e912ef4accecf101b3ae8d200d78a1",
+      "decision_environment": {
+        "prompt_versions": [
+          "derive_v1",
+          "interpret_v1",
+          "plan_revise_v2",
+          "plan_v3"
+        ],
+        "models": [
+          "nvidia/nemotron-3-ultra-550b-a55b:free"
+        ]
+      },
+      "approved_by": "local",
+      "approved_at": "2026-09-25T21:24:19+00:00"
+    }
+  ]
+}

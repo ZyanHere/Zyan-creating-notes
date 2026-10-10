@@ -1,0 +1,1174 @@
+{
+  "case_id": "contract-act-authority",
+  "case_title": "Indian Contract Act — source/authority-heavy",
+  "trial": 1,
+  "phase": "plan",
+  "stub": false,
+  "started_at": "2026-09-25T16:45:40+00:00",
+  "request": "i need to study the indian contract act 1872 for my law semester, section wise",
+  "baseline": {
+    "repo": "D:\\myNotes\\V1",
+    "commit": "8735d787e7b258cb735d854bc395c25abc3e6c98",
+    "subject": "feat: implement approval gate for plans with unassigned concepts",
+    "source_hash": "807c8ec99a60d320e745e8ac208b8c7f690ebd273b3930f6680688d159cda116",
+    "source_files": 38,
+    "matches_baseline": true
+  },
+  "provider": {
+    "name": "openrouter",
+    "model": "nvidia/nemotron-3-ultra-550b-a55b:free"
+  },
+  "stages": [
+    "create",
+    "intake",
+    "plan",
+    "correct"
+  ],
+  "failure": {
+    "stage": "correct",
+    "type": "ProviderUnavailable",
+    "message": "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free did not answer after 3 attempts. Last error: [Errno 11001] getaddrinfo failed",
+    "traceback": "4\\site-packages\\httpcore\\_backends\\sync.py\", line 207, in connect_tcp\n    with map_exceptions(exc_map):\n         ~~~~~~~~~~~~~~^^^^^^^^^\n  File \"C:\\Python314\\Lib\\contextlib.py\", line 162, in __exit__\n    self.gen.throw(value)\n    ~~~~~~~~~~~~~~^^^^^^^\n  File \"C:\\Users\\Asus\\AppData\\Roaming\\Python\\Python314\\site-packages\\httpcore\\_exceptions.py\", line 14, in map_exceptions\n    raise to_exc(exc) from exc\nhttpcore.ConnectError: [Errno 11001] getaddrinfo failed\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"D:\\myNotes\\V1\\agent\\providers.py\", line 221, in complete\n    response = client.post(\n        f\"{self._base}/chat/completions\", headers=headers, json=body\n    )\n  File \"C:\\Users\\Asus\\AppData\\Roaming\\Python\\Python314\\site-packages\\httpx\\_client.py\", line 1144, in post\n    return self.request(\n           ~~~~~~~~~~~~^\n        \"POST\",\n        ^^^^^^^\n    ...<11 lines>...\n        extensions=extensions,\n        ^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"C:\\Users\\Asus\\AppData\\Roaming\\Python\\Python314\\site-packages\\httpx\\_client.py\", line 825, in request\n    return self.send(request, auth=auth, follow_redirects=follow_redirects)\n           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Asus\\AppData\\Roaming\\Python\\Python314\\site-packages\\httpx\\_client.py\", line 914, in send\n    response = self._send_handling_auth(\n        request,\n    ...<2 lines>...\n        history=[],\n    )\n  File \"C:\\Users\\Asus\\AppData\\Roaming\\Python\\Python314\\site-packages\\httpx\\_client.py\", line 942, in _send_handling_auth\n    response = self._send_handling_redirects(\n        request,\n        follow_redirects=follow_redirects,\n        history=history,\n    )\n  File \"C:\\Users\\Asus\\AppData\\Roaming\\Python\\Python314\\site-packages\\httpx\\_client.py\", line 979, in _send_handling_redirects\n    response = self._send_single_request(request)\n  File \"C:\\Users\\Asus\\AppData\\Roaming\\Python\\Python314\\site-packages\\httpx\\_client.py\", line 1014, in _send_single_request\n    response = transport.handle_request(request)\n  File \"C:\\Users\\Asus\\AppData\\Roaming\\Python\\Python314\\site-packages\\httpx\\_transports\\default.py\", line 249, in handle_request\n    with map_httpcore_exceptions():\n         ~~~~~~~~~~~~~~~~~~~~~~~^^\n  File \"C:\\Python314\\Lib\\contextlib.py\", line 162, in __exit__\n    self.gen.throw(value)\n    ~~~~~~~~~~~~~~^^^^^^^\n  File \"C:\\Users\\Asus\\AppData\\Roaming\\Python\\Python314\\site-packages\\httpx\\_transports\\default.py\", line 118, in map_httpcore_exceptions\n    raise mapped_exc(message) from exc\nhttpx.ConnectError: [Errno 11001] getaddrinfo failed\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"D:\\myNotes\\V2\\harness\\run.py\", line 132, in run_trial\n    view = say(service, view, said)\n  File \"D:\\myNotes\\V2\\harness\\run.py\", line 63, in say\n    return service.correct(view.project_id, text)\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\myNotes\\V1\\backend\\planning.py\", line 326, in correct\n    call = planning.revise(outputs, text, provider=self.provider)\n  File \"D:\\myNotes\\V1\\agent\\plan.py\", line 559, in revise\n    routing, completion = _call(provider, PROMPT_REVISE, user, Routing)\n                          ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\myNotes\\V1\\agent\\plan.py\", line 586, in _call\n    completion = provider.complete(\n        system=system, user=user, schema=model.model_json_schema(), max_tokens=MAX_TOKENS\n    )\n  File \"D:\\myNotes\\V2\\harness\\providers.py\", line 55, in complete\n    completion = self._inner.complete(\n        system=system, user=user, schema=schema, max_tokens=max_tokens\n    )\n  File \"D:\\myNotes\\V1\\agent\\providers.py\", line 231, in complete\n    raise ProviderUnavailable(\n    ...<2 lines>...\n    ) from error\nagent.providers.ProviderUnavailable: openrouter/nvidia/nemotron-3-ultra-550b-a55b:free did not answer after 3 attempts. Last error: [Errno 11001] getaddrinfo failed\n"
+  },
+  "project_id": "55c87fb8-9760-4814-8ce8-3fc85456a46c",
+  "after_create": {
+    "state": "ready",
+    "verdict": "sufficient",
+    "budget": 4,
+    "asking": [],
+    "over_budget": [],
+    "questions_written": 0,
+    "questions": [],
+    "axes": [
+      {
+        "axis": "subject",
+        "value": "Indian Contract Act 1872",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "purpose",
+        "value": "law semester examination preparation",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "entry_point",
+        "value": "law student with basic legal vocabulary, no prior contract law assumed",
+        "strength": "inferred",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "inferred, supported by 'for my law semester'"
+      },
+      {
+        "axis": "target_capability",
+        "value": "recite, explain, and apply each section of the Act in exam answers",
+        "strength": "inferred",
+        "material": true,
+        "asked": false,
+        "verified_spans": 2,
+        "discarded_spans": 0,
+        "reason": "inferred, supported by 'section wise' · 'for my law semester'"
+      },
+      {
+        "axis": "capacity",
+        "value": null,
+        "strength": "unknown",
+        "material": true,
+        "asked": false,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "never asked — Semantics §1 LOCKED — optional, and the corollary: deriving the plan and reporting its extent is what CAUSES a capacity to be stated. Asking upfront asks for a number the learner cannot honestly give."
+      },
+      {
+        "axis": "depth_register",
+        "value": "section-level detail with illustrations and key case law per section",
+        "strength": "guessed",
+        "material": false,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "never asked — Semantics §1 — biasing, not binding. A default is always defensible."
+      },
+      {
+        "axis": "artifact_type",
+        "value": "structured section-wise study notes",
+        "strength": "inferred",
+        "material": false,
+        "asked": false,
+        "verified_spans": 2,
+        "discarded_spans": 0,
+        "reason": "inferred, supported by 'study' · 'section wise'"
+      },
+      {
+        "axis": "template",
+        "value": null,
+        "strength": "unknown",
+        "material": false,
+        "asked": false,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "never asked — Presentation-Boundary rule 1 — internal. Users never select one."
+      }
+    ],
+    "weak_axes": [
+      "capacity",
+      "depth_register",
+      "template"
+    ],
+    "guessed_but_material": [
+      "capacity"
+    ]
+  },
+  "intake_turns": 0,
+  "intake_answers_unused": 0,
+  "intake": {
+    "state": "ready",
+    "verdict": "sufficient",
+    "budget": 4,
+    "asking": [],
+    "over_budget": [],
+    "questions_written": 0,
+    "questions": [],
+    "axes": [
+      {
+        "axis": "subject",
+        "value": "Indian Contract Act 1872",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "purpose",
+        "value": "law semester examination preparation",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "entry_point",
+        "value": "law student with basic legal vocabulary, no prior contract law assumed",
+        "strength": "inferred",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "inferred, supported by 'for my law semester'"
+      },
+      {
+        "axis": "target_capability",
+        "value": "recite, explain, and apply each section of the Act in exam answers",
+        "strength": "inferred",
+        "material": true,
+        "asked": false,
+        "verified_spans": 2,
+        "discarded_spans": 0,
+        "reason": "inferred, supported by 'section wise' · 'for my law semester'"
+      },
+      {
+        "axis": "capacity",
+        "value": null,
+        "strength": "unknown",
+        "material": true,
+        "asked": false,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "never asked — Semantics §1 LOCKED — optional, and the corollary: deriving the plan and reporting its extent is what CAUSES a capacity to be stated. Asking upfront asks for a number the learner cannot honestly give."
+      },
+      {
+        "axis": "depth_register",
+        "value": "section-level detail with illustrations and key case law per section",
+        "strength": "guessed",
+        "material": false,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "never asked — Semantics §1 — biasing, not binding. A default is always defensible."
+      },
+      {
+        "axis": "artifact_type",
+        "value": "structured section-wise study notes",
+        "strength": "inferred",
+        "material": false,
+        "asked": false,
+        "verified_spans": 2,
+        "discarded_spans": 0,
+        "reason": "inferred, supported by 'study' · 'section wise'"
+      },
+      {
+        "axis": "template",
+        "value": null,
+        "strength": "unknown",
+        "material": false,
+        "asked": false,
+        "verified_spans": 0,
+        "discarded_spans": 0,
+        "reason": "never asked — Presentation-Boundary rule 1 — internal. Users never select one."
+      }
+    ],
+    "weak_axes": [
+      "capacity",
+      "depth_register",
+      "template"
+    ],
+    "guessed_but_material": [
+      "capacity"
+    ]
+  },
+  "plan": {
+    "state": "planned",
+    "situation": {
+      "subject": "Indian Contract Act 1872",
+      "job": "construct",
+      "purpose": "pass semester examination on the Indian Contract Act 1872",
+      "entry_point": "law student with basic legal vocabulary, no prior contract law assumed",
+      "target_capability": "recite, explain, and apply each section of the Act in exam answers",
+      "capacity": null,
+      "stated": [
+        "indian contract act 1872",
+        "for my law semester",
+        "section wise"
+      ],
+      "stated_axes": [
+        "subject",
+        "purpose",
+        "depth_register"
+      ],
+      "inferred": [
+        "entry_point: first-time contract law learner",
+        "target_capability: section-level recall and application for written exams",
+        "artifact_type: structured section-wise study notes",
+        "template: none specified"
+      ]
+    },
+    "landscape": {
+      "concept_count": 23,
+      "concepts": [
+        {
+          "name": "Preliminary & Definitions",
+          "built_from": [],
+          "family": "foundational framework"
+        },
+        {
+          "name": "Communication, Acceptance & Revocation of Proposals",
+          "built_from": [
+            "Preliminary & Definitions"
+          ],
+          "family": "core mechanism"
+        },
+        {
+          "name": "Essential Elements of a Valid Contract",
+          "built_from": [
+            "Preliminary & Definitions"
+          ],
+          "family": "core mechanism"
+        },
+        {
+          "name": "Capacity to Contract",
+          "built_from": [
+            "Essential Elements of a Valid Contract"
+          ],
+          "family": "core mechanism"
+        },
+        {
+          "name": "Free Consent — Coercion",
+          "built_from": [
+            "Essential Elements of a Valid Contract"
+          ],
+          "family": "vitiating factor"
+        },
+        {
+          "name": "Free Consent — Undue Influence",
+          "built_from": [
+            "Essential Elements of a Valid Contract"
+          ],
+          "family": "vitiating factor"
+        },
+        {
+          "name": "Free Consent — Fraud",
+          "built_from": [
+            "Essential Elements of a Valid Contract"
+          ],
+          "family": "vitiating factor"
+        },
+        {
+          "name": "Free Consent — Misrepresentation",
+          "built_from": [
+            "Essential Elements of a Valid Contract"
+          ],
+          "family": "vitiating factor"
+        },
+        {
+          "name": "Free Consent — Mistake",
+          "built_from": [
+            "Essential Elements of a Valid Contract"
+          ],
+          "family": "vitiating factor"
+        },
+        {
+          "name": "Lawful Consideration & Object",
+          "built_from": [
+            "Essential Elements of a Valid Contract"
+          ],
+          "family": "core mechanism"
+        },
+        {
+          "name": "Void Agreements — Restraint of Marriage, Trade, Legal Proceedings",
+          "built_from": [
+            "Lawful Consideration & Object"
+          ],
+          "family": "void category"
+        },
+        {
+          "name": "Void Agreements — Uncertain & Wagering Agreements",
+          "built_from": [
+            "Lawful Consideration & Object"
+          ],
+          "family": "void category"
+        },
+        {
+          "name": "Contingent Contracts",
+          "built_from": [
+            "Essential Elements of a Valid Contract"
+          ],
+          "family": "special contract type"
+        },
+        {
+          "name": "Performance of Contracts",
+          "built_from": [
+            "Essential Elements of a Valid Contract"
+          ],
+          "family": "core mechanism"
+        },
+        {
+          "name": "Discharge by Breach & Remedies",
+          "built_from": [
+            "Performance of Contracts"
+          ],
+          "family": "remedial framework"
+        },
+        {
+          "name": "Quasi-Contracts (Relations Resembling Contract)",
+          "built_from": [
+            "Preliminary & Definitions"
+          ],
+          "family": "statutory obligation"
+        },
+        {
+          "name": "Contract of Indemnity",
+          "built_from": [
+            "Preliminary & Definitions"
+          ],
+          "family": "special contract"
+        },
+        {
+          "name": "Contract of Guarantee",
+          "built_from": [
+            "Contract of Indemnity"
+          ],
+          "family": "special contract"
+        },
+        {
+          "name": "Rights & Discharge of Surety",
+          "built_from": [
+            "Contract of Guarantee"
+          ],
+          "family": "special contract"
+        },
+        {
+          "name": "Bailment — General Duties & Rights",
+          "built_from": [
+            "Preliminary & Definitions"
+          ],
+          "family": "special contract"
+        },
+        {
+          "name": "Bailment — Pledge & Lien",
+          "built_from": [
+            "Bailment — General Duties & Rights"
+          ],
+          "family": "special contract"
+        },
+        {
+          "name": "Agency — Creation & Authority",
+          "built_from": [
+            "Preliminary & Definitions"
+          ],
+          "family": "special contract"
+        },
+        {
+          "name": "Agency — Sub-Agent, Ratification & Termination",
+          "built_from": [
+            "Agency — Creation & Authority"
+          ],
+          "family": "special contract"
+        }
+      ],
+      "families": [
+        "core mechanism",
+        "foundational framework",
+        "remedial framework",
+        "special contract",
+        "special contract type",
+        "statutory obligation",
+        "vitiating factor",
+        "void category"
+      ],
+      "edges": 22,
+      "roots": [
+        "Preliminary & Definitions"
+      ],
+      "parenthetical_lists": [],
+      "judged": 23,
+      "in_play": 23,
+      "out_of_play": [],
+      "unjudged": []
+    },
+    "scope": {
+      "covered_count": 23,
+      "covered": [
+        {
+          "concept": "Preliminary & Definitions",
+          "depth": "explain",
+          "anticipates": "cross-reference",
+          "why": "Provides the statutory vocabulary (Section 2) used in every answer; definitions are tested for recall and as the first step in any application."
+        },
+        {
+          "concept": "Communication, Acceptance & Revocation of Proposals",
+          "depth": "work through",
+          "anticipates": "procedure-execution",
+          "why": "Core mechanics of offer and acceptance (Sections 3-9) — students must trace communication, revocation, and acceptance timelines in problem facts."
+        },
+        {
+          "concept": "Essential Elements of a Valid Contract",
+          "depth": "work through",
+          "anticipates": "cross-reference",
+          "why": "Section 10 is the gateway provision; every exam requires enumerating and applying each ingredient to a fact pattern."
+        },
+        {
+          "concept": "Capacity to Contract",
+          "depth": "work through",
+          "anticipates": "false-comprehension",
+          "why": "Sections 11-12 (minor, unsound mind, disqualified persons) generate high-yield problems on minority agreements, ratification, and estoppel."
+        },
+        {
+          "concept": "Free Consent — Coercion",
+          "depth": "work through",
+          "anticipates": "cross-reference",
+          "why": "Section 15 with Section 19 (voidable at option) is a standard problem pattern involving threat or detention of property."
+        },
+        {
+          "concept": "Free Consent — Undue Influence",
+          "depth": "work through",
+          "anticipates": "cross-reference",
+          "why": "Section 16 (presumed relationships, burden of proof) plus Section 19A (set aside or set aside on terms) is a favourite essay and problem topic."
+        },
+        {
+          "concept": "Free Consent — Fraud",
+          "depth": "work through",
+          "anticipates": "cross-reference",
+          "why": "Section 17 read with Section 19 (voidable, silence not fraud unless duty to speak) is examinable both as short note and application."
+        },
+        {
+          "concept": "Free Consent — Misrepresentation",
+          "depth": "work through",
+          "anticipates": "cross-reference",
+          "why": "Sections 18-19 (innocent misrepresentation, remedy of rescission/damages) are distinct from fraud and tested for differentiation."
+        },
+        {
+          "concept": "Free Consent — Mistake",
+          "depth": "work through",
+          "anticipates": "cross-reference",
+          "why": "Sections 20-22 (bilateral/unilateral mistake of fact vs law, identity vs quality) are a classic exam area for void vs voidable distinction."
+        },
+        {
+          "concept": "Lawful Consideration & Object",
+          "depth": "work through",
+          "anticipates": "cross-reference",
+          "why": "Sections 23-25 define lawful consideration/object and exceptions (natural love, past voluntary service, time-barred debt) — direct short-note and application material."
+        },
+        {
+          "concept": "Void Agreements — Restraint of Marriage, Trade, Legal Proceedings",
+          "depth": "work through",
+          "anticipates": "cross-reference",
+          "why": "Sections 26-28 are per se void categories; reasonable restraint exceptions (sale of goodwill, partnership) are standard exam questions."
+        },
+        {
+          "concept": "Void Agreements — Uncertain & Wagering Agreements",
+          "depth": "work through",
+          "anticipates": "cross-reference",
+          "why": "Sections 29-30 (uncertainty, wagering exception for horse-race prizes) are short-note staples and appear in MCQs."
+        },
+        {
+          "concept": "Contingent Contracts",
+          "depth": "work through",
+          "anticipates": "procedure-execution",
+          "why": "Sections 31-36 (condition precedent/subsequent, future uncertain event) are a distinct chapter tested via problem questions on insurance-type facts."
+        },
+        {
+          "concept": "Performance of Contracts",
+          "depth": "work through",
+          "anticipates": "topology",
+          "why": "Sections 37-67 (tender, reciprocal promises, time/place, appropriation, novation/rescission/alteration) form the largest operative chapter — heavy application problems every exam."
+        },
+        {
+          "concept": "Discharge by Breach & Remedies",
+          "depth": "work through",
+          "anticipates": "cross-reference",
+          "why": "Sections 73-75 (compensation, remoteness Hadley v Baxendale, specific performance/injunction under Specific Relief Act cross-reference) are the remedies climax of the syllabus."
+        },
+        {
+          "concept": "Quasi-Contracts (Relations Resembling Contract)",
+          "depth": "work through",
+          "anticipates": "cross-reference",
+          "why": "Sections 68-72 (necessaries, reimbursement, non-gratuitous act, finder of goods, mistake/coercion) are a self-contained chapter with direct problem questions."
+        },
+        {
+          "concept": "Contract of Indemnity",
+          "depth": "explain",
+          "anticipates": "cross-reference",
+          "why": "Sections 124-125 (definition, indemnity-holder's rights) are short but tested for distinction from guarantee and for rights enumeration."
+        },
+        {
+          "concept": "Contract of Guarantee",
+          "depth": "work through",
+          "anticipates": "parallel-state",
+          "why": "Sections 126-147 (continuing guarantee, consideration, surety's liability co-extensive) are a major special-contract chapter with multi-part problems."
+        },
+        {
+          "concept": "Rights & Discharge of Surety",
+          "depth": "work through",
+          "anticipates": "cross-reference",
+          "why": "Sections 133-147 (variance, release, composition, creditor's act impairing remedy, set-off) are the most heavily tested sub-topic within guarantee."
+        },
+        {
+          "concept": "Bailment — General Duties & Rights",
+          "depth": "work through",
+          "anticipates": "parallel-state",
+          "why": "Sections 148-171 (gratuitous/non-gratuitous, standard of care, unauthorized use, mixture, termination, finder of goods) are a full problem-question chapter."
+        },
+        {
+          "concept": "Bailment — Pledge & Lien",
+          "depth": "work through",
+          "anticipates": "cross-reference",
+          "why": "Sections 172-181 (pledge by non-owner, pawnee's rights, lien — particular/general) are tested both as short notes and in secured-transaction problems."
+        },
+        {
+          "concept": "Agency — Creation & Authority",
+          "depth": "work through",
+          "anticipates": "topology",
+          "why": "Sections 182-210 (express/implied, ostensible, ratification, emergency authority) are the foundation of the longest chapter; creation and scope of authority are exam constants."
+        },
+        {
+          "concept": "Agency — Sub-Agent, Ratification & Termination",
+          "depth": "work through",
+          "anticipates": "parallel-state",
+          "why": "Sections 211-238 (sub-agent, substituted agent, ratification requisites, termination by act/operation of law, irrevocable agency) complete the agency chapter and are heavily tested."
+        }
+      ],
+      "depths": {
+        "explain": 2,
+        "work through": 21
+      },
+      "anticipates": {
+        "cross-reference": 15,
+        "procedure-execution": 2,
+        "false-comprehension": 1,
+        "topology": 2,
+        "parallel-state": 3
+      },
+      "anticipates_any": 23,
+      "cut": []
+    },
+    "partition": {
+      "shape": "modules",
+      "module_count": 9,
+      "legacy_unit_count": 0,
+      "modules": [
+        {
+          "title": "Contract Formation: Offer, Acceptance & Essential Elements",
+          "covers": [
+            "Preliminary & Definitions",
+            "Communication, Acceptance & Revocation of Proposals",
+            "Essential Elements of a Valid Contract",
+            "Capacity to Contract"
+          ],
+          "concept_count": 4,
+          "capability": "Analyse a fact pattern to determine whether a valid contract has been formed, identifying offer, acceptance, consideration, intention, and capacity, and stating the effect of any defect.",
+          "why_here": "These four concepts constitute the complete formation pipeline: vocabulary, offer/acceptance mechanics, the Section 10 checklist, and capacity gatekeepers. They are taught and tested together as 'whether a valid contract exists'."
+        },
+        {
+          "title": "Vitiating Factors: Free Consent",
+          "covers": [
+            "Free Consent — Coercion",
+            "Free Consent — Undue Influence",
+            "Free Consent — Fraud",
+            "Free Consent — Misrepresentation",
+            "Free Consent — Mistake"
+          ],
+          "concept_count": 5,
+          "capability": "Diagnose whether consent is vitiated in a given scenario, distinguish between coercion, undue influence, fraud, misrepresentation, and mistake, and state the resulting remedy (void/voidable) with the applicable section.",
+          "why_here": "All five vitiating factors attack the 'free consent' requirement of Section 10 and share the same remedial structure (voidable vs void). They are examined together for differentiation and remedy selection."
+        },
+        {
+          "title": "Legality of Object & Consideration, and Void Agreements",
+          "covers": [
+            "Lawful Consideration & Object",
+            "Void Agreements — Restraint of Marriage, Trade, Legal Proceedings",
+            "Void Agreements — Uncertain & Wagering Agreements"
+          ],
+          "concept_count": 3,
+          "capability": "Evaluate whether consideration and object are lawful under Sections 23-25, and determine if an agreement falls within a statutorily void category (restraint, uncertainty, wagering), citing the relevant section and exception.",
+          "why_here": "Sections 23-30 form a coherent legitimacy filter: lawful consideration/object, then three categories of agreements declared void ab initio. They are tested as a block for 'is this agreement enforceable?'."
+        },
+        {
+          "title": "Contingent Contracts",
+          "covers": [
+            "Contingent Contracts"
+          ],
+          "concept_count": 1,
+          "capability": "Apply Sections 31-36 to determine the enforceability of contingent contracts based on the happening or non-happening of future uncertain events, and distinguish contingent contracts from wagering agreements.",
+          "why_here": "A self-contained chapter (Sections 31-36) with a distinct logic (condition precedent/subsequent, future uncertain event) that is separately examined via insurance-type problems."
+        },
+        {
+          "title": "Performance, Discharge & Remedies",
+          "covers": [
+            "Performance of Contracts",
+            "Discharge by Breach & Remedies"
+          ],
+          "concept_count": 2,
+          "capability": "Trace the performance obligations of parties under a contract, identify modes of discharge (performance, breach, agreement, frustration), and calculate remedies for breach including compensation under Hadley v Baxendale and the availability of specific relief.",
+          "why_here": "Performance (Sections 37-67) and its failure (Sections 73-75) are the operative life of a contract. Discharge modes and remedies are the practical climax of the syllabus and are always tested together."
+        },
+        {
+          "title": "Quasi-Contracts (Relations Resembling Contract)",
+          "covers": [
+            "Quasi-Contracts (Relations Resembling Contract)"
+          ],
+          "concept_count": 1,
+          "capability": "Identify quasi-contractual obligations under Sections 68-72 and articulate the claim arising from necessaries supplied to incapable persons, reimbursement of interested parties, non-gratuitous acts, finder of goods, or money paid by mistake/coercion.",
+          "why_here": "Sections 68-72 form a standalone statutory obligation chapter with five distinct claims. It is examined independently and does not depend on the special contracts that follow."
+        },
+        {
+          "title": "Indemnity & Guarantee",
+          "covers": [
+            "Contract of Indemnity",
+            "Contract of Guarantee",
+            "Rights & Discharge of Surety"
+          ],
+          "concept_count": 3,
+          "capability": "Distinguish indemnity from guarantee, explain the surety's liability (co-extensive with principal debtor) and rights (subrogation, indemnity, securities), and determine when a surety is discharged under Sections 133-147.",
+          "why_here": "Indemnity (Sections 124-125) and guarantee (Sections 126-147) are taught as a pair because they are constantly distinguished. The surety's rights and discharge (Sections 133-147) are the most heavily tested part of guarantee and belong in the same module."
+        },
+        {
+          "title": "Bailment & Pledge",
+          "covers": [
+            "Bailment — General Duties & Rights",
+            "Bailment — Pledge & Lien"
+          ],
+          "concept_count": 2,
+          "capability": "Analyse bailment and pledge scenarios to determine the duties, rights, and liabilities of bailor/bailee and pawnor/pawnee, including the standard of care, unauthorized use, mixture, termination, pawnee's sale rights, and particular vs general lien.",
+          "why_here": "Bailment (Sections 148-171) and its species pledge (Sections 172-181) form a continuous chapter on possession-based obligations. Pledge rights and lien are tested both as short notes and in secured-transaction problems."
+        },
+        {
+          "title": "Agency",
+          "covers": [
+            "Agency — Creation & Authority",
+            "Agency — Sub-Agent, Ratification & Termination"
+          ],
+          "concept_count": 2,
+          "capability": "Determine the creation and scope of agency authority (express, implied, ostensible, emergency), the effect of ratification, the position of sub-agents vs substituted agents, and the modes of termination of agency (by act of parties or operation of law), including irrevocable agency.",
+          "why_here": "The longest chapter (Sections 182-238) splits naturally into creation/authority and the consequences of authority (sub-agents, ratification, termination). Both halves are required to answer any agency problem completely."
+        }
+      ],
+      "concepts_per_module": [
+        4,
+        5,
+        3,
+        1,
+        2,
+        1,
+        3,
+        2,
+        2
+      ],
+      "orphans": [],
+      "phantoms": [],
+      "duplicate_coverage": [],
+      "slug_collisions": []
+    },
+    "promises": {
+      "capability_clauses": 9,
+      "capability_unbacked": 0,
+      "capability_unbacked_share": 0.0,
+      "capability_support": [
+        {
+          "module": "Contract Formation: Offer, Acceptance & Essential Elements",
+          "clauses": [
+            "Analyse a fact pattern to determine whether a valid contract has been formed, identifying offer, acceptance, consideration, intention, and capacity, and stating the effect of any defect."
+          ],
+          "backed": [
+            {
+              "clause": "Analyse a fact pattern to determine whether a valid contract has been formed, identifying offer, acceptance, consideration, intention, and capacity, and stating the effect of any defect.",
+              "concepts": [
+                "Communication, Acceptance & Revocation of Proposals",
+                "Essential Elements of a Valid Contract",
+                "Capacity to Contract"
+              ]
+            }
+          ],
+          "unbacked": []
+        },
+        {
+          "module": "Vitiating Factors: Free Consent",
+          "clauses": [
+            "Diagnose whether consent is vitiated in a given scenario, distinguish between coercion, undue influence, fraud, misrepresentation, and mistake, and state the resulting remedy (void/voidable) with the applicable section."
+          ],
+          "backed": [
+            {
+              "clause": "Diagnose whether consent is vitiated in a given scenario, distinguish between coercion, undue influence, fraud, misrepresentation, and mistake, and state the resulting remedy (void/voidable) with the applicable section.",
+              "concepts": [
+                "Free Consent — Coercion",
+                "Free Consent — Undue Influence",
+                "Free Consent — Fraud",
+                "Free Consent — Misrepresentation",
+                "Free Consent — Mistake"
+              ]
+            }
+          ],
+          "unbacked": []
+        },
+        {
+          "module": "Legality of Object & Consideration, and Void Agreements",
+          "clauses": [
+            "Evaluate whether consideration and object are lawful under Sections 23-25, and determine if an agreement falls within a statutorily void category (restraint, uncertainty, wagering), citing the relevant section and exception."
+          ],
+          "backed": [
+            {
+              "clause": "Evaluate whether consideration and object are lawful under Sections 23-25, and determine if an agreement falls within a statutorily void category (restraint, uncertainty, wagering), citing the relevant section and exception.",
+              "concepts": [
+                "Lawful Consideration & Object",
+                "Void Agreements — Restraint of Marriage, Trade, Legal Proceedings",
+                "Void Agreements — Uncertain & Wagering Agreements"
+              ]
+            }
+          ],
+          "unbacked": []
+        },
+        {
+          "module": "Contingent Contracts",
+          "clauses": [
+            "Apply Sections 31-36 to determine the enforceability of contingent contracts based on the happening or non-happening of future uncertain events, and distinguish contingent contracts from wagering agreements."
+          ],
+          "backed": [
+            {
+              "clause": "Apply Sections 31-36 to determine the enforceability of contingent contracts based on the happening or non-happening of future uncertain events, and distinguish contingent contracts from wagering agreements.",
+              "concepts": [
+                "Contingent Contracts"
+              ]
+            }
+          ],
+          "unbacked": []
+        },
+        {
+          "module": "Performance, Discharge & Remedies",
+          "clauses": [
+            "Trace the performance obligations of parties under a contract, identify modes of discharge (performance, breach, agreement, frustration), and calculate remedies for breach including compensation under Hadley v Baxendale and the availability of specific relief."
+          ],
+          "backed": [
+            {
+              "clause": "Trace the performance obligations of parties under a contract, identify modes of discharge (performance, breach, agreement, frustration), and calculate remedies for breach including compensation under Hadley v Baxendale and the availability of specific relief.",
+              "concepts": [
+                "Performance of Contracts",
+                "Discharge by Breach & Remedies"
+              ]
+            }
+          ],
+          "unbacked": []
+        },
+        {
+          "module": "Quasi-Contracts (Relations Resembling Contract)",
+          "clauses": [
+            "Identify quasi-contractual obligations under Sections 68-72 and articulate the claim arising from necessaries supplied to incapable persons, reimbursement of interested parties, non-gratuitous acts, finder of goods, or money paid by mistake/coercion."
+          ],
+          "backed": [
+            {
+              "clause": "Identify quasi-contractual obligations under Sections 68-72 and articulate the claim arising from necessaries supplied to incapable persons, reimbursement of interested parties, non-gratuitous acts, finder of goods, or money paid by mistake/coercion.",
+              "concepts": [
+                "Quasi-Contracts (Relations Resembling Contract)"
+              ]
+            }
+          ],
+          "unbacked": []
+        },
+        {
+          "module": "Indemnity & Guarantee",
+          "clauses": [
+            "Distinguish indemnity from guarantee, explain the surety's liability (co-extensive with principal debtor) and rights (subrogation, indemnity, securities), and determine when a surety is discharged under Sections 133-147."
+          ],
+          "backed": [
+            {
+              "clause": "Distinguish indemnity from guarantee, explain the surety's liability (co-extensive with principal debtor) and rights (subrogation, indemnity, securities), and determine when a surety is discharged under Sections 133-147.",
+              "concepts": [
+                "Contract of Indemnity",
+                "Contract of Guarantee",
+                "Rights & Discharge of Surety"
+              ]
+            }
+          ],
+          "unbacked": []
+        },
+        {
+          "module": "Bailment & Pledge",
+          "clauses": [
+            "Analyse bailment and pledge scenarios to determine the duties, rights, and liabilities of bailor/bailee and pawnor/pawnee, including the standard of care, unauthorized use, mixture, termination, pawnee's sale rights, and particular vs general lien."
+          ],
+          "backed": [
+            {
+              "clause": "Analyse bailment and pledge scenarios to determine the duties, rights, and liabilities of bailor/bailee and pawnor/pawnee, including the standard of care, unauthorized use, mixture, termination, pawnee's sale rights, and particular vs general lien.",
+              "concepts": [
+                "Bailment — General Duties & Rights",
+                "Bailment — Pledge & Lien"
+              ]
+            }
+          ],
+          "unbacked": []
+        },
+        {
+          "module": "Agency",
+          "clauses": [
+            "Determine the creation and scope of agency authority (express, implied, ostensible, emergency), the effect of ratification, the position of sub-agents vs substituted agents, and the modes of termination of agency (by act of parties or operation of law), including irrevocable agency."
+          ],
+          "backed": [
+            {
+              "clause": "Determine the creation and scope of agency authority (express, implied, ostensible, emergency), the effect of ratification, the position of sub-agents vs substituted agents, and the modes of termination of agency (by act of parties or operation of law), including irrevocable agency.",
+              "concepts": [
+                "Agency — Creation & Authority",
+                "Agency — Sub-Agent, Ratification & Termination"
+              ]
+            }
+          ],
+          "unbacked": []
+        }
+      ],
+      "coherence": [
+        {
+          "module": "Contract Formation: Offer, Acceptance & Essential Elements",
+          "concepts": 4,
+          "internal": 3,
+          "external": 0,
+          "ratio": 1.0,
+          "depends_on_modules": [],
+          "links": []
+        },
+        {
+          "module": "Vitiating Factors: Free Consent",
+          "concepts": 5,
+          "internal": 0,
+          "external": 5,
+          "ratio": 0.0,
+          "depends_on_modules": [
+            {
+              "module": "Contract Formation: Offer, Acceptance & Essential Elements",
+              "count": 5
+            }
+          ],
+          "links": [
+            {
+              "concept": "Free Consent — Coercion",
+              "depends_on": "Essential Elements of a Valid Contract",
+              "lives_in": "Contract Formation: Offer, Acceptance & Essential Elements",
+              "external": true
+            },
+            {
+              "concept": "Free Consent — Undue Influence",
+              "depends_on": "Essential Elements of a Valid Contract",
+              "lives_in": "Contract Formation: Offer, Acceptance & Essential Elements",
+              "external": true
+            },
+            {
+              "concept": "Free Consent — Fraud",
+              "depends_on": "Essential Elements of a Valid Contract",
+              "lives_in": "Contract Formation: Offer, Acceptance & Essential Elements",
+              "external": true
+            },
+            {
+              "concept": "Free Consent — Misrepresentation",
+              "depends_on": "Essential Elements of a Valid Contract",
+              "lives_in": "Contract Formation: Offer, Acceptance & Essential Elements",
+              "external": true
+            },
+            {
+              "concept": "Free Consent — Mistake",
+              "depends_on": "Essential Elements of a Valid Contract",
+              "lives_in": "Contract Formation: Offer, Acceptance & Essential Elements",
+              "external": true
+            }
+          ]
+        },
+        {
+          "module": "Legality of Object & Consideration, and Void Agreements",
+          "concepts": 3,
+          "internal": 2,
+          "external": 1,
+          "ratio": 0.667,
+          "depends_on_modules": [
+            {
+              "module": "Contract Formation: Offer, Acceptance & Essential Elements",
+              "count": 1
+            }
+          ],
+          "links": [
+            {
+              "concept": "Lawful Consideration & Object",
+              "depends_on": "Essential Elements of a Valid Contract",
+              "lives_in": "Contract Formation: Offer, Acceptance & Essential Elements",
+              "external": true
+            }
+          ]
+        },
+        {
+          "module": "Contingent Contracts",
+          "concepts": 1,
+          "internal": 0,
+          "external": 1,
+          "ratio": 0.0,
+          "depends_on_modules": [
+            {
+              "module": "Contract Formation: Offer, Acceptance & Essential Elements",
+              "count": 1
+            }
+          ],
+          "links": [
+            {
+              "concept": "Contingent Contracts",
+              "depends_on": "Essential Elements of a Valid Contract",
+              "lives_in": "Contract Formation: Offer, Acceptance & Essential Elements",
+              "external": true
+            }
+          ]
+        },
+        {
+          "module": "Performance, Discharge & Remedies",
+          "concepts": 2,
+          "internal": 1,
+          "external": 1,
+          "ratio": 0.5,
+          "depends_on_modules": [
+            {
+              "module": "Contract Formation: Offer, Acceptance & Essential Elements",
+              "count": 1
+            }
+          ],
+          "links": [
+            {
+              "concept": "Performance of Contracts",
+              "depends_on": "Essential Elements of a Valid Contract",
+              "lives_in": "Contract Formation: Offer, Acceptance & Essential Elements",
+              "external": true
+            }
+          ]
+        },
+        {
+          "module": "Quasi-Contracts (Relations Resembling Contract)",
+          "concepts": 1,
+          "internal": 0,
+          "external": 1,
+          "ratio": 0.0,
+          "depends_on_modules": [
+            {
+              "module": "Contract Formation: Offer, Acceptance & Essential Elements",
+              "count": 1
+            }
+          ],
+          "links": [
+            {
+              "concept": "Quasi-Contracts (Relations Resembling Contract)",
+              "depends_on": "Preliminary & Definitions",
+              "lives_in": "Contract Formation: Offer, Acceptance & Essential Elements",
+              "external": true
+            }
+          ]
+        },
+        {
+          "module": "Indemnity & Guarantee",
+          "concepts": 3,
+          "internal": 2,
+          "external": 1,
+          "ratio": 0.667,
+          "depends_on_modules": [
+            {
+              "module": "Contract Formation: Offer, Acceptance & Essential Elements",
+              "count": 1
+            }
+          ],
+          "links": [
+            {
+              "concept": "Contract of Indemnity",
+              "depends_on": "Preliminary & Definitions",
+              "lives_in": "Contract Formation: Offer, Acceptance & Essential Elements",
+              "external": true
+            }
+          ]
+        },
+        {
+          "module": "Bailment & Pledge",
+          "concepts": 2,
+          "internal": 1,
+          "external": 1,
+          "ratio": 0.5,
+          "depends_on_modules": [
+            {
+              "module": "Contract Formation: Offer, Acceptance & Essential Elements",
+              "count": 1
+            }
+          ],
+          "links": [
+            {
+              "concept": "Bailment — General Duties & Rights",
+              "depends_on": "Preliminary & Definitions",
+              "lives_in": "Contract Formation: Offer, Acceptance & Essential Elements",
+              "external": true
+            }
+          ]
+        },
+        {
+          "module": "Agency",
+          "concepts": 2,
+          "internal": 1,
+          "external": 1,
+          "ratio": 0.5,
+          "depends_on_modules": [
+            {
+              "module": "Contract Formation: Offer, Acceptance & Essential Elements",
+              "count": 1
+            }
+          ],
+          "links": [
+            {
+              "concept": "Agency — Creation & Authority",
+              "depends_on": "Preliminary & Definitions",
+              "lives_in": "Contract Formation: Offer, Acceptance & Essential Elements",
+              "external": true
+            }
+          ]
+        }
+      ],
+      "modules_with_no_internal_dependency": [
+        "Vitiating Factors: Free Consent",
+        "Contingent Contracts",
+        "Quasi-Contracts (Relations Resembling Contract)"
+      ],
+      "external_dependency_total": 12
+    },
+    "extent": {
+      "total": "~30 pages · about 10 hours",
+      "pages": "~30 pages",
+      "study_time": "about 10 hours",
+      "parts": 9,
+      "modules": 9,
+      "per_unit": {
+        "Contract Formation: Offer, Acceptance & Essential Elements": "~5 pages",
+        "Vitiating Factors: Free Consent": "~6 pages",
+        "Legality of Object & Consideration, and Void Agreements": "~4 pages",
+        "Contingent Contracts": "~2 pages",
+        "Performance, Discharge & Remedies": "~3 pages",
+        "Quasi-Contracts (Relations Resembling Contract)": "~1 page",
+        "Indemnity & Guarantee": "~4 pages",
+        "Bailment & Pledge": "~3 pages",
+        "Agency": "~3 pages"
+      }
+    },
+    "feasibility": {
+      "serves_everything": false,
+      "shortfalls": [
+        {
+          "failure": "parallel-state",
+          "concepts": [
+            "Contract of Guarantee",
+            "Bailment — General Duties & Rights",
+            "Agency — Sub-Agent, Ratification & Termination"
+          ],
+          "licenses": "sequence · swimlane · timeline",
+          "note": "No realization exists. Two actors evolving at once currently come out as prose, which is the substitution §13 forbids."
+        }
+      ]
+    },
+    "decisions_present": [
+      "consequence",
+      "derive_structure",
+      "intake_strategy",
+      "interpret_situation",
+      "partition",
+      "relevance",
+      "scope",
+      "traversal"
+    ]
+  },
+  "corrections": [],
+  "finished_at": "2026-09-25T19:57:58+00:00",
+  "seconds_total": 11537.3,
+  "seconds_by_stage": {
+    "create": 34.0,
+    "intake": 0.0,
+    "plan": 1015.25,
+    "correct": 67430.0925253
+  },
+  "cost": {
+    "model_calls": 4,
+    "failed_calls": 1,
+    "input_tokens": 10678,
+    "output_tokens": 11728,
+    "seconds": 11537.1,
+    "calls": [
+      {
+        "ok": true,
+        "seconds": 33.98,
+        "input_tokens": 3164,
+        "output_tokens": 1480,
+        "schema": "Reading",
+        "error": null
+      },
+      {
+        "ok": true,
+        "seconds": 562.6,
+        "input_tokens": 1483,
+        "output_tokens": 3467,
+        "schema": "Landscape",
+        "error": null
+      },
+      {
+        "ok": true,
+        "seconds": 452.62,
+        "input_tokens": 6031,
+        "output_tokens": 6781,
+        "schema": "PlanBody",
+        "error": null
+      },
+      {
+        "ok": false,
+        "seconds": 10487.89,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "schema": "Routing",
+        "error": "ProviderUnavailable: openrouter/nvidia/nemotron-3-ultra-550b-a55b:free did not answer after 3 attempts. Last error: [Errno 11001] getaddrinfo failed"
+      }
+    ]
+  }
+}

@@ -1,0 +1,264 @@
+{
+  "project": {
+    "id": "82a86ead-d1eb-44fe-9b9f-ae0d3acb37b3",
+    "user_id": "local",
+    "title": "cheat sheet for graph dsa questions for my interview next month",
+    "taxonomy_version": "plan-gate-1",
+    "created_at": "2026-09-25T16:06:25+00:00"
+  },
+  "utterance": [
+    {
+      "id": "f422ce54-8b71-4695-be2f-5029ff225bdc",
+      "project_id": "82a86ead-d1eb-44fe-9b9f-ae0d3acb37b3",
+      "ord": 0,
+      "role": "user",
+      "text": "cheat sheet for graph dsa questions for my interview next month",
+      "created_at": "2026-09-25T16:06:25+00:00"
+    }
+  ],
+  "decision": [
+    {
+      "id": "a5d44411430b454ba503a183e34bb30e",
+      "project_id": "82a86ead-d1eb-44fe-9b9f-ae0d3acb37b3",
+      "kind": "interpret_situation",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "a455d9a90ae15a53f03799402c46e206",
+      "output": {
+        "subject": "Graph data structures and algorithms for technical interview questions",
+        "job": "rehearse",
+        "entry_point": "Assumes working knowledge of basic graph representations (adjacency list/matrix), traversal (BFS/DFS), and common algorithms (Dijkstra, topological sort, Union-Find); needs pattern recognition and implementation recall",
+        "purpose": "Prepare for technical interviews occurring within the next month",
+        "target_capability": "Recognize graph problem patterns, select and implement correct algorithm, state time/space complexity, and handle edge cases under interview conditions",
+        "capacity": "Approximately one month until interviews; cheat sheet format implies need for condensed, high-yield reference",
+        "stated": [
+          {
+            "text": "cheat sheet",
+            "axis": "artifact_type"
+          },
+          {
+            "text": "graph dsa questions",
+            "axis": "subject"
+          },
+          {
+            "text": "for my interview next month",
+            "axis": "purpose"
+          },
+          {
+            "text": "next month",
+            "axis": "capacity"
+          }
+        ],
+        "inferred": [
+          "Entry point: intermediate DSA knowledge (not beginner)",
+          "Target capability: pattern recognition + clean implementation under time pressure",
+          "Depth register: condensed reference — patterns, complexities, templates, not tutorials",
+          "Template: none specified — free-form cheat sheet structure"
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "interpret_v1",
+      "cost": {
+        "in": 3156,
+        "out": 1689
+      },
+      "created_at": "2026-09-25T16:07:20+00:00"
+    },
+    {
+      "id": "40a680c8f0e54ca5bb60be137cc80fc8",
+      "project_id": "82a86ead-d1eb-44fe-9b9f-ae0d3acb37b3",
+      "kind": "intake_strategy",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "1646ff676978c7dac1995221b9eb7f1d",
+      "output": {
+        "questions": [
+          {
+            "axis": "entry_point",
+            "question": "How comfortable are you writing graph algorithms from memory right now?",
+            "why_it_matters": "Determines whether the cheat sheet includes full implementation templates, skeleton reminders, or only pattern-to-algorithm mappings.",
+            "options": [
+              {
+                "label": "Can write BFS/DFS/Dijkstra cold",
+                "implication": "Cheat sheet focuses on pattern recognition tables, complexity summaries, and edge-case checklists — no boilerplate code."
+              },
+              {
+                "label": "Know the logic but forget syntax details",
+                "implication": "Includes minimal, copy-pasteable templates for each algorithm (initialization, loop structure, return) plus pattern triggers."
+              },
+              {
+                "label": "Need a refresher on the algorithms themselves",
+                "implication": "Adds a one-page refresher per algorithm (invariant, key variables, termination) before the pattern-mapping section."
+              }
+            ],
+            "default_label": "Know the logic but forget syntax details"
+          },
+          {
+            "axis": "target_capability",
+            "question": "What does \"interview-ready\" look like for you?",
+            "why_it_matters": "Changes the artifact from a pure recognition guide to an implementation drill sheet or a verbal-explanation crib.",
+            "options": [
+              {
+                "label": "Implement from scratch in 20–25 min",
+                "implication": "Full templates with boilerplate, common bug annotations, and timed practice prompts for each pattern."
+              },
+              {
+                "label": "Modify a given starter implementation",
+                "implication": "Focuses on the delta: which lines change per variant, edge-case guards, and complexity trade-off notes."
+              },
+              {
+                "label": "Explain approach and complexity verbally",
+                "implication": "Pattern → algorithm mapping, one-sentence invariant per algorithm, complexity table, and follow-up question cues."
+              }
+            ],
+            "default_label": "Implement from scratch in 20–25 min"
+          }
+        ],
+        "sufficiency": {
+          "verdict": "ask",
+          "budget": 4,
+          "asking": [
+            "entry_point",
+            "target_capability"
+          ],
+          "over_budget": [],
+          "axes": [
+            {
+              "axis": "subject",
+              "value": "Graph data structures and algorithms for technical interview questions",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "graph dsa questions"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If subject were 'graph theory fundamentals' instead, plan would include definitions, proofs, and mathematical properties rather than interview-focused patterns and implementations",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "purpose",
+              "value": "Prepare for technical interviews occurring within the next month",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "for my interview next month"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If purpose were 'learn graphs from scratch' or 'competitive programming', plan would include progressive concept building or advanced variants (e.g., centroid decomposition, heavy-light) rather than high-frequency interview patterns",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "entry_point",
+              "value": "Assumes working knowledge of basic graph representations (adjacency list/matrix), traversal (BFS/DFS), and common algorithms (Dijkstra, topological sort, Union-Find); needs pattern recognition and implementation recall",
+              "strength": "guessed",
+              "verified": [],
+              "unverified": [
+                "cheat sheet for graph dsa questions for my interview"
+              ],
+              "material": true,
+              "would_differ": "If entry point were 'beginner', plan would need 8-10 foundational concepts (graph definition, representations, BFS/DFS mechanics, recursion/stack) before patterns; if 'advanced', plan would skip templates and focus on variations/optimizations",
+              "askable": true,
+              "asked": true,
+              "reason": "weak (guessed) and a different answer would change the plan · discarded unverifiable support: ['cheat sheet for graph dsa questions for my interview']"
+            },
+            {
+              "axis": "target_capability",
+              "value": "Recognize graph problem patterns, select and implement correct algorithm, state time/space complexity, and handle edge cases under interview conditions",
+              "strength": "guessed",
+              "verified": [],
+              "unverified": [
+                "cheat sheet for graph dsa questions for my interview next month"
+              ],
+              "material": true,
+              "would_differ": "If target were 'explain graph concepts to others', plan would emphasize intuition/analogies over templates; if 'pass take-home project', would emphasize production code structure and testing",
+              "askable": true,
+              "asked": true,
+              "reason": "weak (guessed) and a different answer would change the plan · discarded unverifiable support: ['cheat sheet for graph dsa questions for my interview next month']"
+            },
+            {
+              "axis": "capacity",
+              "value": "Approximately one month until interviews; cheat sheet format implies need for condensed, high-yield reference",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "next month"
+                }
+              ],
+              "unverified": [],
+              "material": false,
+              "would_differ": "If capacity were 'one week', plan would prioritize only top 5-7 patterns with minimal variants; if 'three months', would include spaced repetition schedule and progressive difficulty tiers",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Semantics §1 LOCKED — optional, and the corollary: deriving the plan and reporting its extent is what CAUSES a capacity to be stated. Asking upfront asks for a number the learner cannot honestly give."
+            },
+            {
+              "axis": "depth_register",
+              "value": "Condensed reference — pattern signatures, algorithm templates, complexity tables, edge-case checklists; no proofs, derivations, or extended explanations",
+              "strength": "inferred",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "cheat sheet"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If depth were 'tutorial', each pattern would get worked example, step-by-step trace, and common pitfalls section; if 'reference manual', would include formal invariants and correctness arguments",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Semantics §1 — biasing, not binding. A default is always defensible."
+            },
+            {
+              "axis": "artifact_type",
+              "value": "Cheat sheet",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "cheat sheet"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If artifact were 'study guide', plan would include learning order, practice problem sequences, and concept dependencies; if 'flashcards', would be Q/A format with one pattern per card",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "template",
+              "value": null,
+              "strength": "unknown",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "If a specific template were requested (e.g., 'Notion template', 'Anki deck', 'markdown with tables'), output format and structure would conform to that template's constraints",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Presentation-Boundary rule 1 — internal. Users never select one."
+            }
+          ]
+        }
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "ask_v1",
+      "cost": {
+        "in": 1345,
+        "out": 876
+      },
+      "created_at": "2026-09-25T16:07:56+00:00"
+    }
+  ],
+  "commitment": []
+}

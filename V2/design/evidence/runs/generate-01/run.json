@@ -1,0 +1,23 @@
+{
+  "started_at": "2026-09-25T21:15:24+00:00",
+  "baseline": {
+    "repo": "D:\\myNotes\\V1",
+    "commit": "8735d787e7b258cb735d854bc395c25abc3e6c98",
+    "subject": "feat: implement approval gate for plans with unassigned concepts",
+    "source_hash": "807c8ec99a60d320e745e8ac208b8c7f690ebd273b3930f6680688d159cda116",
+    "source_files": 38,
+    "matches_baseline": true
+  },
+  "provider": {
+    "provider": "openrouter",
+    "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "interpret_model": null,
+    "max_output_tokens": "32000"
+  },
+  "phase": "generate",
+  "trials": 1,
+  "stub": false,
+  "cases": [
+    "agentic-ai-interview"
+  ]
+}

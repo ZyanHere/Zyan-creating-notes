@@ -1,0 +1,567 @@
+{
+  "title": "Foundations: What Makes an Agent",
+  "subtitle": "Prepare for technical interviews covering agentic AI",
+  "cover": null,
+  "running_head_left": null,
+  "running_head_right": null,
+  "footer_text": null,
+  "assumed_entry": "General programming ability; no prior agent construction or framework experience (LangGraph, CrewAI, AutoGen, etc.)",
+  "target_capability": "Explain what distinguishes an agent from a plain LLM call or RAG pipeline, trace a single tool-use step (reason → act → observe), and describe the function calling API contract (schemas, parallel calls, strict JSON).",
+  "sections": [
+    {
+      "heading": "Agent Definition & Agency",
+      "eyebrow": null,
+      "heading_tail": null,
+      "blocks": [
+        {
+          "kind": "prose",
+          "text": "An agent is a system that pursues a goal by repeatedly choosing actions, observing the results, and deciding what to do next. The defining move is the loop: reason → act → observe. A plain LLM call has no loop — it receives a prompt and returns a completion. A RAG pipeline has a fixed loop — retrieve, then generate — but the retrieval step is not chosen by the model; it is hard-coded into the pipeline."
+        },
+        {
+          "diagnosis": "cross-reference",
+          "kind": "table",
+          "caption": "What distinguishes an agent from a plain LLM call and a RAG pipeline",
+          "headers": [
+            "Capability",
+            "Plain LLM Call",
+            "RAG Pipeline",
+            "Agent"
+          ],
+          "rows": [
+            [
+              "Goal pursuit",
+              "Single-turn response",
+              "Fixed retrieve-then-generate",
+              "Iterative, model-chosen steps"
+            ],
+            [
+              "Action space",
+              "Text only",
+              "Text + fixed retrieval",
+              "Text + arbitrary tools (code, APIs, browser, etc.)"
+            ],
+            [
+              "Control flow",
+              "None — one forward pass",
+              "Deterministic DAG",
+              "Dynamic, model-driven loop"
+            ],
+            [
+              "Memory",
+              "Context window only",
+              "Context window + retrieved docs",
+              "Context window + external memory (scratchpad, vector store, episode log)"
+            ],
+            [
+              "Failure recovery",
+              "None",
+              "None (pipeline fails or returns best effort)",
+              "Can retry, switch tools, re-plan"
+            ]
+          ]
+        },
+        {
+          "kind": "prose",
+          "text": "The table makes the boundary sharp: an agent decides *whether* to act, *what* action to take, and *whether* the result satisfies the goal. In a RAG pipeline, the retrieval step is mandatory and its query is often constructed by a deterministic heuristic, not by the model's own reasoning. In an agent, the model itself emits a tool call — a structured decision — and the environment returns an observation that the model then conditions on."
+        },
+        {
+          "diagnosis": "topology",
+          "kind": "relation",
+          "relation": "precedes",
+          "caption": "Spectrum of agency: each step adds a capability the previous one lacks",
+          "entities": [
+            {
+              "label": "LLM Call",
+              "note": "Prompt → completion, no loop",
+              "emphasis": false
+            },
+            {
+              "label": "RAG Pipeline",
+              "note": "Fixed retrieve → generate, no model-chosen actions",
+              "emphasis": false
+            },
+            {
+              "label": "Single-Tool Agent",
+              "note": "Model chooses one tool per step, loops until done",
+              "emphasis": false
+            },
+            {
+              "label": "Multi-Tool Agent",
+              "note": "Model chooses among many tools, parallel calls, structured outputs",
+              "emphasis": false
+            },
+            {
+              "label": "Planning Agent",
+              "note": "Explicit plan generation, decomposition, re-planning on failure",
+              "emphasis": false
+            }
+          ]
+        },
+        {
+          "kind": "prose",
+          "text": "Interviewers often probe the boundary with questions like: \"If I wrap an LLM call in a while loop that retries on error, is that an agent?\" The answer is no — retry logic is deterministic control flow, not model-chosen action. The model still does not decide *what* to do differently; the loop decides *whether* to repeat. Agency requires the model to author the next action conditioned on the previous observation."
+        },
+        {
+          "diagnosis": "false-comprehension",
+          "kind": "question",
+          "prompt": "A system uses an LLM to write a SQL query, executes it, and if the query fails, feeds the error back to the LLM to rewrite the query. Is this an agent? Why or why not?",
+          "answer": "Yes. The model chooses the action (the SQL query), observes the result (success or error), and conditions its next action on that observation. The loop is model-driven, not a fixed retry."
+        },
+        {
+          "kind": "prose",
+          "text": "Another common trap: \"My RAG system uses an LLM to rewrite the user query before retrieval. Is that an agent?\" Rewriting the query is still a fixed step in a predetermined pipeline. The model does not decide *whether* to retrieve, *what* to retrieve from, or *whether* the retrieved passages are sufficient. It only reformulates. That is a prompt engineering technique, not agency."
+        },
+        {
+          "diagnosis": "cross-reference",
+          "kind": "chips",
+          "items": [
+            "reason → act → observe loop",
+            "model-chosen actions",
+            "dynamic control flow",
+            "external memory",
+            "failure recovery"
+          ]
+        }
+      ]
+    },
+    {
+      "heading": "LLM as Reasoning Engine",
+      "eyebrow": null,
+      "heading_tail": null,
+      "blocks": [
+        {
+          "kind": "prose",
+          "text": "A plain LLM call is a completion engine: you give it a prompt, it predicts the next tokens. An agent treats the LLM as a reasoning engine: you give it a goal, it plans steps, decides which tool to invoke, observes the result, and reflects on whether to continue or change course. The difference is not the model — it is the control loop that wraps the model."
+        },
+        {
+          "diagnosis": "cross-reference",
+          "kind": "relation",
+          "relation": "associates-with",
+          "caption": "Completion vs. reasoning: two ways to use the same model",
+          "entities": [
+            {
+              "label": "Completion engine",
+              "note": "Single prompt → single response, no loop",
+              "emphasis": false
+            },
+            {
+              "label": "Reasoning engine",
+              "note": "Goal → (plan → act → observe → reflect)* → answer",
+              "emphasis": false
+            }
+          ]
+        },
+        {
+          "kind": "prose",
+          "text": "In a RAG pipeline the LLM is still a completion engine: retrieve context, stuff it into a prompt, get an answer. There is no decision about *whether* to retrieve, *what* to retrieve, or *whether* the answer is sufficient. An agent adds those decisions. The LLM emits structured decisions (\"call search with query X\") instead of free text, and the runtime feeds the tool result back for the next reasoning step."
+        },
+        {
+          "diagnosis": "abstraction-grounding",
+          "kind": "example",
+          "title": "Single tool-use step traced",
+          "steps": [
+            "Goal: \"What is the current temperature in Tokyo?\"",
+            "Reason (LLM): decides it needs live data → emits function call `get_weather({\"city\": \"Tokyo\"})`",
+            "Act (runtime): executes the function, receives `{\"temp_c\": 18, \"condition\": \"cloudy\"}`",
+            "Observe (LLM): receives the tool result as a new message",
+            "Reflect (LLM): decides the answer is complete → emits final response \"It's 18 °C and cloudy in Tokyo.\""
+          ]
+        },
+        {
+          "diagnosis": "false-comprehension",
+          "kind": "question",
+          "prompt": "A developer wraps an LLM call in a `while` loop that re-prompts the model until it says \"DONE\". Is this an agent?",
+          "answer": "No. The loop is hard-coded; the LLM never decides *whether* to continue or *what* to do next. An agent requires the LLM to make those decisions (plan, act, observe, reflect) on each iteration."
+        }
+      ]
+    },
+    {
+      "heading": "Function Calling / Tool Calling API",
+      "eyebrow": null,
+      "heading_tail": null,
+      "blocks": [
+        {
+          "kind": "prose",
+          "text": "Function calling is the primitive that turns a language model into an agent. Without it, the model can only emit text. With it, the model emits a structured decision — a name and arguments — that your code executes, then feeds the result back. The loop is: reason (choose a tool), act (call it), observe (read the result), repeat. Every agent framework (LangGraph, CrewAI, AutoGen) builds on this same contract."
+        },
+        {
+          "diagnosis": null,
+          "kind": "heading",
+          "text": "The API Contract"
+        },
+        {
+          "kind": "prose",
+          "text": "The model receives a list of tool definitions. Each definition is a JSON Schema describing the function name, description, and parameters. The model responds with a `tool_calls` array (OpenAI) or `tool_use` blocks (Anthropic). Your code executes each call and returns a `tool` message with the result. The model then continues."
+        },
+        {
+          "diagnosis": "abstraction-grounding",
+          "kind": "code",
+          "language": "json",
+          "code": "// OpenAI tool definition\n{\n  \"type\": \"function\",\n  \"function\": {\n    \"name\": \"get_weather\",\n    \"description\": \"Get current weather for a location\",\n    \"parameters\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"location\": {\n          \"type\": \"string\",\n          \"description\": \"City and state, e.g. 'San Francisco, CA'\"\n        },\n        \"unit\": {\n          \"type\": \"string\",\n          \"enum\": [\"celsius\", \"fahrenheit\"],\n          \"description\": \"Temperature unit\"\n        }\n      },\n      \"required\": [\"location\"],\n      \"additionalProperties\": false\n    },\n    \"strict\": true\n  }\n}",
+          "caption": "Tool definition with strict JSON Schema. `strict: true` guarantees the model outputs valid JSON matching the schema."
+        },
+        {
+          "diagnosis": "abstraction-grounding",
+          "kind": "code",
+          "language": "json",
+          "code": "// Model response with tool_calls\n{\n  \"choices\": [{\n    \"message\": {\n      \"role\": \"assistant\",\n      \"content\": null,\n      \"tool_calls\": [{\n        \"id\": \"call_abc123\",\n        \"type\": \"function\",\n        \"function\": {\n          \"name\": \"get_weather\",\n          \"arguments\": \"{\\\"location\\\": \\\"San Francisco, CA\\\", \\\"unit\\\": \\\"celsius\\\"}\"\n        }\n      }]\n    }\n  }]}\n",
+          "caption": "Model emits a tool call. `arguments` is a JSON string — parse it, don't eval."
+        },
+        {
+          "diagnosis": "abstraction-grounding",
+          "kind": "code",
+          "language": "json",
+          "code": "// Your code returns the tool result\n{\n  \"role\": \"tool\",\n  \"tool_call_id\": \"call_abc123\",\n  \"content\": \"{\\\"temperature\\\": 18, \\\"condition\\\": \\\"foggy\\\", \\\"unit\\\": \\\"celsius\\\"}\"\n}",
+          "caption": "Tool result message. `tool_call_id` must match the call. Content is a string (JSON or plain text)."
+        },
+        {
+          "diagnosis": null,
+          "kind": "subhead",
+          "label": "KEY SCHEMA RULES"
+        },
+        {
+          "diagnosis": "false-comprehension",
+          "kind": "list",
+          "ordered": false,
+          "items": [
+            "Set `additionalProperties: false` on the root parameters object — prevents hallucinated keys.",
+            "Mark all required fields in `required` array — the model will omit optional ones.",
+            "Use `enum` for closed sets (units, categories, status codes).",
+            "Descriptions are prompts — write them for the model, not for humans.",
+            "Keep schemas flat; nested objects increase error rate."
+          ]
+        },
+        {
+          "diagnosis": null,
+          "kind": "heading",
+          "text": "Parallel Calls"
+        },
+        {
+          "kind": "prose",
+          "text": "The model can emit multiple `tool_calls` in one response. Your executor must run them concurrently (or sequentially, but parallel is faster) and return all results before the next model turn. This is how an agent fetches weather for three cities in one round trip."
+        },
+        {
+          "diagnosis": "procedure-execution",
+          "kind": "code",
+          "language": "python",
+          "code": "import asyncio\nimport json\nfrom openai import AsyncOpenAI\n\nclient = AsyncOpenAI()\n\nasync def run_parallel_tool_calls():\n    tools = [{\n        \"type\": \"function\",\n        \"function\": {\n            \"name\": \"get_weather\",\n            \"description\": \"Get weather for a location\",\n            \"parameters\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"location\": {\"type\": \"string\"},\n                    \"unit\": {\"type\": \"string\", \"enum\": [\"celsius\", \"fahrenheit\"]}\n                },\n                \"required\": [\"location\"],\n                \"additionalProperties\": false\n            },\n            \"strict\": true\n        }\n    }]\n\n    resp = await client.chat.completions.create(\n        model=\"gpt-4o\",\n        messages=[{\"role\": \"user\", \"content\": \"Weather in NYC, London, Tokyo in celsius\"}],\n        tools=tools,\n        tool_choice=\"auto\"\n    )\n\n    tool_calls = resp.choices[0].message.tool_calls\n    if not tool_calls:\n        return resp.choices[0].message.content\n\n    # Execute all calls in parallel\n    async def execute(call):\n        args = json.loads(call.function.arguments)\n        # In reality, call your actual API here\n        result = await fake_weather_api(args[\"location\"], args.get(\"unit\", \"celsius\"))\n        return {\n            \"role\": \"tool\",\n            \"tool_call_id\": call.id,\n            \"content\": json.dumps(result)\n        }\n\n    tool_results = await asyncio.gather(*[execute(c) for c in tool_calls])\n\n    # Second turn: feed results back\n    final = await client.chat.completions.create(\n        model=\"gpt-4o\",\n        messages=[\n            {\"role\": \"user\", \"content\": \"Weather in NYC, London, Tokyo in celsius\"},\n            resp.choices[0].message,\n            *tool_results\n        ],\n        tools=tools\n    )\n    return final.choices[0].message.content\n\nasync def fake_weather_api(location, unit):\n    # Simulated external call\n    await asyncio.sleep(0.1)\n    return {\"location\": location, \"temperature\": 20, \"unit\": unit}\n\nprint(asyncio.run(run_parallel_tool_calls()))",
+          "caption": "Parallel tool execution pattern. `asyncio.gather` runs all calls concurrently. The second turn includes the assistant's tool_calls message AND all tool results."
+        },
+        {
+          "diagnosis": null,
+          "kind": "heading",
+          "text": "Strict JSON Mode"
+        },
+        {
+          "kind": "prose",
+          "text": "Set `\"strict\": true` in the function definition. This constrains the model's token generation to only produce valid JSON matching your schema. Without it, the model may emit trailing commas, unquoted keys, or hallucinated fields. Strict mode adds latency (constrained decoding) but eliminates a whole class of parsing errors. Use it in production."
+        },
+        {
+          "diagnosis": "cross-reference",
+          "kind": "table",
+          "caption": "JSON mode trade-offs. Strict mode is the only one that validates against your schema during generation.",
+          "headers": [
+            "Mode",
+            "Valid JSON Guaranteed",
+            "Latency",
+            "Use Case"
+          ],
+          "rows": [
+            [
+              "strict: false",
+              "No",
+              "Lower",
+              "Prototyping, trusted models"
+            ],
+            [
+              "strict: true",
+              "Yes (constrained decoding)",
+              "Higher",
+              "Production, untrusted inputs, any schema with enums/required"
+            ],
+            [
+              "response_format: {type: 'json_object'}",
+              "Yes (but no schema validation)",
+              "Medium",
+              "General JSON output, not tool calls"
+            ]
+          ]
+        },
+        {
+          "diagnosis": null,
+          "kind": "heading",
+          "text": "Tracing a Single Tool-Use Step"
+        },
+        {
+          "kind": "prose",
+          "text": "Interviewers ask you to trace: user question → model reasoning → tool call → execution → result → model response. Here is the complete trace for \"What's the weather in Boston?\""
+        },
+        {
+          "diagnosis": "procedure-execution",
+          "kind": "example",
+          "title": "Trace: Single Tool-Use Step (Reason → Act → Observe)",
+          "steps": [
+            "USER: \"What's the weather in Boston?\"",
+            "MODEL (reasoning): User wants current weather. I have get_weather tool. Need location=\"Boston, MA\", unit default celsius.",
+            "MODEL (tool_calls): [{\"id\": \"call_1\", \"name\": \"get_weather\", \"arguments\": \"{\\\"location\\\": \\\"Boston, MA\\\"}\"}]",
+            "YOUR CODE (act): Parse arguments → call weather API with location=\"Boston, MA\" → get {\"temp\": 15, \"condition\": \"rainy\"}",
+            "YOUR CODE (tool message): {\"role\": \"tool\", \"tool_call_id\": \"call_1\", \"content\": \"{\\\"temp\\\": 15, \\\"condition\\\": \\\"rainy\\\"}\"}",
+            "MODEL (observe + respond): Sees tool result. Generates final answer: \"It's 15°C and rainy in Boston.\""
+          ]
+        },
+        {
+          "diagnosis": "topology",
+          "kind": "relation",
+          "relation": "precedes",
+          "caption": "The reason → act → observe loop. Each step precedes the next. The executor (your code) owns steps 3–4.",
+          "entities": [
+            {
+              "label": "User Query",
+              "note": "Natural language request",
+              "emphasis": false
+            },
+            {
+              "label": "Model Reasoning",
+              "note": "Selects tool, fills arguments",
+              "emphasis": false
+            },
+            {
+              "label": "Tool Call Emitted",
+              "note": "Structured JSON with id, name, arguments",
+              "emphasis": false
+            },
+            {
+              "label": "Executor Runs Tool",
+              "note": "Your code: parse, call API, catch errors",
+              "emphasis": false
+            },
+            {
+              "label": "Tool Result Returned",
+              "note": "Tool message with matching tool_call_id",
+              "emphasis": false
+            },
+            {
+              "label": "Model Observes & Responds",
+              "note": "Incorporates result into final answer",
+              "emphasis": false
+            }
+          ]
+        },
+        {
+          "diagnosis": null,
+          "kind": "heading",
+          "text": "Common Interview Traps"
+        },
+        {
+          "diagnosis": "false-comprehension",
+          "kind": "list",
+          "ordered": false,
+          "items": [
+            "\"What happens if the model hallucinates a tool name?\" → You get a tool_calls entry for a function you didn't define. Return an error tool message: {\"role\": \"tool\", \"tool_call_id\": id, \"content\": \"Error: unknown function\"}. The model then recovers.",
+            "\"What if arguments fail schema validation?\" → With strict: true, this cannot happen. Without it, catch JSON parse errors and return a tool error message.",
+            "\"How do you handle a tool that takes 30 seconds?\" → Set a timeout. On timeout, return a tool message with error content. The model sees the failure and can retry or apologize.",
+            "\"Can the model call a tool, see the result, then call another?\" → Yes. That's multi-turn tool use. Each turn: model emits calls → you execute → you return results → model decides next step."
+          ]
+        },
+        {
+          "diagnosis": "false-comprehension",
+          "kind": "question",
+          "prompt": "The model emits a tool call with arguments {\"location\": \"Paris\", \"unit\": \"kelvin\"} but your schema only allows enum [\"celsius\", \"fahrenheit\"]. What happens with strict: true vs strict: false?",
+          "answer": "strict: true — the model physically cannot emit \"kelvin\"; constrained decoding blocks invalid tokens. strict: false — the model emits it, your JSON parser accepts it, your executor must validate and return an error tool message."
+        },
+        {
+          "diagnosis": "procedure-execution",
+          "kind": "question",
+          "prompt": "In a parallel call scenario, the model emits 3 tool_calls. Your second call fails (API timeout). How do you structure the tool messages for the next turn?",
+          "answer": "Return 3 tool messages with the same tool_call_ids. For the failed one, content is an error string like \"Error: timeout\". The model sees all three results simultaneously and decides how to proceed."
+        }
+      ]
+    },
+    {
+      "heading": "Structured Output / JSON Mode",
+      "eyebrow": null,
+      "heading_tail": null,
+      "blocks": [
+        {
+          "kind": "prose",
+          "text": "An agent is a loop: the model reasons, emits a structured action, the environment executes it, and the model observes the result. If the model emits free-form text, the downstream parser must guess where the action starts, what its name is, and what arguments it carries. That guesswork breaks autonomy — the loop stalls or executes the wrong thing. Structured output removes the guesswork by constraining the model to emit only valid JSON that conforms to a declared schema."
+        },
+        {
+          "kind": "prose",
+          "text": "There are two mechanisms. JSON mode (sometimes called response_format) tells the model: \"Your entire reply must be a single JSON object.\" It gives you syntactic validity but no semantic contract — the model can invent any keys it likes. Function calling (tool calling) goes further: you supply a JSON Schema for each tool, and the model must pick one tool (or several in parallel) and emit arguments that validate against that exact schema. The API returns a tool_calls array with name, id, and arguments already parsed. Frameworks such as LangGraph, CrewAI, and AutoGen build their entire orchestration on this contract: they register tools as schemas, invoke the model, receive validated tool_calls, execute them, and feed the results back as tool messages."
+        },
+        {
+          "diagnosis": "abstraction-grounding",
+          "kind": "code",
+          "language": "json",
+          "code": "// OpenAI function-calling request (simplified)\n{\n  \"model\": \"gpt-4o\",\n  \"messages\": [\n    {\"role\": \"system\", \"content\": \"You have access to tools.\"},\n    {\"role\": \"user\", \"content\": \"What's the weather in Tokyo?\"}\n  ],\n  \"tools\": [\n    {\n      \"type\": \"function\",\n      \"function\": {\n        \"name\": \"get_weather\",\n        \"description\": \"Get current weather for a location\",\n        \"parameters\": {\n          \"type\": \"object\",\n          \"properties\": {\n            \"location\": {\"type\": \"string\", \"description\": \"City name\"},\n            \"unit\": {\"type\": \"string\", \"enum\": [\"celsius\", \"fahrenheit\"]}\n          },\n          \"required\": [\"location\"],\n          \"additionalProperties\": false\n        },\n        \"strict\": true\n      }\n    }\n  ],\n  \"tool_choice\": \"auto\"\n}",
+          "caption": "Function-calling request: schema + strict=true guarantees the model emits only valid arguments."
+        },
+        {
+          "diagnosis": "abstraction-grounding",
+          "kind": "code",
+          "language": "json",
+          "code": "// Model response with tool_calls\n{\n  \"choices\": [{\n    \"message\": {\n      \"role\": \"assistant\",\n      \"tool_calls\": [{\n        \"id\": \"call_abc123\",\n        \"type\": \"function\",\n        \"function\": {\n          \"name\": \"get_weather\",\n          \"arguments\": \"{\\\"location\\\": \\\"Tokyo\\\", \\\"unit\\\": \\\"celsius\\\"}\"\n        }\n      }]\n    }\n  }]\n}",
+          "caption": "Model emits a tool_call with validated arguments (JSON string). The framework parses and executes."
+        },
+        {
+          "diagnosis": "cross-reference",
+          "kind": "table",
+          "caption": "JSON mode vs function calling — what each guarantees",
+          "headers": [
+            "Property",
+            "JSON Mode (response_format)",
+            "Function Calling (tool_calls)"
+          ],
+          "rows": [
+            [
+              "Output shape",
+              "Single JSON object",
+              "Array of tool_calls (each with name, id, arguments)"
+            ],
+            [
+              "Schema enforcement",
+              "None (model invents keys)",
+              "Strict: arguments must match declared JSON Schema"
+            ],
+            [
+              "Parallel calls",
+              "Not supported",
+              "Native: model can emit multiple tool_calls in one turn"
+            ],
+            [
+              "Strict JSON (no stray commas/comments)",
+              "Best effort",
+              "Guaranteed when strict=true"
+            ],
+            [
+              "Use case",
+              "One-off structured extraction",
+              "Agent tool use, multi-step loops"
+            ]
+          ]
+        },
+        {
+          "kind": "prose",
+          "text": "The strict flag (strict: true in the schema) is the linchpin. Without it, the model may emit trailing commas, comments, or keys not in the schema — valid JSON but invalid against your contract. With strict=true, the API pre-compiles the schema into a constrained grammar and forces the tokenizer to follow it. You get parseable output every time, which is what lets an agent loop run unattended."
+        },
+        {
+          "diagnosis": "false-comprehension",
+          "kind": "question",
+          "prompt": "A candidate says: \"I'll just use JSON mode and ask the model to output {\\\"tool\\\": \\\"get_weather\\\", \\\"args\\\": {...}} — same thing, right?\" Why is this wrong for an agent loop?",
+          "answer": "JSON mode has no schema enforcement — the model can rename keys, omit required fields, or add commentary. Function calling validates arguments against the declared schema at generation time (strict=true) and returns pre-parsed tool_calls. The framework cannot reliably dispatch a tool from free-form JSON."
+        }
+      ]
+    },
+    {
+      "heading": "Tool Use / Function Calling Pattern",
+      "eyebrow": null,
+      "heading_tail": null,
+      "blocks": [
+        {
+          "kind": "prose",
+          "text": "An agent differs from a plain LLM call or RAG pipeline in one structural way: it can *act* on the world through tools, observe the result, and decide what to do next. A plain LLM call produces text and stops. A RAG pipeline retrieves context, stuffs it into the prompt, and produces text. An agent closes the loop: reason → act → observe → reason again."
+        },
+        {
+          "diagnosis": "abstraction-grounding",
+          "kind": "heading",
+          "text": "The Single Tool-Use Step: Reason → Act → Observe"
+        },
+        {
+          "kind": "prose",
+          "text": "Every agent framework (LangGraph, CrewAI, AutoGen, OpenAI Assistants, Anthropic tool use) implements the same base pattern. One step consists of three phases:\n\n1. **Reason** — The model receives the conversation history (system prompt, user messages, prior tool results) and decides whether to call a tool, and if so, which one and with what arguments.\n2. **Act** — The framework executes the tool with those arguments. This is *your* code: a Python function, an HTTP request, a database query.\n3. **Observe** — The tool's return value (or error) is formatted as a tool-result message and appended to the conversation. The model now sees the outcome and reasons again."
+        },
+        {
+          "diagnosis": "procedure-execution",
+          "kind": "example",
+          "title": "Trace: User asks \"What's the weather in Tokyo?\"",
+          "steps": [
+            "[1] USER MESSAGE → conversation: [{\"role\": \"user\", \"content\": \"What's the weather in Tokyo?\"}]",
+            "[2] REASON → model sees conversation + tool schemas. It decides to call get_weather({\"city\": \"Tokyo\"}). Output: {\"tool_calls\": [{\"id\": \"call_abc123\", \"name\": \"get_weather\", \"arguments\": \"{\\\"city\\\": \\\"Tokyo\\\"}\"}]}",
+            "[3] ACT → framework parses tool_calls, invokes your Python function get_weather(city=\"Tokyo\"). Your code calls an API, returns {\"temp_c\": 18, \"condition\": \"cloudy\"}.",
+            "[4] OBSERVE → framework appends tool result message: {\"role\": \"tool\", \"tool_call_id\": \"call_abc123\", \"name\": \"get_weather\", \"content\": \"{\\\"temp_c\\\": 18, \\\"condition\\\": \\\"cloudy\\\"}\"}",
+            "[5] REASON (again) → model now sees the tool result. It produces final answer: \"It's 18°C and cloudy in Tokyo.\"",
+            "[6] FINAL → conversation ends with assistant message: {\"role\": \"assistant\", \"content\": \"It's 18°C and cloudy in Tokyo.\"}"
+          ]
+        },
+        {
+          "diagnosis": "abstraction-grounding",
+          "kind": "heading",
+          "text": "Function Calling API Contract"
+        },
+        {
+          "kind": "prose",
+          "text": "The contract between model and framework is defined by JSON Schema. You provide a list of tool *schemas*; the model promises to emit arguments that validate against those schemas. Three details matter for interviews:"
+        },
+        {
+          "diagnosis": "cross-reference",
+          "kind": "table",
+          "caption": "Function calling contract essentials",
+          "headers": [
+            "Aspect",
+            "What the model sees",
+            "What you must handle"
+          ],
+          "rows": [
+            [
+              "Schema",
+              "JSON Schema (Draft 2020-12 subset). Properties = parameters. Required array = mandatory args.",
+              "Define schemas precisely. Extra properties are rejected if `additionalProperties: false`."
+            ],
+            [
+              "Parallel calls",
+              "Model may emit multiple tool_calls in one response (e.g., get_weather for Tokyo AND Seoul).",
+              "Your framework must dispatch all calls, collect all results, append *all* tool messages before the next model turn."
+            ],
+            [
+              "Strict JSON / `strict: true`",
+              "OpenAI's `strict: true` forces the model to output only valid JSON matching the schema — no prose, no markdown fences.",
+              "If you don't use strict mode, you must parse defensively: strip markdown, handle trailing commas, recover from partial JSON."
+            ],
+            [
+              "Tool result format",
+              "A message with `role: \"tool\"`, `tool_call_id` (must match the call), `name`, and string `content`.",
+              "Serialize your return value to JSON string. Errors: return error info in content; the model decides how to proceed."
+            ],
+            [
+              "System prompt role",
+              "Describes *when* to use each tool, not *how*. The schema describes *how*.",
+              "Keep system prompt focused on policy (e.g., \"always verify user location before weather\")."
+            ]
+          ]
+        },
+        {
+          "diagnosis": "abstraction-grounding",
+          "kind": "heading",
+          "text": "Minimal Working Code (No Framework)"
+        },
+        {
+          "kind": "prose",
+          "text": "You can implement the loop in ~30 lines. This is what every framework wraps:"
+        },
+        {
+          "diagnosis": "abstraction-grounding",
+          "kind": "code",
+          "language": "python",
+          "code": "import json\nfrom openai import OpenAI\n\nclient = OpenAI()\n\ndef get_weather(city: str) -> dict:\n    # Your real implementation here\n    return {\"temp_c\": 18, \"condition\": \"cloudy\"}\n\ntools = [{\n    \"type\": \"function\",\n    \"function\": {\n        \"name\": \"get_weather\",\n        \"description\": \"Get current weather for a city\",\n        \"parameters\": {\n            \"type\": \"object\",\n            \"properties\": {\"city\": {\"type\": \"string\"}},\n            \"required\": [\"city\"],\n            \"additionalProperties\": False\n        },\n        \"strict\": True\n    }\n}]\n\nmessages = [\n    {\"role\": \"system\", \"content\": \"You have access to get_weather. Use it when users ask for weather.\"},\n    {\"role\": \"user\", \"content\": \"What's the weather in Tokyo?\"}\n]\n\n# 1. REASON\nresponse = client.chat.completions.create(\n    model=\"gpt-4o-mini\",\n    messages=messages,\n    tools=tools,\n    tool_choice=\"auto\"\n)\nmsg = response.choices[0].message\nmessages.append(msg.model_dump())\n\n# 2. ACT (if tool calls exist)\nif msg.tool_calls:\n    for tc in msg.tool_calls:\n        args = json.loads(tc.function.arguments)\n        result = get_weather(**args)\n        # 3. OBSERVE\n        messages.append({\n            \"role\": \"tool\",\n            \"tool_call_id\": tc.id,\n            \"name\": tc.function.name,\n            \"content\": json.dumps(result)\n        })\n    # 4. REASON again → final answer\n    final = client.chat.completions.create(\n        model=\"gpt-4o-mini\",\n        messages=messages,\n        tools=tools\n    )\n    print(final.choices[0].message.content)  # \"It's 18°C and cloudy in Tokyo.\"",
+          "caption": "Single-step tool-use loop (OpenAI-compatible)"
+        },
+        {
+          "diagnosis": "false-comprehension",
+          "kind": "question",
+          "prompt": "The model returns a tool_calls array with two entries: get_weather({\"city\": \"Tokyo\"}) and get_weather({\"city\": \"Seoul\"). Your code executes both. How many tool-result messages must you append before the next model call?",
+          "answer": "Two. Each tool_call has a unique `tool_call_id`. You must append one tool-result message per call, each carrying its matching `tool_call_id`. The model expects to see *all* results before it reasons again."
+        },
+        {
+          "diagnosis": "abstraction-grounding",
+          "kind": "callout",
+          "tone": "note",
+          "label": "INTERVIEW TIP",
+          "title": null,
+          "text": "Interviewers often ask: \"What happens if the model calls a tool that doesn't exist?\" Answer: The framework should catch the unknown tool name, return an error tool-result (e.g., `{\"error\": \"unknown tool: foo\"}`), and let the model recover. Never crash the loop."
+        }
+      ]
+    }
+  ],
+  "deliberate_omissions": []
+}

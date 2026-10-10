@@ -1,0 +1,115 @@
+[project]
+name = "mynotes-v2"
+version = "0.1.0"
+requires-python = ">=3.12"
+description = "MyNotes V2 — built from the frozen design in design/frozen/"
+
+# Five packages, five import boundaries, enforced by tests/test_boundaries.py rather
+# than by convention. Dependencies are listed against the ONE package allowed to use
+# them, because that comment is the first thing a reviewer checks.
+#
+# Upper bounds are deliberate. A lockfile pins the exact resolution; these bounds say
+# which major version the code was written against, so a bump is a decision rather
+# than a surprise.
+dependencies = [
+    "pydantic>=2.9,<3",            # core/types — closed vocabularies, discriminated unions
+    "pydantic-settings>=2.5,<3",   # config.py — validated at startup, fails fast
+    "fastapi>=0.115,<1",           # backend/api only
+    "uvicorn[standard]>=0.30,<1",  # backend/app only
+    "psycopg[binary,pool]>=3.2,<4",# backend/store/pg only
+    "httpx>=0.27,<1",              # backend/gateway ONLY — the single path to a provider
+    "jinja2>=3.1,<4",              # engine/merge only
+    "playwright>=1.47,<2",         # engine/print only
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3,<9",
+    "pytest-asyncio>=0.24,<1",
+    "pytest-cov>=5,<7",
+    "ruff>=0.7,<1",
+    "pyright>=1.1.385,<2",
+]
+
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["core", "ports", "agent", "engine", "backend", "obs"]
+
+# ── tests ─────────────────────────────────────────────────────────────────────────
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-q --strict-markers --strict-config"
+# A warning in this codebase is a defect: Pydantic deprecations and asyncio
+# "coroutine was never awaited" are both things we want to fail on, not scroll past.
+filterwarnings = ["error"]
+markers = [
+    "slow: needs a browser or a provider",
+    "db: needs a real Postgres (CI provides one; locally `make db`)",
+]
+asyncio_mode = "auto"
+
+[tool.coverage.run]
+source = ["core", "ports", "agent", "engine", "backend", "obs"]
+omit = ["*/__init__.py"]
+
+# ── lint + format ─────────────────────────────────────────────────────────────────
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+extend-exclude = ["design"]          # frozen documents and recorded runs, not source
+
+[tool.ruff.lint]
+select = [
+    "E", "W",      # pycodestyle
+    "F",           # pyflakes
+    "I",           # import sorting
+    "N",           # naming
+    "UP",          # pyupgrade
+    "B",           # bugbear
+    "A",           # builtin shadowing
+    "C4",          # comprehensions
+    "DTZ",         # naive datetimes — the Clock port exists for a reason
+    "T20",         # print() outside the places that are allowed it
+    "PT",          # pytest style
+    "RET",         # return simplification
+    "SIM",         # simplification
+    "ARG",         # unused arguments
+    "PTH",         # pathlib over os.path
+    "ERA",         # commented-out code
+    "PL",          # pylint subset
+    "RUF",
+]
+ignore = [
+    "PLR0913",     # many arguments — MODEL_CALL legitimately has several
+    "PLR2004",     # magic values — measured constants read better inline with a comment
+]
+
+[tool.ruff.lint.per-file-ignores]
+# The banner and the structured logger are the two places stdout is the product.
+"backend/app.py" = ["T20"]
+"obs/log.py" = ["T20"]
+# Tests assert on internals and use fixtures that look like unused arguments.
+"tests/**" = ["ARG", "PLR2004", "S101"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["core", "ports", "agent", "engine", "backend", "obs", "config"]
+
+# ── types ─────────────────────────────────────────────────────────────────────────
+
+# Strict. The design's central claim is that relationships between judgments are
+# explicit and checkable; a codebase making that claim with unchecked types is
+# arguing against itself.
+[tool.pyright]
+include = ["core", "ports", "agent", "engine", "backend", "obs", "config.py", "tests"]
+exclude = ["design", "**/__pycache__"]
+pythonVersion = "3.12"
+typeCheckingMode = "strict"
+reportMissingTypeStubs = false        # psycopg/playwright ship partial stubs
+reportPrivateUsage = "warning"
+reportUnnecessaryTypeIgnoreComment = "error"

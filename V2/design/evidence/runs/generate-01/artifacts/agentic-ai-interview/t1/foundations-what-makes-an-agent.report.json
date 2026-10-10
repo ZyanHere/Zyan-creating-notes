@@ -1,0 +1,370 @@
+{
+  "request": "i need agentic ai notes for interview, from scratch",
+  "title": "Foundations: What Makes an Agent",
+  "prompt_version": "unit_v1",
+  "model": "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free",
+  "pairs": [
+    [
+      "cross-reference",
+      "table",
+      "",
+      ""
+    ],
+    [
+      "topology",
+      "relation",
+      "precedes",
+      "numbered-steps"
+    ],
+    [
+      "false-comprehension",
+      "question",
+      "",
+      ""
+    ],
+    [
+      "cross-reference",
+      "chips",
+      "",
+      ""
+    ],
+    [
+      "cross-reference",
+      "relation",
+      "associates-with",
+      "undirected-cluster"
+    ],
+    [
+      "abstraction-grounding",
+      "example",
+      "",
+      ""
+    ],
+    [
+      "false-comprehension",
+      "question",
+      "",
+      ""
+    ],
+    [
+      "abstraction-grounding",
+      "code",
+      "",
+      ""
+    ],
+    [
+      "abstraction-grounding",
+      "code",
+      "",
+      ""
+    ],
+    [
+      "abstraction-grounding",
+      "code",
+      "",
+      ""
+    ],
+    [
+      "false-comprehension",
+      "list",
+      "",
+      ""
+    ],
+    [
+      "procedure-execution",
+      "code",
+      "",
+      ""
+    ],
+    [
+      "cross-reference",
+      "table",
+      "",
+      ""
+    ],
+    [
+      "procedure-execution",
+      "example",
+      "",
+      ""
+    ],
+    [
+      "topology",
+      "relation",
+      "precedes",
+      "numbered-steps"
+    ],
+    [
+      "false-comprehension",
+      "list",
+      "",
+      ""
+    ],
+    [
+      "false-comprehension",
+      "question",
+      "",
+      ""
+    ],
+    [
+      "procedure-execution",
+      "question",
+      "",
+      ""
+    ],
+    [
+      "abstraction-grounding",
+      "code",
+      "",
+      ""
+    ],
+    [
+      "abstraction-grounding",
+      "code",
+      "",
+      ""
+    ],
+    [
+      "cross-reference",
+      "table",
+      "",
+      ""
+    ],
+    [
+      "false-comprehension",
+      "question",
+      "",
+      ""
+    ],
+    [
+      "abstraction-grounding",
+      "heading",
+      "",
+      ""
+    ],
+    [
+      "procedure-execution",
+      "example",
+      "",
+      ""
+    ],
+    [
+      "abstraction-grounding",
+      "heading",
+      "",
+      ""
+    ],
+    [
+      "cross-reference",
+      "table",
+      "",
+      ""
+    ],
+    [
+      "abstraction-grounding",
+      "heading",
+      "",
+      ""
+    ],
+    [
+      "abstraction-grounding",
+      "code",
+      "",
+      ""
+    ],
+    [
+      "false-comprehension",
+      "question",
+      "",
+      ""
+    ],
+    [
+      "abstraction-grounding",
+      "callout",
+      "",
+      ""
+    ]
+  ],
+  "undiagnosed": 6,
+  "unlisted": [],
+  "unrendered": [],
+  "stated_gaps": [],
+  "calls": 5,
+  "repairs": 0,
+  "fulfilment": {
+    "satisfied": true,
+    "coverage": 1.0,
+    "units_approved": [
+      "Agent Definition & Agency",
+      "LLM as Reasoning Engine",
+      "Function Calling / Tool Calling API",
+      "Structured Output / JSON Mode",
+      "Tool Use / Function Calling Pattern"
+    ],
+    "units_generated": [
+      "Agent Definition & Agency",
+      "LLM as Reasoning Engine",
+      "Function Calling / Tool Calling API",
+      "Structured Output / JSON Mode",
+      "Tool Use / Function Calling Pattern"
+    ],
+    "units_missing": [],
+    "concepts_required": [
+      "Agent Definition & Agency",
+      "LLM as Reasoning Engine",
+      "Function Calling / Tool Calling API",
+      "Structured Output / JSON Mode",
+      "Tool Use / Function Calling Pattern"
+    ],
+    "concepts_covered": [
+      "Agent Definition & Agency",
+      "Function Calling / Tool Calling API",
+      "LLM as Reasoning Engine",
+      "Structured Output / JSON Mode",
+      "Tool Use / Function Calling Pattern"
+    ],
+    "concepts_missing": [],
+    "changed": [],
+    "problems": [],
+    "units": [
+      {
+        "heading": "Agent Definition & Agency",
+        "generated": true,
+        "satisfied": true,
+        "concepts_required": [
+          "Agent Definition & Agency"
+        ],
+        "concepts_covered": [
+          "Agent Definition & Agency"
+        ],
+        "concepts_missing": [],
+        "treatments_anticipated": [
+          "false-comprehension"
+        ],
+        "treatments_produced": [
+          "cross-reference",
+          "false-comprehension",
+          "topology"
+        ],
+        "depths_required": [
+          "explain"
+        ],
+        "blocks": 8,
+        "departures": 4,
+        "words": 526,
+        "notes": []
+      },
+      {
+        "heading": "LLM as Reasoning Engine",
+        "generated": true,
+        "satisfied": true,
+        "concepts_required": [
+          "LLM as Reasoning Engine"
+        ],
+        "concepts_covered": [
+          "LLM as Reasoning Engine"
+        ],
+        "concepts_missing": [],
+        "treatments_anticipated": [
+          "abstraction-grounding"
+        ],
+        "treatments_produced": [
+          "abstraction-grounding",
+          "cross-reference",
+          "false-comprehension"
+        ],
+        "depths_required": [
+          "explain"
+        ],
+        "blocks": 5,
+        "departures": 3,
+        "words": 297,
+        "notes": []
+      },
+      {
+        "heading": "Function Calling / Tool Calling API",
+        "generated": true,
+        "satisfied": true,
+        "concepts_required": [
+          "Function Calling / Tool Calling API"
+        ],
+        "concepts_covered": [
+          "Function Calling / Tool Calling API"
+        ],
+        "concepts_missing": [],
+        "treatments_anticipated": [
+          "procedure-execution"
+        ],
+        "treatments_produced": [
+          "abstraction-grounding",
+          "cross-reference",
+          "false-comprehension",
+          "procedure-execution",
+          "topology"
+        ],
+        "depths_required": [
+          "work through"
+        ],
+        "blocks": 22,
+        "departures": 17,
+        "words": 1213,
+        "notes": []
+      },
+      {
+        "heading": "Structured Output / JSON Mode",
+        "generated": true,
+        "satisfied": true,
+        "concepts_required": [
+          "Structured Output / JSON Mode"
+        ],
+        "concepts_covered": [
+          "Structured Output / JSON Mode"
+        ],
+        "concepts_missing": [],
+        "treatments_anticipated": [],
+        "treatments_produced": [
+          "abstraction-grounding",
+          "cross-reference",
+          "false-comprehension"
+        ],
+        "depths_required": [
+          "explain"
+        ],
+        "blocks": 7,
+        "departures": 4,
+        "words": 560,
+        "notes": []
+      },
+      {
+        "heading": "Tool Use / Function Calling Pattern",
+        "generated": true,
+        "satisfied": true,
+        "concepts_required": [
+          "Tool Use / Function Calling Pattern"
+        ],
+        "concepts_covered": [
+          "Tool Use / Function Calling Pattern"
+        ],
+        "concepts_missing": [],
+        "treatments_anticipated": [
+          "procedure-execution"
+        ],
+        "treatments_produced": [
+          "abstraction-grounding",
+          "cross-reference",
+          "false-comprehension",
+          "procedure-execution"
+        ],
+        "depths_required": [
+          "work through"
+        ],
+        "blocks": 12,
+        "departures": 8,
+        "words": 881,
+        "notes": []
+      }
+    ]
+  },
+  "scale": 1.0,
+  "template": "study-notes"
+}

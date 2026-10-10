@@ -1,0 +1,876 @@
+{
+  "project": {
+    "id": "55c87fb8-9760-4814-8ce8-3fc85456a46c",
+    "user_id": "local",
+    "title": "i need to study the indian contract act 1872 for my law semester, section wise",
+    "taxonomy_version": "plan-gate-1",
+    "created_at": "2026-09-25T16:45:40+00:00"
+  },
+  "utterance": [
+    {
+      "id": "5e751454-886d-4323-ae1c-38f363c0700b",
+      "project_id": "55c87fb8-9760-4814-8ce8-3fc85456a46c",
+      "ord": 0,
+      "role": "user",
+      "text": "i need to study the indian contract act 1872 for my law semester, section wise",
+      "created_at": "2026-09-25T16:45:40+00:00"
+    },
+    {
+      "id": "bf1bf256-5cb2-416d-97d7-b83089dba274",
+      "project_id": "55c87fb8-9760-4814-8ce8-3fc85456a46c",
+      "ord": 1,
+      "role": "user",
+      "text": "the ordering should follow the act's own sections, not your grouping",
+      "created_at": "2026-09-25T17:03:10+00:00"
+    }
+  ],
+  "decision": [
+    {
+      "id": "c7574ffc4b38422a9ba12885c13dc810",
+      "project_id": "55c87fb8-9760-4814-8ce8-3fc85456a46c",
+      "kind": "interpret_situation",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "26e026a3d8e432727da286d5c950e3f4",
+      "output": {
+        "subject": "Indian Contract Act 1872",
+        "job": "construct",
+        "entry_point": "law student with basic legal vocabulary, no prior contract law assumed",
+        "purpose": "pass semester examination on the Indian Contract Act 1872",
+        "target_capability": "recite, explain, and apply each section of the Act in exam answers",
+        "capacity": null,
+        "stated": [
+          {
+            "text": "indian contract act 1872",
+            "axis": "subject"
+          },
+          {
+            "text": "for my law semester",
+            "axis": "purpose"
+          },
+          {
+            "text": "section wise",
+            "axis": "depth_register"
+          }
+        ],
+        "inferred": [
+          "entry_point: first-time contract law learner",
+          "target_capability: section-level recall and application for written exams",
+          "artifact_type: structured section-wise study notes",
+          "template: none specified"
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "interpret_v1",
+      "cost": {
+        "in": 3164,
+        "out": 1480
+      },
+      "created_at": "2026-09-25T16:46:14+00:00"
+    },
+    {
+      "id": "194740e5914a4bc59836a16a8389b70c",
+      "project_id": "55c87fb8-9760-4814-8ce8-3fc85456a46c",
+      "kind": "intake_strategy",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "a662612faba46e3c3158eb978c528ac3",
+      "output": {
+        "questions": [],
+        "sufficiency": {
+          "verdict": "sufficient",
+          "budget": 4,
+          "asking": [],
+          "over_budget": [],
+          "axes": [
+            {
+              "axis": "subject",
+              "value": "Indian Contract Act 1872",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "indian contract act 1872"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "A different statute (e.g. Sale of Goods Act) would produce an entirely different concept map and section list.",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "purpose",
+              "value": "law semester examination preparation",
+              "strength": "stated",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "for my law semester"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If for practice (e.g. drafting contracts), the plan would prioritise operative sections and clause templates over definitional and procedural ones.",
+              "askable": true,
+              "asked": false,
+              "reason": "the user said so"
+            },
+            {
+              "axis": "entry_point",
+              "value": "law student with basic legal vocabulary, no prior contract law assumed",
+              "strength": "inferred",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "for my law semester"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "A practising lawyer would need only controversial/updated sections; a first-year student needs every section with illustrations and case law.",
+              "askable": true,
+              "asked": false,
+              "reason": "inferred, supported by 'for my law semester'"
+            },
+            {
+              "axis": "target_capability",
+              "value": "recite, explain, and apply each section of the Act in exam answers",
+              "strength": "inferred",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "section wise"
+                },
+                {
+                  "utterance_ord": 0,
+                  "quote": "for my law semester"
+                }
+              ],
+              "unverified": [],
+              "material": true,
+              "would_differ": "If the goal were quick revision, only high-yield sections and mnemonics would be covered; section-wise implies exhaustive coverage.",
+              "askable": true,
+              "asked": false,
+              "reason": "inferred, supported by 'section wise' · 'for my law semester'"
+            },
+            {
+              "axis": "capacity",
+              "value": null,
+              "strength": "unknown",
+              "verified": [],
+              "unverified": [],
+              "material": true,
+              "would_differ": "A stated week vs. a semester would flip the partition from exhaustive to high-yield only.",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Semantics §1 LOCKED — optional, and the corollary: deriving the plan and reporting its extent is what CAUSES a capacity to be stated. Asking upfront asks for a number the learner cannot honestly give."
+            },
+            {
+              "axis": "depth_register",
+              "value": "section-level detail with illustrations and key case law per section",
+              "strength": "guessed",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "section wise"
+                }
+              ],
+              "unverified": [],
+              "material": false,
+              "would_differ": "A 'bare act only' reading would omit illustrations and cases; a 'commentary' depth would add academic commentary per section.",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Semantics §1 — biasing, not binding. A default is always defensible."
+            },
+            {
+              "axis": "artifact_type",
+              "value": "structured section-wise study notes",
+              "strength": "inferred",
+              "verified": [
+                {
+                  "utterance_ord": 0,
+                  "quote": "study"
+                },
+                {
+                  "utterance_ord": 0,
+                  "quote": "section wise"
+                }
+              ],
+              "unverified": [],
+              "material": false,
+              "would_differ": "If 'flashcards', the output would be Q/A pairs per section; if 'bare act with index', it would be the statute text only.",
+              "askable": true,
+              "asked": false,
+              "reason": "inferred, supported by 'study' · 'section wise'"
+            },
+            {
+              "axis": "template",
+              "value": null,
+              "strength": "unknown",
+              "verified": [],
+              "unverified": [],
+              "material": false,
+              "would_differ": "A university-prescribed template would fix headings and order; none stated means the system chooses a logical section-wise template.",
+              "askable": false,
+              "asked": false,
+              "reason": "never asked — Presentation-Boundary rule 1 — internal. Users never select one."
+            }
+          ]
+        }
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "interpret_v1",
+      "cost": {
+        "in": 3164,
+        "out": 1480
+      },
+      "created_at": "2026-09-25T16:46:14+00:00"
+    },
+    {
+      "id": "84065aa3261c4375865302b4df34fa97",
+      "project_id": "55c87fb8-9760-4814-8ce8-3fc85456a46c",
+      "kind": "derive_structure",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "f9ccf117f07ec2b8726e9ec448dd667c",
+      "output": {
+        "concepts": [
+          {
+            "name": "Preliminary & Definitions",
+            "built_from": [],
+            "family": "foundational framework"
+          },
+          {
+            "name": "Communication, Acceptance & Revocation of Proposals",
+            "built_from": [
+              "Preliminary & Definitions"
+            ],
+            "family": "core mechanism"
+          },
+          {
+            "name": "Essential Elements of a Valid Contract",
+            "built_from": [
+              "Preliminary & Definitions"
+            ],
+            "family": "core mechanism"
+          },
+          {
+            "name": "Capacity to Contract",
+            "built_from": [
+              "Essential Elements of a Valid Contract"
+            ],
+            "family": "core mechanism"
+          },
+          {
+            "name": "Free Consent — Coercion",
+            "built_from": [
+              "Essential Elements of a Valid Contract"
+            ],
+            "family": "vitiating factor"
+          },
+          {
+            "name": "Free Consent — Undue Influence",
+            "built_from": [
+              "Essential Elements of a Valid Contract"
+            ],
+            "family": "vitiating factor"
+          },
+          {
+            "name": "Free Consent — Fraud",
+            "built_from": [
+              "Essential Elements of a Valid Contract"
+            ],
+            "family": "vitiating factor"
+          },
+          {
+            "name": "Free Consent — Misrepresentation",
+            "built_from": [
+              "Essential Elements of a Valid Contract"
+            ],
+            "family": "vitiating factor"
+          },
+          {
+            "name": "Free Consent — Mistake",
+            "built_from": [
+              "Essential Elements of a Valid Contract"
+            ],
+            "family": "vitiating factor"
+          },
+          {
+            "name": "Lawful Consideration & Object",
+            "built_from": [
+              "Essential Elements of a Valid Contract"
+            ],
+            "family": "core mechanism"
+          },
+          {
+            "name": "Void Agreements — Restraint of Marriage, Trade, Legal Proceedings",
+            "built_from": [
+              "Lawful Consideration & Object"
+            ],
+            "family": "void category"
+          },
+          {
+            "name": "Void Agreements — Uncertain & Wagering Agreements",
+            "built_from": [
+              "Lawful Consideration & Object"
+            ],
+            "family": "void category"
+          },
+          {
+            "name": "Contingent Contracts",
+            "built_from": [
+              "Essential Elements of a Valid Contract"
+            ],
+            "family": "special contract type"
+          },
+          {
+            "name": "Performance of Contracts",
+            "built_from": [
+              "Essential Elements of a Valid Contract"
+            ],
+            "family": "core mechanism"
+          },
+          {
+            "name": "Discharge by Breach & Remedies",
+            "built_from": [
+              "Performance of Contracts"
+            ],
+            "family": "remedial framework"
+          },
+          {
+            "name": "Quasi-Contracts (Relations Resembling Contract)",
+            "built_from": [
+              "Preliminary & Definitions"
+            ],
+            "family": "statutory obligation"
+          },
+          {
+            "name": "Contract of Indemnity",
+            "built_from": [
+              "Preliminary & Definitions"
+            ],
+            "family": "special contract"
+          },
+          {
+            "name": "Contract of Guarantee",
+            "built_from": [
+              "Contract of Indemnity"
+            ],
+            "family": "special contract"
+          },
+          {
+            "name": "Rights & Discharge of Surety",
+            "built_from": [
+              "Contract of Guarantee"
+            ],
+            "family": "special contract"
+          },
+          {
+            "name": "Bailment — General Duties & Rights",
+            "built_from": [
+              "Preliminary & Definitions"
+            ],
+            "family": "special contract"
+          },
+          {
+            "name": "Bailment — Pledge & Lien",
+            "built_from": [
+              "Bailment — General Duties & Rights"
+            ],
+            "family": "special contract"
+          },
+          {
+            "name": "Agency — Creation & Authority",
+            "built_from": [
+              "Preliminary & Definitions"
+            ],
+            "family": "special contract"
+          },
+          {
+            "name": "Agency — Sub-Agent, Ratification & Termination",
+            "built_from": [
+              "Agency — Creation & Authority"
+            ],
+            "family": "special contract"
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "derive_v1",
+      "cost": {
+        "in": 1483,
+        "out": 3467
+      },
+      "created_at": "2026-09-25T16:55:37+00:00"
+    },
+    {
+      "id": "7f95bd4390004988bb73452b8b690502",
+      "project_id": "55c87fb8-9760-4814-8ce8-3fc85456a46c",
+      "kind": "relevance",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "99dad6b9636d0ad5da8436ce74eb0eb3",
+      "output": {
+        "judgements": [
+          {
+            "concept": "Preliminary & Definitions",
+            "in_play": true,
+            "why": "Sections 1-2 provide the short title, extent, and interpretation clauses (Section 2 definitions) that are the vocabulary for every answer; exam questions routinely test definition recall and application."
+          },
+          {
+            "concept": "Communication, Acceptance & Revocation of Proposals",
+            "in_play": true,
+            "why": "Sections 3-9 are the mechanics of offer and acceptance — a staple problem question and short-note topic in every semester exam."
+          },
+          {
+            "concept": "Essential Elements of a Valid Contract",
+            "in_play": true,
+            "why": "Section 10 is the gateway provision; every exam requires stating and explaining 'all agreements are contracts if...' with its ingredients."
+          },
+          {
+            "concept": "Capacity to Contract",
+            "in_play": true,
+            "why": "Sections 11-12 (minor, unsound mind, disqualified persons) are high-yield: minority agreements, ratification, and estoppel are tested every year."
+          },
+          {
+            "concept": "Free Consent — Coercion",
+            "in_play": true,
+            "why": "Section 15 with Section 19 (voidable at option) is a standard problem-fact pattern involving threat or detention of property."
+          },
+          {
+            "concept": "Free Consent — Undue Influence",
+            "in_play": true,
+            "why": "Section 16 (presumed relationships, burden of proof) plus Section 19A (set aside or set aside on terms) is a favourite essay and problem topic."
+          },
+          {
+            "concept": "Free Consent — Fraud",
+            "in_play": true,
+            "why": "Section 17 read with Section 19 (voidable, silence not fraud unless duty to speak) is examinable both as short note and application."
+          },
+          {
+            "concept": "Free Consent — Misrepresentation",
+            "in_play": true,
+            "why": "Sections 18-19 (innocent misrepresentation, remedy of rescission/damages) are distinct from fraud and tested for differentiation."
+          },
+          {
+            "concept": "Free Consent — Mistake",
+            "in_play": true,
+            "why": "Sections 20-22 (bilateral/unilateral mistake of fact vs law, identity vs quality) are a classic exam area for void vs voidable distinction."
+          },
+          {
+            "concept": "Lawful Consideration & Object",
+            "in_play": true,
+            "why": "Sections 23-25 define lawful consideration/object and exceptions (natural love, past voluntary service, time-barred debt) — direct short-note and application material."
+          },
+          {
+            "concept": "Void Agreements — Restraint of Marriage, Trade, Legal Proceedings",
+            "in_play": true,
+            "why": "Sections 26-28 are per se void categories; reasonable restraint exceptions (sale of goodwill, partnership) are standard exam questions."
+          },
+          {
+            "concept": "Void Agreements — Uncertain & Wagering Agreements",
+            "in_play": true,
+            "why": "Sections 29-30 (uncertainty, wagering exception for horse-race prizes) are short-note staples and appear in MCQs."
+          },
+          {
+            "concept": "Contingent Contracts",
+            "in_play": true,
+            "why": "Sections 31-36 (condition precedent/subsequent, future uncertain event) are a distinct chapter tested via problem questions on insurance-type facts."
+          },
+          {
+            "concept": "Performance of Contracts",
+            "in_play": true,
+            "why": "Sections 37-67 (tender, reciprocal promises, time/place, appropriation, novation/rescission/alteration) form the largest operative chapter — heavy application problems every exam."
+          },
+          {
+            "concept": "Discharge by Breach & Remedies",
+            "in_play": true,
+            "why": "Sections 73-75 (compensation, remoteness Hadley v Baxendale, specific performance/injunction under Specific Relief Act cross-reference) are the remedies climax of the syllabus."
+          },
+          {
+            "concept": "Quasi-Contracts (Relations Resembling Contract)",
+            "in_play": true,
+            "why": "Sections 68-72 (necessaries, reimbursement, non-gratuitous act, finder of goods, mistake/coercion) are a self-contained chapter with direct problem questions."
+          },
+          {
+            "concept": "Contract of Indemnity",
+            "in_play": true,
+            "why": "Sections 124-125 (definition, indemnity-holder's rights) are short but tested for distinction from guarantee and for rights enumeration."
+          },
+          {
+            "concept": "Contract of Guarantee",
+            "in_play": true,
+            "why": "Sections 126-147 (continuing guarantee, consideration, surety's liability co-extensive) are a major special-contract chapter with multi-part problems."
+          },
+          {
+            "concept": "Rights & Discharge of Surety",
+            "in_play": true,
+            "why": "Sections 133-147 (variance, release, composition, creditor's act impairing remedy, set-off) are the most heavily tested sub-topic within guarantee."
+          },
+          {
+            "concept": "Bailment — General Duties & Rights",
+            "in_play": true,
+            "why": "Sections 148-171 (gratuitous/non-gratuitous, standard of care, unauthorized use, mixture, termination, finder of goods) are a full problem-question chapter."
+          },
+          {
+            "concept": "Bailment — Pledge & Lien",
+            "in_play": true,
+            "why": "Sections 172-181 (pledge by non-owner, pawnee's rights, lien — particular/general) are tested both as short notes and in secured-transaction problems."
+          },
+          {
+            "concept": "Agency — Creation & Authority",
+            "in_play": true,
+            "why": "Sections 182-210 (express/implied, ostensible, ratification, emergency authority) are the foundation of the longest chapter; creation and scope of authority are exam constants."
+          },
+          {
+            "concept": "Agency — Sub-Agent, Ratification & Termination",
+            "in_play": true,
+            "why": "Sections 211-238 (sub-agent, substituted agent, ratification requisites, termination by act/operation of law, irrevocable agency) complete the agency chapter and are heavily tested."
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "derive_v1",
+      "cost": {
+        "in": 1483,
+        "out": 3467
+      },
+      "created_at": "2026-09-25T16:55:37+00:00"
+    },
+    {
+      "id": "7856d357dd20406598383415e45b0f76",
+      "project_id": "55c87fb8-9760-4814-8ce8-3fc85456a46c",
+      "kind": "traversal",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "3652bb937020c8d97c09b2a26a4c358e",
+      "output": {
+        "sequence": [
+          "Contract Formation: Offer, Acceptance & Essential Elements",
+          "Vitiating Factors: Free Consent",
+          "Legality of Object & Consideration, and Void Agreements",
+          "Contingent Contracts",
+          "Performance, Discharge & Remedies",
+          "Quasi-Contracts (Relations Resembling Contract)",
+          "Indemnity & Guarantee",
+          "Bailment & Pledge",
+          "Agency"
+        ],
+        "why": "Follows the Act's logical architecture: formation prerequisites first, then vitiating factors that attack formation, then legality filters, then special contract types (contingent), then the operative life of a contract (performance, discharge, remedies), then statutory obligations (quasi-contracts), and finally the three named special contracts (indemnity/guarantee, bailment/pledge, agency) which build on the general principles."
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 6031,
+        "out": 6781
+      },
+      "created_at": "2026-09-25T17:03:10+00:00"
+    },
+    {
+      "id": "3646053d9859484da7aaef6788a88e60",
+      "project_id": "55c87fb8-9760-4814-8ce8-3fc85456a46c",
+      "kind": "consequence",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "ee3a15e2444091235ef1df027d682cb5",
+      "output": {
+        "exclusions": [
+          {
+            "topic": "Judicial precedents interpreting each section",
+            "consequence": "Exam answers will state rules correctly but lack illustrative authority, losing marks for 'application' and 'analysis' bands in essay questions and reducing persuasiveness in problem answers.",
+            "when_to_learn": "During revision, after mastering the bare sections; prioritize leading cases (e.g., Carlill, Hadley v Baxendale, Mohori Bibee, Satyabrata Ghose) for each chapter."
+          },
+          {
+            "topic": "Interplay with Specific Relief Act, 1963 (specific performance, injunction, rescission)",
+            "consequence": "Remedies answers under Section 73-75 will be incomplete; the court's discretionary remedies and bars to specific performance are frequently tested alongside damages.",
+            "when_to_learn": "Alongside Module 5 (Performance, Discharge & Remedies) or in a dedicated remedies seminar."
+          },
+          {
+            "topic": "Electronic contracts and Information Technology Act, 2000 amendments (Sections 10A, 4, 10, 11 ITA)",
+            "consequence": "Cannot address modern formation issues (clickwrap, email acceptance, automated systems) that appear in contemporary problem questions.",
+            "when_to_learn": "After Module 1, when studying communication and acceptance; or in a specialised e-commerce law course."
+          },
+          {
+            "topic": "Government contracts and Article 299 Constitution of India",
+            "consequence": "Will miss the distinct formalities and immunity issues that arise when the State is a party — a common separate question in semester papers.",
+            "when_to_learn": "In administrative law or a dedicated government contracts module."
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 6031,
+        "out": 6781
+      },
+      "created_at": "2026-09-25T17:03:10+00:00"
+    },
+    {
+      "id": "5374d18d109f47c79923005d9c18c6d3",
+      "project_id": "55c87fb8-9760-4814-8ce8-3fc85456a46c",
+      "kind": "scope",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "0f6c4afcf0df8bee87b6d3b38e52284d",
+      "output": {
+        "covered": [
+          {
+            "concept": "Preliminary & Definitions",
+            "depth": "explain",
+            "why": "Provides the statutory vocabulary (Section 2) used in every answer; definitions are tested for recall and as the first step in any application.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Communication, Acceptance & Revocation of Proposals",
+            "depth": "work through",
+            "why": "Core mechanics of offer and acceptance (Sections 3-9) — students must trace communication, revocation, and acceptance timelines in problem facts.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Essential Elements of a Valid Contract",
+            "depth": "work through",
+            "why": "Section 10 is the gateway provision; every exam requires enumerating and applying each ingredient to a fact pattern.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Capacity to Contract",
+            "depth": "work through",
+            "why": "Sections 11-12 (minor, unsound mind, disqualified persons) generate high-yield problems on minority agreements, ratification, and estoppel.",
+            "anticipates": "false-comprehension"
+          },
+          {
+            "concept": "Free Consent — Coercion",
+            "depth": "work through",
+            "why": "Section 15 with Section 19 (voidable at option) is a standard problem pattern involving threat or detention of property.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Free Consent — Undue Influence",
+            "depth": "work through",
+            "why": "Section 16 (presumed relationships, burden of proof) plus Section 19A (set aside or set aside on terms) is a favourite essay and problem topic.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Free Consent — Fraud",
+            "depth": "work through",
+            "why": "Section 17 read with Section 19 (voidable, silence not fraud unless duty to speak) is examinable both as short note and application.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Free Consent — Misrepresentation",
+            "depth": "work through",
+            "why": "Sections 18-19 (innocent misrepresentation, remedy of rescission/damages) are distinct from fraud and tested for differentiation.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Free Consent — Mistake",
+            "depth": "work through",
+            "why": "Sections 20-22 (bilateral/unilateral mistake of fact vs law, identity vs quality) are a classic exam area for void vs voidable distinction.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Lawful Consideration & Object",
+            "depth": "work through",
+            "why": "Sections 23-25 define lawful consideration/object and exceptions (natural love, past voluntary service, time-barred debt) — direct short-note and application material.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Void Agreements — Restraint of Marriage, Trade, Legal Proceedings",
+            "depth": "work through",
+            "why": "Sections 26-28 are per se void categories; reasonable restraint exceptions (sale of goodwill, partnership) are standard exam questions.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Void Agreements — Uncertain & Wagering Agreements",
+            "depth": "work through",
+            "why": "Sections 29-30 (uncertainty, wagering exception for horse-race prizes) are short-note staples and appear in MCQs.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Contingent Contracts",
+            "depth": "work through",
+            "why": "Sections 31-36 (condition precedent/subsequent, future uncertain event) are a distinct chapter tested via problem questions on insurance-type facts.",
+            "anticipates": "procedure-execution"
+          },
+          {
+            "concept": "Performance of Contracts",
+            "depth": "work through",
+            "why": "Sections 37-67 (tender, reciprocal promises, time/place, appropriation, novation/rescission/alteration) form the largest operative chapter — heavy application problems every exam.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Discharge by Breach & Remedies",
+            "depth": "work through",
+            "why": "Sections 73-75 (compensation, remoteness Hadley v Baxendale, specific performance/injunction under Specific Relief Act cross-reference) are the remedies climax of the syllabus.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Quasi-Contracts (Relations Resembling Contract)",
+            "depth": "work through",
+            "why": "Sections 68-72 (necessaries, reimbursement, non-gratuitous act, finder of goods, mistake/coercion) are a self-contained chapter with direct problem questions.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Contract of Indemnity",
+            "depth": "explain",
+            "why": "Sections 124-125 (definition, indemnity-holder's rights) are short but tested for distinction from guarantee and for rights enumeration.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Contract of Guarantee",
+            "depth": "work through",
+            "why": "Sections 126-147 (continuing guarantee, consideration, surety's liability co-extensive) are a major special-contract chapter with multi-part problems.",
+            "anticipates": "parallel-state"
+          },
+          {
+            "concept": "Rights & Discharge of Surety",
+            "depth": "work through",
+            "why": "Sections 133-147 (variance, release, composition, creditor's act impairing remedy, set-off) are the most heavily tested sub-topic within guarantee.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Bailment — General Duties & Rights",
+            "depth": "work through",
+            "why": "Sections 148-171 (gratuitous/non-gratuitous, standard of care, unauthorized use, mixture, termination, finder of goods) are a full problem-question chapter.",
+            "anticipates": "parallel-state"
+          },
+          {
+            "concept": "Bailment — Pledge & Lien",
+            "depth": "work through",
+            "why": "Sections 172-181 (pledge by non-owner, pawnee's rights, lien — particular/general) are tested both as short notes and in secured-transaction problems.",
+            "anticipates": "cross-reference"
+          },
+          {
+            "concept": "Agency — Creation & Authority",
+            "depth": "work through",
+            "why": "Sections 182-210 (express/implied, ostensible, ratification, emergency authority) are the foundation of the longest chapter; creation and scope of authority are exam constants.",
+            "anticipates": "topology"
+          },
+          {
+            "concept": "Agency — Sub-Agent, Ratification & Termination",
+            "depth": "work through",
+            "why": "Sections 211-238 (sub-agent, substituted agent, ratification requisites, termination by act/operation of law, irrevocable agency) complete the agency chapter and are heavily tested.",
+            "anticipates": "parallel-state"
+          }
+        ],
+        "cut": []
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 6031,
+        "out": 6781
+      },
+      "created_at": "2026-09-25T17:03:10+00:00"
+    },
+    {
+      "id": "dbac89faa9314048b61fa983193d8fae",
+      "project_id": "55c87fb8-9760-4814-8ce8-3fc85456a46c",
+      "kind": "partition",
+      "status": "candidate",
+      "freshness": "current",
+      "inputs_hash": "c558956374dd952d4a9e0edc24f7755b",
+      "output": {
+        "modules": [
+          {
+            "title": "Contract Formation: Offer, Acceptance & Essential Elements",
+            "covers": [
+              "Preliminary & Definitions",
+              "Communication, Acceptance & Revocation of Proposals",
+              "Essential Elements of a Valid Contract",
+              "Capacity to Contract"
+            ],
+            "why_here": "These four concepts constitute the complete formation pipeline: vocabulary, offer/acceptance mechanics, the Section 10 checklist, and capacity gatekeepers. They are taught and tested together as 'whether a valid contract exists'.",
+            "capability": "Analyse a fact pattern to determine whether a valid contract has been formed, identifying offer, acceptance, consideration, intention, and capacity, and stating the effect of any defect."
+          },
+          {
+            "title": "Vitiating Factors: Free Consent",
+            "covers": [
+              "Free Consent — Coercion",
+              "Free Consent — Undue Influence",
+              "Free Consent — Fraud",
+              "Free Consent — Misrepresentation",
+              "Free Consent — Mistake"
+            ],
+            "why_here": "All five vitiating factors attack the 'free consent' requirement of Section 10 and share the same remedial structure (voidable vs void). They are examined together for differentiation and remedy selection.",
+            "capability": "Diagnose whether consent is vitiated in a given scenario, distinguish between coercion, undue influence, fraud, misrepresentation, and mistake, and state the resulting remedy (void/voidable) with the applicable section."
+          },
+          {
+            "title": "Legality of Object & Consideration, and Void Agreements",
+            "covers": [
+              "Lawful Consideration & Object",
+              "Void Agreements — Restraint of Marriage, Trade, Legal Proceedings",
+              "Void Agreements — Uncertain & Wagering Agreements"
+            ],
+            "why_here": "Sections 23-30 form a coherent legitimacy filter: lawful consideration/object, then three categories of agreements declared void ab initio. They are tested as a block for 'is this agreement enforceable?'.",
+            "capability": "Evaluate whether consideration and object are lawful under Sections 23-25, and determine if an agreement falls within a statutorily void category (restraint, uncertainty, wagering), citing the relevant section and exception."
+          },
+          {
+            "title": "Contingent Contracts",
+            "covers": [
+              "Contingent Contracts"
+            ],
+            "why_here": "A self-contained chapter (Sections 31-36) with a distinct logic (condition precedent/subsequent, future uncertain event) that is separately examined via insurance-type problems.",
+            "capability": "Apply Sections 31-36 to determine the enforceability of contingent contracts based on the happening or non-happening of future uncertain events, and distinguish contingent contracts from wagering agreements."
+          },
+          {
+            "title": "Performance, Discharge & Remedies",
+            "covers": [
+              "Performance of Contracts",
+              "Discharge by Breach & Remedies"
+            ],
+            "why_here": "Performance (Sections 37-67) and its failure (Sections 73-75) are the operative life of a contract. Discharge modes and remedies are the practical climax of the syllabus and are always tested together.",
+            "capability": "Trace the performance obligations of parties under a contract, identify modes of discharge (performance, breach, agreement, frustration), and calculate remedies for breach including compensation under Hadley v Baxendale and the availability of specific relief."
+          },
+          {
+            "title": "Quasi-Contracts (Relations Resembling Contract)",
+            "covers": [
+              "Quasi-Contracts (Relations Resembling Contract)"
+            ],
+            "why_here": "Sections 68-72 form a standalone statutory obligation chapter with five distinct claims. It is examined independently and does not depend on the special contracts that follow.",
+            "capability": "Identify quasi-contractual obligations under Sections 68-72 and articulate the claim arising from necessaries supplied to incapable persons, reimbursement of interested parties, non-gratuitous acts, finder of goods, or money paid by mistake/coercion."
+          },
+          {
+            "title": "Indemnity & Guarantee",
+            "covers": [
+              "Contract of Indemnity",
+              "Contract of Guarantee",
+              "Rights & Discharge of Surety"
+            ],
+            "why_here": "Indemnity (Sections 124-125) and guarantee (Sections 126-147) are taught as a pair because they are constantly distinguished. The surety's rights and discharge (Sections 133-147) are the most heavily tested part of guarantee and belong in the same module.",
+            "capability": "Distinguish indemnity from guarantee, explain the surety's liability (co-extensive with principal debtor) and rights (subrogation, indemnity, securities), and determine when a surety is discharged under Sections 133-147."
+          },
+          {
+            "title": "Bailment & Pledge",
+            "covers": [
+              "Bailment — General Duties & Rights",
+              "Bailment — Pledge & Lien"
+            ],
+            "why_here": "Bailment (Sections 148-171) and its species pledge (Sections 172-181) form a continuous chapter on possession-based obligations. Pledge rights and lien are tested both as short notes and in secured-transaction problems.",
+            "capability": "Analyse bailment and pledge scenarios to determine the duties, rights, and liabilities of bailor/bailee and pawnor/pawnee, including the standard of care, unauthorized use, mixture, termination, pawnee's sale rights, and particular vs general lien."
+          },
+          {
+            "title": "Agency",
+            "covers": [
+              "Agency — Creation & Authority",
+              "Agency — Sub-Agent, Ratification & Termination"
+            ],
+            "why_here": "The longest chapter (Sections 182-238) splits naturally into creation/authority and the consequences of authority (sub-agents, ratification, termination). Both halves are required to answer any agency problem completely.",
+            "capability": "Determine the creation and scope of agency authority (express, implied, ostensible, emergency), the effect of ratification, the position of sub-agents vs substituted agents, and the modes of termination of agency (by act of parties or operation of law), including irrevocable agency."
+          }
+        ]
+      },
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "prompt_version": "plan_v3",
+      "cost": {
+        "in": 6031,
+        "out": 6781
+      },
+      "created_at": "2026-09-25T17:03:10+00:00"
+    }
+  ],
+  "commitment": []
+}

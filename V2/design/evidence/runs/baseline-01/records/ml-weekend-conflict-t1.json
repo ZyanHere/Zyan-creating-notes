@@ -1,0 +1,1743 @@
+{
+  "case_id": "ml-weekend-conflict",
+  "case_title": "Machine learning in a weekend — conflicting request",
+  "trial": 1,
+  "phase": "plan",
+  "stub": false,
+  "started_at": "2026-09-25T19:57:58+00:00",
+  "request": "i want to master machine learning and be able to build production models, i have one weekend",
+  "baseline": {
+    "repo": "D:\\myNotes\\V1",
+    "commit": "8735d787e7b258cb735d854bc395c25abc3e6c98",
+    "subject": "feat: implement approval gate for plans with unassigned concepts",
+    "source_hash": "807c8ec99a60d320e745e8ac208b8c7f690ebd273b3930f6680688d159cda116",
+    "source_files": 38,
+    "matches_baseline": true
+  },
+  "provider": {
+    "name": "openrouter",
+    "model": "nvidia/nemotron-3-ultra-550b-a55b:free"
+  },
+  "stages": [
+    "create",
+    "intake",
+    "plan",
+    "correct",
+    "approve"
+  ],
+  "failure": null,
+  "project_id": "4f725956-61ee-46db-8fe4-a728bb360bc9",
+  "after_create": {
+    "state": "asking",
+    "verdict": "ask",
+    "budget": 4,
+    "asking": [
+      "purpose",
+      "entry_point"
+    ],
+    "over_budget": [],
+    "questions_written": 2,
+    "questions": [
+      {
+        "axis": "purpose",
+        "question": "What does \"master machine learning\" mean for you in practice?",
+        "options": [
+          "Deep understanding",
+          "Ship models fast",
+          "Get hired as ML engineer",
+          "Build a specific product"
+        ],
+        "default_label": "Ship models fast"
+      },
+      {
+        "axis": "entry_point",
+        "question": "Which of these best describes your starting point?",
+        "options": [
+          "New to ML and Python",
+          "Comfortable with Python, have trained models in notebooks",
+          "Have deployed once, hit scaling or reliability issues",
+          "Experienced engineer, want modern MLOps stack refresher"
+        ],
+        "default_label": "Comfortable with Python, have trained models in notebooks"
+      }
+    ],
+    "axes": [
+      {
+        "axis": "subject",
+        "value": "Machine learning and production ML model deployment",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "purpose",
+        "value": "Master machine learning end-to-end and gain the ability to build and deploy production-grade models",
+        "strength": "guessed",
+        "material": true,
+        "asked": true,
+        "verified_spans": 0,
+        "discarded_spans": 1,
+        "reason": "weak (guessed) and a different answer would change the plan · discarded unverifiable support: ['i want to master machine learning and be able to build production models']"
+      },
+      {
+        "axis": "entry_point",
+        "value": "Assumed basic programming literacy (Python) and familiarity with core ML concepts; no explicit background stated.",
+        "strength": "guessed",
+        "material": true,
+        "asked": true,
+        "verified_spans": 0,
+        "discarded_spans": 1,
+        "reason": "weak (guessed) and a different answer would change the plan · discarded unverifiable support: ['i want to master machine learning and be able to build production models']"
+      },
+      {
+        "axis": "target_capability",
+        "value": "Design, train, evaluate, and deploy ML models to production with proper monitoring, versioning, and scaling considerations",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "capacity",
+        "value": "One weekend (approximately 16-20 focused hours)",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "never asked — Semantics §1 LOCKED — optional, and the corollary: deriving the plan and reporting its extent is what CAUSES a capacity to be stated. Asking upfront asks for a number the learner cannot honestly give."
+      },
+      {
+        "axis": "depth_register",
+        "value": "Pragmatic and production-oriented: minimal theory, maximum runnable code and deployment patterns",
+        "strength": "inferred",
+        "material": false,
+        "asked": false,
+        "verified_spans": 2,
+        "discarded_spans": 0,
+        "reason": "never asked — Semantics §1 — biasing, not binding. A default is always defensible."
+      },
+      {
+        "axis": "artifact_type",
+        "value": "Structured weekend sprint plan with prioritized topics, hands-on checkpoints, and a deployable end-to-end template",
+        "strength": "inferred",
+        "material": false,
+        "asked": false,
+        "verified_spans": 2,
+        "discarded_spans": 0,
+        "reason": "inferred, supported by 'master machine learning and be able to build production models' · 'one weekend'"
+      },
+      {
+        "axis": "template",
+        "value": "Weekend sprint: Friday evening environment setup, Saturday core modeling and validation, Sunday containerization, deployment, and monitoring",
+        "strength": "inferred",
+        "material": false,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "never asked — Presentation-Boundary rule 1 — internal. Users never select one."
+      }
+    ],
+    "weak_axes": [
+      "purpose",
+      "entry_point"
+    ],
+    "guessed_but_material": [
+      "purpose",
+      "entry_point"
+    ]
+  },
+  "intake_turns": 1,
+  "intake_answers_unused": 0,
+  "intake": {
+    "state": "asking",
+    "verdict": "ask",
+    "budget": 4,
+    "asking": [
+      "entry_point"
+    ],
+    "over_budget": [],
+    "questions_written": 1,
+    "questions": [
+      {
+        "axis": "entry_point",
+        "question": "How comfortable are you with the core data-science stack (NumPy, pandas, matplotlib) and basic linear algebra / calculus?",
+        "options": [
+          "Fluent",
+          "Rusty but readable",
+          "New to all of it"
+        ],
+        "default_label": "Rusty but readable"
+      }
+    ],
+    "axes": [
+      {
+        "axis": "subject",
+        "value": "machine learning (production-oriented)",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 2,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "purpose",
+        "value": "master ML fundamentals and gain ability to build production ML models",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "entry_point",
+        "value": "proficient Python programmer, zero ML background",
+        "strength": "guessed",
+        "material": true,
+        "asked": true,
+        "verified_spans": 0,
+        "discarded_spans": 1,
+        "reason": "weak (guessed) and a different answer would change the plan · discarded unverifiable support: [\"i've written python for a few years but no ml at all\"]"
+      },
+      {
+        "axis": "target_capability",
+        "value": "design, train, evaluate, and deploy ML models to production",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "the user said so"
+      },
+      {
+        "axis": "capacity",
+        "value": "one weekend",
+        "strength": "stated",
+        "material": true,
+        "asked": false,
+        "verified_spans": 1,
+        "discarded_spans": 0,
+        "reason": "never asked — Semantics §1 LOCKED — optional, and the corollary: deriving the plan and reporting its extent is what CAUSES a capacity to be stated. Asking upfront asks for a number the learner cannot honestly give."
+      },
+      {
+        "axis": "depth_register",
+        "value": "ruthlessly pragmatic — only concepts that directly enable production model building",
+        "strength": "inferred",
+        "material": true,
+        "asked": false,
+        "verified_spans": 2,
+        "discarded_spans": 0,
+        "reason": "never asked — Semantics §1 — biasing, not binding. A default is always defensible."
+      },
+      {
+        "axis": "artifact_type",
+        "value": "structured weekend learning plan with executable code",
+        "strength": "inferred",
+        "material": true,
+        "asked": false,
+        "verified_spans": 2,
+        "discarded_spans": 0,
+        "reason": "inferred, supported by 'one weekend' · 'build production models'"
+      },
+      {
+        "axis": "template",
+        "value": "progressive build sequence: data -> baseline -> iteration -> deployment",
+        "strength": "inferred",
+        "material": true,
+        "asked": false,
+        "verified_spans": 2,
+        "discarded_spans": 0,
+        "reason": "never asked — Presentation-Boundary rule 1 — internal. Users never select one."
+      }
+    ],
+    "weak_axes": [
+      "entry_point"
+    ],
+    "guessed_but_material": [
+      "entry_point"
+    ]
+  },
+  "plan": {
+    "state": "planned",
+    "situation": {
+      "subject": "machine learning (production-oriented)",
+      "job": "construct",
+      "purpose": "master ML fundamentals and gain ability to build production ML models",
+      "entry_point": "proficient Python programmer, zero ML background",
+      "target_capability": "design, train, evaluate, and deploy ML models to production",
+      "capacity": "one weekend",
+      "stated": [
+        "master machine learning and be able to build production models",
+        "master machine learning and be able to build production models",
+        "i have one weekend",
+        "i've written python for a few years but no ml at all"
+      ],
+      "stated_axes": [
+        "purpose",
+        "target_capability",
+        "capacity",
+        "entry_point"
+      ],
+      "inferred": [
+        "artifact_type is a structured weekend learning plan with executable code",
+        "depth_register must be ruthlessly pragmatic — only concepts that directly enable production model building",
+        "template is a progressive build sequence: data -> baseline -> iteration -> deployment",
+        "subject scope excludes research-only topics (theory proofs, novel architectures, academic benchmarks)"
+      ]
+    },
+    "landscape": {
+      "concept_count": 26,
+      "concepts": [
+        {
+          "name": "Problem Framing & Task Definition",
+          "built_from": [],
+          "family": "core concept"
+        },
+        {
+          "name": "Tabular Data Understanding",
+          "built_from": [],
+          "family": "data concept"
+        },
+        {
+          "name": "Data Cleaning & Preprocessing",
+          "built_from": [
+            "Tabular Data Understanding"
+          ],
+          "family": "data engineering"
+        },
+        {
+          "name": "Feature Engineering",
+          "built_from": [
+            "Data Cleaning & Preprocessing"
+          ],
+          "family": "data engineering"
+        },
+        {
+          "name": "Train/Validation/Test Split Strategy",
+          "built_from": [
+            "Problem Framing & Task Definition",
+            "Tabular Data Understanding"
+          ],
+          "family": "evaluation concept"
+        },
+        {
+          "name": "Cross-Validation",
+          "built_from": [
+            "Train/Validation/Test Split Strategy"
+          ],
+          "family": "evaluation concept"
+        },
+        {
+          "name": "Baseline Models (Heuristics & Simple ML)",
+          "built_from": [
+            "Problem Framing & Task Definition",
+            "Train/Validation/Test Split Strategy"
+          ],
+          "family": "modeling concept"
+        },
+        {
+          "name": "Linear Models (Logistic/Linear Regression)",
+          "built_from": [
+            "Baseline Models (Heuristics & Simple ML)",
+            "Feature Engineering"
+          ],
+          "family": "modeling concept"
+        },
+        {
+          "name": "Tree-Based Models (Random Forest, Gradient Boosting)",
+          "built_from": [
+            "Baseline Models (Heuristics & Simple ML)",
+            "Feature Engineering"
+          ],
+          "family": "modeling concept"
+        },
+        {
+          "name": "Model Evaluation Metrics (Classification & Regression)",
+          "built_from": [
+            "Problem Framing & Task Definition",
+            "Cross-Validation"
+          ],
+          "family": "evaluation concept"
+        },
+        {
+          "name": "Hyperparameter Tuning",
+          "built_from": [
+            "Tree-Based Models (Random Forest, Gradient Boosting)",
+            "Cross-Validation"
+          ],
+          "family": "modeling concept"
+        },
+        {
+          "name": "Model Serialization & Artifact Management",
+          "built_from": [
+            "Tree-Based Models (Random Forest, Gradient Boosting)"
+          ],
+          "family": "production engineering"
+        },
+        {
+          "name": "Model Serving Patterns (Batch vs Online)",
+          "built_from": [
+            "Model Serialization & Artifact Management"
+          ],
+          "family": "production engineering"
+        },
+        {
+          "name": "API Deployment (FastAPI/Flask + Docker)",
+          "built_from": [
+            "Model Serving Patterns (Batch vs Online)",
+            "Model Serialization & Artifact Management"
+          ],
+          "family": "production engineering"
+        },
+        {
+          "name": "Data Drift & Model Monitoring",
+          "built_from": [
+            "Model Serving Patterns (Batch vs Online)",
+            "Model Evaluation Metrics (Classification & Regression)"
+          ],
+          "family": "production engineering"
+        },
+        {
+          "name": "Feature Stores",
+          "built_from": [
+            "Feature Engineering",
+            "Model Serving Patterns (Batch vs Online)"
+          ],
+          "family": "production engineering"
+        },
+        {
+          "name": "ML Pipeline Orchestration",
+          "built_from": [
+            "Data Cleaning & Preprocessing",
+            "Feature Engineering",
+            "Model Serialization & Artifact Management"
+          ],
+          "family": "production engineering"
+        },
+        {
+          "name": "Experiment Tracking",
+          "built_from": [
+            "Hyperparameter Tuning",
+            "Model Evaluation Metrics (Classification & Regression)"
+          ],
+          "family": "production engineering"
+        },
+        {
+          "name": "CI/CD for ML",
+          "built_from": [
+            "API Deployment (FastAPI/Flask + Docker)",
+            "ML Pipeline Orchestration"
+          ],
+          "family": "production engineering"
+        },
+        {
+          "name": "Deep Learning Fundamentals",
+          "built_from": [
+            "Linear Models (Logistic/Linear Regression)"
+          ],
+          "family": "advanced modeling"
+        },
+        {
+          "name": "Neural Network Architectures (MLP, CNN, RNN, Transformer)",
+          "built_from": [
+            "Deep Learning Fundamentals"
+          ],
+          "family": "advanced modeling"
+        },
+        {
+          "name": "Transfer Learning & Pre-trained Models",
+          "built_from": [
+            "Neural Network Architectures (MLP, CNN, RNN, Transformer)"
+          ],
+          "family": "advanced modeling"
+        },
+        {
+          "name": "Unstructured Data (Text, Image, Audio)",
+          "built_from": [
+            "Deep Learning Fundamentals"
+          ],
+          "family": "data concept"
+        },
+        {
+          "name": "Recommendation Systems",
+          "built_from": [
+            "Tree-Based Models (Random Forest, Gradient Boosting)",
+            "Deep Learning Fundamentals"
+          ],
+          "family": "applied case"
+        },
+        {
+          "name": "Time Series Forecasting",
+          "built_from": [
+            "Feature Engineering",
+            "Tree-Based Models (Random Forest, Gradient Boosting)"
+          ],
+          "family": "applied case"
+        },
+        {
+          "name": "MLOps Maturity Model",
+          "built_from": [
+            "CI/CD for ML",
+            "Data Drift & Model Monitoring",
+            "Experiment Tracking"
+          ],
+          "family": "production engineering"
+        }
+      ],
+      "families": [
+        "advanced modeling",
+        "applied case",
+        "core concept",
+        "data concept",
+        "data engineering",
+        "evaluation concept",
+        "modeling concept",
+        "production engineering"
+      ],
+      "edges": 41,
+      "roots": [
+        "Problem Framing & Task Definition",
+        "Tabular Data Understanding"
+      ],
+      "parenthetical_lists": [
+        "Tree-Based Models (Random Forest, Gradient Boosting)",
+        "Neural Network Architectures (MLP, CNN, RNN, Transformer)",
+        "Unstructured Data (Text, Image, Audio)"
+      ],
+      "judged": 26,
+      "in_play": 15,
+      "out_of_play": [
+        "Feature Stores",
+        "ML Pipeline Orchestration",
+        "Experiment Tracking",
+        "CI/CD for ML",
+        "Deep Learning Fundamentals",
+        "Neural Network Architectures (MLP, CNN, RNN, Transformer)",
+        "Transfer Learning & Pre-trained Models",
+        "Unstructured Data (Text, Image, Audio)",
+        "Recommendation Systems",
+        "Time Series Forecasting",
+        "MLOps Maturity Model"
+      ],
+      "unjudged": []
+    },
+    "scope": {
+      "covered_count": 16,
+      "covered": [
+        {
+          "concept": "Problem Framing & Task Definition",
+          "depth": "work through",
+          "anticipates": "abstraction-grounding",
+          "why": "First decision that shapes everything downstream. Learner converts a vague business ask into a concrete ML task (classification/regression, target, success metric)."
+        },
+        {
+          "concept": "Tabular Data Understanding",
+          "depth": "work through",
+          "anticipates": "perceptual-referent",
+          "why": "Python programmer's entry point. Pandas profiling, dtypes, missingness, distributions, correlations — the lens they'll use for every dataset."
+        },
+        {
+          "concept": "Data Cleaning & Preprocessing",
+          "depth": "work through",
+          "anticipates": "procedure-execution",
+          "why": "Real data is messy. Imputation, encoding, scaling, outlier handling — the hands-on steps that make or break production models."
+        },
+        {
+          "concept": "Feature Engineering",
+          "depth": "work through",
+          "anticipates": "procedure-execution",
+          "why": "Highest ROI activity for tabular ML. Interactions, datetime decomposition, target encoding, embeddings for high-cardinality categoricals."
+        },
+        {
+          "concept": "Train/Validation/Test Split Strategy",
+          "depth": "work through",
+          "anticipates": "false-comprehension",
+          "why": "Non-negotiable for honest evaluation. Time-based vs random, stratification, leakage prevention — the guardrails against fooling yourself."
+        },
+        {
+          "concept": "Cross-Validation",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Reliable performance estimates with limited data. K-fold, stratified, grouped CV — when each applies and how to use sklearn's tools."
+        },
+        {
+          "concept": "Baseline Models (Heuristics & Simple ML)",
+          "depth": "work through",
+          "anticipates": "false-comprehension",
+          "why": "Must beat a baseline before complex modeling. Mean/median for regression, majority class for regression, simple rules — often surprisingly strong."
+        },
+        {
+          "concept": "Linear Models (Logistic/Linear Regression)",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Interpretable, fast, production-ready. Regularization (L1/L2), probability calibration, feature importance via coefficients — often sufficient for production."
+        },
+        {
+          "concept": "Tree-Based Models (Random Forest, Gradient Boosting)",
+          "depth": "work through",
+          "anticipates": "perceptual-referent",
+          "why": "State-of-the-art for tabular data. XGBoost/LightGBM/CatBoost usage, key hyperparameters, handling categoricals, early stopping — production standard."
+        },
+        {
+          "concept": "Model Evaluation Metrics (Classification & Regression)",
+          "depth": "work through",
+          "anticipates": "cross-reference",
+          "why": "Match metrics to business problem. Precision/recall/F1, ROC-AUC, PR-AUC, MAE/RMSE/RMSLE — and why accuracy is often the wrong choice."
+        },
+        {
+          "concept": "Hyperparameter Tuning",
+          "depth": "work through",
+          "anticipates": "procedure-execution",
+          "why": "Tree models need tuning. Optuna integration, search spaces, pruning, n_jobs — practical tuning in hours, not days."
+        },
+        {
+          "concept": "Model Evaluation Metrics (Classification & Regression)",
+          "depth": "work through",
+          "anticipates": "cross-reference",
+          "why": "Match metrics to business problem. Precision/recall/F1, ROC-AUC, PR-AUC, MAE/RMSE/RMSLE — and why accuracy is often the wrong choice."
+        },
+        {
+          "concept": "Model Serialization & Artifact Management",
+          "depth": "work through",
+          "anticipates": "procedure-execution",
+          "why": "Bridge from notebook to production. joblib/pickle/MLflow model format, versioning, metadata (training data hash, metrics, params) — deployable artifact."
+        },
+        {
+          "concept": "Model Serving Patterns (Batch vs Online)",
+          "depth": "explain",
+          "anticipates": "topology",
+          "why": "Architectural decision shaping deployment. Batch (scheduled, high-throughput) vs online (low-latency, request-response) — tradeoffs and when each fits."
+        },
+        {
+          "concept": "API Deployment (FastAPI/Flask + Docker)",
+          "depth": "work through",
+          "anticipates": "procedure-execution",
+          "why": "Concrete production skill. FastAPI + Pydantic for validation, Dockerfile, health checks, graceful startup/shutdown — runnable container in hours."
+        },
+        {
+          "concept": "Data Drift & Model Monitoring",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Production reality — models degrade. Input distribution monitoring (PSI, KS test), prediction distribution shifts, performance proxy metrics — actionable alerts."
+        }
+      ],
+      "depths": {
+        "work through": 12,
+        "explain": 4
+      },
+      "anticipates": {
+        "abstraction-grounding": 1,
+        "perceptual-referent": 2,
+        "procedure-execution": 5,
+        "false-comprehension": 2,
+        "none": 3,
+        "cross-reference": 2,
+        "topology": 1
+      },
+      "anticipates_any": 13,
+      "cut": [
+        "Feature Stores",
+        "ML Pipeline Orchestration",
+        "Experiment Tracking",
+        "CI/CD for ML",
+        "Deep Learning Fundamentals",
+        "Neural Network Architectures (MLP, CNN, RNN, Transformer)",
+        "Transfer Learning & Pre-trained Models",
+        "Unstructured Data (Text, Image, Audio)",
+        "Recommendation Systems",
+        "Time Series Forecasting",
+        "MLOps Maturity Model"
+      ]
+    },
+    "partition": {
+      "shape": "modules",
+      "module_count": 5,
+      "legacy_unit_count": 0,
+      "modules": [
+        {
+          "title": "Foundations: Problem Framing & Data Understanding",
+          "covers": [
+            "Problem Framing & Task Definition",
+            "Tabular Data Understanding"
+          ],
+          "concept_count": 2,
+          "capability": "Convert a vague business problem into a concrete ML task definition (target, task type, success metric) and produce a data profile report covering distributions, missingness, correlations, and data quality issues",
+          "why_here": "The two concepts that must precede all others: defining what you're solving and understanding the raw material. Both are exploration-heavy, code-light, and set the frame for every downstream decision."
+        },
+        {
+          "title": "Data Preparation: Cleaning, Preprocessing & Feature Engineering",
+          "covers": [
+            "Data Cleaning & Preprocessing",
+            "Feature Engineering"
+          ],
+          "concept_count": 2,
+          "capability": "Build a reusable preprocessing pipeline (imputation, encoding, scaling, datetime features, interaction features, target encoding) that fits on training data and transforms validation/test without leakage",
+          "why_here": "Both are hands-on data transformation steps that feed directly into modeling. They share the same pandas/sklearn toolchain and the same 'fit on train, transform on test' discipline. Splitting them would fragment the preprocessing pipeline."
+        },
+        {
+          "title": "Modeling: Baselines, Linear Models & Tree-Based Models",
+          "covers": [
+            "Train/Validation/Test Split Strategy",
+            "Cross-Validation",
+            "Baseline Models (Heuristics & Simple ML)",
+            "Linear Models (Logistic/Linear Regression)",
+            "Tree-Based Models (Random Forest, Gradient Boosting)"
+          ],
+          "concept_count": 5,
+          "capability": "Train, compare, and select among baseline, linear, and gradient-boosted tree models using proper train/validation/test splits and cross-validation, with a reproducible training script that outputs a serialized model artifact",
+          "why_here": "Complete modeling stack from validation strategy through baseline to production-grade models. All use sklearn/XGBoost/LightGBM APIs. The split strategy and CV are prerequisites for honest model comparison; baselines, linear, and tree models form the progression from simple to state-of-the-art for tabular data."
+        },
+        {
+          "title": "Evaluation & Iteration: Metrics, Cross-Validation & Hyperparameter Tuning",
+          "covers": [
+            "Model Evaluation Metrics (Classification & Regression)",
+            "Hyperparameter Tuning"
+          ],
+          "concept_count": 2,
+          "capability": "Select and justify evaluation metrics aligned to the business problem, then run hyperparameter optimization (Optuna) targeting that metric to produce a tuned model with documented performance",
+          "why_here": "Metrics define what 'good' means; tuning finds the best configuration. Both are iteration-loop activities — you evaluate, tune, re-evaluate. They belong together because tuning optimizes for a specific metric, and metric choice changes tuning outcomes."
+        },
+        {
+          "title": "Production: Serialization, Serving, API Deployment & Monitoring",
+          "covers": [
+            "Model Serialization & Artifact Management",
+            "Model Serving Patterns (Batch vs Online)",
+            "API Deployment (FastAPI/Flask + Docker)",
+            "Data Drift & Model Monitoring"
+          ],
+          "concept_count": 4,
+          "capability": "Package a trained model as a versioned artifact, choose and justify a serving pattern (batch vs online), deploy an online inference API with FastAPI + Docker (health checks, input validation, logging), and implement basic data drift monitoring on input features and predictions",
+          "why_here": "End-to-end production path: artifact → serving pattern → API container → monitoring. Each step consumes the previous. Batch vs online is the architectural fork; the API module implements online; monitoring closes the loop. One coherent deployment narrative."
+        }
+      ],
+      "concepts_per_module": [
+        2,
+        2,
+        5,
+        2,
+        4
+      ],
+      "orphans": [],
+      "phantoms": [],
+      "duplicate_coverage": [],
+      "slug_collisions": []
+    },
+    "promises": {
+      "capability_clauses": 5,
+      "capability_unbacked": 0,
+      "capability_unbacked_share": 0.0,
+      "capability_support": [
+        {
+          "module": "Foundations: Problem Framing & Data Understanding",
+          "clauses": [
+            "Convert a vague business problem into a concrete ML task definition (target, task type, success metric) and produce a data profile report covering distributions, missingness, correlations, and data quality issues"
+          ],
+          "backed": [
+            {
+              "clause": "Convert a vague business problem into a concrete ML task definition (target, task type, success metric) and produce a data profile report covering distributions, missingness, correlations, and data quality issues",
+              "concepts": [
+                "Problem Framing & Task Definition",
+                "Tabular Data Understanding"
+              ]
+            }
+          ],
+          "unbacked": []
+        },
+        {
+          "module": "Data Preparation: Cleaning, Preprocessing & Feature Engineering",
+          "clauses": [
+            "Build a reusable preprocessing pipeline (imputation, encoding, scaling, datetime features, interaction features, target encoding) that fits on training data and transforms validation/test without leakage"
+          ],
+          "backed": [
+            {
+              "clause": "Build a reusable preprocessing pipeline (imputation, encoding, scaling, datetime features, interaction features, target encoding) that fits on training data and transforms validation/test without leakage",
+              "concepts": [
+                "Data Cleaning & Preprocessing",
+                "Feature Engineering"
+              ]
+            }
+          ],
+          "unbacked": []
+        },
+        {
+          "module": "Modeling: Baselines, Linear Models & Tree-Based Models",
+          "clauses": [
+            "Train, compare, and select among baseline, linear, and gradient-boosted tree models using proper train/validation/test splits and cross-validation, with a reproducible training script that outputs a serialized model artifact"
+          ],
+          "backed": [
+            {
+              "clause": "Train, compare, and select among baseline, linear, and gradient-boosted tree models using proper train/validation/test splits and cross-validation, with a reproducible training script that outputs a serialized model artifact",
+              "concepts": [
+                "Train/Validation/Test Split Strategy",
+                "Cross-Validation",
+                "Baseline Models (Heuristics & Simple ML)",
+                "Linear Models (Logistic/Linear Regression)",
+                "Tree-Based Models (Random Forest, Gradient Boosting)"
+              ]
+            }
+          ],
+          "unbacked": []
+        },
+        {
+          "module": "Evaluation & Iteration: Metrics, Cross-Validation & Hyperparameter Tuning",
+          "clauses": [
+            "Select and justify evaluation metrics aligned to the business problem, then run hyperparameter optimization (Optuna) targeting that metric to produce a tuned model with documented performance"
+          ],
+          "backed": [
+            {
+              "clause": "Select and justify evaluation metrics aligned to the business problem, then run hyperparameter optimization (Optuna) targeting that metric to produce a tuned model with documented performance",
+              "concepts": [
+                "Model Evaluation Metrics (Classification & Regression)",
+                "Hyperparameter Tuning"
+              ]
+            }
+          ],
+          "unbacked": []
+        },
+        {
+          "module": "Production: Serialization, Serving, API Deployment & Monitoring",
+          "clauses": [
+            "Package a trained model as a versioned artifact, choose and justify a serving pattern (batch vs online), deploy an online inference API with FastAPI + Docker (health checks, input validation, logging), and implement basic data drift monitoring on input features and predictions"
+          ],
+          "backed": [
+            {
+              "clause": "Package a trained model as a versioned artifact, choose and justify a serving pattern (batch vs online), deploy an online inference API with FastAPI + Docker (health checks, input validation, logging), and implement basic data drift monitoring on input features and predictions",
+              "concepts": [
+                "Model Serialization & Artifact Management",
+                "Model Serving Patterns (Batch vs Online)",
+                "API Deployment (FastAPI/Flask + Docker)",
+                "Data Drift & Model Monitoring"
+              ]
+            }
+          ],
+          "unbacked": []
+        }
+      ],
+      "coherence": [
+        {
+          "module": "Foundations: Problem Framing & Data Understanding",
+          "concepts": 2,
+          "internal": 0,
+          "external": 0,
+          "ratio": null,
+          "depends_on_modules": [],
+          "links": []
+        },
+        {
+          "module": "Data Preparation: Cleaning, Preprocessing & Feature Engineering",
+          "concepts": 2,
+          "internal": 1,
+          "external": 1,
+          "ratio": 0.5,
+          "depends_on_modules": [
+            {
+              "module": "Foundations: Problem Framing & Data Understanding",
+              "count": 1
+            }
+          ],
+          "links": [
+            {
+              "concept": "Data Cleaning & Preprocessing",
+              "depends_on": "Tabular Data Understanding",
+              "lives_in": "Foundations: Problem Framing & Data Understanding",
+              "external": true
+            }
+          ]
+        },
+        {
+          "module": "Modeling: Baselines, Linear Models & Tree-Based Models",
+          "concepts": 5,
+          "internal": 4,
+          "external": 5,
+          "ratio": 0.444,
+          "depends_on_modules": [
+            {
+              "module": "Foundations: Problem Framing & Data Understanding",
+              "count": 3
+            },
+            {
+              "module": "Data Preparation: Cleaning, Preprocessing & Feature Engineering",
+              "count": 2
+            }
+          ],
+          "links": [
+            {
+              "concept": "Train/Validation/Test Split Strategy",
+              "depends_on": "Problem Framing & Task Definition",
+              "lives_in": "Foundations: Problem Framing & Data Understanding",
+              "external": true
+            },
+            {
+              "concept": "Train/Validation/Test Split Strategy",
+              "depends_on": "Tabular Data Understanding",
+              "lives_in": "Foundations: Problem Framing & Data Understanding",
+              "external": true
+            },
+            {
+              "concept": "Baseline Models (Heuristics & Simple ML)",
+              "depends_on": "Problem Framing & Task Definition",
+              "lives_in": "Foundations: Problem Framing & Data Understanding",
+              "external": true
+            },
+            {
+              "concept": "Linear Models (Logistic/Linear Regression)",
+              "depends_on": "Feature Engineering",
+              "lives_in": "Data Preparation: Cleaning, Preprocessing & Feature Engineering",
+              "external": true
+            },
+            {
+              "concept": "Tree-Based Models (Random Forest, Gradient Boosting)",
+              "depends_on": "Feature Engineering",
+              "lives_in": "Data Preparation: Cleaning, Preprocessing & Feature Engineering",
+              "external": true
+            }
+          ]
+        },
+        {
+          "module": "Evaluation & Iteration: Metrics, Cross-Validation & Hyperparameter Tuning",
+          "concepts": 2,
+          "internal": 0,
+          "external": 4,
+          "ratio": 0.0,
+          "depends_on_modules": [
+            {
+              "module": "Modeling: Baselines, Linear Models & Tree-Based Models",
+              "count": 3
+            },
+            {
+              "module": "Foundations: Problem Framing & Data Understanding",
+              "count": 1
+            }
+          ],
+          "links": [
+            {
+              "concept": "Model Evaluation Metrics (Classification & Regression)",
+              "depends_on": "Problem Framing & Task Definition",
+              "lives_in": "Foundations: Problem Framing & Data Understanding",
+              "external": true
+            },
+            {
+              "concept": "Model Evaluation Metrics (Classification & Regression)",
+              "depends_on": "Cross-Validation",
+              "lives_in": "Modeling: Baselines, Linear Models & Tree-Based Models",
+              "external": true
+            },
+            {
+              "concept": "Hyperparameter Tuning",
+              "depends_on": "Tree-Based Models (Random Forest, Gradient Boosting)",
+              "lives_in": "Modeling: Baselines, Linear Models & Tree-Based Models",
+              "external": true
+            },
+            {
+              "concept": "Hyperparameter Tuning",
+              "depends_on": "Cross-Validation",
+              "lives_in": "Modeling: Baselines, Linear Models & Tree-Based Models",
+              "external": true
+            }
+          ]
+        },
+        {
+          "module": "Production: Serialization, Serving, API Deployment & Monitoring",
+          "concepts": 4,
+          "internal": 4,
+          "external": 2,
+          "ratio": 0.667,
+          "depends_on_modules": [
+            {
+              "module": "Evaluation & Iteration: Metrics, Cross-Validation & Hyperparameter Tuning",
+              "count": 1
+            },
+            {
+              "module": "Modeling: Baselines, Linear Models & Tree-Based Models",
+              "count": 1
+            }
+          ],
+          "links": [
+            {
+              "concept": "Model Serialization & Artifact Management",
+              "depends_on": "Tree-Based Models (Random Forest, Gradient Boosting)",
+              "lives_in": "Modeling: Baselines, Linear Models & Tree-Based Models",
+              "external": true
+            },
+            {
+              "concept": "Data Drift & Model Monitoring",
+              "depends_on": "Model Evaluation Metrics (Classification & Regression)",
+              "lives_in": "Evaluation & Iteration: Metrics, Cross-Validation & Hyperparameter Tuning",
+              "external": true
+            }
+          ]
+        }
+      ],
+      "modules_with_no_internal_dependency": [
+        "Foundations: Problem Framing & Data Understanding",
+        "Evaluation & Iteration: Metrics, Cross-Validation & Hyperparameter Tuning"
+      ],
+      "external_dependency_total": 12
+    },
+    "extent": {
+      "total": "~21 pages · about 7 hours",
+      "pages": "~21 pages",
+      "study_time": "about 7 hours",
+      "parts": 5,
+      "modules": 5,
+      "per_unit": {
+        "Foundations: Problem Framing & Data Understanding": "~4 pages",
+        "Data Preparation: Cleaning, Preprocessing & Feature Engineering": "~3 pages",
+        "Modeling: Baselines, Linear Models & Tree-Based Models": "~6 pages",
+        "Evaluation & Iteration: Metrics, Cross-Validation & Hyperparameter Tuning": "~3 pages",
+        "Production: Serialization, Serving, API Deployment & Monitoring": "~4 pages"
+      }
+    },
+    "feasibility": {
+      "serves_everything": false,
+      "shortfalls": [
+        {
+          "failure": "perceptual-referent",
+          "concepts": [
+            "Tabular Data Understanding",
+            "Tree-Based Models (Random Forest, Gradient Boosting)"
+          ],
+          "licenses": "image",
+          "note": "The system cannot draw the thing itself. Representation-Boundary calls this family E and it is the only one that cannot preserve assertions: a generated figure adds content the document never asserted."
+        }
+      ]
+    },
+    "decisions_present": [
+      "consequence",
+      "derive_structure",
+      "intake_strategy",
+      "interpret_situation",
+      "partition",
+      "relevance",
+      "scope",
+      "traversal"
+    ]
+  },
+  "corrections": [
+    {
+      "said": "ok that's too much, what can i actually get done in two days",
+      "reading": "The user confirms the two-day capacity and says the current plan is too ambitious — they need a realistic scope that fits ~10-12 productive hours.",
+      "claimed": [
+        "interpret_situation",
+        "scope",
+        "partition",
+        "traversal",
+        "consequence"
+      ],
+      "actual": [
+        "interpret_situation",
+        "scope",
+        "consequence",
+        "traversal",
+        "partition"
+      ],
+      "unclaimed_drift": [],
+      "claimed_but_unchanged": [],
+      "out_of_scope": null,
+      "not_understood": false,
+      "landed": true
+    }
+  ],
+  "plan_after_corrections": {
+    "state": "planned",
+    "situation": {
+      "subject": "machine learning (production-oriented)",
+      "job": "construct",
+      "purpose": "master ML fundamentals and gain ability to build production ML models",
+      "entry_point": "proficient Python programmer, zero ML background",
+      "target_capability": "design, train, evaluate, and deploy a working ML model to production in one weekend",
+      "capacity": "two days (~10-12 productive hours)",
+      "stated": [
+        "master machine learning and be able to build production models",
+        "master machine learning and be able to build production models",
+        "i have one weekend",
+        "ok that's too much, what can i actually get done in two days",
+        "i've written python for a few years but no ml at all"
+      ],
+      "stated_axes": [
+        "purpose",
+        "target_capability",
+        "capacity",
+        "capacity",
+        "entry_point"
+      ],
+      "inferred": [
+        "artifact_type is a structured weekend learning plan with executable code",
+        "depth_register must be ruthlessly pragmatic — only concepts that directly enable shipping one model in two days",
+        "template is a progressive build sequence: data -> baseline -> iteration -> deployment",
+        "subject scope excludes research-only topics (theory proofs, novel architectures, academic benchmarks)",
+        "subject scope excludes advanced production topics (feature stores, orchestration, CI/CD, experiment tracking) — first model ships manually"
+      ]
+    },
+    "landscape": {
+      "concept_count": 26,
+      "concepts": [
+        {
+          "name": "Problem Framing & Task Definition",
+          "built_from": [],
+          "family": "core concept"
+        },
+        {
+          "name": "Tabular Data Understanding",
+          "built_from": [],
+          "family": "data concept"
+        },
+        {
+          "name": "Data Cleaning & Preprocessing",
+          "built_from": [
+            "Tabular Data Understanding"
+          ],
+          "family": "data engineering"
+        },
+        {
+          "name": "Feature Engineering",
+          "built_from": [
+            "Data Cleaning & Preprocessing"
+          ],
+          "family": "data engineering"
+        },
+        {
+          "name": "Train/Validation/Test Split Strategy",
+          "built_from": [
+            "Problem Framing & Task Definition",
+            "Tabular Data Understanding"
+          ],
+          "family": "evaluation concept"
+        },
+        {
+          "name": "Cross-Validation",
+          "built_from": [
+            "Train/Validation/Test Split Strategy"
+          ],
+          "family": "evaluation concept"
+        },
+        {
+          "name": "Baseline Models (Heuristics & Simple ML)",
+          "built_from": [
+            "Problem Framing & Task Definition",
+            "Train/Validation/Test Split Strategy"
+          ],
+          "family": "modeling concept"
+        },
+        {
+          "name": "Linear Models (Logistic/Linear Regression)",
+          "built_from": [
+            "Baseline Models (Heuristics & Simple ML)",
+            "Feature Engineering"
+          ],
+          "family": "modeling concept"
+        },
+        {
+          "name": "Tree-Based Models (Random Forest, Gradient Boosting)",
+          "built_from": [
+            "Baseline Models (Heuristics & Simple ML)",
+            "Feature Engineering"
+          ],
+          "family": "modeling concept"
+        },
+        {
+          "name": "Model Evaluation Metrics (Classification & Regression)",
+          "built_from": [
+            "Problem Framing & Task Definition",
+            "Cross-Validation"
+          ],
+          "family": "evaluation concept"
+        },
+        {
+          "name": "Hyperparameter Tuning",
+          "built_from": [
+            "Tree-Based Models (Random Forest, Gradient Boosting)",
+            "Cross-Validation"
+          ],
+          "family": "modeling concept"
+        },
+        {
+          "name": "Model Serialization & Artifact Management",
+          "built_from": [
+            "Tree-Based Models (Random Forest, Gradient Boosting)"
+          ],
+          "family": "production engineering"
+        },
+        {
+          "name": "Model Serving Patterns (Batch vs Online)",
+          "built_from": [
+            "Model Serialization & Artifact Management"
+          ],
+          "family": "production engineering"
+        },
+        {
+          "name": "API Deployment (FastAPI/Flask + Docker)",
+          "built_from": [
+            "Model Serving Patterns (Batch vs Online)",
+            "Model Serialization & Artifact Management"
+          ],
+          "family": "production engineering"
+        },
+        {
+          "name": "Data Drift & Model Monitoring",
+          "built_from": [
+            "Model Serving Patterns (Batch vs Online)",
+            "Model Evaluation Metrics (Classification & Regression)"
+          ],
+          "family": "production engineering"
+        },
+        {
+          "name": "Feature Stores",
+          "built_from": [
+            "Feature Engineering",
+            "Model Serving Patterns (Batch vs Online)"
+          ],
+          "family": "production engineering"
+        },
+        {
+          "name": "ML Pipeline Orchestration",
+          "built_from": [
+            "Data Cleaning & Preprocessing",
+            "Feature Engineering",
+            "Model Serialization & Artifact Management"
+          ],
+          "family": "production engineering"
+        },
+        {
+          "name": "Experiment Tracking",
+          "built_from": [
+            "Hyperparameter Tuning",
+            "Model Evaluation Metrics (Classification & Regression)"
+          ],
+          "family": "production engineering"
+        },
+        {
+          "name": "CI/CD for ML",
+          "built_from": [
+            "API Deployment (FastAPI/Flask + Docker)",
+            "ML Pipeline Orchestration"
+          ],
+          "family": "production engineering"
+        },
+        {
+          "name": "Deep Learning Fundamentals",
+          "built_from": [
+            "Linear Models (Logistic/Linear Regression)"
+          ],
+          "family": "advanced modeling"
+        },
+        {
+          "name": "Neural Network Architectures (MLP, CNN, RNN, Transformer)",
+          "built_from": [
+            "Deep Learning Fundamentals"
+          ],
+          "family": "advanced modeling"
+        },
+        {
+          "name": "Transfer Learning & Pre-trained Models",
+          "built_from": [
+            "Neural Network Architectures (MLP, CNN, RNN, Transformer)"
+          ],
+          "family": "advanced modeling"
+        },
+        {
+          "name": "Unstructured Data (Text, Image, Audio)",
+          "built_from": [
+            "Deep Learning Fundamentals"
+          ],
+          "family": "data concept"
+        },
+        {
+          "name": "Recommendation Systems",
+          "built_from": [
+            "Tree-Based Models (Random Forest, Gradient Boosting)",
+            "Deep Learning Fundamentals"
+          ],
+          "family": "applied case"
+        },
+        {
+          "name": "Time Series Forecasting",
+          "built_from": [
+            "Feature Engineering",
+            "Tree-Based Models (Random Forest, Gradient Boosting)"
+          ],
+          "family": "applied case"
+        },
+        {
+          "name": "MLOps Maturity Model",
+          "built_from": [
+            "CI/CD for ML",
+            "Data Drift & Model Monitoring",
+            "Experiment Tracking"
+          ],
+          "family": "production engineering"
+        }
+      ],
+      "families": [
+        "advanced modeling",
+        "applied case",
+        "core concept",
+        "data concept",
+        "data engineering",
+        "evaluation concept",
+        "modeling concept",
+        "production engineering"
+      ],
+      "edges": 41,
+      "roots": [
+        "Problem Framing & Task Definition",
+        "Tabular Data Understanding"
+      ],
+      "parenthetical_lists": [
+        "Tree-Based Models (Random Forest, Gradient Boosting)",
+        "Neural Network Architectures (MLP, CNN, RNN, Transformer)",
+        "Unstructured Data (Text, Image, Audio)"
+      ],
+      "judged": 26,
+      "in_play": 15,
+      "out_of_play": [
+        "Feature Stores",
+        "ML Pipeline Orchestration",
+        "Experiment Tracking",
+        "CI/CD for ML",
+        "Deep Learning Fundamentals",
+        "Neural Network Architectures (MLP, CNN, RNN, Transformer)",
+        "Transfer Learning & Pre-trained Models",
+        "Unstructured Data (Text, Image, Audio)",
+        "Recommendation Systems",
+        "Time Series Forecasting",
+        "MLOps Maturity Model"
+      ],
+      "unjudged": []
+    },
+    "scope": {
+      "covered_count": 13,
+      "covered": [
+        {
+          "concept": "Problem Framing & Task Definition",
+          "depth": "work through",
+          "anticipates": "abstraction-grounding",
+          "why": "First decision that shapes everything. Convert vague ask into concrete ML task (classification/regression, target, success metric) in 30 minutes."
+        },
+        {
+          "concept": "Tabular Data Understanding",
+          "depth": "work through",
+          "anticipates": "perceptual-referent",
+          "why": "Pandas profiling, dtypes, missingness, distributions, correlations — the lens for every dataset. 45 minutes."
+        },
+        {
+          "concept": "Data Cleaning & Preprocessing",
+          "depth": "work through",
+          "anticipates": "procedure-execution",
+          "why": "Imputation, encoding, scaling, outlier handling — the hands-on steps that make or break production models. 90 minutes."
+        },
+        {
+          "concept": "Feature Engineering",
+          "depth": "work through",
+          "anticipates": "procedure-execution",
+          "why": "Highest ROI for tabular ML. Datetime decomposition, interactions, target encoding for high-cardinality categoricals. 60 minutes."
+        },
+        {
+          "concept": "Train/Validation/Test Split Strategy",
+          "depth": "work through",
+          "anticipates": "false-comprehension",
+          "why": "Time-based vs random, stratification, leakage prevention. Non-negotiable for honest evaluation. 30 minutes."
+        },
+        {
+          "concept": "Baseline Models (Heuristics & Simple ML)",
+          "depth": "work through",
+          "anticipates": "false-comprehension",
+          "why": "Must beat a baseline. Mean/median for regression, majority class for classification, simple rules. 30 minutes."
+        },
+        {
+          "concept": "Tree-Based Models (Random Forest, Gradient Boosting)",
+          "depth": "work through",
+          "anticipates": "perceptual-referent",
+          "why": "State-of-the-art for tabular data. XGBoost/LightGBM/CatBoost usage, key hyperparameters, early stopping. 90 minutes."
+        },
+        {
+          "concept": "Model Evaluation Metrics (Classification & Regression)",
+          "depth": "work through",
+          "anticipates": "cross-reference",
+          "why": "Match metrics to business problem. Precision/recall/F1, ROC-AUC, PR-AUC, MAE/RMSE — why accuracy is often wrong. 60 minutes."
+        },
+        {
+          "concept": "Hyperparameter Tuning",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Show Optuna integration, search spaces, pruning — practical tuning in 30 minutes, not hours. Learner runs one tuning job."
+        },
+        {
+          "concept": "Model Serialization & Artifact Management",
+          "depth": "work through",
+          "anticipates": "procedure-execution",
+          "why": "Bridge from notebook to production. joblib/MLflow model format, versioning, metadata (data hash, metrics, params). 45 minutes."
+        },
+        {
+          "concept": "Model Serving Patterns (Batch vs Online)",
+          "depth": "explain",
+          "anticipates": "topology",
+          "why": "Architectural fork: batch (scheduled, high-throughput) vs online (low-latency, request-response). Choose one for the weekend. 20 minutes."
+        },
+        {
+          "concept": "API Deployment (FastAPI/Flask + Docker)",
+          "depth": "work through",
+          "anticipates": "procedure-execution",
+          "why": "Concrete production skill. FastAPI + Pydantic validation, Dockerfile, health checks, logging — runnable container in 2 hours."
+        },
+        {
+          "concept": "Data Drift & Model Monitoring",
+          "depth": "explain",
+          "anticipates": "none",
+          "why": "Production reality — models degrade. Input distribution monitoring (PSI), prediction shifts, performance proxies. 30 minutes."
+        }
+      ],
+      "depths": {
+        "work through": 10,
+        "explain": 3
+      },
+      "anticipates": {
+        "abstraction-grounding": 1,
+        "perceptual-referent": 2,
+        "procedure-execution": 4,
+        "false-comprehension": 2,
+        "cross-reference": 1,
+        "none": 2,
+        "topology": 1
+      },
+      "anticipates_any": 11,
+      "cut": [
+        "Cross-Validation",
+        "Linear Models (Logistic/Linear Regression)",
+        "Feature Stores",
+        "ML Pipeline Orchestration",
+        "Experiment Tracking",
+        "CI/CD for ML",
+        "Deep Learning Fundamentals",
+        "Neural Network Architectures (MLP, CNN, RNN, Transformer)",
+        "Transfer Learning & Pre-trained Models",
+        "Unstructured Data (Text, Image, Audio)",
+        "Recommendation Systems",
+        "Time Series Forecasting",
+        "MLOps Maturity Model"
+      ]
+    },
+    "partition": {
+      "shape": "modules",
+      "module_count": 3,
+      "legacy_unit_count": 0,
+      "modules": [
+        {
+          "title": "Day 1 Morning: Problem Framing & Data Preparation",
+          "covers": [
+            "Problem Framing & Task Definition",
+            "Tabular Data Understanding",
+            "Data Cleaning & Preprocessing",
+            "Feature Engineering",
+            "Train/Validation/Test Split Strategy"
+          ],
+          "concept_count": 5,
+          "capability": "Convert a business problem into a concrete ML task definition and produce a clean, feature-rich training/validation/test split ready for modeling, with a reusable preprocessing pipeline that prevents leakage",
+          "why_here": "All data-side work in one block: define the task, understand the data, clean it, engineer features, split it properly. Shared pandas/sklearn toolchain. ~3.5 hours."
+        },
+        {
+          "title": "Day 1 Afternoon: Modeling & Evaluation",
+          "covers": [
+            "Baseline Models (Heuristics & Simple ML)",
+            "Tree-Based Models (Random Forest, Gradient Boosting)",
+            "Model Evaluation Metrics (Classification & Regression)",
+            "Hyperparameter Tuning"
+          ],
+          "concept_count": 4,
+          "capability": "Train, evaluate, and tune a gradient-boosted tree model (XGBoost/LightGBM/CatBoost) against a proper baseline using business-aligned metrics, with a reproducible training script that outputs a serialized model artifact",
+          "why_here": "Complete modeling loop: establish baseline, train production-grade tree models, evaluate with business-aligned metrics, tune hyperparameters. All sklearn/XGBoost/Optuna. ~3.5 hours."
+        },
+        {
+          "title": "Day 2: Production Deployment & Monitoring",
+          "covers": [
+            "Model Serialization & Artifact Management",
+            "Model Serving Patterns (Batch vs Online)",
+            "API Deployment (FastAPI/Flask + Docker)",
+            "Data Drift & Model Monitoring"
+          ],
+          "concept_count": 4,
+          "capability": "Package a trained model as a versioned artifact, choose and justify a serving pattern (batch vs online), deploy an online inference API with FastAPI + Docker (health checks, input validation, logging), and implement basic data drift monitoring on input features and predictions",
+          "why_here": "End-to-end production path: artifact -> serving choice -> API container -> monitoring. Each step consumes the previous. One coherent deployment narrative. ~3-4 hours."
+        }
+      ],
+      "concepts_per_module": [
+        5,
+        4,
+        4
+      ],
+      "orphans": [],
+      "phantoms": [],
+      "duplicate_coverage": [],
+      "slug_collisions": []
+    },
+    "promises": {
+      "capability_clauses": 3,
+      "capability_unbacked": 0,
+      "capability_unbacked_share": 0.0,
+      "capability_support": [
+        {
+          "module": "Day 1 Morning: Problem Framing & Data Preparation",
+          "clauses": [
+            "Convert a business problem into a concrete ML task definition and produce a clean, feature-rich training/validation/test split ready for modeling, with a reusable preprocessing pipeline that prevents leakage"
+          ],
+          "backed": [
+            {
+              "clause": "Convert a business problem into a concrete ML task definition and produce a clean, feature-rich training/validation/test split ready for modeling, with a reusable preprocessing pipeline that prevents leakage",
+              "concepts": [
+                "Problem Framing & Task Definition",
+                "Data Cleaning & Preprocessing",
+                "Feature Engineering",
+                "Train/Validation/Test Split Strategy"
+              ]
+            }
+          ],
+          "unbacked": []
+        },
+        {
+          "module": "Day 1 Afternoon: Modeling & Evaluation",
+          "clauses": [
+            "Train, evaluate, and tune a gradient-boosted tree model (XGBoost/LightGBM/CatBoost) against a proper baseline using business-aligned metrics, with a reproducible training script that outputs a serialized model artifact"
+          ],
+          "backed": [
+            {
+              "clause": "Train, evaluate, and tune a gradient-boosted tree model (XGBoost/LightGBM/CatBoost) against a proper baseline using business-aligned metrics, with a reproducible training script that outputs a serialized model artifact",
+              "concepts": [
+                "Baseline Models (Heuristics & Simple ML)",
+                "Tree-Based Models (Random Forest, Gradient Boosting)",
+                "Model Evaluation Metrics (Classification & Regression)"
+              ]
+            }
+          ],
+          "unbacked": []
+        },
+        {
+          "module": "Day 2: Production Deployment & Monitoring",
+          "clauses": [
+            "Package a trained model as a versioned artifact, choose and justify a serving pattern (batch vs online), deploy an online inference API with FastAPI + Docker (health checks, input validation, logging), and implement basic data drift monitoring on input features and predictions"
+          ],
+          "backed": [
+            {
+              "clause": "Package a trained model as a versioned artifact, choose and justify a serving pattern (batch vs online), deploy an online inference API with FastAPI + Docker (health checks, input validation, logging), and implement basic data drift monitoring on input features and predictions",
+              "concepts": [
+                "Model Serialization & Artifact Management",
+                "Model Serving Patterns (Batch vs Online)",
+                "API Deployment (FastAPI/Flask + Docker)",
+                "Data Drift & Model Monitoring"
+              ]
+            }
+          ],
+          "unbacked": []
+        }
+      ],
+      "coherence": [
+        {
+          "module": "Day 1 Morning: Problem Framing & Data Preparation",
+          "concepts": 5,
+          "internal": 4,
+          "external": 0,
+          "ratio": 1.0,
+          "depends_on_modules": [],
+          "links": []
+        },
+        {
+          "module": "Day 1 Afternoon: Modeling & Evaluation",
+          "concepts": 4,
+          "internal": 2,
+          "external": 4,
+          "ratio": 0.333,
+          "depends_on_modules": [
+            {
+              "module": "Day 1 Morning: Problem Framing & Data Preparation",
+              "count": 4
+            }
+          ],
+          "links": [
+            {
+              "concept": "Baseline Models (Heuristics & Simple ML)",
+              "depends_on": "Problem Framing & Task Definition",
+              "lives_in": "Day 1 Morning: Problem Framing & Data Preparation",
+              "external": true
+            },
+            {
+              "concept": "Baseline Models (Heuristics & Simple ML)",
+              "depends_on": "Train/Validation/Test Split Strategy",
+              "lives_in": "Day 1 Morning: Problem Framing & Data Preparation",
+              "external": true
+            },
+            {
+              "concept": "Tree-Based Models (Random Forest, Gradient Boosting)",
+              "depends_on": "Feature Engineering",
+              "lives_in": "Day 1 Morning: Problem Framing & Data Preparation",
+              "external": true
+            },
+            {
+              "concept": "Model Evaluation Metrics (Classification & Regression)",
+              "depends_on": "Problem Framing & Task Definition",
+              "lives_in": "Day 1 Morning: Problem Framing & Data Preparation",
+              "external": true
+            }
+          ]
+        },
+        {
+          "module": "Day 2: Production Deployment & Monitoring",
+          "concepts": 4,
+          "internal": 4,
+          "external": 2,
+          "ratio": 0.667,
+          "depends_on_modules": [
+            {
+              "module": "Day 1 Afternoon: Modeling & Evaluation",
+              "count": 2
+            }
+          ],
+          "links": [
+            {
+              "concept": "Model Serialization & Artifact Management",
+              "depends_on": "Tree-Based Models (Random Forest, Gradient Boosting)",
+              "lives_in": "Day 1 Afternoon: Modeling & Evaluation",
+              "external": true
+            },
+            {
+              "concept": "Data Drift & Model Monitoring",
+              "depends_on": "Model Evaluation Metrics (Classification & Regression)",
+              "lives_in": "Day 1 Afternoon: Modeling & Evaluation",
+              "external": true
+            }
+          ]
+        }
+      ],
+      "modules_with_no_internal_dependency": [],
+      "external_dependency_total": 6
+    },
+    "extent": {
+      "total": "~17 pages · about 6 hours",
+      "pages": "~17 pages",
+      "study_time": "about 6 hours",
+      "parts": 3,
+      "modules": 3,
+      "per_unit": {
+        "Day 1 Morning: Problem Framing & Data Preparation": "~8 pages",
+        "Day 1 Afternoon: Modeling & Evaluation": "~5 pages",
+        "Day 2: Production Deployment & Monitoring": "~4 pages"
+      }
+    },
+    "feasibility": {
+      "serves_everything": false,
+      "shortfalls": [
+        {
+          "failure": "perceptual-referent",
+          "concepts": [
+            "Tabular Data Understanding",
+            "Tree-Based Models (Random Forest, Gradient Boosting)"
+          ],
+          "licenses": "image",
+          "note": "The system cannot draw the thing itself. Representation-Boundary calls this family E and it is the only one that cannot preserve assertions: a generated figure adds content the document never asserted."
+        }
+      ]
+    },
+    "decisions_present": [
+      "consequence",
+      "derive_structure",
+      "intake_strategy",
+      "interpret_situation",
+      "partition",
+      "relevance",
+      "scope",
+      "traversal"
+    ]
+  },
+  "approval": {
+    "approved": true,
+    "decision_count": 7,
+    "refused_because": null
+  },
+  "finished_at": "2026-09-25T20:07:32+00:00",
+  "seconds_total": 574.06,
+  "seconds_by_stage": {
+    "create": 57.49,
+    "intake": 100.15,
+    "plan": 285.96,
+    "correct": 129.48,
+    "approve": 0.02
+  },
+  "cost": {
+    "model_calls": 8,
+    "failed_calls": 0,
+    "input_tokens": 35230,
+    "output_tokens": 17614,
+    "seconds": 572.98,
+    "calls": [
+      {
+        "ok": true,
+        "seconds": 24.61,
+        "input_tokens": 3161,
+        "output_tokens": 1608,
+        "schema": "Reading",
+        "error": null
+      },
+      {
+        "ok": true,
+        "seconds": 32.87,
+        "input_tokens": 1345,
+        "output_tokens": 922,
+        "schema": "Intake",
+        "error": null
+      },
+      {
+        "ok": true,
+        "seconds": 57.5,
+        "input_tokens": 3175,
+        "output_tokens": 1560,
+        "schema": "Reading",
+        "error": null
+      },
+      {
+        "ok": true,
+        "seconds": 42.63,
+        "input_tokens": 1308,
+        "output_tokens": 463,
+        "schema": "Intake",
+        "error": null
+      },
+      {
+        "ok": true,
+        "seconds": 72.49,
+        "input_tokens": 1543,
+        "output_tokens": 2334,
+        "schema": "Landscape",
+        "error": null
+      },
+      {
+        "ok": true,
+        "seconds": 104.13,
+        "input_tokens": 6046,
+        "output_tokens": 3996,
+        "schema": "PlanBody",
+        "error": null
+      },
+      {
+        "ok": true,
+        "seconds": 109.3,
+        "input_tokens": 6440,
+        "output_tokens": 3259,
+        "schema": "PlanBody",
+        "error": null
+      },
+      {
+        "ok": true,
+        "seconds": 129.46,
+        "input_tokens": 12212,
+        "output_tokens": 3472,
+        "schema": "Routing",
+        "error": null
+      }
+    ]
+  }
+}
