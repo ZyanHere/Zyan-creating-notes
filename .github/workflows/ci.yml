@@ -1,3 +1,10 @@
+# This file MUST live at <repo-root>/.github/workflows/. It does not belong beside the
+# code in V2/, and it spent its first three commits there -- where GitHub never saw it, so
+# the workflow had zero runs and would have had zero forever. Nothing about the file was
+# wrong; only its path was, which is why reading it could not find the bug and running it
+# could. `defaults.run.working-directory: V2` below is what lets it live up here and still
+# operate on the project.
+
 name: ci
 
 on:
