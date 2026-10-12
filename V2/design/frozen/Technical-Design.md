@@ -1,9 +1,19 @@
 # MyNotes V2 — Technical System Design
 
-**Rev. 11 — tenth correction pass.** Follows `Domain-Model.md` Rev. 4.1 (frozen) and `Architecture.md`
-Rev. 5 (component set frozen). This document closes the two items Architecture §K listed as
-blocking the implementation contract — **U1 envelopes** and **U2 frame** — and specifies the D17
-protocol precisely enough that schema and code are mechanical.
+**Rev. 12 — eleventh correction pass.** Follows `Domain-Model.md` Rev. 4.1 (frozen) and
+`Architecture.md` Rev. 5 (component set frozen). This document closes the two items Architecture §K
+listed as blocking the implementation contract — **U1 envelopes** and **U2 frame** — and specifies
+the D17 protocol precisely enough that schema and code are mechanical.
+
+**Rev. 12 is the first correction found by *implementing* rather than reviewing**, and all three
+findings are the same defect class the earlier passes kept catching — a fact stated in one place and
+contradicted in another:
+
+| | |
+|---|---|
+| §5.6 | `sections` listed `partition_version_id` as an input while its own rationale and §15.2's golden case both require that a re-partition leaving a module's covers intact **reuses** that module's sections. Removed; §5.10's row corrected with it. |
+| §5.1 | The kind domain `DecisionKind \| "memo" \| "document"` does not admit `routing`, yet §5.9a specifies a routing envelope field-by-field, §5.10 carries a `routing` row, §5.12a keys the `routing` claim on *"§5.9a's routing envelope"*, and I18 gives `RoutingResult` that envelope as its identity. §5.2's *"not envelope kinds at all"* is correct for `render` and `source_extract` and wrong for `routing`. Admitted as an envelope kind that is **not** a `DecisionKind`. |
+| §5.4–§5.7 | Their `env` blocks predate Rev. 7 and omit `decode_params`, which §5.1a and §5.9a both declare applies to **every** model-backed kind. Applied, `document` excepted (no model call). §5.7's `max_tokens` is dropped as a separate field because `decode_params` already contains it. |
 
 
 
@@ -871,10 +881,11 @@ partition
   member: ""                                 root — §5.11a
 
 sections                                     member = module_id (assigned, S14)
-  inputs: partition_version_id
-          module_id
+  inputs: module_id
           module_covers_hash                 sorted concept ids + depths + needs
           situation_version_id, job_version_id
+  NOT:    partition_version_id               ◄── Rev. 12. See below: it contradicted
+                                                 this kind's own rationale AND §15.2
   env:    model_id, prompt_version, taxonomy_version
 
 ordering                                     member = "modules" | "sections:<module_id>"  §5.11a
@@ -886,9 +897,25 @@ ordering                                     member = "modules" | "sections:<mod
 ```
 
 `module_covers_hash` is included **so a re-partition that leaves one module untouched reuses that
-module's sections.** Without it, `partition_version_id` alone would invalidate every module's
-sections on any partition change — and corrections re-partition routinely (`ml-weekend`, 5 → 3
-`[MEASURED]`).
+module's sections.** `partition_version_id` alone would invalidate every module's sections on any
+partition change — and corrections re-partition routinely (`ml-weekend`, 5 → 3 `[MEASURED]`).
+
+**Rev. 12 removes `partition_version_id` from this envelope.** Rev. 11 listed it as an input *and*
+claimed the sentence above, and both cannot hold: a re-partition mints a new `partition`
+`DecisionVersion` by definition, so with its version id in the envelope every module's sections are
+invalidated on every partition change — exactly the outcome this paragraph says `module_covers_hash`
+was added to prevent. §15.2's golden case states the intended behaviour unambiguously
+(*"re-partition leaving THIS module's covers intact → UNCHANGED"*), so two statements agreed against
+one field list, and the field list was the error. Found while implementing `core/identity`, which is
+the point of §5.12a's rule that **U1 stops being a risk when it is a test, not a specification.**
+
+What identifies a module's sections is therefore its own id, its covers, and the situation and job —
+**the partition that produced it is provenance, not identity.** That is the same distinction §5.8
+draws between a Document's content identity and its construction key, and the same one §0.3 draws
+when it keeps `commitment_id` out of the document envelope.
+
+The cost of the Rev. 11 reading is measured rather than hypothetical: `ml-weekend` went 5 modules → 3
+in one correction, and both surviving modules would have re-derived their sections for nothing.
 
 `bound_constraints_hash` on `ordering` is the channel §0 measured as missing: *"section wise"* →
 `depth_register`, and `traversal.why` then explained a **derived** order `[MEASURED]`. With the
@@ -1080,7 +1107,7 @@ routing                                      version-addressed — the correctio
 | `frame` | **content** | — | yes | subject, sources, frame-selecting readings (§6.3) |
 | `structure` | **content** | — | yes | subject, frame, sources — **no situation** (§0.1) |
 | `projection`, `scope`, `partition` | version | — | yes | upstream version ids |
-| `sections` | version | module_id | yes | partition version + `module_covers_hash` |
+| `sections` | version | module_id | yes | `module_covers_hash` + situation/job — **no partition version** (§5.6, Rev. 12) |
 | `ordering` | version | (level, module_id?) | yes | member producer + bound constraints |
 | `memo` | version | section_id | yes | **`brief_inputs_hash` only** (§5.7a) |
 | `document` | version | module_id | **no** | front matter + ordered memo keys + builder version |

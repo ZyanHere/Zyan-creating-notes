@@ -345,20 +345,30 @@ serves it at `/health` arrives with M1).
 > a migration that M0 has already written. `backend/api/health.py` had independently settled the same
 > question — it returns *"pool arrives with M1"*, and the banner prints it.
 
-### State, as of the first green gate run
+### State
 
 ```
-layout · import walls · config · structured logging · Clock port   DONE
-import wall                       DONE - 9 tests, fails on an injected `import httpx`
-lint · format · types             GREEN - ruff 0.17, pyright 1.1.414 strict, 0 errors
-uv.lock                           generated, cross-platform, NOT YET COMMITTED
-CI                                written and audited; has NEVER EXECUTED (no commit exists)
-core/identity                     NOT STARTED   <- the remaining work in M0
+layout · config · structured logging · Clock port · health()      DONE
+import wall                    DONE - 9 tests, verified to fail on an injected import
+core/identity                  DONE - 9 files, 983 lines, Rev. 12 found while writing it
+golden identity table          DONE - 85 inclusion + 461 exclusion assertions, 13 kinds
+lint · format · types          GREEN - ruff 0.17, pyright 1.1.414 strict, 0 errors
+pytest                         114 passing
+uv.lock                        generated, cross-platform, committed
+CI                             executed - see the run referenced in the commit
 ```
 
-**`uv.lock` must be committed before CI can pass at all.** The workflow sets `UV_FROZEN: "1"`, so a
-missing lockfile fails every job at `uv sync` — deliberately, because a CI run that resolves its own
-dependencies is not testing what gets deployed.
+**The exclusion half is generated, not listed.** `INCLUDED` comes from `SPECS[kind]` and `EXCLUDED`
+is every other field in the test context, so each of the 13 kinds is asserted to ignore every one of
+the 42 project facts it does not read, rather than the handful §15.2 names. A hand-written exclusion list would need extending
+every time the context grows, which is the drift §5.11 exists to prevent.
+
+**Carried forward out of M0, both deliberate:**
+
+| | |
+|---|---|
+| Hypothesis property tests | Its compiled `_native` extension is blocked by Smart App Control on the dev machine, and pytest loads its plugin through entry points so merely installing it fails the whole suite. The 461-assertion sweep covers determinism and exclusion; what is missing is shrinking and the unicode edge-case corpus. Lands when the environment can load it. |
+| `test_brief_hash_matches_renderer` (§15.2) | Needs `BriefInputs` and the brief renderer — `core/types` (M1) and the engine (M5). Until it exists the memo envelope's honesty rests on one `BriefInputs` value having two consumers rather than on a test, which is recorded in the test file so it is not forgotten. |
 
 ---
 

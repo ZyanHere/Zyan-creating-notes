@@ -10,6 +10,11 @@ project down to the fields one kind reads, and then asserting the projection dro
 so that the production path and the golden table read one table (§5.11's whole point:
 *"one table that every other section points at"*).
 
+**Transcribed against Rev. 12**, which this module's construction produced: §5.6 lost
+`partition_version_id` from `sections`, §5.1's kind domain gained `routing`, and §5.4-§5.7
+gained `decode_params`. All three were a fact stated in one place and contradicted in
+another; see the design's own revision note.
+
 **Two places where this applies a blanket rule over an older field list**, both from the
 design's own corrections rather than a judgment of mine:
 
@@ -139,25 +144,16 @@ SPECS: Mapping[str, KindSpec] = {
     ),
     "sections": KindSpec(
         kind="sections",
-        # NO `partition_version_id`, and this is a CONTRADICTION in §5.6 resolved rather
-        # than a choice. §5.6's field list names it; §5.6's own rationale says
-        # `module_covers_hash` is included *"so a re-partition that leaves one module
-        # untouched reuses that module's sections"*; and §15.2's golden case is
-        # *"re-partition leaving THIS module's covers intact -> UNCHANGED"*. Those cannot
-        # all hold: a re-partition mints a new partition version by definition, so
-        # including `partition_version_id` invalidates every module's sections on every
-        # partition change -- exactly the outcome the rationale says it was added to
-        # prevent, and exactly what the test forbids.
+        # NO `partition_version_id` -- §5.6, Rev. 12, which this implementation found.
+        # Rev. 11 listed it as an input while the same section's rationale and §15.2's
+        # golden case both required that a re-partition leaving a module's covers intact
+        # REUSES that module's sections. A re-partition mints a new partition version by
+        # definition, so including it invalidated every module on every partition change.
         #
-        # Resolved toward the rationale and the test, on the design's own rule that
-        # *"U1 stops being a risk when it is a test, not a specification"* (§5.12a). Two
-        # places agree against one, and the one is a field list.
-        #
-        # The cost of being wrong here is measured, which is why it is flagged rather than
-        # buried: `ml-weekend` went 5 modules -> 3 in a single correction, and with
-        # `partition_version_id` in, both surviving modules re-derive their sections for
-        # nothing. A module's sections are identified by its covers, its id and the
-        # situation and job -- the partition that happened to produce it is provenance.
+        # A module's sections are identified by its id, its covers, and the situation and
+        # job. **The partition that produced it is provenance, not identity** -- the same
+        # distinction §5.8 draws between a Document's content and its construction key.
+        # `ml-weekend` went 5 modules -> 3 in one correction; both survivors keep theirs.
         inputs=(
             "module_id",
             "module_covers_hash",

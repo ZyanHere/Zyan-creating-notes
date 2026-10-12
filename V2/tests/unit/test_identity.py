@@ -87,6 +87,10 @@ BASE_CONTEXT: Mapping[str, Canonical] = {
     "structure_version_id": "4444",
     "projection_version_id": "5555",
     "scope_version_id": "6666",
+    # Present, and read by NO kind -- that is the Rev. 12 contract. Having it here puts it
+    # into the exclusion sweep for all 13 kinds, so the guard is not only the named
+    # regression test below.
+    "partition_version_id": "7000",
     "subject_key": "indian contract act 1872",
     "purpose_reading": "exam preparation",
     "target_capability_reading": "answer problem questions",
@@ -338,23 +342,50 @@ def test_document_section_order_is_semantic() -> None:
 
 
 def test_sections_survive_a_repartition_that_leaves_this_module_intact() -> None:
-    """§15.2's `sections` case, and the contradiction documented in `kinds.py`.
+    """§15.2's `sections` case. **Regression test for Rev. 12.**
 
-    §5.6 lists `partition_version_id` as an input while its own rationale and this test
-    both require that a re-partition leaving one module's covers intact reuses that
-    module's sections. Resolved toward the rationale and the test. `ml-weekend` went
-    5 modules -> 3 in one correction; with the partition version in, both survivors
-    re-derive for nothing.
+    Rev. 11 listed `partition_version_id` as a `sections` input while §5.6's own rationale
+    and §15.2's golden case both required the opposite. A re-partition mints a new
+    `partition` DecisionVersion by definition, so with its id in the envelope every
+    module's sections were invalidated on every partition change.
+
+    Both directions are asserted here deliberately. The first half is the fix; the second
+    half is what stops the fix from being *"ignore the partition entirely"*, which would
+    make a module whose covers really did change reuse stale sections.
+
+    `ml-weekend` went 5 modules -> 3 in one correction, so the saving is measured: both
+    survivors keep their sections.
     """
     ctx = context_for("sections")
     base = kinds.build("sections", ctx)
+
+    # (1) a re-partition this module survived unchanged -> same envelope, sections reused
     repartitioned = {**ctx, "partition_version_id": "a-brand-new-partition"}
     assert kinds.build("sections", repartitioned) == base
+
+    # (2) the same re-partition, but THIS module's covers moved -> new envelope
+    recovered = {**repartitioned, "module_covers_hash": "09" * 32}
+    assert kinds.build("sections", recovered) != base
 
 
 def test_sections_change_when_this_modules_covers_change() -> None:
     base = kinds.build("sections", context_for("sections"))
     assert kinds.build("sections", mutated_context("sections", "module_covers_hash")) != base
+
+
+def test_no_kind_reads_the_partition_version() -> None:
+    """Rev. 12, stated once over every kind rather than once for `sections`.
+
+    The partition that produced a module is **provenance, not identity** -- the same
+    distinction §5.8 draws between a Document's content and its construction key, and §0.3
+    draws when it keeps `commitment_id` out of the document envelope.
+    """
+    for kind in ALL_KINDS:
+        read = set(kinds.SPECS[kind].inputs) | set(kinds.SPECS[kind].env)
+        assert "partition_version_id" not in read, (
+            f"{kind} reads partition_version_id; §5.6 Rev. 12 removed it, and for "
+            f"`sections` it re-derives every surviving module on every re-partition"
+        )
 
 
 def test_scope_ignores_density_constants() -> None:
